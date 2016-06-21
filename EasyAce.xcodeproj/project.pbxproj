@@ -6,10 +6,19 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		C7AD773F1D1982ED0059CF07 /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = docs; sourceTree = "<group>"; };
+		C7AD77401D1982ED0059CF07 /* EasyAce */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EasyAce; sourceTree = "<group>"; };
+		C7AD77411D1982ED0059CF07 /* Web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Web; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		C7AD77311D1977760059CF07 = {
 			isa = PBXGroup;
 			children = (
+				C7AD773F1D1982ED0059CF07 /* docs */,
+				C7AD77401D1982ED0059CF07 /* EasyAce */,
+				C7AD77411D1982ED0059CF07 /* Web */,
 			);
 			sourceTree = "<group>";
 		};
