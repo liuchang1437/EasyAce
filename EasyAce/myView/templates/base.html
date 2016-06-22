@@ -15,7 +15,7 @@
     <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-   {% load staticfiles %}
+    {% load staticfiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'EasyAce/css1.css' %}" />
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -28,9 +28,25 @@
     <![endif]-->
   </head>
 <body>
-{% include 'nav.html' %}
+  <nav class="navbar navbar-fixed-top">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav nav-self">
+        <li><img class="logo" src="{% static 'EasyAce/images/logo.png' %}" align="left" /></li>
+        {% block navigation %}
+        <li><a href="/index">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+        <li><a href="/student">For Student</a></li>
+        <li><a href="/tutor">For Tutor</a></li>
+        <li class="login"><a href="/auth/login"><img src="{% static 'EasyAce/images/login.png' %}"/></a></li>
+        <li ><a href="/auth/login">Login</a></li>
+        {% endblock %}
+      </ul>
+    </div>
+  </nav>
+  
 {% block content %}
-<div>base template content</div>
+  <div>base template content</div>
 {% endblock %}
 {% include 'footer.html' %}
 

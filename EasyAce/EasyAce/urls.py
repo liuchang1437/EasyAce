@@ -19,6 +19,7 @@ from myView import views as my_view
 
 urlpatterns = [
     url(r'^index/', my_view.index),
+    url(r'^about/', my_view.about),
     url(r'^auth/', include('myAuth.urls')),
     url(r'^admin/', admin.site.urls),
 ]
