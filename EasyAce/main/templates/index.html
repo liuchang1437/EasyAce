@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+<title>EasyAce Index</title>
+{% endblock %}
+
+{% block navigation %}
+<li class="active"><a href="/index">Home</a></li>
+<li><a href="/about">About Us</a></li>
+<li><a href="/contact">Contact Us</a></li>
+<li><a href="/student">For Student</a></li>
+<li><a href="/tutor">For Tutor</a></li>
+<li class="login"><a href="/auth/login"><img src="{% static 'EasyAce/images/login.png' %}"/></a></li>
+<li ><a href="/auth/login">Login</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Bootstrap starter template</h1>
+    <p>Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+</div><!-- /.container -->
+{% endblock %}

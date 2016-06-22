@@ -10,4 +10,7 @@ $ python -c 'import django;print(django.get_version())'
 ```
 $ django-admin startproject EasyAce
 $ python manage.py startapp users #创建users应用
+$ python manage.py makemigration users #创建数据库迁移
+$ python manage.py migrate #执行数据库迁移
+$ python manage.py startapp main #创建main应用
 ```
