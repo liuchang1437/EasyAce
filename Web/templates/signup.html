@@ -6,7 +6,11 @@
 {% block content %}
 <div class="container">
   <h1>Complete Your Information</h1>
-  {{ form }}
+  <form action="{% url 'myAuth:signup' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+  </form>
   <!--<form action="/signup/" method="post">
   User: <input type="text" name="user"> <br>
   Password: <input type="text" name="password"> <br>
