@@ -12,7 +12,11 @@
 <li><a href="/student">For Student</a></li>
 <li><a href="/tutor">For Tutor</a></li>
 <li class="login"><a href="/auth/login"><img src="{% static 'EasyAce/images/login.png' %}"/></a></li>
-<li ><a href="/auth/login">Login</a></li>
+{% if user.is_authenticated %}
+  <li><a href="{% url 'myAuth:logout' %}">Logout</a></li>
+{% else %}
+  <li><a href="{% url 'myAuth:login' %}">Login</a></li>
+{% endif %}
 {% endblock %}
 
 {% block content %}
