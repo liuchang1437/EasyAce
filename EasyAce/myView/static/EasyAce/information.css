@@ -1,0 +1,35 @@
+.container-background {
+    background-color: #e9ffc3;
+}
+.container-login {
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    margin-top: 30%;
+    margin-bottom: 30%;
+    padding: 10px 5px;
+    height: 50%;
+}
+.form-login {
+    margin-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+}
+.btn-login {
+    background-color: #759049;
+    color: #FFFFFF;
+    width: 100%;
+}
+.btn-login:hover {
+    background-color: #99ba62;
+    color: #FFFFFF;
+}
+.btn-signup {
+    background-color: #8dae58;
+    color: #FFFFFF;
+    width: 100%;
+}
+.btn-signup:hover {
+    background-color: #9abe5f;
+    color: #FFFFFF;
+}

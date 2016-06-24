@@ -2,20 +2,28 @@
 {% block title %}
 <title>EasyAce Login</title>
 {% endblock %}
- 
 {% block content %}
-<div class="container">
-  <h1>Input User Name and Password</h1>
-  <form action="{% url 'myAuth:login' %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit" />
-  </form>
-  <!--<form action="/login/" method="post">
-  User: <input type="text" name="user"> <br>
-  Password: <input type="text" name="password"> <br>
-  <input type="submit" value="login">
-  </form>-->
-  <a href="/auth/signup">sign up</a>
-</div><!-- /.container -->
+<div class="container-fluid container-background">
+  <div class="row">
+    <div class="col-sm-7"></div>
+    <div class="col-sm-4">
+      <div class="container-login">
+        <form class="form-login" action="{% url 'myAuth:login' %}" method="post">
+          {% csrf_token %}
+          <!--<h1 align="center">LOGIN</h1>-->
+          <div class="form-group">
+            <input class="form-control" id="id_username" maxlength="30" name="username" type="text" placeholder="Username" />
+          </div>
+          <div class="form-group">
+            <input class="form-control" id="id_password" maxlength="128" name="password" type="text" placeholder="Password"/>
+          </div>
+          <input class="btn btn-default btn-login" type="submit" value="login"/>
+          <p><br/>Please register now! It takes less than five minutes!</p>
+          <a class="btn btn-default btn-signup" href="/auth/signup">Register now</a>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+</div>
 {% endblock %}
