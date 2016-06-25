@@ -7,13 +7,13 @@
 
 {% block navigation %}
 <li><a href="/index">Home</a></li>
-<li class="active"><a href="/about">About Us</a></li>
+<li><a href="/about">About Us</a></li>
 <li><a href="/contact">Contact Us</a></li>
 <li><a href="/for_student">For Student</a></li>
 {% if user.is_authenticated %}
-<li><a href="/information_tutor">For Tutor</a></li>
+<li class="active"><a href="/information_tutor">For Tutor</a></li>
 {% else %}
-<li><a href="{% url 'myAuth:login' %}">For Tutor</a></li>
+<li class="active"><a href="{% url 'myAuth:login' %}">For Tutor</a></li>
 {% endif %}
 <!--<li class="login"><a href="/auth/login"><img src="{% static 'EasyAce/images/login.png' %}"/></a></li>-->
 {% endblock %}

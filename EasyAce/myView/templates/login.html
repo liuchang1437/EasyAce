@@ -10,16 +10,15 @@
       <div class="container-login">
         <form class="form-login" action="{% url 'myAuth:login' %}" method="post">
           {% csrf_token %}
-          <!--<h1 align="center">LOGIN</h1>-->
           <div class="form-group">
             <input class="form-control" id="id_username" maxlength="30" name="username" type="text" placeholder="Username" />
           </div>
           <div class="form-group">
-            <input class="form-control" id="id_password" maxlength="128" name="password" type="text" placeholder="Password"/>
+            <input class="form-control" id="id_password" maxlength="128" name="password" type="password" placeholder="Password"/>
           </div>
           <input class="btn btn-default btn-login" type="submit" value="login"/>
           <p><br/>Please register now! It takes less than five minutes!</p>
-          <a class="btn btn-default btn-signup" href="/auth/signup">Register now</a>
+          <a class="btn btn-default btn-signup" href="{% url 'myAuth:signup' %}">Register now</a>
         </form>
       </div>
     </div>

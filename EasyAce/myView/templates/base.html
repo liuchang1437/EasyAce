@@ -31,25 +31,42 @@
 <body>
   <nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
-      <ul class="nav navbar-nav nav-self">
-        <li><img class="logo" src="{% static 'EasyAce/images/logo.png' %}" align="left" /></li>
-        {% block navigation %}
-        <li><a href="/index">Home</a></li>
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/contact">Contact Us</a></li>
-        <li><a href="/student">For Student</a></li>
-        <li><a href="/tutor">For Tutor</a></li>
-        <li class="login"><a href="/auth/login"><img src="{% static 'EasyAce/images/login.png' %}"/></a></li>
-        <li ><a href="/auth/login">Login</a></li>
-        {% endblock %}
-      </ul>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed toggle-self" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <img class="logo" src="{% static 'EasyAce/images/logo.png' %}" align="left" />
+      </div>
+      
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav nav-self">
+          {% block navigation %}
+          <li><a href="/index">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+          <li><a href="/for_student">For Student</a></li>
+          <li><a href="/information_tutor">For Tutor</a></li>
+          <!--<li class="login"><img src="{% static 'EasyAce/images/login.png' %}"/></li>-->
+          {% endblock %}
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'myAuth:logout' %}">Logout</a></li>
+          {% else %}
+          <li><a href="{% url 'myAuth:login' %}">Login</a></li>
+          {% endif %}
+        </ul>
+      </div>
     </div>
   </nav>
   
 {% block content %}
   <div>base template content</div>
 {% endblock %}
-{% include 'footer.html' %}
+<footer class="footer">
+  <div class="copyright">Copyright</div>
+</footer>
 
 
 <!-- Bootstrap core JavaScript

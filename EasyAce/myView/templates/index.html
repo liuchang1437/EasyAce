@@ -9,14 +9,15 @@
 <li class="active"><a href="/index">Home</a></li>
 <li><a href="/about">About Us</a></li>
 <li><a href="/contact">Contact Us</a></li>
-<li><a href="/student">For Student</a></li>
-<li><a href="/tutor">For Tutor</a></li>
-<li class="login"><a href="/auth/login"><img src="{% static 'EasyAce/images/login.png' %}"/></a></li>
+<li><a href="/for_student">For Student</a></li>
 {% if user.is_authenticated %}
-  <li><a href="{% url 'myAuth:logout' %}">Logout</a></li>
+<li><a href="/information_tutor">For Tutor</a></li>
 {% else %}
-  <li><a href="{% url 'myAuth:login' %}">Login</a></li>
+<li><a href="{% url 'myAuth:login' %}">For Tutor</a></li>
 {% endif %}
+<!--<div class="visible-md">
+  <li class="login"><a href="/auth/login"><img src="{% static 'EasyAce/images/login.png' %}"/></a></li>
+</div>-->
 {% endblock %}
 
 {% block content %}
@@ -25,10 +26,10 @@
     <div class="col-sm-6">
       <img src="{% static 'EasyAce/images/learning.png' %}" width=100% height=100%/>
     </div>
-      <div class="col-sm-6">
-        <h1>Bootstrap starter template</h1>
-        <p>Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
+    <div class="col-sm-6">
+      <h1>Bootstrap starter template</h1>
+      <p>Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+    </div>
   </div>
 </div>
 {% endblock %}

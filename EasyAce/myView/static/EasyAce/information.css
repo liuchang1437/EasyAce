@@ -1,11 +1,12 @@
 .container-background {
     background-color: #e9ffc3;
+    height: 95%;
 }
 .container-login {
     border-radius: 10px;
     background-color: #FFFFFF;
     margin-top: 30%;
-    margin-bottom: 30%;
+    margin-bottom: 70%;
     padding: 10px 5px;
     height: 50%;
 }

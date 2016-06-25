@@ -23,4 +23,9 @@ urlpatterns = [
     url(r'^about/', my_view.about),
     url(r'^auth/', include('myAuth.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^contact/', my_view.contact),
+    url(r'^for_student/', my_view.for_student),
+    url(r'^information_tutor/', my_view.information_tutor),
+    url(r'^match_tutor/', my_view.match_tutor),
+    url(r'^search_tutor/', my_view.search_tutor),
 ]
