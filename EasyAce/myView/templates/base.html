@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
     {% block title %}
-	<title>base</title>
+	<title>Easy Ace</title>
 	{% endblock %}
     <!-- Bootstrap core CSS -->
     <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
@@ -48,7 +48,11 @@
           <li><a href="/about">About Us</a></li>
           <li><a href="/contact">Contact Us</a></li>
           <li><a href="/for_student">For Student</a></li>
+          {% if user.is_authenticated %}
           <li><a href="/information_tutor">For Tutor</a></li>
+          {% else %}
+          <li><a href="{% url 'myAuth:login' %}">For Tutor</a></li>
+          {% endif %}
           <!--<li class="login"><img src="{% static 'EasyAce/images/login.png' %}"/></li>-->
           {% endblock %}
           {% if user.is_authenticated %}
