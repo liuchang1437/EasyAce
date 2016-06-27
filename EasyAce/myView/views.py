@@ -27,3 +27,6 @@ def match_tutor(request):
 
 def search_tutor(request):
     return render(request, 'search_tutor.html')
+
+def signup_tutor(request):
+    return render(request, 'signup_tutor.html')

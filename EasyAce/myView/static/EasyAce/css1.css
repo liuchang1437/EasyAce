@@ -2,6 +2,7 @@ body {
   background: -webkit-linear-gradient(left, #e9ffc3, #626262, #e9ffc3, #626262, #e9ffc3);
   background: -moz-linear-gradient(left, #e9ffc3, #626262, #e9ffc3, #626262, #e9ffc3);
   background-color: #e9ffc3;
+  font-family: Frutiger neue;
 }
 .container-fluid {
   background-color: #759049;
@@ -97,7 +98,7 @@ body {
 }
 .my-content > h1 {
   margin-top: 20px;
-  color: #759049;
+  color: #037041;
   font-size: 30px;
 }
 .my-content > h2 {

@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^view_tutor/', my_view.view_tutor),
     url(r'^match_tutor/', my_view.match_tutor),
     url(r'^search_tutor/', my_view.search_tutor),
+    url(r'^signup_tutor/', my_view.signup_tutor),
 ]

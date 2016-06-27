@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Sign Up</title>
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+  <h1>Complete Your Information</h1>
+  <form class="form-login" action="{% url 'myAuth:signup' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <input class="form-control" id="id_name" maxlength="50" name="name" type="text" placeholder="Name"/>
+    </div>
+    <div class="form-group">
+      <select class="form-control" id="id_gender" name="gender">
+        <option value="" selected="selected">Select your gender</option>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon" style="background-color: #FFFFFF">Birthday</span>
+        <input class="form-control" id="id_birthday" type="date"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <input class="form-control" id="id_email" maxlength="50" name="email" type="email" placeholder="Email address"/>
+    </div>
+    <div class="form-group">
+      <input class="form-control" id="id_phone" maxlength="50" name="phone" type="text" placeholder="Contact Number"/>
+    </div>
+    <div class="form-group">
+      <input class="form-control" id="id_school" maxlength="50" name="school" type="text" placeholder="Current School"/>
+    </div>
+    <div class="form-group">
+      <input class="form-control" id="id_wechat" maxlength="50" name="wechat" type="text" placeholder="WeChat"/>
+    </div>
+    <div class="form-group">
+      <input class="form-control" id="id_whatsapp" maxlength="50" name="whatsapp" type="text" placeholder="WhatsApp"/>
+    </div>
+    <hr>
+    <div class="my-content">
+      <h1>Middle School Graduation Test</h1>
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="form-group">
+            <select class="form-control" id="id_middle_test" name="middle_test">
+              <option value="" selected="selected">Select graduation test</option>
+              <option value="O-LEVEL">O-LEVEL</option>
+              <option value="Zhongkao">Zhongkao</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="form-group">
+            <select class="form-control" id="id_middle_sub1" name="middle_sub1">
+              <option value="" selected="selected">Select Subjects</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-8">
+          <div class="form-group">
+            <input class="form-control" id="id_middle_sub1_score" maxlength="50" name="one" type="text" placeholder="Score"/>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="form-group">
+            <select class="form-control" id="id_middle_sub2" name="middle_sub2">
+              <option value="" selected="selected">Select Subjects</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-8">
+          <div class="form-group">
+            <input class="form-control" id="id_middle_sub2_score" maxlength="50" name="one" type="text" placeholder="Score"/>
+          </div>
+        </div>
+      </div><!--row-->
+      <hr>
+      
+      <h1>High School Graduation Test</h1>
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="form-group">
+            <select class="form-control" id="id_high_test" name="high_test">
+              <option value="" selected="selected">Select graduation test</option>
+              <option value="A-LEVEL">A-LEVEL</option>
+              <option value="Gaokao">Gaokao</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="form-group">
+            <select class="form-control" id="id_high_sub1" name="high_sub1">
+              <option value="" selected="selected">Select Subjects</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-8">
+          <div class="form-group">
+            <input class="form-control" id="id_high_sub1_score" maxlength="50" name="one" type="text" placeholder="Score"/>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="form-group">
+            <select class="form-control" id="id_high_sub2" name="high_sub2">
+              <option value="" selected="selected">Select Subjects</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-8">
+          <div class="form-group">
+            <input class="form-control" id="id_high_sub2_score" maxlength="50" name="one" type="text" placeholder="Score"/>
+          </div>
+        </div>
+      </div><!--row-->
+      <hr>
+      
+      <h1>Preference of Tuition Region</h1>
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="form-group">
+            <select class="form-control" id="id_tutor_location_1" name="tutor_location_1">
+              <option value="" selected="selected">Preference 1</option>
+              <option value="west">West</option>
+              <option value="central">Central</option>
+              <option value="east">East</option>
+              <option value="northwest">NorthWest</option>
+              <option value="north">North</option>
+              <option value="northeast">NorthEast</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="form-group">
+            <select class="form-control" id="id_tutor_location_2" name="tutor_location_2">
+              <option value="" selected="selected">Preference 2</option>
+              <option value="west">West</option>
+              <option value="central">Central</option>
+              <option value="east">East</option>
+              <option value="northwest">NorthWest</option>
+              <option value="north">North</option>
+              <option value="northeast">NorthEast</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="form-group">
+            <select class="form-control" id="id_tutor_location_3" name="tutor_location_3">
+              <option value="" selected="selected">Preference 3</option>
+              <option value="west">West</option>
+              <option value="central">Central</option>
+              <option value="east">East</option>
+              <option value="northwest">NorthWest</option>
+              <option value="north">North</option>
+              <option value="northeast">NorthEast</option>
+            </select>
+          </div>
+        </div>
+      </div><!--row-->
+      <hr>
+      
+      <p>Please fill in this section very carefully as it is VITAL to your priority in assignment of students and your initial Star Ratings.</p>
+      <div class="form-group">
+        <select class="form-control" id="id_teach_duration" name="teach_duration">
+          <option value="" selected="selected">Duration</option>
+          <option value="never">Never</option>
+          <option value="one_month">1 month</option>
+          <option value="one_to_three_month">1-3 month</option>
+          <option value="three_to_six_month">3-6 month</option>
+          <option value="six_to_twelve_month">6-12 month</option>
+          <option value="one_year">>1 year</option>
+          <option value="two_year">>2 year</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <select class="form-control" id="id_num_taught" name="num_taught">
+          <option value="" selected="selected">Number of Students taught</option>
+          <option value="1">1-5</option>
+          <option value="5">5-10</option>
+          <option value="10">>10</option>
+        </select>
+      </div>
+      <p>Please indicate your past students' academic achievements. Keep the description accurate and concise, without flowery language. For example: Student A raised his O-Level Physics grade from C6 to A1 in 2 months. In addition, please provide your students' contact information with his/her consent for our verification purposes.</p>
+      <div class="form-group">
+        <textarea class="form-control" id="id_achievement" rows="3" placeholder="Achievement"></textarea>
+      </div>
+      <hr>
+      <h1>PERSONAL DATA PROTECTION ACT</h1>
+      <p>By signing this membership application form, you agree that Easy Ace Pte Ltd may collect, use and disclose your personal data, as provided in this application form, or (if applicable) obtained by our organisation as a result of your membership, for the following purposes in accordance with the Personal Data Protection Act 2012 and our data protection policy (available at our website www.easyace.sg): (a) the processing of this membership application; and (b) the administration of the membership with our organisation.</p>
+      <div class="form-group">
+        <input type="radio" id="id_tutor_agree" name="tutor_agree">  I Agree
+      </div>
+      
+    </div><!--my-content-->
+    
+      
+    
+
+     <input class="btn btn-default btn-login" type="submit" value="Submit"/>
+  </form>
+</div>
+
+{% endblock %}
