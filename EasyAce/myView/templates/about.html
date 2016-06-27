@@ -7,20 +7,110 @@
 
 {% block navigation %}
 <li><a href="/index">Home</a></li>
-<li class="active"><a href="/about">About Us</a></li>
-<li><a href="/contact">Contact Us</a></li>
+<li><a href="/view_tutor">View Tutor</a></li>
 <li><a href="/for_student">For Student</a></li>
-{% if user.is_authenticated %}
-<li><a href="/information_tutor">For Tutor</a></li>
-{% else %}
-<li><a href="{% url 'myAuth:login' %}">For Tutor</a></li>
-{% endif %}
-<!--<li class="login"><a href="/auth/login"><img src="{% static 'EasyAce/images/login.png' %}"/></a></li>-->
+<li><a href="/for_tutor">For Tutor</a></li>
+<li class="active"><a href="/about">About Us</a></li>
+<li><a href="/contact">Contact Us</a></li><!--<li class="login"><a href="/auth/login"><img src="{% static 'EasyAce/images/login.png' %}"/></a></li>-->
 {% endblock %}
 
 {% block content %}
 <div class="container">
-  <h1>Bootstrap starter template</h1>
-    <p>Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+  <div class="my-content">
+    <p>Easy Ace is a Tuition Service Provider founded by a group of students from NUS and NTU, who wish to provide high quality tuition to the students in Singapore. We treat tuition as a service instead of just a business. As we have been through Singapore’s education system ourselves, we know the pressure and difficulty it imposes on each student. Therefore, we aim to develop the most people-oriented service to make every tutor enjoy teaching and every student enjoy studying.</p>
+    <hr>
+    <h2>Our Mission</h2>
+    <p>To fulfil the need of the community through our service</p>
+    <h2>Our Vision</h2>
+    <p>To become an extraordinary world-leading service provider</p>
+    <h2>Our Core Values</h2>
+    <p>Passion, Integrity, Accountability, Professionalism</p>
+    <hr>
+    <div class="row">
+      <div class="col-sm-3 col-xs-4">
+        <p style="text-align: center; padding-top: 5px">
+        <img src="{% static 'EasyAce/images/IMG_1619.jpg' %}" class="pic-about"/>
+        </p>
+        <p style="text-align: center; padding-top: 5px">
+        Christoph Wang Xiaoran
+        <br>Executive Director, CFO
+        <br><br>Discover the unkown universe;
+        Uncover the human nature.
+        </p>
+      </div>
+      <div class="col-sm-3 col-sm-offset-1 col-xs-4">
+        <p style="text-align: center; padding-top: 5px">
+        <img src="{% static 'EasyAce/images/IMG_1620.jpg' %}" class="pic-about"/>
+        </p>
+        <p style="text-align: center; padding-top: 5px">
+        Kent Lin Yeyang
+        <br>CEO, President
+        <br><br>Opportunity favours only the
+        prepared minds.
+        </p>
+      </div>
+          
+      <div class="col-sm-3 col-sm-offset-1 col-xs-4">
+        <p style="text-align: center; padding-top: 5px">
+        <img src="{% static 'EasyAce/images/IMG_1621.jpg' %}" class="pic-about"/>
+        </p>
+        <p style="text-align: center; padding-top: 5px">
+        Qiu Minhui
+        <br>Secretary
+        <br><br>When the going gets tough,
+        tough gets going.
+        </p>
+      </div>
+    </div>
+    <div class="clearfix visible-xs-block"></div>
+    
+    <div class="row">
+      <div class="col-sm-3 col-xs-4">
+        <p style="text-align: center; padding-top: 5px">
+        <img src="{% static 'EasyAce/images/IMG_1622.jpg' %}" class="pic-about"/>
+        </p>
+        <p style="text-align: center; padding-top: 5px">
+        Bustin Jin Bo
+        <br>Manager, Student Department
+        <br><br>Strive not to be a success,
+        but rather to be of value.
+        </p>
+      </div>
+      <div class="col-sm-3 col-xs-4">
+        <p style="text-align: center; padding-top: 5px">
+        <img src="{% static 'EasyAce/images/IMG_1623.jpg' %}" class="pic-about"/>
+        </p>
+        <p style="text-align: center; padding-top: 5px">
+        Lenna Yang Yinlun
+        <br>Manager, Tutor Department
+        <br><br>An apple a day keeps the doctor away.
+        </p>
+      </div>
+      <div class="col-sm-3 col-xs-4">
+        <p style="text-align: center; padding-top: 5px">
+        <img src="{% static 'EasyAce/images/IMG_1624.jpg' %}" class="pic-about"/>
+        </p>
+        <p style="text-align: center; padding-top: 5px">
+        Elaine Sun Yuanyuan
+        <br>Marketing Director
+        <br><br>Dance like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth
+        </p>
+      </div>
+      <div class="col-sm-3 col-xs-4">
+        <p style="text-align: center; padding-top: 5px">
+        <img src="{% static 'EasyAce/images/IMG_1625.jpg' %}" class="pic-about"/>
+        </p>
+        <p style="text-align: center; padding-top: 5px">
+        Stephen Chen Shijian
+        <br>Vice Marketing Director
+        <br><br>Keep your eyes on the stars,
+        and your feet on the ground.
+        </p>
+      </div>
+    </div>
+      
+    
+    
+  </div>
 </div><!-- /.container -->
 {% endblock %}

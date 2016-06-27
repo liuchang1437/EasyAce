@@ -27,6 +27,10 @@
       <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="shortcut icon" href="{% static 'EasyAce/images/icon.ico' %}"/>
+    <link rel="apple-touch-icon" href="{% static 'EasyAce/images/icon_c.png' %}"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'EasyAce/images/icon_b.png' %}"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'EasyAce/images/icon_a.png' %}"/>
   </head>
 <body>
   <nav class="navbar navbar-fixed-top">
@@ -38,21 +42,22 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-        <img class="logo" src="{% static 'EasyAce/images/logo.png' %}" align="left" />
+        <div class="hidden-xs">
+          <img class="logo" src="{% static 'EasyAce/images/logo.png' %}" align="left" />
+        </div>
+        <div class="visible-xs logo-xs">Easy Ace</div>
+            
       </div>
       
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav nav-self">
           {% block navigation %}
           <li><a href="/index">Home</a></li>
+          <li><a href="/view_tutor">View Tutor</a></li>
+          <li><a href="/for_student">For Student</a></li>
+          <li><a href="/for_tutor">For Tutor</a></li>
           <li><a href="/about">About Us</a></li>
           <li><a href="/contact">Contact Us</a></li>
-          <li><a href="/for_student">For Student</a></li>
-          {% if user.is_authenticated %}
-          <li><a href="/information_tutor">For Tutor</a></li>
-          {% else %}
-          <li><a href="{% url 'myAuth:login' %}">For Tutor</a></li>
-          {% endif %}
           <!--<li class="login"><img src="{% static 'EasyAce/images/login.png' %}"/></li>-->
           {% endblock %}
           {% if user.is_authenticated %}

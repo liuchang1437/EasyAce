@@ -13,8 +13,14 @@ def contact(request):
 def for_student(request):
     return render(request, 'for_student.html')
 
+def for_tutor(request):
+    return render(request, 'for_tutor.html')
+
 def information_tutor(request):
     return render(request, 'information_tutor.html')
+
+def view_tutor(request):
+    return render(request, 'view_tutor.html')
 
 def match_tutor(request):
     return render(request, 'match_tutor.html')
