@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Sign Up</title>
+{% endblock %}
+{% block jscode %}
+{% load staticfiles %}
+<script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/signup_student.js' %}"></script>
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+  <h1>Complete Your Information</h1>
+  <form class="form-login" action="{% url 'myAuth:signup' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <input class="form-control" id="id_name" maxlength="50" name="name" type="text" placeholder="Name"/>
+    </div>
+    <div class="form-group">
+      <select class="form-control" id="id_gender" name="gender">
+        <option value="" selected="selected">Select your gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <input class="form-control" id="id_email" maxlength="50" name="email" type="email" placeholder="Email address"/>
+    </div>
+    <div class="form-group">
+      <input class="form-control" id="id_phone" maxlength="50" name="phone" type="text" placeholder="Contact Number"/>
+    </div>
+    <div class="form-group">
+      <input class="form-control" id="id_school" maxlength="50" name="school" type="text" placeholder="Current School"/>
+    </div>
+		<div class="form-group">
+			<select class="form-control" id="id_grade" name="grade">
+				<option value="" selected="selected">Select your level of study</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+			</select>
+		</div>
+    <div class="form-group">
+      <input class="form-control" id="id_wechat" maxlength="50" name="wechat" type="text" placeholder="WeChat"/>
+    </div>
+    <div class="form-group">
+      <input class="form-control" id="id_whatsapp" maxlength="50" name="whatsapp" type="text" placeholder="WhatsApp"/>
+    </div>
+    <hr>
+    <div class="my-content">
+      <h1>Preferred location</h1>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<input class="form-control" id="id_student_location" maxlength="50" name="student_location" type="text" placeholder="eg. home address/nearest MRT station/near your school"/>
+					</div>
+				</div>
+			</div>
+			
+      <p>Is tuition location negotiable? What is an acceptable travel time to an alternative tuition location to you?</p>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<select class="form-control" id="id_student_location_negotiable" name="student_location_negotiable">
+							<option value="" selected="selected">Is tuition location negotiable?</option>
+							<option value="not negotiable">Not negotiable; please come to my preferred location</option>
+							<option value="10-20min">10-20min</option>
+							<option value="20-40min">20-40min</option>
+							<option value="40-60min">40-60min</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			
+			<h1>Subject(s) required for tuition</h1>
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="form-group">
+						<select class="form-control" id="id_student_subject" name="student_subject">
+							<option value="" selected="selected">Select graduation exam</option>
+							<option value="a-level">A-LEVEL</option>
+							<option value="gaokao">Gaokao</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div id="num_student_subject">
+				</div><!--num_student_subject-->
+				<div class="col-xs-4" id="btn_student_subject">
+					<div class="form-group">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default" id="btn_student_subject_add">+</button>
+							<button type="button" class="btn btn-default" id="btn_student_subject_remove">-</button>
+						</div>
+					</div>
+				</div>
+			</div><!--row-->
+			
+			<h1>Intended No. of hours per lesson+ no. of lessons per week（subject to changes</h1>
+			<div class="row">
+				<div class="col-xs-6">
+					<div class="form-group">
+						<select class="form-control" id="id_student_duration_per_lesson" name="student_duration_per_lesson">
+							<option value="" selected="selected">duration_per_lesson</option>
+							<option value="1 hour">1 hour</option>
+							<option value="2 hour">2 hour</option>
+							<option value="3 hour">3 hour</option>
+							<option value="4 hour">4 hour</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="form-group">
+						<select class="form-control" id="id_student_lesson_per_week" name="student_lesson_per_week">
+							<option value="" selected="selected">lesson_per_week</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			
+			<h1>Date to start tuition</h1>
+			<div class="row">
+				<div class="col-xs-6">
+					<div class="form-group">
+						<select class="form-control" id="id_student_start_time" name="student_start_time">
+							<option value="As soon as possible" selected="selected">As soon as possible</option>
+							<option value="other">other</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="form-group">
+						<div class="input-group">
+							<div id="id_student_start_time_other"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+      <hr>
+			
+			<h1>Optional Questions</h1>
+			<p>The following questions are optional, but you are encouraged to fill in to help us match you with a tutor who fits you the best!</p>
+			<h1>Tutor preference</h1>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<select class="form-control" id="id_student_tutor_preference" name="student_tutor_preference">
+							<option value="either" selected="selected">I'm satisfied with either a female or a male tutor</option>
+							<option value="male">I prefer a male tutor</option>
+							<option value="female">I prefer a female tutor</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<h1>Remarks</h1>
+			<p>Anything you want to share with us which can make us know you better before teaching even starts, so that we can find a tutor that best suits you!</p>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="id_student_remark1" name="student_remark1" value="slow and patient pace"/>I need a slow and patient pace to teach concepts and question solving skills clearly
+						</label>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="id_student_remark2" name="student_remark2" value="fast summary"/>I need a fast summary of concepts and teach at a faster pace than school
+						</label>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="id_student_remark3" name="student_remark3" value="teach question"/>I am familiar with concepts, but I need a tutor to teach me questions solving skills
+						</label>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="id_student_remark4" name="student_remark4" value="challenging question"/>I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions
+						</label>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="id_student_remark5" name="student_remark5" value="other"/>Other
+						</label>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="form-group">
+						<div id="id_remark_other"></div>
+					</div>
+				</div>
+			</div><!--row-->
+			
+			<h1>Academic weakness</h1>
+			<p>e.g., I am really bad at math calculations. Please be as detailed as possible</p>
+			<div class="form-group">
+				<textarea class="form-control" id="id_student_weakness" name="student_weakness" rows="3" placeholder="Academic weakness"></textarea>
+			</div>
+			
+			
+      <h1>PERSONAL DATA PROTECTION ACT</h1>
+      <p>￼By signing this membership application form, you agree that EasyAce Pte Ltd may collect, use and disclose your personal data, as provided in this application form, or (if applicable) obtained by our organisation as a result of your membership, for the following purposes in accordance with the Personal Data Protection Act 2012 and our data protection policy (available at our website www.easyace.sg): (a) the processing of this membership application; and (b) the administration of the membership with our organisation.</p>
+      <div class="form-group">
+        <input type="radio" id="id_student_agree" name="student_agree">  I Agree
+      </div>
+      
+    </div><!--my-content-->
+    
+      
+    
+
+     <input class="btn btn-default btn-login" type="submit" value="Submit"/>
+  </form>
+</div>
+
+{% endblock %}

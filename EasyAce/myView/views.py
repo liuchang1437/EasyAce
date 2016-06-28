@@ -30,3 +30,6 @@ def search_tutor(request):
 
 def signup_tutor(request):
     return render(request, 'signup_tutor.html')
+
+def signup_student(request):
+	return render(request, 'signup_student.html')

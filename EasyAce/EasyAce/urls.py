@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'^match_tutor/', my_view.match_tutor),
     url(r'^search_tutor/', my_view.search_tutor),
     url(r'^signup_tutor/', my_view.signup_tutor),
+		url(r'^signup_student/', my_view.signup_student),
 ]
