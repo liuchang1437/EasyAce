@@ -153,7 +153,7 @@ $(document).ready(function(){
 									 $(document).change("#id_teaching_level"+i,function(){
 																		 $("#num_teaching_sub"+i).empty();
 																		 if ($("#id_teaching_level"+i).val()=="gaokao"){
-																		 $("#num_teaching_sub"+i).append('<select class="form-control" id="id_teaching_sub'+i+'" name="teaching_sub'+i+'"> <option value="" selected="selected">Select teaching subject</option> </select>');
+																		 $("#num_teaching_sub"+i).append('<select class="form-control" id="id_teaching_sub'+i+'" name="teaching_sub'+i+'"> </select>');
 																		 Option_Teaching_Gaokao(i);
 																		 }
 																		 });
