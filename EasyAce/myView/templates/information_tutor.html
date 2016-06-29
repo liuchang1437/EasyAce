@@ -6,9 +6,37 @@
 {% endblock %}
 
 {% block content %}
+{% for tutor in tutors %}
 <div class="container">
-  <h1>Bootstrap starter template</h1>
-	<p>Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-	<p>{{ tutor.gender }}</p>
+	<div class="my-content">
+		<h1>User Information</h1>
+		<div class="row">
+			<div class="col-xs-6">
+				<p>Name:{{ tutor.name }}</p>
+			</div>
+			<div class="col-xs-6">
+				<p>Gender:{{ tutor.gender }}</p>
+			</div>
+			<div class="col-xs-6">
+				<p>{{ tutor.birth }}</p>
+			</div>
+			<div class="col-xs-6">
+				<p>{{ tutor.email }}</p>
+			</div>
+			<div class="col-xs-6">
+				<p>{{ tutor.phone }}</p>
+			</div>
+			<div class="col-xs-6">
+				<p>{{ tutor.school }}</p>
+			</div>
+			<div class="col-xs-6">
+				<p>{{ tutor.wechat }}</p>
+			</div>
+			<div class="col-xs-6">
+				<p>{{ tutor.whatsapp }}</p>
+			</div>
+		</div>
+	</div>
 </div><!-- /.container -->
+{% endfor %}
 {% endblock %}

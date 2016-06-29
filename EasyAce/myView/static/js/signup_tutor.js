@@ -1,3 +1,18 @@
+function Option_PSLE(s,n)
+{
+	$(s+n).empty();
+	var option = new Array();
+	option[0] = $("<option>").val("").text("Select subject");
+	option[1] = $("<option>").val("english").text("English");
+	option[2] = $("<option>").val("chinese").text("Chinese");
+	option[3] = $("<option>").val("higher chinese").text("Higher Chinese");
+	option[4] = $("<option>").val("science").text("Science");
+	option[5] = $("<option>").val("mathematics").text("Mathematics");
+	for(i=0;i<option.length;i++)
+	{
+		$(s+n).append(option[i]);
+	}
+}
 function Option_AEIS(s,n)
 {
 	$(s+n).empty();
@@ -306,7 +321,7 @@ $(document).ready(function(){
 									$("#btn_teaching_level_add").click(function(){
 																										 if(num_teaching_level<10){
 																										 num_teaching_level++;
-																										 $("#num_teaching_level").append('<div class="row"> <div class="col-xs-4"> <div class="form-group"> <select class="form-control" id="id_teaching_level'+num_teaching_level+'" name="teaching_level'+num_teaching_level+'"> <option value="" selected="selected">Select teaching level</option> </select> </div> </div> <div class="col-xs-4"> <div class="form-group"> <div id="num_teaching_sub'+num_teaching_level+'"></div> </div> </div> </div>');
+																										 $("#num_teaching_level").append('<div class="row"> <div class="col-xs-4"> <div class="form-group"> <select class="form-control" id="id_teaching_level'+num_teaching_level+'" name="teaching_level'+num_teaching_level+'"> <option value="" selected="selected">Select teaching level</option> </select> </div> </div> <div class="col-xs-4"> <div class="form-group"> <select class="form-control" id="id_teaching_sub'+num_teaching_level+'" name="teaching_sub'+num_teaching_level+'"> <option value="" selected="selected">Select teaching subject</option> </select> </div> </div> </div>');
 																										 Option_Teaching_Level(num_teaching_level);
 																										 }
 																								});
@@ -317,9 +332,185 @@ $(document).ready(function(){
 																											 $("#num_teaching_level").find(".row").eq(-1).remove();
 																											 }
 																											 });
+									
+									
+									/*var k = 1;
+									$("#id_teaching_level"+k).change(function(){
+																									 if ($("#id_teaching_level"+k).val()==""){
+																									 $("#id_teaching_sub"+k).empty();
+																									 var option = $("<option>").val("").text("Select subject");
+																									 $("#id_teaching_sub"+k).append(option);
+																									 }
+																									 if ($("#id_teaching_level"+k).val()=="psle"){
+																									 Option_PSLE("#id_teaching_sub",k);
+																									 }
+																									 if ($("#id_teaching_level"+k).val()=="aeis"){
+																									 Option_AEIS("#id_teaching_sub",k);
+																									 }
+																									 if ($("#id_teaching_level"+k).val()=="o-level"){
+																									 Option_OLEVEL("#id_teaching_sub",k);
+																									 }
+																									 if ($("#id_teaching_level"+k).val()=="a-level"){
+																									 Option_ALEVEL("#id_teaching_sub",k);
+																									 }
+																									 if ($("#id_teaching_level"+k).val()=="ib-myp"){
+																									 Option_IB_MYP("#id_teaching_sub",k);
+																									 }
+																									 if ($("#id_teaching_level"+k).val()=="ib-dp"){
+																									 Option_IB_DP("#id_teaching_sub",k);
+																									 }
+																									 if ($("#id_teaching_level"+k).val()=="zhongkao"){
+																									 Option_Zhongkao("#id_teaching_sub",k);
+																									 }
+																									 if ($("#id_teaching_level"+k).val()=="gaokao"){
+																									 Option_Gaokao("#id_teaching_sub",k);
+																									 }
+																									 if ($("#id_teaching_level"+k).val()=="sat"){
+																									 Option_SAT("#id_teaching_sub",k);
+																									 }
+																									 });*/
+									$("#id_teaching_level1").change(function(){
+																									 if ($("#id_teaching_level1").val()==""){
+																									 $("#id_teaching_sub1").empty();
+																									 var option = $("<option>").val("").text("Select subject");
+																									 $("#id_teaching_sub1").append(option);
+																									 }
+																									 if ($("#id_teaching_level1").val()=="psle"){
+																									 Option_PSLE("#id_teaching_sub",1);
+																									 }
+																									 if ($("#id_teaching_level1").val()=="aeis"){
+																									 Option_AEIS("#id_teaching_sub",1);
+																									 }
+																									 if ($("#id_teaching_level1").val()=="o-level"){
+																									 Option_OLEVEL("#id_teaching_sub",1);
+																									 }
+																									 if ($("#id_teaching_level1").val()=="a-level"){
+																									 Option_ALEVEL("#id_teaching_sub",1);
+																									 }
+																									 if ($("#id_teaching_level1").val()=="ib-myp"){
+																									 Option_IB_MYP("#id_teaching_sub",1);
+																									 }
+																									 if ($("#id_teaching_level1").val()=="ib-dp"){
+																									 Option_IB_DP("#id_teaching_sub",1);
+																									 }
+																									 if ($("#id_teaching_level1").val()=="zhongkao"){
+																									 Option_Zhongkao("#id_teaching_sub",1);
+																									 }
+																									 if ($("#id_teaching_level1").val()=="gaokao"){
+																									 Option_Gaokao("#id_teaching_sub",1);
+																									 }
+																									 if ($("#id_teaching_level1").val()=="sat"){
+																									 Option_SAT("#id_teaching_sub",1);
+																									 }
+																									 });
+									$("#id_teaching_level2").change(function(){
+																									if ($("#id_teaching_level2").val()==""){
+																									$("#id_teaching_sub2").empty();
+																									var option = $("<option>").val("").text("Select subject");
+																									$("#id_teaching_sub2").append(option);
+																									}
+																									if ($("#id_teaching_level2").val()=="psle"){
+																									Option_PSLE("#id_teaching_sub",2);
+																									}
+																									if ($("#id_teaching_level2").val()=="aeis"){
+																									Option_AEIS("#id_teaching_sub",2);
+																									}
+																									if ($("#id_teaching_level2").val()=="o-level"){
+																									Option_OLEVEL("#id_teaching_sub",2);
+																									}
+																									if ($("#id_teaching_level2").val()=="a-level"){
+																									Option_ALEVEL("#id_teaching_sub",2);
+																									}
+																									if ($("#id_teaching_level2").val()=="ib-myp"){
+																									Option_IB_MYP("#id_teaching_sub",2);
+																									}
+																									if ($("#id_teaching_level2").val()=="ib-dp"){
+																									Option_IB_DP("#id_teaching_sub",2);
+																									}
+																									if ($("#id_teaching_level2").val()=="zhongkao"){
+																									Option_Zhongkao("#id_teaching_sub",2);
+																									}
+																									if ($("#id_teaching_level2").val()=="gaokao"){
+																									Option_Gaokao("#id_teaching_sub",2);
+																									}
+																									if ($("#id_teaching_level2").val()=="sat"){
+																									Option_SAT("#id_teaching_sub",2);
+																									}
+																									});
+									$("#id_teaching_level3").change(function(){
+																									if ($("#id_teaching_level3").val()==""){
+																									$("#id_teaching_sub3").empty();
+																									var option = $("<option>").val("").text("Select subject");
+																									$("#id_teaching_sub3").append(option);
+																									}
+																									if ($("#id_teaching_level3").val()=="psle"){
+																									Option_PSLE("#id_teaching_sub",3);
+																									}
+																									if ($("#id_teaching_level3").val()=="aeis"){
+																									Option_AEIS("#id_teaching_sub",3);
+																									}
+																									if ($("#id_teaching_level3").val()=="o-level"){
+																									Option_OLEVEL("#id_teaching_sub",3);
+																									}
+																									if ($("#id_teaching_level3").val()=="a-level"){
+																									Option_ALEVEL("#id_teaching_sub",3);
+																									}
+																									if ($("#id_teaching_level3").val()=="ib-myp"){
+																									Option_IB_MYP("#id_teaching_sub",3);
+																									}
+																									if ($("#id_teaching_level3").val()=="ib-dp"){
+																									Option_IB_DP("#id_teaching_sub",3);
+																									}
+																									if ($("#id_teaching_level3").val()=="zhongkao"){
+																									Option_Zhongkao("#id_teaching_sub",3);
+																									}
+																									if ($("#id_teaching_level3").val()=="gaokao"){
+																									Option_Gaokao("#id_teaching_sub",3);
+																									}
+																									if ($("#id_teaching_level3").val()=="sat"){
+																									Option_SAT("#id_teaching_sub",3);
+																									}
+																									});
+									$("#id_teaching_level4").change(function(){
+																									if ($("#id_teaching_level4").val()==""){
+																									$("#id_teaching_sub4").empty();
+																									var option = $("<option>").val("").text("Select subject");
+																									$("#id_teaching_sub4").append(option);
+																									}
+																									if ($("#id_teaching_level4").val()=="psle"){
+																									Option_PSLE("#id_teaching_sub",4);
+																									}
+																									if ($("#id_teaching_level4").val()=="aeis"){
+																									Option_AEIS("#id_teaching_sub",4);
+																									}
+																									if ($("#id_teaching_level4").val()=="o-level"){
+																									Option_OLEVEL("#id_teaching_sub",4);
+																									}
+																									if ($("#id_teaching_level4").val()=="a-level"){
+																									Option_ALEVEL("#id_teaching_sub",4);
+																									}
+																									if ($("#id_teaching_level4").val()=="ib-myp"){
+																									Option_IB_MYP("#id_teaching_sub",4);
+																									}
+																									if ($("#id_teaching_level4").val()=="ib-dp"){
+																									Option_IB_DP("#id_teaching_sub",4);
+																									}
+																									if ($("#id_teaching_level4").val()=="zhongkao"){
+																									Option_Zhongkao("#id_teaching_sub",4);
+																									}
+																									if ($("#id_teaching_level4").val()=="gaokao"){
+																									Option_Gaokao("#id_teaching_sub",4);
+																									}
+																									if ($("#id_teaching_level4").val()=="sat"){
+																									Option_SAT("#id_teaching_sub",4);
+																									}
+																									});
 
 									
-									for(i=1;i<=10;i++){
+
+									
+								
+									/*for(i=1;i<=10;i++){
 									(function(i){
 									 $(document).change("#id_teaching_level"+i,function(){
 																		 $("#num_teaching_sub"+i).empty();
@@ -329,11 +520,13 @@ $(document).ready(function(){
 																		 }
 																		 });
 									 })(i)
-									}
+									}*/
 
 
 									
 									
                   });
+
+
 
 

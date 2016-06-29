@@ -59,6 +59,49 @@ function Option_OLEVEL(s,n)
 	}
 }
 
+function Option_OLEVEL_OTHER(s,n)
+{
+	$(s+n).empty();
+	var option = new Array();
+	option[0] = $("<option>").val("").text("Select subject");
+	option[1] = $("<option>").val("arabic as a 3rd language").text("Arabic as a 3rd Language");
+	option[2] = $("<option>").val("bahasa indonesia as a 3rd language").text("Bahasa Indonesia as a 3rd Language");
+	option[3] = $("<option>").val("french").text("French");
+	option[4] = $("<option>").val("german").text("German");
+	option[5] = $("<option>").val("hindi").text("Hindi");
+	option[6] = $("<option>").val("urdu").text("Urdu");
+	option[7] = $("<option>").val("gujarati").text("Gujarati");
+	option[8] = $("<option>").val("panjabi").text("Panjabi");
+	option[9] = $("<option>").val("bengali").text("Bengali");
+	option[10] = $("<option>").val("burmese").text("Burmese");
+	option[11] = $("<option>").val("thai").text("Thai");
+	option[12] = $("<option>").val("japanese").text("Japanese");
+	option[13] = $("<option>").val("mathematics revised").text("Mathematics Revised");
+	option[14] = $("<option>").val("music").text("Music");
+	option[15] = $("<option>").val("higher music").text("Higher Music");
+	option[16] = $("<option>").val("food and nutrition").text("Food and Nutrition");
+	option[17] = $("<option>").val("higher art").text("Higher Art");
+	option[18] = $("<option>").val("design and technology").text("Design and Technology");
+	option[19] = $("<option>").val("economics").text("Economics");
+	option[20] = $("<option>").val("drama").text("Drama");
+	option[21] = $("<option>").val("physical education").text("Physical Education");
+	option[22] = $("<option>").val("computer studies").text("Computer Studies");
+	option[23] = $("<option>").val("business studies").text("Business Studies");
+	option[24] = $("<option>").val("fundamentals of electronics").text("Fundamentals of Electronics");
+	option[25] = $("<option>").val("media studies").text("Media Studies");
+	option[26] = $("<option>").val("biotechnology").text("Biotechnology");
+	option[27] = $("<option>").val("design studies").text("Design Studies");
+	option[28] = $("<option>").val("media studies").text("Media Studies");
+	option[29] = $("<option>").val("introduction to enterprise development").text("Introduction to Enterprise Development ");
+	option[30] = $("<option>").val("malay").text("Malay");
+	option[31] = $("<option>").val("tamil").text("Tamil");
+
+	for(i=0;i<option.length;i++)
+	{
+		$(s+n).append(option[i]);
+	}
+}
+
 function Option_ALEVEL(s,n)
 {
 	$(s+n).empty();
@@ -101,6 +144,48 @@ function Option_ALEVEL(s,n)
 	}
 }
 
+function Option_ALEVEL_OTHER(s,n)
+{
+	$(s+n).empty();
+	var option = new Array();
+	option[0] = $("<option>").val("").text("Select subject");
+	option[1] = $("<option>").val("h1-bengali").text("H1-Bengali");
+	option[2] = $("<option>").val("h1-gujarati").text("H1-Gujarati");
+	option[3] = $("<option>").val("h1-hindi").text("H1-Hindi");
+	option[4] = $("<option>").val("h1-french").text("H1-French");
+	option[5] = $("<option>").val("h1-german").text("H1-German");
+	option[6] = $("<option>").val("h1-japanese").text("H1-Japanese");
+	option[7] = $("<option>").val("h1-panjabi").text("H1-Panjabi");
+	option[8] = $("<option>").val("h1-urdu").text("H1-Urdu");
+	option[9] = $("<option>").val("h1-malay language").text("H1-Malay Language");
+	option[10] = $("<option>").val("h1-tamil language").text("H1-Tamil Language");
+	option[11] = $("<option>").val("h1-art").text("H1-Art");
+	option[12] = $("<option>").val("h2-translation-chinese").text("H2-Translation (Chinese)");
+	option[13] = $("<option>").val("h2-theatre studies and drama").text("H2-Theatre Studies and Drama");
+	option[14] = $("<option>").val("h2-english language and linguistics").text("H2-English Language and Linguistics");
+	option[15] = $("<option>").val("h2-french").text("H2-French");
+	option[16] = $("<option>").val("h2-german").text("H2-German");
+	option[17] = $("<option>").val("h2-japanese").text("H2-Japanese");
+  option[18] = $("<option>").val("h2-art").text("H2-Art");
+	option[19] = $("<option>").val("h2-music").text("H2-Music");
+	option[20] = $("<option>").val("h2-management of business").text("H2-Management of Business");
+	option[21] = $("<option>").val("h3-literature in english").text("H3-Literature in English");
+	option[22] = $("<option>").val("h3-geography").text("H3-Geography");
+	option[23] = $("<option>").val("h3-history").text("H3-History");
+	option[24] = $("<option>").val("h3-essentials of modern physics").text("H3-Essentials of Modern Physics");
+	option[25] = $("<option>").val("h3-pharmaceutical chemistry").text("H3-Pharmaceutical Chemistry");
+	option[26] = $("<option>").val("h3-proteomics").text("H3-Proteomics");
+	option[27] = $("<option>").val("h3-art").text("H3-Art");
+	option[28] = $("<option>").val("h3-music").text("H3-Music");
+	option[29] = $("<option>").val("h3-chinese language and literature").text("H3-Chinese Language and Literature");
+	
+
+	for(i=0;i<option.length;i++)
+	{
+		$(s+n).append(option[i]);
+	}
+}
+
 function Option_IB_MYP(s,n)
 {
 	$(s+n).empty();
@@ -112,6 +197,32 @@ function Option_IB_MYP(s,n)
 	option[4] = $("<option>").val("standard mathematics").text("Standard mathematics");
 	option[5] = $("<option>").val("extended mathematics").text("Extended mathematics");
 	option[6] = $("<option>").val("other").text("Other");
+	for(i=0;i<option.length;i++)
+	{
+		$(s+n).append(option[i]);
+	}
+}
+
+function Option_IB_MYP_OTHER(s,n)
+{
+	$(s+n).empty();
+	var option = new Array();
+	option[0] = $("<option>").val("").text("Select subject");
+	option[1] = $("<option>").val("language and literature").text("Language and literature");
+	option[2] = $("<option>").val("individuals and societies").text("Individuals and societies");
+	option[3] = $("<option>").val("world, local or national history").text("world, local or national history");
+	option[4] = $("<option>").val("geography").text("geography");
+	option[5] = $("<option>").val("global politics or international relations").text("global politics or international relations");
+	option[6] = $("<option>").val("civics").text("civics");
+	option[7] = $("<option>").val("philosophy").text("philosophy");
+	option[8] = $("<option>").val("business management").text("business management");
+	option[9] = $("<option>").val("sociology").text("sociology");
+	option[10] = $("<option>").val("psychology").text("psychology");
+	option[11] = $("<option>").val("anthropology").text("anthropology");
+	option[12] = $("<option>").val("life sciences").text("life sciences");
+	option[13] = $("<option>").val("health sciences").text("health sciences");
+	option[14] = $("<option>").val("earth sciences").text("earth sciences");
+	
 	for(i=0;i<option.length;i++)
 	{
 		$(s+n).append(option[i]);
@@ -134,6 +245,28 @@ function Option_IB_DP(s,n)
 	option[9] = $("<option>").val("mathematics").text("Mathematics (SL/HL)");
 	option[10] = $("<option>").val("further mathematics").text("Further mathematics (HL)");
 	option[11] = $("<option>").val("other").text("Other");
+	for(i=0;i<option.length;i++)
+	{
+		$(s+n).append(option[i]);
+	}
+}
+
+function Option_IB_DP_OTHER(s,n)
+{
+	$(s+n).empty();
+	var option = new Array();
+	option[0] = $("<option>").val("").text("Select subject");
+	option[1] = $("<option>").val("the extended essay ").text("The extended essay ");
+	option[2] = $("<option>").val("creativity, activity, service").text("Creativity, activity, service");
+	option[3] = $("<option>").val("literature and performance").text("Literature and performance (SL)");
+	option[4] = $("<option>").val("geography").text("geography (SL/HL)");
+	option[5] = $("<option>").val("global politics").text("global politics (SL/HL)");
+	option[6] = $("<option>").val("history").text("history (SL/HL)");
+	option[7] = $("<option>").val("philosophy").text("philosophy (SL/HL)");
+	option[8] = $("<option>").val("psychology").text("psychology (SL/HL)");
+	option[9] = $("<option>").val("computer science").text("computer science (SL/HL)");
+	option[10] = $("<option>").val("mathematical studies standard level").text("mathematical studies standard level (SL/HL) ");
+
 	for(i=0;i<option.length;i++)
 	{
 		$(s+n).append(option[i]);

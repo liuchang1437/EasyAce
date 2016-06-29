@@ -11,10 +11,13 @@ class="active"
 
 {% block content %}
 <div class="container">
-  <h1>View Tutor</h1>
-    <p>Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-  {% for tutor in tutors %}
-    <p>{{ tutor.name }}</p>
-  {% endfor %}
+	<div class="my-content">
+		<h1>Help me find the tutor</h1>
+		<h1>View Tutor</h1>
+			<p>Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+			{% for tutor in tutors %}
+			<p>{{ tutor.name }}</p>
+			{% endfor %}
+	</div>
 </div><!-- /.container -->
 {% endblock %}

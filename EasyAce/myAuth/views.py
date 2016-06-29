@@ -28,9 +28,9 @@ def signup(request):
       password = form.cleaned_data['password']
       user = MyUser.objects.create_user(username=username,role=role,password=password)
       user.save()
-      if role=='TU':
+      if role=='tutor':
         return HttpResponseRedirect(reverse('myAuth:signup_tutor',kwargs={'id':user.id}))
-      elif role=='ST':
+      elif role=='student':
         return HttpResponseRedirect(reverse('myAuth:signup_student',kwargs={'id':user.id}))
     return HttpResponseRedirect('/index')
   else:

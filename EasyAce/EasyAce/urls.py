@@ -26,12 +26,12 @@ urlpatterns = [
     url(r'^for_student/', my_view.for_student),
     url(r'^for_tutor/', my_view.for_tutor),
     url(r'^information_tutor/(?P<id>[0-9]+)', main_view.information_tutor),
-	url(r'^information_student/', my_view.information_student),
+		url(r'^information_student/', my_view.information_student),
     url(r'^view_tutor/', my_view.view_tutor),
     url(r'^match_tutor/', my_view.match_tutor),
     url(r'^search_tutor/', my_view.search_tutor),
     url(r'^signup_tutor/', my_view.signup_tutor),
     url(r'^index/', main_view.index),
-    url(r'^tutors/',main_view.view_tutor)
+    url(r'^tutors/',main_view.view_tutor),
     url(r'^signup_student/', my_view.signup_student),
 ]
