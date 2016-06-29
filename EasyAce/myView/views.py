@@ -19,6 +19,9 @@ def for_tutor(request):
 def information_tutor(request):
     return render(request, 'information_tutor.html')
 
+def information_student(request):
+	return render(request, 'information_student.html')
+
 def view_tutor(request):
     return render(request, 'view_tutor.html')
 
@@ -30,3 +33,6 @@ def search_tutor(request):
 
 def signup_tutor(request):
     return render(request, 'signup_tutor.html')
+
+def signup_student(request):
+	return render(request, 'signup_student.html')

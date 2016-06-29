@@ -52,15 +52,13 @@
       
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav nav-self">
-          {% block navigation %}
-          <li><a href="/index">Home</a></li>
-          <li><a href="/view_tutor">View Tutor</a></li>
-          <li><a href="/for_student">For Student</a></li>
-          <li><a href="/for_tutor">For Tutor</a></li>
-          <li><a href="/about">About Us</a></li>
-          <li><a href="/contact">Contact Us</a></li>
+					<li {% block index %} {% endblock %} ><a href="/index">Home</a></li>
+          <li {% block view_tutor %} {% endblock %} ><a href="/view_tutor">View Tutor</a></li>
+          <li {% block for_student %} {% endblock %} ><a href="/for_student">For Student</a></li>
+          <li {% block for_tutor %} {% endblock %} ><a href="/for_tutor">For Tutor</a></li>
+          <li {% block about %} {% endblock %} ><a href="/about">About Us</a></li>
+          <li {% block contact %} {% endblock %} ><a href="/contact">Contact Us</a></li>
           <!--<li class="login"><img src="{% static 'EasyAce/images/login.png' %}"/></li>-->
-          {% endblock %}
           {% if user.is_authenticated %}
           <li><a href="{% url 'myAuth:logout' %}">Logout</a></li>
           {% else %}
