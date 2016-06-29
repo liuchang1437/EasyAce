@@ -19,7 +19,6 @@ from myView import views as my_view
 from main import views as main_view
 
 urlpatterns = [
-    url(r'^index/', main_view.index),
     url(r'^about/', my_view.about),
     url(r'^auth/', include('myAuth.urls')),
     url(r'^admin/', admin.site.urls),
@@ -31,4 +30,6 @@ urlpatterns = [
     url(r'^match_tutor/', my_view.match_tutor),
     url(r'^search_tutor/', my_view.search_tutor),
     url(r'^signup_tutor/', my_view.signup_tutor),
+    url(r'^index/', main_view.index),
+    url(r'^tutors/',main_view.view_tutor)
 ]
