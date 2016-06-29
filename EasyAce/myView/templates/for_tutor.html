@@ -5,14 +5,8 @@
 <title>Contact Easy Ace</title>
 {% endblock %}
 
-{% block navigation %}
-<li><a href="/index">Home</a></li>
-<li><a href="/view_tutor">View Tutor</a></li>
-<li><a href="/for_student">For Student</a></li>
-<li class="active"><a href="/for_tutor">For Tutor</a></li>
-<li><a href="/about">About Us</a></li>
-<li><a href="/contact">Contact Us</a></li>
-<!--<li class="login"><a href="/auth/login"><img src="{% static 'EasyAce/images/login.png' %}"/></a></li>-->
+{% block for_tutor %}
+class="active"
 {% endblock %}
 
 {% block content %}
