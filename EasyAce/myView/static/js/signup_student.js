@@ -59,9 +59,9 @@ function Option_OLEVEL(s,n)
 	}
 }
 
-function Option_OLEVEL_OTHER(s,n)
+function Option_OLEVEL_OTHER(s)
 {
-	$(s+n).empty();
+	$(s).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
 	option[1] = $("<option>").val("arabic as a 3rd language").text("Arabic as a 3rd Language");
@@ -98,7 +98,7 @@ function Option_OLEVEL_OTHER(s,n)
 
 	for(i=0;i<option.length;i++)
 	{
-		$(s+n).append(option[i]);
+		$(s).append(option[i]);
 	}
 }
 
@@ -144,9 +144,9 @@ function Option_ALEVEL(s,n)
 	}
 }
 
-function Option_ALEVEL_OTHER(s,n)
+function Option_ALEVEL_OTHER(s)
 {
-	$(s+n).empty();
+	$(s).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
 	option[1] = $("<option>").val("h1-bengali").text("H1-Bengali");
@@ -182,7 +182,7 @@ function Option_ALEVEL_OTHER(s,n)
 
 	for(i=0;i<option.length;i++)
 	{
-		$(s+n).append(option[i]);
+		$(s).append(option[i]);
 	}
 }
 
@@ -203,9 +203,9 @@ function Option_IB_MYP(s,n)
 	}
 }
 
-function Option_IB_MYP_OTHER(s,n)
+function Option_IB_MYP_OTHER(s)
 {
-	$(s+n).empty();
+	$(s).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
 	option[1] = $("<option>").val("language and literature").text("Language and literature");
@@ -225,7 +225,7 @@ function Option_IB_MYP_OTHER(s,n)
 	
 	for(i=0;i<option.length;i++)
 	{
-		$(s+n).append(option[i]);
+		$(s).append(option[i]);
 	}
 }
 
@@ -251,9 +251,9 @@ function Option_IB_DP(s,n)
 	}
 }
 
-function Option_IB_DP_OTHER(s,n)
+function Option_IB_DP_OTHER(s)
 {
-	$(s+n).empty();
+	$(s).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
 	option[1] = $("<option>").val("the extended essay ").text("The extended essay ");
@@ -269,7 +269,7 @@ function Option_IB_DP_OTHER(s,n)
 
 	for(i=0;i<option.length;i++)
 	{
-		$(s+n).append(option[i]);
+		$(s).append(option[i]);
 	}
 }
 
@@ -334,8 +334,7 @@ $(document).ready(function(){
                   $("#id_student_subject").change(function(){
 																						for(i=0;i<num_student_subject;i++)
 																						{
-																							$("#num_student_subject").find(".col-xs-6").eq(-1).remove();
-																							$("#num_student_subject").find(".col-xs-6").eq(-1).remove();
+																							$("#num_student_subject").find(".row").eq(-1).remove();
 																						}
 																						num_student_subject=0;
 																						$("#btn_student_subject").hide();
@@ -344,21 +343,31 @@ $(document).ready(function(){
 																						$("#btn_student_subject").show();
 																						}
 																						});
-									for(i=1;i<=10;i++){
-									(function(i){
-									 $(document).change("#id_student_subject"+i,function(){
-																		 $("#num_student_subject_other"+i).empty();
-																		 if ($("#id_student_subject"+i).val()=="other"){
-																		 $("#num_student_subject_other"+i).append('<div class="col-xs-6"> <div class="form-group"> <input class="form-control" id="id_student_subject_other" maxlength="50" name="student_subject_other" type="text" placeholder="Input subjects"/> </div> </div>');
-																		 }
-																		 });
-									 })(i)
-									}
 									
                   $("#btn_student_subject_add").click(function(){
 																											if ($("#id_student_subject").val()!="" && num_student_subject<10){
 																											num_student_subject++;
 																											$("#num_student_subject").append('<div class="row"> <div class="col-xs-6"> <div class="form-group"> <select class="form-control" id="id_student_subject'+num_student_subject+'" name="student_subject'+num_student_subject+'"> <option value="" selected="selected">Select subject</option> </select> </div></div> <div id="num_student_subject_other'+num_student_subject+'"></div> </div>');
+																											$("#id_student_subject"+num_student_subject).change(function(){
+																																												$("#num_student_subject_other"+num_student_subject).empty();
+																																												if ($(this).val()=="other"){
+																																												$("#num_student_subject_other"+num_student_subject).append('<div class="col-xs-6"> <div class="form-group"> <select class="form-control" id="id_student_subject'+num_student_subject+'_other" name="student_subject'+num_student_subject+'_other"> <option value="" selected="selected">Select subject</option> </div> </div>');
+																																																					
+																																												if ($("#id_student_subject").val()=="o-level"){
+																																												Option_OLEVEL_OTHER("#id_student_subject"+num_student_subject+"_other");
+																																												}
+																																												if ($("#id_student_subject").val()=="a-level"){
+																																												Option_ALEVEL_OTHER("#id_student_subject"+num_student_subject+"_other");
+																																												}
+																																												if ($("#id_student_subject").val()=="ib-myp"){
+																																												Option_IB_MYP_OTHER("#id_student_subject"+num_student_subject+"_other");
+																																												}
+																																												if ($("#id_student_subject").val()=="ib-dp"){
+																																												Option_IB_DP_OTHER("#id_student_subject"+num_student_subject+"_other");
+																																												}
+																																												}
+																																											
+																																											});
 																											if ($("#id_student_subject").val()=="psle"){
 																											Option_PSLE("#id_student_subject",num_student_subject);
 																											}
@@ -392,7 +401,7 @@ $(document).ready(function(){
 									$("#btn_student_subject_remove").click(function(){
 																									 if(num_student_subject>1){
 																									 num_student_subject--;
-																									 $("#num_student_subject").find(".col-xs-6").eq(-1).remove();
+																									 $("#num_student_subject").find(".row").eq(-1).remove();
 																									 }
 																									 });
 									
