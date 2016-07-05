@@ -6,9 +6,11 @@ from .models import MyUser,Tutor, Student
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_user
 from django.contrib.auth import logout as logout_user
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 def login(request):
+  next = request.GET.get('next') or ''
   if request.method == 'POST':
     username = request.POST['username']
     password = request.POST['password']
@@ -17,9 +19,17 @@ def login(request):
       if user.is_active:
         login_user(request,user)
         messages.success(request,'Log in successfully!')
+        if request.POST['next']!='':
+          next = request.POST['next']
+          return HttpResponseRedirect(next)
         return HttpResponseRedirect('/index')
-    return HttpResponseRedirect(reverse('myAuth:login'))
-  return render(request,'login.html')
+      else:
+        message.error(request,'The account has been disabled!')
+        return HttpResponseRedirect('myAuth:login')
+    else:
+      messages.error(request,'The username and password were inccorect.')
+      return HttpResponseRedirect(reverse('myAuth:login'))
+  return render(request,'login.html',{'next':next})
 
 def signup(request):
   if request.method=='POST':
@@ -30,20 +40,23 @@ def signup(request):
       password = form.cleaned_data['password']
       user = MyUser.objects.create_user(username=username,role=role,password=password)
       user.save()
-      messages.success(request,'You have signed up successfully! Please complete some further information.')
+      messages.success(request,'You have signed up successfully! Please log in and complete some further information.')
       if role=='tutor':
         return HttpResponseRedirect(reverse('myAuth:signup_tutor',kwargs={'id':user.id}))
       else:
         return HttpResponseRedirect(reverse('myAuth:signup_student',kwargs={'id':user.id}))
-    return HttpResponseRedirect('/index')
+    messages.error(request,'Please fill in all the fields!')
+    return HttpResponseRedirect(reverse('myAuth:signup'))
   else:
     form = SignupForm()
     return render(request,'signup.html',{'form':form})
-
+@login_required
 def logout(request):
   logout_user(request)
   messages.success(request,'Log out successfully!')
   return HttpResponseRedirect('/index')
+
+@login_required
 def signup_tutor(request,id):
   if request.method == 'POST':
     name = request.POST['name']
@@ -106,6 +119,8 @@ def signup_tutor(request,id):
     return HttpResponseRedirect('/index')
   else:
     return render(request, 'signup_tutor.html',{'id':id})
+
+@login_required
 def signup_student(request,id):
   if request.method == 'POST':
     name = request.POST['name']
