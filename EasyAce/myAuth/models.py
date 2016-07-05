@@ -13,20 +13,94 @@ class Tutor(models.Model):
   wechat = models.CharField(max_length=30)
   whatsapp = models.CharField(max_length=30)
   # Middle School Graduation Test
+  middle_test = models.CharField(max_length=50)
+  middle_test_score = models.TextField() # 格式为：sub1:score1;sub2:score2...
   # High School Graduation Test
-  regions = models.CharField(max_length=30) # 格式为：Preference1,preference2,preference3
+  high_test = models.CharField(max_length=50)
+  high_test_score = models.TextField() # 格式为：sub1:score1;sub2:score2...
+  # Preference of Teaching Subjects
+  prefer_teach = models.TextField() # 格式为：lev1:sub1;level2:sub2...
+  regions = models.CharField(max_length=30) # 格式为：Preference1;preference2;preference3
   duration = models.CharField(max_length=12)
-  num_st_taught = models.CharField(max_length=10)
+  num_taught = models.CharField(max_length=10)
   achievement = models.CharField(max_length=300)
   base_info = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+  def return_regions(self):
+    regions = self.regions.split(';')
+    return regions
+  def return_middle_test(self):
+    pairs = self.middle_test_score.split(';')
+    result = {}
+    for pair in pairs:
+      if pair.strip()=='':
+        continue
+      index = pair.find(':')
+      sub = pair[:index]
+      score = pair[index+1:]
+      result[sub] = score
+    return result
+  def return_prefer_teach(self):
+    pairs = self.prefer_teach.split(';')
+    result = {}
+    for pair in pairs:
+      if pair.strip()=='':
+        continue
+      index = pair.find(':')
+      sub = pair[:index]
+      score = pair[index+1:]
+      result[sub] = score
+    return result
+  def return_high_test(self):
+    pairs = self.high_test_score.split(';')
+    result = {}
+    for pair in pairs:
+      if pair.strip()=='':
+        continue
+      index = pair.find(':')
+      sub = pair[:index]
+      score = pair[index+1:]
+      result[sub] = score
+    return result
 class Student(models.Model):
-  extra_info = models.TextField()
+  # 性别，Male和Female
+  gender = models.CharField(max_length=6)
+  # 电话
+  phone = models.CharField(max_length=20)
+  # 姓名
+  name = models.CharField(max_length=30)
+  # 生日
+  #birth = models.DateField()
+  school = models.CharField(max_length=50)
+  wechat = models.CharField(max_length=30)
+  whatsapp = models.CharField(max_length=30)
+  grade = models.CharField(max_length=20)
+  location = models.CharField(max_length=100)
+  loc_nego = models.CharField(max_length=20)
+  exam_type = models.CharField(max_length=50)
+  # 想要上的课程
+  subjects = models.TextField() # 格式为 sub1;sub2;sub3...
+  duration_per_lesson = models.CharField(max_length=12)
+  start_time = models.CharField(max_length=8)
+  lesson_per_week = models.CharField(max_length=12)
+  prefer_tutor = models.CharField(max_length=7)
+  #num_taught = models.CharField(max_length=10)
+  remarks = models.TextField() # 格式为 1;2;3;...
+  weakness = models.TextField()
+  #achievement = models.CharField(max_length=300)
   base_info = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+  def return_subjects(self):
+    subjects = self.subjects.split(';')
+    return subjects
+  def return_remarks(self):
+    subjects = self.remarks.split(';')
+    return subjects
+
+
 class MyUser(AbstractUser):
   # built-in 数据域有：username,first_name,last_name,email,password
   # 额外添加的基本数据域如下：
   # 用户类型，分为Tutor和Student
-  role = models.CharField(max_length=6)
+  role = models.CharField(max_length=7)
 
   # 根据用户类型返回用户的额外信息。
   def get_user(self):
