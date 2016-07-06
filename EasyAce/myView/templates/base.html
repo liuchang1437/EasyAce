@@ -18,9 +18,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'EasyAce/css1.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'EasyAce/information.css' %}" />
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <!--<script src="../../assets/js/ie-emulation-modes-warning.js"></script>-->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -70,16 +68,14 @@
   </nav>
   
 {% if messages %}
-  <ul class="messages">
+  <div class="messages" style="margin-top: 55px; margin-bottom: 0;">
     {% for message in messages %}
-    <li>
-      <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible"{% endif %} role="alert">
+      <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible"{% endif %} role="alert" style="margin-bottom: 0; text-align: center; padding-top: 5px; padding-bottom: 5px;">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         {{ message }}
       </div>
-    </li>
     {% endfor %}
-  </ul>
+  </div>
 {% endif %}
 
 {% block content %}
@@ -96,6 +92,6 @@
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+<!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
 </body>
 </html>
