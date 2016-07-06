@@ -120,6 +120,16 @@ def signup_tutor(request,id):
     messages.success(request,'Update information successfully!')
     return HttpResponseRedirect('/index')
   else:
+    user = MyUser.objects.filter(id=id)[0]
+    tutor = user.get_user()
+    if tutor:
+      middle_test_score = tutor.get_pairs('middle_test_score')
+      high_test_score = tutor.get_pairs('high_test_score')
+      prefer_teach = tutor.get_pairs('prefer_teach')
+      regions = tutor.get_single('regions')
+      return render(request,'signup_tutor.html',{'id':id,'tutor':tutor,\
+            'middle_test_score':middle_test_score,'high_test_score':high_test_score,\
+            'prefer_teach':prefer_teach,'regions':regions})
     return render(request, 'signup_tutor.html',{'id':id})
 
 @login_required
@@ -172,4 +182,11 @@ def signup_student(request,id):
     messages.success(request,'Update information successfully!')
     return HttpResponseRedirect('/index')
   else:
+    user = MyUser.objects.filter(id=id)[0]
+    student = user.get_user()
+    if student:
+      remarks = student.get_single('remarks')
+      subjects = student.get_single('subjects')
+      return render(request,'signup_tutor.html',{'id':id,'student':student,\
+        'remarks':remarks,'subjects':subjects})
     return render(request, 'signup_student.html',{'id':id})

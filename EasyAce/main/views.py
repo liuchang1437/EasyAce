@@ -28,6 +28,7 @@ def information(request,id):
         high_test_score = tutor.get_pairs('high_test_score')
         prefer_teach = tutor.get_pairs('prefer_teach')
         regions = tutor.get_single('regions')
+        print(middle_test_score)
         return render(request, 'information_tutor.html', {'tutor':tutor,\
             'middle_test_score':middle_test_score,'high_test_score':high_test_score,\
             'prefer_teach':prefer_teach,'regions':regions})
