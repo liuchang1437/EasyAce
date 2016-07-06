@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block content %}
-{% for tutor in tutors %}
 <div class="container">
 	<div class="my-content">
 		<h1>User Information</h1>
@@ -36,7 +35,19 @@
 				<p>{{ tutor.whatsapp }}</p>
 			</div>
 		</div>
+		<hr>
+		<div class="row">
+			<div class="col-xs-6">
+				<p>middle test:{{ tutor.middle_test }}</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				{% for sub,score in tutor.get_pairs('middle_test_score') %}
+				<p>{{ sub }} {{ score }}</p>
+				{% endfor %}
+			</div>
+		</div>
 	</div>
 </div><!-- /.container -->
-{% endfor %}
 {% endblock %}
