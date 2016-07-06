@@ -99,14 +99,20 @@ class Student(models.Model):
 class MyUser(AbstractUser):
   # built-in 数据域有：username,first_name,last_name,email,password
   # 额外添加的基本数据域如下：
-  # 用户类型，分为Tutor和Student
+  # 用户类型，分为tutor和student
   role = models.CharField(max_length=7)
 
   # 根据用户类型返回用户的额外信息。
   def get_user(self):
-    if self.role == 'Tutor':
-      if self.tutor:
-        return self.tutor 
-    else:
-      if self.student:
+    if self.role == 'tutor':
+      try:
+        return self.tutor
+      except:
+        return False
+    elif self.role == 'student':
+      try:
         return self.student
+      except:
+        return False
+    else:
+      return False

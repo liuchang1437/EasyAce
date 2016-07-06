@@ -40,6 +40,8 @@ def signup(request):
       password = form.cleaned_data['password']
       user = MyUser.objects.create_user(username=username,role=role,password=password)
       user.save()
+      user = authenticate(username=username,password=password)
+      login_user(request,user)
       messages.success(request,'You have signed up successfully! Please log in and complete some further information.')
       if role=='tutor':
         return HttpResponseRedirect(reverse('myAuth:signup_tutor',kwargs={'id':user.id}))
