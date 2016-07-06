@@ -22,6 +22,9 @@ def information_tutor(request):
 def information_student(request):
 	return render(request, 'information_student.html')
 
+def information_user(request):
+	return render(request, 'information_user.html')
+
 def view_tutor(request):
     return render(request, 'view_tutor.html')
 

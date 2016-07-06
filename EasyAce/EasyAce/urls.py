@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^for_tutor/', my_view.for_tutor),
     url(r'^information_tutor/(?P<id>[0-9]+)', main_view.information_tutor),
 		url(r'^information_student/', my_view.information_student),
+		url(r'^information_user/', my_view.information_user),
     url(r'^view_tutor/', my_view.view_tutor),
     url(r'^match_tutor/', my_view.match_tutor),
     url(r'^search_tutor/', my_view.search_tutor),
