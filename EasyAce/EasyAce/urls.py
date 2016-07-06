@@ -32,8 +32,6 @@ urlpatterns = [
     url(r'^match_tutor/', my_view.match_tutor),
     url(r'^search_tutor/', my_view.search_tutor),
     url(r'^signup_tutor/', my_view.signup_tutor),
-    url(r'^index/$', main_view.index),
-    url(r'^$', main_view.index),
-    url(r'^tutors/',main_view.view_tutor),
     url(r'^signup_student/', my_view.signup_student),
+    url(r'^', include('main.urls')),
 ]

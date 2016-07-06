@@ -25,42 +25,54 @@ class Tutor(models.Model):
   num_taught = models.CharField(max_length=10)
   achievement = models.CharField(max_length=300)
   base_info = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-  def return_regions(self):
-    regions = self.regions.split(';')
-    return regions
-  def return_middle_test(self):
-    pairs = self.middle_test_score.split(';')
+  def get_single(self,field_name):
+    results = getattr(self,field_name).split(';')
+    results.remove('')
+    return results
+  def get_pairs(self,field_name):
+    pairs = getattr(self,field_name).split(';')
     result = {}
     for pair in pairs:
       if pair.strip()=='':
         continue
       index = pair.find(':')
-      sub = pair[:index]
-      score = pair[index+1:]
-      result[sub] = score
+      first = pair[:index]
+      second = pair[index+1:]
+      result[first] = second
     return result
-  def return_prefer_teach(self):
-    pairs = self.prefer_teach.split(';')
-    result = {}
-    for pair in pairs:
-      if pair.strip()=='':
-        continue
-      index = pair.find(':')
-      sub = pair[:index]
-      score = pair[index+1:]
-      result[sub] = score
-    return result
-  def return_high_test(self):
-    pairs = self.high_test_score.split(';')
-    result = {}
-    for pair in pairs:
-      if pair.strip()=='':
-        continue
-      index = pair.find(':')
-      sub = pair[:index]
-      score = pair[index+1:]
-      result[sub] = score
-    return result
+  # def return_middle_test(self):
+  #   pairs = self.middle_test_score.split(';')
+  #   result = {}
+  #   for pair in pairs:
+  #     if pair.strip()=='':
+  #       continue
+  #     index = pair.find(':')
+  #     sub = pair[:index]
+  #     score = pair[index+1:]
+  #     result[sub] = score
+  #   return result
+  # def return_prefer_teach(self):
+  #   pairs = self.prefer_teach.split(';')
+  #   result = {}
+  #   for pair in pairs:
+  #     if pair.strip()=='':
+  #       continue
+  #     index = pair.find(':')
+  #     sub = pair[:index]
+  #     score = pair[index+1:]
+  #     result[sub] = score
+  #   return result
+  # def return_high_test(self):
+  #   pairs = self.high_test_score.split(';')
+  #   result = {}
+  #   for pair in pairs:
+  #     if pair.strip()=='':
+  #       continue
+  #     index = pair.find(':')
+  #     sub = pair[:index]
+  #     score = pair[index+1:]
+  #     result[sub] = score
+  #   return result
 class Student(models.Model):
   # 性别，Male和Female
   gender = models.CharField(max_length=6)
@@ -88,12 +100,10 @@ class Student(models.Model):
   weakness = models.TextField()
   #achievement = models.CharField(max_length=300)
   base_info = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-  def return_subjects(self):
-    subjects = self.subjects.split(';')
-    return subjects
-  def return_remarks(self):
-    subjects = self.remarks.split(';')
-    return subjects
+  def get_single(self,field_name):
+    results = getattr(self,field_name).split(';')
+    results.remove('')
+    return results
 
 
 class MyUser(AbstractUser):

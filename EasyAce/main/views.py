@@ -8,6 +8,10 @@ def information_tutor(request,id):
     tutors = Tutor.objects.filter(id=id)
     print(tutors)
     return render(request, 'information_tutor.html', {'tutors':tutors})
+def information(request,id):
+    tutors = Tutor.objects.filter(id=id)
+    print(tutors)
+    return render(request, 'information_tutor.html', {'tutors':tutors})
 def view_tutor(request):
     param1 = request.GET.get('p1')
     param2 = request.GET.get('p2')
