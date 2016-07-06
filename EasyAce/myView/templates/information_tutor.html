@@ -36,6 +36,7 @@
 			</div>
 		</div>
 		<hr>
+		
 		<div class="row">
 			<div class="col-xs-6">
 				<p>middle test:{{ tutor.middle_test }}</p>
@@ -43,11 +44,74 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-6">
-				{% for sub,score in tutor.get_pairs('middle_test_score') %}
-				<p>{{ sub }} {{ score }}</p>
+				{% for sub,score in middle_test_score.items %}
+				<p>{{ sub }} : {{ score }}</p>
 				{% endfor %}
 			</div>
 		</div>
+		<hr>
+		
+		<div class="row">
+			<div class="col-xs-6">
+				<p>high test:{{ tutor.high_test }}</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				{% for sub,score in high_test_score.items %}
+				<p>{{ sub }} : {{ score }}</p>
+				{% endfor %}
+			</div>
+		</div>
+		<hr>
+		
+		<div class="row">
+			<div class="col-xs-6">
+				<p>prefer teaching subjects:{{ tutor.prefer_teach }}</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				{% for level,sub in prefer_teach.items %}
+				<p>{{ level }},{{ sub }}</p>
+				{% endfor %}
+			</div>
+		</div>
+		<hr>
+		
+		<div class="row">
+			<div class="col-xs-6">
+				<p>prefer teaching regions:</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				{% for region in regions %}
+				<p>{{ region }}</p>
+				{% endfor %}
+			</div>
+		</div>
+		<hr>
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<p>{{ tutor.duration }}</p>
+			</div>
+			<div class="col-xs-12">
+				<p>{{ tutor.num_taught }}</p>
+			</div>
+			<div class="col-xs-12">
+				<p>{{ tutor.achievement }}</p>
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
 	</div>
 </div><!-- /.container -->
 {% endblock %}
