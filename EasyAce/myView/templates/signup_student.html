@@ -16,27 +16,27 @@
   <form class="form-login" action="{% url 'myAuth:signup_student' id %}" method="post">
     {% csrf_token %}
     <div class="form-group">
-      <input class="form-control" id="id_name" maxlength="50" name="name" type="text" placeholder="Name"/>
+			<input class="form-control" id="id_name" maxlength="50" name="name" type="text" placeholder="Name" {% if user.name %} value="{{ user.name }}" {% endif %}/>
     </div>
     <div class="form-group">
       <select class="form-control" id="id_gender" name="gender">
-        <option value="" selected="selected">Select your gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
+        <option value="">Select your gender</option>
+        <option value="Male" {% if user.gender == "Male" %} selected="selected" {% endif %}>Male</option>
+        <option value="Female" {% if user.gender == "Female" %} selected="selected" {% endif %}>Female</option>
       </select>
     </div>
     <div class="form-group">
-      <input class="form-control" id="id_email" maxlength="50" name="email" type="email" placeholder="Email address" {% if user.email %} value="{{user.email}}"{% endif %}/>
+      <input class="form-control" id="id_email" maxlength="50" name="email" type="email" placeholder="Email address" {% if user.email %} value="{{ user.email }}"{% endif %}/>
     </div>
     <div class="form-group">
-      <input class="form-control" id="id_phone" maxlength="50" name="phone" type="text" placeholder="Contact Number"/>
+      <input class="form-control" id="id_phone" maxlength="50" name="phone" type="text" placeholder="Contact Number" {% if user.phone %} value="{{ user.phone }}" {% endif %}/>
     </div>
     <div class="form-group">
-      <input class="form-control" id="id_school" maxlength="50" name="school" type="text" placeholder="Current School"/>
+      <input class="form-control" id="id_school" maxlength="50" name="school" type="text" placeholder="Current School" {% if user.school %} value="{{ user.school }}" {% endif %}/>
     </div>
 		<div class="form-group">
 			<select class="form-control" id="id_grade" name="grade">
-				<option value="" selected="selected">Select your level of study</option>
+				<option value="">Select your level of study</option>
 				<option value="Primary 1">Primary 1</option>
 				<option value="Primary 2">Primary 2</option>
 				<option value="Primary 3">Primary 3</option>
@@ -58,10 +58,10 @@
 			</select>
 		</div>
     <div class="form-group">
-      <input class="form-control" id="id_wechat" maxlength="50" name="wechat" type="text" placeholder="WeChat"/>
+      <input class="form-control" id="id_wechat" maxlength="50" name="wechat" type="text" placeholder="WeChat" {% if user.wechat %} value="{{ user.wechat }}" {% endif %}/>
     </div>
     <div class="form-group">
-      <input class="form-control" id="id_whatsapp" maxlength="50" name="whatsapp" type="text" placeholder="WhatsApp"/>
+      <input class="form-control" id="id_whatsapp" maxlength="50" name="whatsapp" type="text" placeholder="WhatsApp" {% if user.whatsapp %} value="{{ user.whatsapp }}" {% endif %}/>
     </div>
     <hr>
     <div class="my-content">
@@ -69,7 +69,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="form-group">
-						<input class="form-control" id="id_student_location" maxlength="50" name="student_location" type="text" placeholder="eg. home address/nearest MRT station/near your school"/>
+						<input class="form-control" id="id_student_location" maxlength="50" name="student_location" type="text" placeholder="eg. home address/nearest MRT station/near your school" {% if user.location %} value="{{ user.location }}" {% endif %}/>
 					</div>
 				</div>
 			</div>
