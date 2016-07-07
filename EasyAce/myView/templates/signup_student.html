@@ -26,7 +26,7 @@
       </select>
     </div>
     <div class="form-group">
-      <input class="form-control" id="id_email" maxlength="50" name="email" type="email" placeholder="Email address"/>
+      <input class="form-control" id="id_email" maxlength="50" name="email" type="email" placeholder="Email address" {% if user.email %} value="{{user.email}}"{% endif %}/>
     </div>
     <div class="form-group">
       <input class="form-control" id="id_phone" maxlength="50" name="phone" type="text" placeholder="Contact Number"/>
