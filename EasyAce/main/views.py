@@ -39,11 +39,14 @@ def information(request,id):
             return HttpResponseRedirect(reverse('myAuth:signup_tutor',\
             kwargs={'id':user.id}))
         remarks = student.get_single('remarks')
-        subjects = student.get_single('student')
+        subjects = student.get_single('subjects')
         return render(request, 'information_student.html', {'student':student,\
             'remarks':remarks,'subjects':subjects})
     else:
         return render(request, 'index.html')
+def modification(request,id):
+    return render(request, 'index.html')
+
 def view_tutor(request):
     param1 = request.GET.get('p1')
     param2 = request.GET.get('p2')
