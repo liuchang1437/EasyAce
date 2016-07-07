@@ -2,7 +2,7 @@ body {
   background: -webkit-linear-gradient(left, #e9ffc3, #626262, #e9ffc3, #626262, #e9ffc3);
   background: -moz-linear-gradient(left, #e9ffc3, #626262, #e9ffc3, #626262, #e9ffc3);
   background-color: #e9ffc3;
-  font-family: Frutiger neue;
+	font-family: {% static 'fonts/frutiger.ttf' %};
 }
 .container-fluid {
   background-color: #759049;

@@ -11,10 +11,10 @@
     <title>Easy Ace</title>
     {% endblock %}
     <!-- Bootstrap core CSS -->
-    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+		{% load staticfiles %}
+    <link href="{% static 'EasyAce/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'EasyAce/css1.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'EasyAce/information.css' %}" />
 
@@ -90,8 +90,8 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
 </body>
