@@ -44,8 +44,6 @@ def information(request,id):
             'remarks':remarks,'subjects':subjects})
     else:
         return render(request, 'index.html')
-def modification(request,id):
-    return render(request, 'index.html')
 
 def view_tutor(request):
     param1 = request.GET.get('p1')
@@ -55,3 +53,10 @@ def view_tutor(request):
     else:
         tutors = Tutor.objects.all()
     return render(request, 'view_tutor.html', {'tutors':tutors})
+
+def edit(request):
+    user = request.user
+    if user.role=='tutor':
+        return HttpResponseRedirect('myAuth:signup_tutor',kwargs={'id':user.id})
+    else:
+        return HttpResponseRedirect('myAuth:signup_student',kwargs={'id':user.id})

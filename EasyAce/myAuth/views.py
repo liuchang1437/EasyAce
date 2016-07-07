@@ -117,6 +117,7 @@ def signup_tutor(request,id):
       num_taught=num_taught,achievement=achievement,prefer_teach=prefer_teach)
     tutor.base_info = myuser
     tutor.save()
+    myuser.save()
     messages.success(request,'Update information successfully!')
     return HttpResponseRedirect('/index')
   else:
@@ -179,6 +180,7 @@ def signup_student(request,id):
       weakness=weakness,remarks=remarks)
     student.base_info = myuser
     student.save()
+    myuser.save()
     messages.success(request,'Update information successfully!')
     return HttpResponseRedirect('/index')
   else:
