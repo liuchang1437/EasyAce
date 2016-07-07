@@ -3,25 +3,26 @@ function Option_PSLE(s,n)
 	$(s+n).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
-	option[1] = $("<option>").val("english").text("English");
-	option[2] = $("<option>").val("chinese").text("Chinese");
-	option[3] = $("<option>").val("higher chinese").text("Higher Chinese");
-	option[4] = $("<option>").val("science").text("Science");
-	option[5] = $("<option>").val("mathematics").text("Mathematics");
+	option[1] = $("<option>").val("English").text("English");
+	option[2] = $("<option>").val("Chinese").text("Chinese");
+	option[3] = $("<option>").val("Higher Chinese").text("Higher Chinese");
+	option[4] = $("<option>").val("Science").text("Science");
+	option[5] = $("<option>").val("Mathematics").text("Mathematics");
 	for(i=0;i<option.length;i++)
 	{
 		$(s+n).append(option[i]);
 	}
 }
+
 function Option_AEIS(s,n)
 {
 	$(s+n).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
-	option[1] = $("<option>").val("secondary english").text("Secondary English");
-	option[2] = $("<option>").val("secondary maths").text("Secondary Maths");
-	option[3] = $("<option>").val("primary english").text("Primary English");
-	option[4] = $("<option>").val("primary maths").text("Primary Maths");
+	option[1] = $("<option>").val("Secondary English").text("Secondary English");
+	option[2] = $("<option>").val("Secondary Maths").text("Secondary Maths");
+	option[3] = $("<option>").val("Primary English").text("Primary English");
+	option[4] = $("<option>").val("Primary Maths").text("Primary Maths");
 	for(i=0;i<option.length;i++)
 	{
 		$(s+n).append(option[i]);
@@ -33,25 +34,25 @@ function Option_OLEVEL(s,n)
 	$(s+n).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
-	option[1] = $("<option>").val("english language").text("English Language");
-	option[2] = $("<option>").val("literature in english").text("Literature in English");
-	option[3] = $("<option>").val("history").text("History");
-	option[4] = $("<option>").val("combined humanities").text("Combined Humanities");
-	option[5] = $("<option>").val("geography").text("Geography");
-	option[6] = $("<option>").val("mathematics").text("Mathematics");
-	option[7] = $("<option>").val("additional mathematics").text("Additional Mathematics");
-	option[8] = $("<option>").val("physics-spa").text("Physics (SPA)");
-	option[9] = $("<option>").val("chemistry-spa").text("Chemistry (SPA)");
-	option[10] = $("<option>").val("science-physics-chemistry)").text("Science (Physics, Chemistry)");
-	option[11] = $("<option>").val("science-physics-biology)").text("Science (Physics, Biology)");
-	option[12] = $("<option>").val("science-chemistry-biology)").text("Science (Chemistry, Biology)");
-	option[13] = $("<option>").val("biology-spa").text("Biology (SPA)");
-	option[14] = $("<option>").val("art").text("Art");
-	option[15] = $("<option>").val("principles of accounts").text("Principles of Accounts");
-	option[16] = $("<option>").val("higher chinese").text("Higher Chinese");
-	option[17] = $("<option>").val("chinese").text("Chinese");
-	option[18] = $("<option>").val("literature in chinese").text("Literature in Chinese");
-	option[19] = $("<option>").val("other").text("Other");
+	option[1] = $("<option>").val("English Language").text("English Language");
+	option[2] = $("<option>").val("Literature in English").text("Literature in English");
+	option[3] = $("<option>").val("History").text("History");
+	option[4] = $("<option>").val("Combined Humanities").text("Combined Humanities");
+	option[5] = $("<option>").val("Geography").text("Geography");
+	option[6] = $("<option>").val("Mathematics").text("Mathematics");
+	option[7] = $("<option>").val("Additional Mathematics").text("Additional Mathematics");
+	option[8] = $("<option>").val("Physics (SPA)").text("Physics (SPA)");
+	option[9] = $("<option>").val("Chemistry (SPA)").text("Chemistry (SPA)");
+	option[10] = $("<option>").val("Science (Physics, Chemistry)").text("Science (Physics, Chemistry)");
+	option[11] = $("<option>").val("Science (Physics, Biology)").text("Science (Physics, Biology)");
+	option[12] = $("<option>").val("Science (Chemistry, Biology)").text("Science (Chemistry, Biology)");
+	option[13] = $("<option>").val("Biology (SPA)").text("Biology (SPA)");
+	option[14] = $("<option>").val("Art").text("Art");
+	option[15] = $("<option>").val("Principles of Accounts").text("Principles of Accounts");
+	option[16] = $("<option>").val("Higher Chinese").text("Higher Chinese");
+	option[17] = $("<option>").val("Chinese").text("Chinese");
+	option[18] = $("<option>").val("Literature in Chinese").text("Literature in Chinese");
+	option[19] = $("<option>").val("Other").text("Other");
 	for(i=0;i<option.length;i++)
 	{
 		$(s+n).append(option[i]);
@@ -63,37 +64,37 @@ function Option_OLEVEL_OTHER(s)
 	$(s).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
-	option[1] = $("<option>").val("arabic as a 3rd language").text("Arabic as a 3rd Language");
-	option[2] = $("<option>").val("bahasa indonesia as a 3rd language").text("Bahasa Indonesia as a 3rd Language");
-	option[3] = $("<option>").val("french").text("French");
-	option[4] = $("<option>").val("german").text("German");
-	option[5] = $("<option>").val("hindi").text("Hindi");
-	option[6] = $("<option>").val("urdu").text("Urdu");
-	option[7] = $("<option>").val("gujarati").text("Gujarati");
-	option[8] = $("<option>").val("panjabi").text("Panjabi");
-	option[9] = $("<option>").val("bengali").text("Bengali");
-	option[10] = $("<option>").val("burmese").text("Burmese");
-	option[11] = $("<option>").val("thai").text("Thai");
-	option[12] = $("<option>").val("japanese").text("Japanese");
-	option[13] = $("<option>").val("mathematics revised").text("Mathematics Revised");
-	option[14] = $("<option>").val("music").text("Music");
-	option[15] = $("<option>").val("higher music").text("Higher Music");
-	option[16] = $("<option>").val("food and nutrition").text("Food and Nutrition");
-	option[17] = $("<option>").val("higher art").text("Higher Art");
-	option[18] = $("<option>").val("design and technology").text("Design and Technology");
-	option[19] = $("<option>").val("economics").text("Economics");
-	option[20] = $("<option>").val("drama").text("Drama");
-	option[21] = $("<option>").val("physical education").text("Physical Education");
-	option[22] = $("<option>").val("computer studies").text("Computer Studies");
-	option[23] = $("<option>").val("business studies").text("Business Studies");
-	option[24] = $("<option>").val("fundamentals of electronics").text("Fundamentals of Electronics");
-	option[25] = $("<option>").val("media studies").text("Media Studies");
-	option[26] = $("<option>").val("biotechnology").text("Biotechnology");
-	option[27] = $("<option>").val("design studies").text("Design Studies");
-	option[28] = $("<option>").val("media studies").text("Media Studies");
-	option[29] = $("<option>").val("introduction to enterprise development").text("Introduction to Enterprise Development ");
-	option[30] = $("<option>").val("malay").text("Malay");
-	option[31] = $("<option>").val("tamil").text("Tamil");
+	option[1] = $("<option>").val("Arabic as a 3rd Language").text("Arabic as a 3rd Language");
+	option[2] = $("<option>").val("Bahasa Indonesia as a 3rd Language").text("Bahasa Indonesia as a 3rd Language");
+	option[3] = $("<option>").val("French").text("French");
+	option[4] = $("<option>").val("German").text("German");
+	option[5] = $("<option>").val("Hindi").text("Hindi");
+	option[6] = $("<option>").val("Urdu").text("Urdu");
+	option[7] = $("<option>").val("Gujarati").text("Gujarati");
+	option[8] = $("<option>").val("Panjabi").text("Panjabi");
+	option[9] = $("<option>").val("Bengali").text("Bengali");
+	option[10] = $("<option>").val("Burmese").text("Burmese");
+	option[11] = $("<option>").val("Thai").text("Thai");
+	option[12] = $("<option>").val("Japanese").text("Japanese");
+	option[13] = $("<option>").val("Mathematics Revised").text("Mathematics Revised");
+	option[14] = $("<option>").val("Music").text("Music");
+	option[15] = $("<option>").val("Higher Music").text("Higher Music");
+	option[16] = $("<option>").val("Food and Nutrition").text("Food and Nutrition");
+	option[17] = $("<option>").val("Higher Art").text("Higher Art");
+	option[18] = $("<option>").val("Design and Technology").text("Design and Technology");
+	option[19] = $("<option>").val("Economics").text("Economics");
+	option[20] = $("<option>").val("Drama").text("Drama");
+	option[21] = $("<option>").val("Physical Education").text("Physical Education");
+	option[22] = $("<option>").val("Computer Studies").text("Computer Studies");
+	option[23] = $("<option>").val("Business Studies").text("Business Studies");
+	option[24] = $("<option>").val("Fundamentals of Electronics").text("Fundamentals of Electronics");
+	option[25] = $("<option>").val("Media Studies").text("Media Studies");
+	option[26] = $("<option>").val("Biotechnology").text("Biotechnology");
+	option[27] = $("<option>").val("Design Studies").text("Design Studies");
+	option[28] = $("<option>").val("Media Studies").text("Media Studies");
+	option[29] = $("<option>").val("Introduction to Enterprise Development").text("Introduction to Enterprise Development ");
+	option[30] = $("<option>").val("Malay").text("Malay");
+	option[31] = $("<option>").val("Tamil").text("Tamil");
 	
 	for(i=0;i<option.length;i++)
 	{
@@ -106,37 +107,37 @@ function Option_ALEVEL(s,n)
 	$(s+n).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
-	option[1] = $("<option>").val("h1-general paper").text("H1-General Paper");
-	option[2] = $("<option>").val("h1-project work").text("H1-Project Work");
-	option[3] = $("<option>").val("h1-literature in english").text("H1-Literature in English");
-	option[4] = $("<option>").val("h1-geography").text("H1-Geography");
-	option[5] = $("<option>").val("h1-history").text("H1-History");
-	option[6] = $("<option>").val("h1-china studies in english").text("H1-China Studies in English");
-	option[7] = $("<option>").val("h1-economics").text("H1-Economics");
-	option[8] = $("<option>").val("h1-mathematics").text("H1-Mathematics");
-	option[9] = $("<option>").val("h1-physics").text("H1-Physics");
-	option[10] = $("<option>").val("h1-chemistry").text("H1-Chemistry");
-	option[11] = $("<option>").val("h1-biology").text("H1-Biology");
-	option[12] = $("<option>").val("h1-chinese language").text("H1-Chinese Language");
-	option[13] = $("<option>").val("h1-china studies in chinese").text("H1-China Studies in Chinese");
-	option[14] = $("<option>").val("h1-general studies in chinese").text("H1-General Studies in Chinese");
-	option[15] = $("<option>").val("h2-computing").text("H2-Computing");
-	option[16] = $("<option>").val("h2-physics").text("H2-Physics");
-	option[17] = $("<option>").val("h2-chemistry").text("H2-Chemistry ");
-	option[18] = $("<option>").val("h2-biology").text("H2-Biology");
-	option[19] = $("<option>").val("h2-geography").text("H2-Geography");
-	option[20] = $("<option>").val("h2-history").text("H2-History");
-	option[21] = $("<option>").val("h2-economics").text("H2-Economics");
-	option[22] = $("<option>").val("h2-china studies in english").text("H2-China Studies in English");
-	option[23] = $("<option>").val("h2-mathematics").text("H2-Mathematics");
-	option[24] = $("<option>").val("h2-literature in english").text("H2-literature in english");
-	option[25] = $("<option>").val("h2-principles of accounting").text("H2-Principles of Accounting");
-	option[26] = $("<option>").val("h2-knowledge and inquiry").text("H2-Knowledge and Inquiry");
-	option[27] = $("<option>").val("h2-chinese language and literature").text("H2-Chinese Language and Literature");
-	option[28] = $("<option>").val("h2-china studies in chinese").text("H2-China Studies in Chinese");
-	option[29] = $("<option>").val("h3-economics").text("H3-Economics");
-	option[30] = $("<option>").val("h3-mathematics").text("H3-Mathematics");
-	option[31] = $("<option>").val("other").text("Other");
+	option[1] = $("<option>").val("H1-General Paper").text("H1-General Paper");
+	option[2] = $("<option>").val("H1-Project Work").text("H1-Project Work");
+	option[3] = $("<option>").val("H1-Literature in English").text("H1-Literature in English");
+	option[4] = $("<option>").val("H1-Geography").text("H1-Geography");
+	option[5] = $("<option>").val("H1-History").text("H1-History");
+	option[6] = $("<option>").val("H1-China Studies in English").text("H1-China Studies in English");
+	option[7] = $("<option>").val("H1-Economics").text("H1-Economics");
+	option[8] = $("<option>").val("H1-Mathematics").text("H1-Mathematics");
+	option[9] = $("<option>").val("H1-Physics").text("H1-Physics");
+	option[10] = $("<option>").val("H1-Chemistry").text("H1-Chemistry");
+	option[11] = $("<option>").val("H1-Biology").text("H1-Biology");
+	option[12] = $("<option>").val("H1-Chinese Language").text("H1-Chinese Language");
+	option[13] = $("<option>").val("H1-China Studies in Chinese").text("H1-China Studies in Chinese");
+	option[14] = $("<option>").val("H1-General Studies in Chinese").text("H1-General Studies in Chinese");
+	option[15] = $("<option>").val("H2-Computing").text("H2-Computing");
+	option[16] = $("<option>").val("H2-Physics").text("H2-Physics");
+	option[17] = $("<option>").val("H2-Chemistry").text("H2-Chemistry ");
+	option[18] = $("<option>").val("H2-Biology").text("H2-Biology");
+	option[19] = $("<option>").val("H2-Geography").text("H2-Geography");
+	option[20] = $("<option>").val("H2-History").text("H2-History");
+	option[21] = $("<option>").val("H2-Economics").text("H2-Economics");
+	option[22] = $("<option>").val("H2-China Studies in English").text("H2-China Studies in English");
+	option[23] = $("<option>").val("H2-Mathematics").text("H2-Mathematics");
+	option[24] = $("<option>").val("H2-Literature in English").text("H2-Literature in English");
+	option[25] = $("<option>").val("H2-Principles of Accounting").text("H2-Principles of Accounting");
+	option[26] = $("<option>").val("H2-Knowledge and Inquiry").text("H2-Knowledge and Inquiry");
+	option[27] = $("<option>").val("H2-Chinese Language and Literature").text("H2-Chinese Language and Literature");
+	option[28] = $("<option>").val("H2-China Studies in Chinese").text("H2-China Studies in Chinese");
+	option[29] = $("<option>").val("H3-Economics").text("H3-Economics");
+	option[30] = $("<option>").val("H3-Mathematics").text("H3-Mathematics");
+	option[31] = $("<option>").val("Other").text("Other");
 	for(i=0;i<option.length;i++)
 	{
 		$(s+n).append(option[i]);
@@ -148,35 +149,35 @@ function Option_ALEVEL_OTHER(s)
 	$(s).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
-	option[1] = $("<option>").val("h1-bengali").text("H1-Bengali");
-	option[2] = $("<option>").val("h1-gujarati").text("H1-Gujarati");
-	option[3] = $("<option>").val("h1-hindi").text("H1-Hindi");
-	option[4] = $("<option>").val("h1-french").text("H1-French");
-	option[5] = $("<option>").val("h1-german").text("H1-German");
-	option[6] = $("<option>").val("h1-japanese").text("H1-Japanese");
-	option[7] = $("<option>").val("h1-panjabi").text("H1-Panjabi");
-	option[8] = $("<option>").val("h1-urdu").text("H1-Urdu");
-	option[9] = $("<option>").val("h1-malay language").text("H1-Malay Language");
-	option[10] = $("<option>").val("h1-tamil language").text("H1-Tamil Language");
-	option[11] = $("<option>").val("h1-art").text("H1-Art");
-	option[12] = $("<option>").val("h2-translation-chinese").text("H2-Translation (Chinese)");
-	option[13] = $("<option>").val("h2-theatre studies and drama").text("H2-Theatre Studies and Drama");
-	option[14] = $("<option>").val("h2-english language and linguistics").text("H2-English Language and Linguistics");
-	option[15] = $("<option>").val("h2-french").text("H2-French");
-	option[16] = $("<option>").val("h2-german").text("H2-German");
-	option[17] = $("<option>").val("h2-japanese").text("H2-Japanese");
-	option[18] = $("<option>").val("h2-art").text("H2-Art");
-	option[19] = $("<option>").val("h2-music").text("H2-Music");
-	option[20] = $("<option>").val("h2-management of business").text("H2-Management of Business");
-	option[21] = $("<option>").val("h3-literature in english").text("H3-Literature in English");
-	option[22] = $("<option>").val("h3-geography").text("H3-Geography");
-	option[23] = $("<option>").val("h3-history").text("H3-History");
-	option[24] = $("<option>").val("h3-essentials of modern physics").text("H3-Essentials of Modern Physics");
-	option[25] = $("<option>").val("h3-pharmaceutical chemistry").text("H3-Pharmaceutical Chemistry");
-	option[26] = $("<option>").val("h3-proteomics").text("H3-Proteomics");
-	option[27] = $("<option>").val("h3-art").text("H3-Art");
-	option[28] = $("<option>").val("h3-music").text("H3-Music");
-	option[29] = $("<option>").val("h3-chinese language and literature").text("H3-Chinese Language and Literature");
+	option[1] = $("<option>").val("H1-Bengali").text("H1-Bengali");
+	option[2] = $("<option>").val("H1-Gujarati").text("H1-Gujarati");
+	option[3] = $("<option>").val("H1-Hindi").text("H1-Hindi");
+	option[4] = $("<option>").val("H1-French").text("H1-French");
+	option[5] = $("<option>").val("H1-German").text("H1-German");
+	option[6] = $("<option>").val("H1-Japanese").text("H1-Japanese");
+	option[7] = $("<option>").val("H1-Panjabi").text("H1-Panjabi");
+	option[8] = $("<option>").val("H1-Urdu").text("H1-Urdu");
+	option[9] = $("<option>").val("H1-Malay Language").text("H1-Malay Language");
+	option[10] = $("<option>").val("H1-Tamil Language").text("H1-Tamil Language");
+	option[11] = $("<option>").val("H1-Art").text("H1-Art");
+	option[12] = $("<option>").val("H2-Translation (Chinese)").text("H2-Translation (Chinese)");
+	option[13] = $("<option>").val("H2-Theatre Studies and Drama").text("H2-Theatre Studies and Drama");
+	option[14] = $("<option>").val("H2-English Language and Linguistics").text("H2-English Language and Linguistics");
+	option[15] = $("<option>").val("H2-French").text("H2-French");
+	option[16] = $("<option>").val("H2-German").text("H2-German");
+	option[17] = $("<option>").val("H2-Japanese").text("H2-Japanese");
+	option[18] = $("<option>").val("H2-Art").text("H2-Art");
+	option[19] = $("<option>").val("H2-Music").text("H2-Music");
+	option[20] = $("<option>").val("H2-Management of Business").text("H2-Management of Business");
+	option[21] = $("<option>").val("H3-Literature in English").text("H3-Literature in English");
+	option[22] = $("<option>").val("H3-Geography").text("H3-Geography");
+	option[23] = $("<option>").val("H3-History").text("H3-History");
+	option[24] = $("<option>").val("H3-Essentials of Modern Physics").text("H3-Essentials of Modern Physics");
+	option[25] = $("<option>").val("H3-Pharmaceutical Chemistry").text("H3-Pharmaceutical Chemistry");
+	option[26] = $("<option>").val("H3-Proteomics").text("H3-Proteomics");
+	option[27] = $("<option>").val("H3-Art").text("H3-Art");
+	option[28] = $("<option>").val("H3-Music").text("H3-Music");
+	option[29] = $("<option>").val("H3-Chinese Language and Literature").text("H3-Chinese Language and Literature");
 	
 	
 	for(i=0;i<option.length;i++)
@@ -190,12 +191,12 @@ function Option_IB_MYP(s,n)
 	$(s+n).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
-	option[1] = $("<option>").val("language acquisition").text("Language acquisition");
-	option[2] = $("<option>").val("economics").text("Economics");
-	option[3] = $("<option>").val("physical sciences").text("Physical sciences");
-	option[4] = $("<option>").val("standard mathematics").text("Standard mathematics");
-	option[5] = $("<option>").val("extended mathematics").text("Extended mathematics");
-	option[6] = $("<option>").val("other").text("Other");
+	option[1] = $("<option>").val("Language Acquisition").text("Language Acquisition");
+	option[2] = $("<option>").val("Economics").text("Economics");
+	option[3] = $("<option>").val("Physical Sciences").text("Physical Sciences");
+	option[4] = $("<option>").val("Standard Mathematics").text("Standard Mathematics");
+	option[5] = $("<option>").val("Extended Mathematics").text("Extended Mathematics");
+	option[6] = $("<option>").val("Other").text("Other");
 	for(i=0;i<option.length;i++)
 	{
 		$(s+n).append(option[i]);
@@ -207,20 +208,20 @@ function Option_IB_MYP_OTHER(s)
 	$(s).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
-	option[1] = $("<option>").val("language and literature").text("Language and literature");
-	option[2] = $("<option>").val("individuals and societies").text("Individuals and societies");
-	option[3] = $("<option>").val("world, local or national history").text("world, local or national history");
-	option[4] = $("<option>").val("geography").text("geography");
-	option[5] = $("<option>").val("global politics or international relations").text("global politics or international relations");
-	option[6] = $("<option>").val("civics").text("civics");
-	option[7] = $("<option>").val("philosophy").text("philosophy");
-	option[8] = $("<option>").val("business management").text("business management");
-	option[9] = $("<option>").val("sociology").text("sociology");
-	option[10] = $("<option>").val("psychology").text("psychology");
-	option[11] = $("<option>").val("anthropology").text("anthropology");
-	option[12] = $("<option>").val("life sciences").text("life sciences");
-	option[13] = $("<option>").val("health sciences").text("health sciences");
-	option[14] = $("<option>").val("earth sciences").text("earth sciences");
+	option[1] = $("<option>").val("Language and Literature").text("Language and Literature");
+	option[2] = $("<option>").val("Individuals and Societies").text("Individuals and Societies");
+	option[3] = $("<option>").val("World, Local or National History").text("World, Local or National History");
+	option[4] = $("<option>").val("Geography").text("geography");
+	option[5] = $("<option>").val("Global Politics or International Relations").text("Global Politics or International Relations");
+	option[6] = $("<option>").val("Civics").text("Civics");
+	option[7] = $("<option>").val("Philosophy").text("Philosophy");
+	option[8] = $("<option>").val("Business management").text("Business Management");
+	option[9] = $("<option>").val("Sociology").text("Sociology");
+	option[10] = $("<option>").val("Psychology").text("Psychology");
+	option[11] = $("<option>").val("Anthropology").text("Anthropology");
+	option[12] = $("<option>").val("Life Sciences").text("Life Sciences");
+	option[13] = $("<option>").val("Health Sciences").text("Health Sciences");
+	option[14] = $("<option>").val("Earth Sciences").text("Earth Sciences");
 	
 	for(i=0;i<option.length;i++)
 	{
@@ -233,17 +234,17 @@ function Option_IB_DP(s,n)
 	$(s+n).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
-	option[1] = $("<option>").val("theory of knowledge").text("Theory of knowledge");
-	option[2] = $("<option>").val("language a: literature").text("Language A: literature (SL/HL)");
-	option[3] = $("<option>").val("language a: language and literature").text("Language A: language and literature (SL/HL)");
-	option[4] = $("<option>").val("business management").text("Business management (SL/HL)");
-	option[5] = $("<option>").val("economics").text("Economics (SL/HL)");
-	option[6] = $("<option>").val("biology").text("Biology (SL/HL)");
-	option[7] = $("<option>").val("chemistry").text("Chemistry (SL/HL)");
-	option[8] = $("<option>").val("physics").text("Physics (SL/HL)");
-	option[9] = $("<option>").val("mathematics").text("Mathematics (SL/HL)");
-	option[10] = $("<option>").val("further mathematics").text("Further mathematics (HL)");
-	option[11] = $("<option>").val("other").text("Other");
+	option[1] = $("<option>").val("Theory of Knowledge").text("Theory of Knowledge");
+	option[2] = $("<option>").val("Language A: Literature (SL/HL)").text("Language A: Literature (SL/HL)");
+	option[3] = $("<option>").val("Language A: Language and Literature (SL/HL)").text("Language A: Language and Literature (SL/HL)");
+	option[4] = $("<option>").val("Business Management (SL/HL)").text("Business Management (SL/HL)");
+	option[5] = $("<option>").val("Economics (SL/HL)").text("Economics (SL/HL)");
+	option[6] = $("<option>").val("Biology (SL/HL").text("Biology (SL/HL)");
+	option[7] = $("<option>").val("Chemistry (SL/HL)").text("Chemistry (SL/HL)");
+	option[8] = $("<option>").val("Physics (SL/HL").text("Physics (SL/HL)");
+	option[9] = $("<option>").val("Mathematics (SL/HL)").text("Mathematics (SL/HL)");
+	option[10] = $("<option>").val("Further Mathematics (HL)").text("Further Mathematics (HL)");
+	option[11] = $("<option>").val("Other").text("Other");
 	for(i=0;i<option.length;i++)
 	{
 		$(s+n).append(option[i]);
@@ -255,16 +256,16 @@ function Option_IB_DP_OTHER(s)
 	$(s).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
-	option[1] = $("<option>").val("the extended essay ").text("The extended essay ");
-	option[2] = $("<option>").val("creativity, activity, service").text("Creativity, activity, service");
-	option[3] = $("<option>").val("literature and performance").text("Literature and performance (SL)");
-	option[4] = $("<option>").val("geography").text("geography (SL/HL)");
-	option[5] = $("<option>").val("global politics").text("global politics (SL/HL)");
-	option[6] = $("<option>").val("history").text("history (SL/HL)");
-	option[7] = $("<option>").val("philosophy").text("philosophy (SL/HL)");
-	option[8] = $("<option>").val("psychology").text("psychology (SL/HL)");
-	option[9] = $("<option>").val("computer science").text("computer science (SL/HL)");
-	option[10] = $("<option>").val("mathematical studies standard level").text("mathematical studies standard level (SL/HL) ");
+	option[1] = $("<option>").val("The Extended Essay ").text("The Extended Essay ");
+	option[2] = $("<option>").val("Creativity, Activity, Service").text("Creativity, Activity, Service");
+	option[3] = $("<option>").val("Literature and Performance (SL)").text("Literature and Performance (SL)");
+	option[4] = $("<option>").val("Geography (SL/HL)").text("Geography (SL/HL)");
+	option[5] = $("<option>").val("Global Politics (SL/HL)").text("Global Politics (SL/HL)");
+	option[6] = $("<option>").val("History (SL/HL)").text("History (SL/HL)");
+	option[7] = $("<option>").val("Philosophy (SL/HL)").text("Philosophy (SL/HL)");
+	option[8] = $("<option>").val("Psychology (SL/HL").text("Psychology (SL/HL)");
+	option[9] = $("<option>").val("Computer Science (SL/HL)").text("Computer Science (SL/HL)");
+	option[10] = $("<option>").val("Mathematical Studies Standard Level (SL/HL)").text("Mathematical Studies Standard Level (SL/HL)");
 	
 	for(i=0;i<option.length;i++)
 	{
@@ -277,15 +278,15 @@ function Option_Zhongkao(s,n)
 	$(s+n).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
-	option[1] = $("<option>").val("chinese").text("Chinese");
-	option[2] = $("<option>").val("mathematics").text("Mathematics");
-	option[3] = $("<option>").val("english").text("English");
-	option[4] = $("<option>").val("physics").text("Physics");
-	option[5] = $("<option>").val("chemistry").text("Chemistry");
-	option[6] = $("<option>").val("biology").text("Biology");
-	option[7] = $("<option>").val("history").text("History");
-	option[8] = $("<option>").val("geography").text("Geography");
-	option[9] = $("<option>").val("politics").text("Politics");
+	option[1] = $("<option>").val("Chinese").text("Chinese");
+	option[2] = $("<option>").val("Mathematics").text("Mathematics");
+	option[3] = $("<option>").val("English").text("English");
+	option[4] = $("<option>").val("Physics").text("Physics");
+	option[5] = $("<option>").val("Chemistry").text("Chemistry");
+	option[6] = $("<option>").val("Biology").text("Biology");
+	option[7] = $("<option>").val("History").text("History");
+	option[8] = $("<option>").val("Geography").text("Geography");
+	option[9] = $("<option>").val("Politics").text("Politics");
 	for(i=0;i<option.length;i++)
 	{
 		$(s+n).append(option[i]);
@@ -297,17 +298,15 @@ function Option_Gaokao(s,n)
 	$(s+n).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
-	option[1] = $("<option>").val("chinese").text("Chinese");
-	option[2] = $("<option>").val("math").text("Math");
-	option[3] = $("<option>").val("english").text("English");
-	option[4] = $("<option>").val("combined science").text("Combined Science");
-	option[5] = $("<option>").val("combined humanity").text("Combined Humanity");
-	option[6] = $("<option>").val("physics").text("Physics");
-	option[7] = $("<option>").val("chemistry").text("Chemistry");
-	option[8] = $("<option>").val("biology").text("Biology");
-	option[9] = $("<option>").val("history").text("History");
-	option[10] = $("<option>").val("geography").text("Geography");
-	option[911] = $("<option>").val("politics").text("Politics");
+	option[1] = $("<option>").val("Chinese").text("Chinese");
+	option[2] = $("<option>").val("Math").text("Math");
+	option[3] = $("<option>").val("English").text("English");
+	option[4] = $("<option>").val("Physics").text("Physics");
+	option[5] = $("<option>").val("Vhemistry").text("Chemistry");
+	option[6] = $("<option>").val("Biology").text("Biology");
+	option[7] = $("<option>").val("History").text("History");
+	option[8] = $("<option>").val("Geography").text("Geography");
+	option[9] = $("<option>").val("Politics").text("Politics");
 	for(i=0;i<option.length;i++)
 	{
 		$(s+n).append(option[i]);
@@ -319,9 +318,9 @@ function Option_SAT(s,n)
 	$(s+n).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
-	option[1] = $("<option>").val("chinese").text("Chinese");
-	option[2] = $("<option>").val("math").text("Math");
-	option[3] = $("<option>").val("english").text("English");
+	option[1] = $("<option>").val("Chinese").text("Chinese");
+	option[2] = $("<option>").val("Math").text("Math");
+	option[3] = $("<option>").val("English").text("English");
 	option[4] = $("<option>").val("???").text("???");
 	for(i=0;i<option.length;i++)
 	{
@@ -329,41 +328,39 @@ function Option_SAT(s,n)
 	}
 }
 
-
-
-function Option_Teaching_Level(n)
+function Option_Teaching_Level(s,n)
 {
-	$("#id_teaching_level"+n).empty();
+	$(s+n).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select teaching level");
-	option[1] = $("<option>").val("psle").text("PSLE");
-	option[2] = $("<option>").val("aeis").text("AEIS");
-	option[3] = $("<option>").val("o-level").text("O-LEVEL");
-	option[4] = $("<option>").val("a-level").text("A-LEVEL");
-	option[5] = $("<option>").val("ib-myp").text("IB(Middle Years Programme)");
-	option[6] = $("<option>").val("ib-DP").text("IB(Diploma Programme)");
-	option[7] = $("<option>").val("zhongkao").text("Zhongkao");
-	option[8] = $("<option>").val("gaokao").text("Gaokao");
-	option[9] = $("<option>").val("sat").text("SAT");
+	option[1] = $("<option>").val("PSLE").text("PSLE");
+	option[2] = $("<option>").val("AEIS").text("AEIS");
+	option[3] = $("<option>").val("O-LEVEL").text("O-LEVEL");
+	option[4] = $("<option>").val("A-LEVEL").text("A-LEVEL");
+	option[5] = $("<option>").val("IB(Middle Years Programme)").text("IB(Middle Years Programme)");
+	option[6] = $("<option>").val("IB(Diploma Programme)").text("IB(Diploma Programme)");
+	option[7] = $("<option>").val("Zhongkao").text("Zhongkao");
+	option[8] = $("<option>").val("Gaokao").text("Gaokao");
+	option[9] = $("<option>").val("SAT").text("SAT");
 	for(i=0;i<option.length;i++)
 	{
 		$("#id_teaching_level"+n).append(option[i]);
 	}
 }
 
-function Option_Teaching_Gaokao(n)
+function Option_Exam_Gaokao(n)
 {
 	$("#id_teaching_sub"+n).empty();
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select teaching subject");
-	option[1] = $("<option>").val("chinese").text("Chinese");
-	option[2] = $("<option>").val("math").text("Math");
-	option[3] = $("<option>").val("english").text("English");
-	option[4] = $("<option>").val("combined_science").text("Combined Science");
-	option[5] = $("<option>").val("combined_art").text("Combined Art");
+	option[1] = $("<option>").val("Chinese").text("Chinese");
+	option[2] = $("<option>").val("Math").text("Math");
+	option[3] = $("<option>").val("English").text("English");
+	option[4] = $("<option>").val("Combined Science").text("Combined Science");
+	option[5] = $("<option>").val("Combined Art").text("Combined Art");
 	for(i=0;i<option.length;i++)
 	{
-		$("#id_teaching_sub"+n).append(option[i]);
+		$(s+n).append(option[i]);
 	}
 }
 
@@ -439,7 +436,7 @@ $(document).ready(function(){
 																								Option_IB_DP("#id_high_sub",num_high_test);
 																								}
 																								if ($("#id_high_test").val()=="gaokao"){
-																								Option_Gaokao("#id_high_sub",num_high_test);
+																								Option_Exam_Gaokao("#id_high_sub",num_high_test);
 																								}
 																								if ($("#id_high_test").val()=="sat"){
 																								Option_SAT("#id_high_sub",num_high_test);
