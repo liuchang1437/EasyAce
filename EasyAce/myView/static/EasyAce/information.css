@@ -34,3 +34,37 @@
     background-color: #9abe5f;
     color: #FFFFFF;
 }
+
+.my-information {
+	margin-top: 20px;
+	text-align: left;
+}
+.my-information > h1 {
+	color: #759049;
+	font-size: 25px;
+	text-align: center;
+}
+.my-information-p {
+	color: #759049;
+	font-size: 15px;
+	margin-top: 10px;
+}
+.my-information-h2 {
+	color: #037041;
+	font-size: 20px;
+}
+
+.btn-modify {
+	background-color: #8dae58;
+	color: #FFFFFF;
+	width: 100%;
+}
+.btn-modify:hover {
+	background-color: #9abe5f;
+	color: #FFFFFF;
+}
+
+
+
+
+
