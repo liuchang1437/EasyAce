@@ -5,9 +5,195 @@
 <title>User Information</title>
 {% endblock %}
 
+{% block user %}
+class="active"
+{% endblock %}
+
 {% block content %}
 <div class="container">
-  <h1>Bootstrap starter template</h1>
-	<p>Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+	<div class="my-information">
+		<h1>User Information</h1>
+		<hr>
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2" style="padding-left: 0px">
+				<div class="my-information-h2">Personal Information</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Name</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.name }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Gender</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.gender }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Email</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.base_info.email }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Phone</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.phone }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">School</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.school }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Wechat</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.wechat }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Whatsapp</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.whatsapp }}</div>
+			</div>
+		</div>
+		<hr>
+		
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2"  style="padding-left: 0px">
+				<div class="my-information-h2">Teaching Information</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Location</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.location }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Location negotiable</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.loc_nego }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Grade</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.grade }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Exam</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.exam_type }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2">
+				<div class="my-information-p">Teaching Subjects</div>
+			</div>
+		</div>
+		{% for sub in subjects %}
+		<div class="row">
+			<div class="col-xs-8 col-xs-offset-4">
+				<div class="my-information-p2">{{ sub }}</div>
+			</div>
+		</div>
+		{% endfor %}
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Duration per Lesson</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.duration_per_lesson }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Lesson per Week</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.lesson_per_week }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Start Time</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.start_time }}</div>
+			</div>
+		</div>
+		<hr>
+		
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2"  style="padding-left: 0px">
+				<div class="my-information-h2">Additional Choice</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Tutor Preference</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.prefer_tutor }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-8 col-xs-offset-2">
+				<div class="my-information-p">Student Remark</div>
+			</div>
+		</div>
+		{% for remark in remarks %}
+		<div class="row">
+			<div class="col-xs-8 col-xs-offset-2">
+				<div class="my-information-p2">{{ student.remark }}</div>
+			</div>
+		</div>
+		{% endfor %}
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Weakness</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.weakness }}</div>
+			</div>
+		</div>
+		
+		<div class="row" style="margin-top: 30px">
+			<div class="col-xs-6 col-xs-offset-3">
+				<a class="btn btn-default btn-modify" href="{% url 'myAuth:signup' %}">Modify Information</a>
+			</div>
+		</div>
+		
+		
+		
+	</div>
 </div><!-- /.container -->
 {% endblock %}
