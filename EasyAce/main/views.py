@@ -57,6 +57,6 @@ def view_tutor(request):
 def edit(request):
     user = request.user
     if user.role=='tutor':
-        return HttpResponseRedirect('myAuth:signup_tutor',kwargs={'id':user.id})
+        return HttpResponseRedirect(reverse('myAuth:signup_tutor',kwargs={'id':user.id}))
     else:
-        return HttpResponseRedirect('myAuth:signup_student',kwargs={'id':user.id})
+        return HttpResponseRedirect(reverse('myAuth:signup_student',kwargs={'id':user.id}))
