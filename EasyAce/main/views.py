@@ -40,8 +40,9 @@ def information(request,id):
             kwargs={'id':user.id}))
         remarks = student.get_single('remarks')
         subjects = student.get_single('subjects')
+        subjects_other = student.get_single('subjects_other')
         return render(request, 'information_student.html', {'student':student,\
-            'remarks':remarks,'subjects':subjects})
+            'remarks':remarks,'subjects':subjects,'subjects_other':subjects_other})
     else:
         return render(request, 'index.html')
 
