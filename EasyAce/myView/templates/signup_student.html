@@ -71,52 +71,52 @@ function validate_form(thisform)
   <form class="form-login" action="{% url 'myAuth:signup_student' id %}" onsubmit="return validate_form(this);" method="post">
     {% csrf_token %}
     <div class="form-group">
-			<input class="form-control" id="id_name" maxlength="50" name="name" type="text" placeholder="Name" {% if user.name %} value="{{ user.name }}" {% endif %}/>
+			<input class="form-control" id="id_name" maxlength="50" name="name" type="text" placeholder="Name" {% if student.name %} value={{ student.name }} {% endif %}/>
     </div>
     <div class="form-group">
       <select class="form-control" id="id_gender" name="gender">
         <option value="">Select your gender</option>
-        <option value="Male" {% if user.gender == "Male" %} selected="selected" {% endif %}>Male</option>
-        <option value="Female" {% if user.gender == "Female" %} selected="selected" {% endif %}>Female</option>
+        <option value="Male" {% if student.gender == "Male" %} selected="selected" {% endif %}>Male</option>
+        <option value="Female" {% if student.gender == "Female" %} selected="selected" {% endif %}>Female</option>
       </select>
     </div>
     <div class="form-group">
       <input class="form-control" id="id_email" maxlength="50" name="email" type="email" placeholder="Email address" {% if user.email %} value="{{ user.email }}"{% endif %}/>
     </div>
     <div class="form-group">
-      <input class="form-control" id="id_phone" maxlength="50" name="phone" type="text" placeholder="Contact Number" {% if user.phone %} value="{{ user.phone }}" {% endif %}/>
+      <input class="form-control" id="id_phone" maxlength="50" name="phone" type="text" placeholder="Contact Number" {% if student.phone %} value="{{ student.phone }}" {% endif %}/>
     </div>
     <div class="form-group">
-      <input class="form-control" id="id_school" maxlength="50" name="school" type="text" placeholder="Current School" {% if user.school %} value="{{ user.school }}" {% endif %}/>
+      <input class="form-control" id="id_school" maxlength="50" name="school" type="text" placeholder="Current School" {% if student.school %} value="{{ student.school }}" {% endif %}/>
     </div>
 		<div class="form-group">
 			<select class="form-control" id="id_grade" name="grade">
 				<option value="">Select your level of study</option>
-				<option value="Primary 1">Primary 1</option>
-				<option value="Primary 2">Primary 2</option>
-				<option value="Primary 3">Primary 3</option>
-				<option value="Primary 4">Primary 4</option>
-				<option value="Primary 5">Primary 5</option>
-				<option value="Primary 6">Primary 6</option>
-				<option value="Secondary 1">Secondary 1</option>
-				<option value="Secondary 2">Secondary 2</option>
-				<option value="Secondary 3">Secondary 3</option>
-				<option value="Secondary 4">Secondary 4</option>
-				<option value="Junior College 1">Junior College 1</option>
-				<option value="Junior College 2">Junior College 2</option>
-				<option value="IB Year 1">IB Year 1</option>
-				<option value="IB Year 2">IB Year 2</option>
-				<option value="IB Year 3">IB Year 3</option>
-				<option value="IB Year 4">IB Year 4</option>
-				<option value="IB Year 5">IB Year 5</option>
-				<option value="IB Year 6">IB Year 6</option>
+				<option value="Primary 1" {% if student.grade == "Primary 1" %} selected="selected" {% endif %}>Primary 1</option>
+				<option value="Primary 2" {% if student.grade == "Primary 2" %} selected="selected" {% endif %}>Primary 2</option>
+				<option value="Primary 3" {% if student.grade == "Primary 3" %} selected="selected" {% endif %}>Primary 3</option>
+				<option value="Primary 4" {% if student.grade == "Primary 4" %} selected="selected" {% endif %}>Primary 4</option>
+				<option value="Primary 5" {% if student.grade == "Primary 5" %} selected="selected" {% endif %}>Primary 5</option>
+				<option value="Primary 6" {% if student.grade == "Primary 6" %} selected="selected" {% endif %}>Primary 6</option>
+				<option value="Secondary 1" {% if student.grade == "Secondary 1" %} selected="selected" {% endif %}>Secondary 1</option>
+				<option value="Secondary 2" {% if student.grade == "Secondary 2" %} selected="selected" {% endif %}>Secondary 2</option>
+				<option value="Secondary 3" {% if student.grade == "Secondary 3" %} selected="selected" {% endif %}>Secondary 3</option>
+				<option value="Secondary 4" {% if student.grade == "Secondary 4" %} selected="selected" {% endif %}>Secondary 4</option>
+				<option value="Junior College 1" {% if student.grade == "Junior College 1" %} selected="selected" {% endif %}>Junior College 1</option>
+				<option value="Junior College 2" {% if student.grade == "Junior College 2" %} selected="selected" {% endif %}>Junior College 2</option>
+				<option value="IB Year 1" {% if student.grade == "IB Year 1" %} selected="selected" {% endif %}>IB Year 1</option>
+				<option value="IB Year 2" {% if student.grade == "IB Year 2" %} selected="selected" {% endif %}>IB Year 2</option>
+				<option value="IB Year 3" {% if student.grade == "IB Year 3" %} selected="selected" {% endif %}>IB Year 3</option>
+				<option value="IB Year 4" {% if student.grade == "IB Year 4" %} selected="selected" {% endif %}>IB Year 4</option>
+				<option value="IB Year 5" {% if student.grade == "IB Year 5" %} selected="selected" {% endif %}>IB Year 5</option>
+				<option value="IB Year 6" {% if student.grade == "IB Year 6" %} selected="selected" {% endif %}>IB Year 6</option>
 			</select>
 		</div>
     <div class="form-group">
-      <input class="form-control" id="id_wechat" maxlength="50" name="wechat" type="text" placeholder="WeChat" {% if user.wechat %} value="{{ user.wechat }}" {% endif %}/>
+      <input class="form-control" id="id_wechat" maxlength="50" name="wechat" type="text" placeholder="WeChat" {% if student.wechat %} value="{{ student.wechat }}" {% endif %}/>
     </div>
     <div class="form-group">
-      <input class="form-control" id="id_whatsapp" maxlength="50" name="whatsapp" type="text" placeholder="WhatsApp" {% if user.whatsapp %} value="{{ user.whatsapp }}" {% endif %}/>
+      <input class="form-control" id="id_whatsapp" maxlength="50" name="whatsapp" type="text" placeholder="WhatsApp" {% if student.whatsapp %} value="{{ student.whatsapp }}" {% endif %}/>
     </div>
     <hr>
     <div class="my-content">
@@ -124,7 +124,7 @@ function validate_form(thisform)
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="form-group">
-						<input class="form-control" id="id_student_location" maxlength="50" name="student_location" type="text" placeholder="eg. home address/nearest MRT station/near your school" {% if user.location %} value="{{ user.location }}" {% endif %}/>
+						<input class="form-control" id="id_student_location" maxlength="50" name="student_location" type="text" placeholder="eg. home address/nearest MRT station/near your school" {% if student.location %} value="{{ student.location }}" {% endif %}/>
 					</div>
 				</div>
 			</div>
@@ -134,11 +134,11 @@ function validate_form(thisform)
 				<div class="col-xs-12">
 					<div class="form-group">
 						<select class="form-control" id="id_student_location_negotiable" name="student_location_negotiable">
-							<option value="" selected="selected">Is tuition location negotiable?</option>
-							<option value="not negotiable">Not negotiable; please come to my preferred location</option>
-							<option value="10-20min">10-20min</option>
-							<option value="20-40min">20-40min</option>
-							<option value="40-60min">40-60min</option>
+							<option value="">Is tuition location negotiable?</option>
+							<option value="not negotiable" {% if student.loc_nego == "not negotiable" %} selected="selected" {% endif %}>Not negotiable; please come to my preferred location</option>
+							<option value="10-20min" {% if student.loc_nego == "10-20min" %} selected="selected" {% endif %}>10-20min</option>
+							<option value="20-40min" {% if student.loc_nego == "20-40min" %} selected="selected" {% endif %}>20-40min</option>
+							<option value="40-60min" {% if student.loc_nego == "40-60min" %} selected="selected" {% endif %}>40-60min</option>
 						</select>
 					</div>
 				</div>
@@ -150,15 +150,15 @@ function validate_form(thisform)
 					<div class="form-group">
 						<select class="form-control" id="id_student_subject" name="student_subject">
 							<option value="" selected="selected">Select graduation exam</option>
-							<option value="psle">PSLE</option>
-							<option value="aeis">AEIS</option>
-							<option value="o-level">O-LEVEL</option>
-							<option value="a-level">A-LEVEL</option>
-							<option value="ib-myp">IB(Middle Years Programme)</option>
-							<option value="ib-dp">IB(Diploma Programme)</option>
-							<option value="zhongkao">Zhongkao</option>
-							<option value="gaokao">Gaokao</option>
-							<option value="sat">SAT</option>
+							<option value="PSLE">PSLE</option>
+							<option value="AEIS">AEIS</option>
+							<option value="O-LEVEL">O-LEVEL</option>
+							<option value="A-LEVEL">A-LEVEL</option>
+							<option value="IB(Middle Years Programme)">IB(Middle Years Programme)</option>
+							<option value="IB(Diploma Programme)">IB(Diploma Programme)</option>
+							<option value="Zhongkao">Zhongkao</option>
+							<option value="Gaokao">Gaokao</option>
+							<option value="SAT">SAT</option>
 						</select>
 					</div>
 				</div>
@@ -181,25 +181,25 @@ function validate_form(thisform)
 				<div class="col-xs-6">
 					<div class="form-group">
 						<select class="form-control" id="id_student_duration_per_lesson" name="student_duration_per_lesson">
-							<option value="" selected="selected">Duration per Lesson</option>
-							<option value="1 hour">1 hour</option>
-							<option value="2 hour">2 hour</option>
-							<option value="3 hour">3 hour</option>
-							<option value="4 hour">4 hour</option>
+							<option value="">Duration per Lesson</option>
+							<option value="1 hour" {% if student.duration_per_lesson == "1 hour" %} selected="selected" {% endif %}>1 hour</option>
+							<option value="2 hour" {% if student.duration_per_lesson  == "2 hour" %} selected="selected" {% endif %}>2 hour</option>
+							<option value="3 hour" {% if student.duration_per_lesson  == "3 hour" %} selected="selected" {% endif %}>3 hour</option>
+							<option value="4 hour" {% if student.duration_per_lesson  == "4 hour" %} selected="selected" {% endif %}>4 hour</option>
 						</select>
 					</div>
 				</div>
 				<div class="col-xs-6">
 					<div class="form-group">
 						<select class="form-control" id="id_student_lesson_per_week" name="student_lesson_per_week">
-							<option value="" selected="selected">Lesson per Week</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
+							<option value="">Lesson per Week</option>
+							<option value="1" {% if student.lesson_per_week  == "1" %} selected="selected" {% endif %}>1</option>
+							<option value="2" {% if student.lesson_per_week  == "2" %} selected="selected" {% endif %}>2</option>
+							<option value="3" {% if student.lesson_per_week  == "3" %} selected="selected" {% endif %}>3</option>
+							<option value="4" {% if student.lesson_per_week  == "4" %} selected="selected" {% endif %}>4</option>
+							<option value="5" {% if student.lesson_per_week  == "5" %} selected="selected" {% endif %}>5</option>
+							<option value="6" {% if student.lesson_per_week  == "6" %} selected="selected" {% endif %}>6</option>
+							<option value="7" {% if student.lesson_per_week  == "7" %} selected="selected" {% endif %}>7</option>
 						</select>
 					</div>
 				</div>
@@ -232,9 +232,9 @@ function validate_form(thisform)
 				<div class="col-xs-12">
 					<div class="form-group">
 						<select class="form-control" id="id_student_tutor_preference" name="student_tutor_preference">
-							<option value="Either" selected="selected">I'm satisfied with either a female or a male tutor</option>
-							<option value="Male">I prefer a male tutor</option>
-							<option value="Female">I prefer a female tutor</option>
+							<option value="Either" {% if student.prefer_tutor  == "Either" %} selected="selected" {% endif %}>I'm satisfied with either a female or a male tutor</option>
+							<option value="Male" {% if student.prefer_tutor  == "Male" %} selected="selected" {% endif %}>I prefer a male tutor</option>
+							<option value="Female" {% if student.prefer_tutor  == "Female" %} selected="selected" {% endif %}>I prefer a female tutor</option>
 						</select>
 					</div>
 				</div>
@@ -245,7 +245,7 @@ function validate_form(thisform)
 				<div class="col-xs-12">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" id="id_student_remark1" name="student_remark1" value="I need a slow and patient pace to teach concepts and question solving skills clearly"/>I need a slow and patient pace to teach concepts and question solving skills clearly
+							<input type="checkbox" id="id_student_remark1" name="student_remark1" value="I need a slow and patient pace to teach concepts and question solving skills clearly" {% if student.remark  == "I need a slow and patient pace to teach concepts and question solving skills clearly" %} checked="checked" {% endif %}/>I need a slow and patient pace to teach concepts and question solving skills clearly
 						</label>
 					</div>
 				</div>
@@ -273,7 +273,7 @@ function validate_form(thisform)
 				<div class="col-xs-12">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" id="id_student_remark5" name="student_remark5" value="other"/>Other
+							<input type="checkbox" id="id_student_remark5" name="student_remark5" value="Other"/>Other
 						</label>
 					</div>
 				</div>
@@ -287,15 +287,16 @@ function validate_form(thisform)
 			<h1>Academic weakness</h1>
 			<p>e.g., I am really bad at math calculations. Please be as detailed as possible</p>
 			<div class="form-group">
-				<textarea class="form-control" id="id_student_weakness" name="student_weakness" rows="3" placeholder="Academic weakness"></textarea>
+				<textarea class="form-control" id="id_student_weakness" name="student_weakness" rows="3" placeholder="Academic weakness">{% if student.weakness %} {{ student.weakness }} {% endif %}</textarea>
 			</div>
 			
-			
+			{% if student.name == false %}
       <h1>PERSONAL DATA PROTECTION ACT</h1>
       <p>￼By signing this membership application form, you agree that EasyAce Pte Ltd may collect, use and disclose your personal data, as provided in this application form, or (if applicable) obtained by our organisation as a result of your membership, for the following purposes in accordance with the Personal Data Protection Act 2012 and our data protection policy (available at our website www.easyace.sg): (a) the processing of this membership application; and (b) the administration of the membership with our organisation.</p>
       <div class="form-group">
         <input type="radio" id="id_student_agree" name="student_agree">  I Agree
       </div>
+			{% endif %}
       
     </div><!--my-content-->
     
