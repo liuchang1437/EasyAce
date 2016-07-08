@@ -122,6 +122,15 @@ class="active"
 		{% for sub in subjects %}
 		<div class="row">
 			<div class="col-xs-4 col-xs-offset-4">
+				{% if sub != "Other" %}
+				<div class="my-information-p2">{{ sub }}</div>
+				{% endif %}
+			</div>
+		</div>
+		{% endfor %}
+		{% for sub in subjects_other %}
+		<div class="row">
+			<div class="col-xs-4 col-xs-offset-4">
 				<div class="my-information-p2">{{ sub }}</div>
 			</div>
 		</div>
@@ -149,6 +158,11 @@ class="active"
 			<div class="col-xs-4">
 				<div class="my-information-p2">{{ student.start_time }}</div>
 			</div>
+			{% if student.start_time == "Other" %}
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.start_time_other }}</div>
+			</div>
+			{% endif %}
 		</div>
 		<hr>
 		
@@ -171,11 +185,13 @@ class="active"
 			</div>
 		</div>
 		{% for remark in remarks %}
+		{% if remark != "Other" %}
 		<div class="row">
 			<div class="col-xs-8 col-xs-offset-2">
 				<div class="my-information-p2">{{ remark }}</div>
 			</div>
 		</div>
+		{% endif %}
 		{% endfor %}
 		<div class="row">
 			<div class="col-xs-2 col-xs-offset-2">

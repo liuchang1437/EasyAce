@@ -50,7 +50,7 @@ function validate_form(thisform)
 			school.focus();
 			return false;
 		}
-		if ($("#id_student_agree").checked!="checked")
+		if ($("#id_student_agree").checked==false )
 		{
 			student_agree.focus();
 			return false;
@@ -290,13 +290,11 @@ function validate_form(thisform)
 				<textarea class="form-control" id="id_student_weakness" name="student_weakness" rows="3" placeholder="Academic weakness">{% if student.weakness %} {{ student.weakness }} {% endif %}</textarea>
 			</div>
 			
-			{% if student.name == false %}
       <h1>PERSONAL DATA PROTECTION ACT</h1>
       <p>￼By signing this membership application form, you agree that EasyAce Pte Ltd may collect, use and disclose your personal data, as provided in this application form, or (if applicable) obtained by our organisation as a result of your membership, for the following purposes in accordance with the Personal Data Protection Act 2012 and our data protection policy (available at our website www.easyace.sg): (a) the processing of this membership application; and (b) the administration of the membership with our organisation.</p>
       <div class="form-group">
-        <input type="radio" id="id_student_agree" name="student_agree">  I Agree
+        <input type="radio" id="id_student_agree" name="student_agree" {% if student.name %} checked {% endif %}>  I Agree
       </div>
-			{% endif %}
       
     </div><!--my-content-->
     
