@@ -21,6 +21,10 @@ class Tutor(models.Model):
   # Preference of Teaching Subjects
   prefer_teach = models.TextField() # 格式为：lev1:sub1;level2:sub2...
   regions = models.CharField(max_length=30) # 格式为：Preference1;preference2;preference3
+  middle_sub_other = models.TextField() # other,sub1,score1;other,sub2,score2;...
+  high_sub_other = models.TextField() # other,sub1,score1;other,sub2,score2;...
+  teaching_sub_other = models.TextField() # level1,other,sub1;lev2,other,sub2...
+
   duration = models.CharField(max_length=12)
   num_taught = models.CharField(max_length=10)
   achievement = models.CharField(max_length=300)
@@ -41,6 +45,14 @@ class Tutor(models.Model):
       first = pair[:index]
       second = pair[index+1:]
       result[first] = second
+    return result
+  def get_triple(self,field_name):
+    triples = getattr(self,field_name).split(';')
+    result = []
+    for triple in triples:
+      if triple.strip()=='':
+        continue
+      results.append(triple.split(','))
     return result
   # def return_middle_test(self):
   #   pairs = self.middle_test_score.split(';')
