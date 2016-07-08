@@ -189,6 +189,6 @@ def signup_student(request,id):
     if student:
       remarks = student.get_single('remarks')
       subjects = student.get_single('subjects')
-      return render(request,'signup_tutor.html',{'id':id,'student':student,\
+      return render(request,'signup_student.html',{'id':id,'student':student,\
         'remarks':remarks,'subjects':subjects})
     return render(request, 'signup_student.html',{'id':id})

@@ -417,7 +417,7 @@ $(document).ready(function(){
 									var num_click = 0;
 									$("#id_student_remark5").click(function(){
 																								 if(num_click==0){
-																								 $("#id_remark_other").append('<textarea class="form-control" id="id_student_remark_other" name="student_remark_other" rows="3" placeholder="Other Remarks"></textarea>');
+																								 $("#id_remark_other").append('<textarea class="form-control" id="id_student_remark6" name="student_remark6" rows="3" placeholder="Other Remarks"></textarea>');
 																								 num_click=1;
 																								 }
 																								 else{
