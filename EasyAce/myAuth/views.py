@@ -108,13 +108,50 @@ def signup_tutor(request,id):
     duration = request.POST['teach_duration']
     num_taught = request.POST['num_taught']
     achievement = request.POST['achievement']
+
+    middle_sub_other = ''
+    prefix = 'middle_sub'
+    for i in range(1,10):
+      if prefix+str(i) in request.POST:
+        middle_sub_other+=request.POST[prefix+str(i)]
+        middle_sub_other+=','
+        middle_sub_other+=request.POST[prefix+str(i)+'_other']
+        middle_sub_other+=','
+        middle_sub_other+=request.POST[prefix+str(i)+'_score']
+        middle_sub_other+=';'
+        middle_sub_other = ''
+    high_sub_other = ''
+    prefix = 'high_sub'
+    for i in range(1,10):
+      if prefix+str(i) in request.POST:
+        high_sub_other+=request.POST[prefix+str(i)]
+        high_sub_other+=','
+        high_sub_other+=request.POST[prefix+str(i)+'_other']
+        high_sub_other+=','
+        high_sub_other+=request.POST[prefix+str(i)+'_score']
+        high_sub_other+=';'
+
+    teaching_sub_other = ''
+    prefix = 'teaching_'
+    for i in range(1,10):
+      if prefix+'level'+str(i) in request.POST:
+        teaching_sub_other += request.POST[prefix+'level'+str(i)]
+        teaching_sub_other += ','
+        teaching_sub_other += request.POST[prefix+'sub'+str(i)]
+        teaching_sub_other += ','
+        teaching_sub_other += request.POST[prefix+'sub'+str(i)+'_other']
+        teaching_sub_other += ';'
+
     myuser = MyUser.objects.filter(id=id)[0]
     myuser.email = email
     tutor = Tutor(name=name,gender=gender,phone=phone,birth=birth,\
       school=school,wechat=wechat,whatsapp=whatsapp,middle_test=middle_test,\
       middle_test_score=middle_test_score,high_test=high_test,\
       high_test_score=high_test_score,regions=regions,duration=duration,\
-      num_taught=num_taught,achievement=achievement,prefer_teach=prefer_teach)
+      num_taught=num_taught,achievement=achievement,\
+      middle_sub_other=middle_sub_other,high_sub_other=high_sub_other,\
+      teaching_sub_other=teaching_sub_other,\
+      prefer_teach=prefer_teach)
     tutor.base_info = myuser
     tutor.save()
     myuser.save()
@@ -128,9 +165,14 @@ def signup_tutor(request,id):
       high_test_score = tutor.get_pairs('high_test_score')
       prefer_teach = tutor.get_pairs('prefer_teach')
       regions = tutor.get_single('regions')
+      middle_sub_other = tutor.get_triple('middle_sub_other')
+      high_sub_other = tutor.get_triple('high_sub_other')
+      teaching_sub_other = tutor.get_triple('teaching_sub_other')
       return render(request,'signup_tutor.html',{'id':id,'tutor':tutor,\
             'middle_test_score':middle_test_score,'high_test_score':high_test_score,\
-            'prefer_teach':prefer_teach,'regions':regions})
+            'prefer_teach':prefer_teach,'regions':regions,\
+            'middle_sub_other':middle_sub_other,'high_sub_other':high_sub_other,\
+            'teaching_sub_other':teaching_sub_other})
     return render(request, 'signup_tutor.html',{'id':id})
 
 @login_required
