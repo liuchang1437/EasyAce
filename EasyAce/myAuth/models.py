@@ -27,8 +27,10 @@ class Tutor(models.Model):
   base_info = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   def get_single(self,field_name):
     results = getattr(self,field_name).split(';')
-    results.remove('')
-    return results
+    try:
+      results.remove('')
+    finally:
+      return results
   def get_pairs(self,field_name):
     pairs = getattr(self,field_name).split(';')
     result = {}
@@ -104,8 +106,10 @@ class Student(models.Model):
   base_info = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   def get_single(self,field_name):
     results = getattr(self,field_name).split(';')
-    results.remove('')
-    return results
+    try:
+      results.remove('')
+    finally:
+      return results
 
 
 class MyUser(AbstractUser):
