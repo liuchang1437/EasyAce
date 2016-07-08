@@ -49,7 +49,7 @@ def view_tutor(request):
     regions = request.GET.get('r')
     # = request.GET.get('')
     if regions:
-        tutor = Tutor.objects.filter(regions_contains=regions)
+        tutors = Tutor.objects.filter(regions__contains=regions)
     else:
         tutors = Tutor.objects.all()
     return render(request, 'view_tutor.html', {'tutors':tutors})
