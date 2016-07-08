@@ -356,7 +356,7 @@ $(document).ready(function(){
 																																												if ($("#id_student_subject").val()=="O-LEVEL"){
 																																												Option_OLEVEL_OTHER("#id_student_subject"+num_student_subject+"_other");
 																																												}
-																																												if ($("#id_student_subject").val()=="ALEVEL"){
+																																												if ($("#id_student_subject").val()=="A-LEVEL"){
 																																												Option_ALEVEL_OTHER("#id_student_subject"+num_student_subject+"_other");
 																																												}
 																																												if ($("#id_student_subject").val()=="IB(Middle Years Programme)"){
