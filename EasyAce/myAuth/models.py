@@ -95,8 +95,10 @@ class Student(models.Model):
   start_time = models.CharField(max_length=8)
   lesson_per_week = models.CharField(max_length=12)
   prefer_tutor = models.CharField(max_length=7)
+  start_time_other = models.DateField(null=True)
   #num_taught = models.CharField(max_length=10)
   remarks = models.TextField() # 格式为 1;2;3;...
+  subjects_other = models.TextField() # 格式韦 sub1;sub2;sub3;...
   weakness = models.TextField()
   #achievement = models.CharField(max_length=300)
   base_info = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

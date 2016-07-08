@@ -168,6 +168,13 @@ def signup_student(request,id):
       if prefix+str(i) in request.POST:
         remarks+=request.POST[prefix+str(i)]
         remarks+=';'
+    # subjects other
+    subjects_other=''
+    prefix = 'student_subject'
+    for i in range(1,11):
+      if prefix+str(i)+'_other' in request.POST:
+        subjects_other+=request.POST[prefix+str(i)+'_other']
+        subjects_other+=';'
     weakness = request.POST['student_weakness']
     myuser = MyUser.objects.filter(id=id)[0]
     myuser.email = email
@@ -177,6 +184,9 @@ def signup_student(request,id):
       duration_per_lesson=duration_per_lesson,start_time=start_time,\
       lesson_per_week=lesson_per_week,prefer_tutor=prefer_tutor,\
       weakness=weakness,remarks=remarks)
+    if start_time=='other':
+      start_time_other = request.POST['student_start_time_other']
+      student.start_time_other = start_time_other
     student.base_info = myuser
     student.save()
     myuser.save()
