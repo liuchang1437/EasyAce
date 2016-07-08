@@ -46,10 +46,10 @@ def information(request,id):
         return render(request, 'index.html')
 
 def view_tutor(request):
-    param1 = request.GET.get('p1')
-    param2 = request.GET.get('p2')
-    if param1 or param2:
-        pass
+    regions = request.GET.get('r')
+    # = request.GET.get('')
+    if regions:
+        tutors = Tutor.objects.filter(regions__contains=regions)
     else:
         tutors = Tutor.objects.all()
     return render(request, 'view_tutor.html', {'tutors':tutors})
