@@ -460,7 +460,7 @@ $(document).ready(function(){
 																								Option_IB_DP("#id_high_sub",num_high_test);
 																								}
 																								if ($("#id_high_test").val()=="Gaokao"){
-																								Option_Exam_Gaokao("#id_high_sub",num_high_test);
+																								Option_Gaokao("#id_high_sub",num_high_test);
 																								}
 																								if ($("#id_high_test").val()=="SAT"){
 																								Option_SAT("#id_high_sub",num_high_test);
