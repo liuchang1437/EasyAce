@@ -112,6 +112,7 @@ body {
 }
 
 .footer {
+	position: relative;
   bottom: 0;
   background-color: #759049;
   width: 100%;
@@ -121,5 +122,5 @@ body {
   color: #FFFFFF;
 }
 .copyright {
-    padding-top: 2px;
+	padding-top: 2px;
 }

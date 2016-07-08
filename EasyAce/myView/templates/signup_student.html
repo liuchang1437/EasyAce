@@ -6,6 +6,61 @@
 {% load staticfiles %}
 <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/signup_student.js' %}"></script>
+<script type="text/javascript">
+	function validate_required(field)
+	{
+		with (field)
+		{
+			if (value==null||value=="") return false;
+			else return true;
+		}
+	}
+
+function validate_form(thisform)
+{
+	with (thisform)
+	{
+		if (validate_required(name)==false)
+		{
+			name.focus();
+			return false;
+		}
+		if (validate_required(gender)==false)
+		{
+			gender.focus();
+			return false;
+		}
+		/*if (validate_required(birth)==false)
+		 {
+			birth.focus();
+			return false;
+		 }*/
+		if (validate_required(email)==false)
+		{
+			email.focus();
+			return false;
+		}
+		if (validate_required(phone)==false)
+		{
+			phone.focus();
+			return false;
+		}
+		if (validate_required(school)==false)
+		{
+			school.focus();
+			return false;
+		}
+		if ($("#id_student_agree").checked!="checked")
+		{
+			student_agree.focus();
+			return false;
+		}
+	}
+}
+
+</script>
+
+
 {% endblock %}
 
 
@@ -13,7 +68,7 @@
 {% block content %}
 <div class="container">
   <h1>Complete Your Information</h1>
-  <form class="form-login" action="{% url 'myAuth:signup_student' id %}" method="post">
+  <form class="form-login" action="{% url 'myAuth:signup_student' id %}" onsubmit="return validate_form(this);" method="post">
     {% csrf_token %}
     <div class="form-group">
 			<input class="form-control" id="id_name" maxlength="50" name="name" type="text" placeholder="Name" {% if user.name %} value="{{ user.name }}" {% endif %}/>

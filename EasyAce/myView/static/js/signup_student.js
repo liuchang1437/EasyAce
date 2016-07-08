@@ -350,49 +350,49 @@ $(document).ready(function(){
 																											$("#num_student_subject").append('<div class="row"> <div class="col-xs-6"> <div class="form-group"> <select class="form-control" id="id_student_subject'+num_student_subject+'" name="student_subject'+num_student_subject+'"> <option value="" selected="selected">Select subject</option> </select> </div></div> <div id="num_student_subject_other'+num_student_subject+'"></div> </div>');
 																											$("#id_student_subject"+num_student_subject).change(function(){
 																																												$("#num_student_subject_other"+num_student_subject).empty();
-																																												if ($(this).val()=="other"){
+																																												if ($(this).val()=="Other"){
 																																												$("#num_student_subject_other"+num_student_subject).append('<div class="col-xs-6"> <div class="form-group"> <select class="form-control" id="id_student_subject'+num_student_subject+'_other" name="student_subject'+num_student_subject+'_other"> <option value="" selected="selected">Select subject</option> </div> </div>');
 																																																					
-																																												if ($("#id_student_subject").val()=="o-level"){
+																																												if ($("#id_student_subject").val()=="O-LEVEL"){
 																																												Option_OLEVEL_OTHER("#id_student_subject"+num_student_subject+"_other");
 																																												}
-																																												if ($("#id_student_subject").val()=="a-level"){
+																																												if ($("#id_student_subject").val()=="ALEVEL"){
 																																												Option_ALEVEL_OTHER("#id_student_subject"+num_student_subject+"_other");
 																																												}
-																																												if ($("#id_student_subject").val()=="ib-myp"){
+																																												if ($("#id_student_subject").val()=="IB(Middle Years Programme)"){
 																																												Option_IB_MYP_OTHER("#id_student_subject"+num_student_subject+"_other");
 																																												}
-																																												if ($("#id_student_subject").val()=="ib-dp"){
+																																												if ($("#id_student_subject").val()=="IB(Diploma Programme)"){
 																																												Option_IB_DP_OTHER("#id_student_subject"+num_student_subject+"_other");
 																																												}
 																																												}
 																																											
 																																											});
-																											if ($("#id_student_subject").val()=="psle"){
+																											if ($("#id_student_subject").val()=="PSLE"){
 																											Option_PSLE("#id_student_subject",num_student_subject);
 																											}
-																											if ($("#id_student_subject").val()=="aeis"){
+																											if ($("#id_student_subject").val()=="AEIS"){
 																											Option_AEIS("#id_student_subject",num_student_subject);
 																											}
-																											if ($("#id_student_subject").val()=="o-level"){
+																											if ($("#id_student_subject").val()=="O-LEVEL"){
 																											Option_OLEVEL("#id_student_subject",num_student_subject);
 																											}
-																											if ($("#id_student_subject").val()=="a-level"){
+																											if ($("#id_student_subject").val()=="A-LEVEL"){
 																											Option_ALEVEL("#id_student_subject",num_student_subject);
 																											}
-																											if ($("#id_student_subject").val()=="ib-myp"){
+																											if ($("#id_student_subject").val()=="IB(Middle Years Programme)"){
 																											Option_IB_MYP("#id_student_subject",num_student_subject);
 																											}
-																											if ($("#id_student_subject").val()=="ib-dp"){
+																											if ($("#id_student_subject").val()=="IB(Diploma Programme)"){
 																											Option_IB_DP("#id_student_subject",num_student_subject);
 																											}
-																											if ($("#id_student_subject").val()=="zhongkao"){
+																											if ($("#id_student_subject").val()=="Zhongkao"){
 																											Option_Zhongkao("#id_student_subject",num_student_subject);
 																											}
-																											if ($("#id_student_subject").val()=="gaokao"){
+																											if ($("#id_student_subject").val()=="Gaokao"){
 																											Option_Gaokao("#id_student_subject",num_student_subject);
 																											}
-																											if ($("#id_student_subject").val()=="sat"){
+																											if ($("#id_student_subject").val()=="SAT"){
 																											Option_SAT("#id_student_subject",num_student_subject);
 																											}
 																								}
@@ -406,7 +406,7 @@ $(document).ready(function(){
 																									 });
 									
 									$("#id_student_start_time").change(function(){
-																										 if($("#id_student_start_time").val()=="other"){
+																										 if($("#id_student_start_time").val()=="Other"){
 																										 $("#id_student_start_time_other").append('<input class="form-control" id="id_student_start_time_other" type="date" name="student_start_time_other"/>');
 																										 }
 																										 else{
