@@ -183,13 +183,16 @@ def signup_student(request,id):
       loc_nego=loc_nego,exam_type=exam_type,subjects=subjects,\
       duration_per_lesson=duration_per_lesson,start_time=start_time,\
       lesson_per_week=lesson_per_week,prefer_tutor=prefer_tutor,\
-      weakness=weakness,remarks=remarks)
+      weakness=weakness,remarks=remarks,subjects_other=subjects_other)
     if start_time=='Other':
       start_time_other = request.POST['student_start_time_other']
       student.start_time_other = start_time_other
     student.base_info = myuser
     student.save()
     myuser.save()
+    # print(student.subjects_other)
+    # print(student.start_time_other)
+    # print(student.remarks)
     messages.success(request,'Update information successfully!')
     return HttpResponseRedirect('/index')
   else:
