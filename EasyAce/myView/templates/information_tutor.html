@@ -95,15 +95,20 @@ class="active"
 				<div class="my-information-p">Middle Graduation Exam: {{ tutor.middle_test }}</div>
 			</div>
 		</div>
-		{% for sub,score in middle_test_score.items %}
+		{% for triple in middle_sub_other %}
+		(% for first,second,third in triple %})
 		<div class="row">
-			<div class="col-xs-4 col-xs-offset-2">
-				<div class="my-information-p2">{{ sub }}</div>
+			<div class="col-xs-3 col-xs-offset-2">
+				<div class="my-information-p2">{{ first }}</div>
 			</div>
-			<div class="col-xs-4">
-				<div class="my-information-p2">{{ score }}</div>
+			<div class="col-xs-3">
+				<div class="my-information-p2">{{ second }}</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="my-information-p2">{{ third }}</div>
 			</div>
 		</div>
+		{% endfor %}
 		{% endfor %}
 		<div class="row" style="margin-top: 20px">
 			<div class="col-xs-10 col-xs-offset-2">
