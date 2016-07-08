@@ -28,10 +28,18 @@ def information(request,id):
         high_test_score = tutor.get_pairs('high_test_score')
         prefer_teach = tutor.get_pairs('prefer_teach')
         regions = tutor.get_single('regions')
-        print(middle_test_score)
+        middle_sub_other = tutor.get_triple('middle_sub_other')
+        high_sub_other = tutor.get_triple('high_sub_other')
+        teaching_sub_other = tutor.get_triple('teaching_sub_other')
+        print(middle_sub_other)
+        # for triple in middle_sub_other:
+        #     for a,b in triple:
+        #         print(a,b,)
         return render(request, 'information_tutor.html', {'tutor':tutor,\
             'middle_test_score':middle_test_score,'high_test_score':high_test_score,\
-            'prefer_teach':prefer_teach,'regions':regions})
+            'prefer_teach':prefer_teach,'regions':regions,\
+            'middle_sub_other':middle_sub_other,'high_sub_other':high_sub_other,\
+            'teaching_sub_other':teaching_sub_other})
     elif user.role=='student':
         student = user.get_user()
         if not student:
@@ -108,38 +116,44 @@ def edit(request):
                 regions+=request.POST['tutor_location_'+str(i)]
                 regions+=';'
             
-            tutor.middle_sub_other = ''
+            middle_sub_other = ''
             prefix = 'middle_sub'
             for i in range(1,10):
                 if prefix+str(i)+'_other' in request.POST:
-                    tutor.middle_sub_other+=request.POST[prefix+str(i)]
-                    tutor.middle_sub_other+=','
-                    tutor.middle_sub_other+=request.POST[prefix+str(i)+'_other']
-                    tutor.middle_sub_other+=','
-                    tutor.middle_sub_other+=request.POST[prefix+str(i)+'_score']
-                    tutor.middle_sub_other+=';'
-                    tutor.middle_sub_other = ''
-            tutor.high_sub_other = ''
+                    middle_sub_other+=request.POST[prefix+str(i)]
+                    middle_sub_other+=','
+                    middle_sub_other+=request.POST[prefix+str(i)+'_other']
+                    middle_sub_other+=','
+                    middle_sub_other+=request.POST[prefix+str(i)+'_score']
+                    middle_sub_other+=';'
+                    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111')
+                    print(request.POST[prefix+str(i)])
+                    print(request.POST[prefix+str(i)+'_other'])
+                    print(request.POST[prefix+str(i)+'_score'])
+                    print(middle_sub_other)
+            tutor.middle_sub_other = middle_sub_other
+            high_sub_other = ''
             prefix = 'high_sub'
             for i in range(1,10):
                 if prefix+str(i)+'_other' in request.POST:
-                    tutor.high_sub_other+=request.POST[prefix+str(i)]
-                    tutor.high_sub_other+=','
-                    tutor.high_sub_other+=request.POST[prefix+str(i)+'_other']
-                    tutor.high_sub_other+=','
-                    tutor.high_sub_other+=request.POST[prefix+str(i)+'_score']
-                    tutor.high_sub_other+=';'
-
-            tutor.teaching_sub_other = ''
+                    high_sub_other+=request.POST[prefix+str(i)]
+                    high_sub_other+=','
+                    high_sub_other+=request.POST[prefix+str(i)+'_other']
+                    high_sub_other+=','
+                    high_sub_other+=request.POST[prefix+str(i)+'_score']
+                    high_sub_other+=';'
+            tutor.high_sub_other = high_sub_other
+            teaching_sub_other = ''
             prefix = 'teaching_'
             for i in range(1,10):
                 if prefix+'sub'+str(i)+'_other' in request.POST:
-                    tutor.teaching_sub_other += request.POST[prefix+'level'+str(i)]
-                    tutor.teaching_sub_other += ','
-                    tutor.teaching_sub_other += request.POST[prefix+'sub'+str(i)]
-                    tutor.teaching_sub_other += ','
-                    tutor.teaching_sub_other += request.POST[prefix+'sub'+str(i)+'_other']
-                    tutor.teaching_sub_other += ';'
+                    teaching_sub_other += request.POST[prefix+'level'+str(i)]
+                    teaching_sub_other += ','
+                    teaching_sub_other += request.POST[prefix+'sub'+str(i)]
+                    teaching_sub_other += ','
+                    teaching_sub_other += request.POST[prefix+'sub'+str(i)+'_other']
+                    teaching_sub_other += ';'
+            tutor.teaching_sub_other = teaching_sub_other
             tutor.regions = regions
             tutor.duration = request.POST['teach_duration']
             tutor.num_taught = request.POST['num_taught']
