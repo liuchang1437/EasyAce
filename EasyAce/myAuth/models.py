@@ -52,7 +52,7 @@ class Tutor(models.Model):
     for triple in triples:
       if triple.strip()=='':
         continue
-      results.append(triple.split(','))
+      result.append(triple.split(','))
     return result
   # def return_middle_test(self):
   #   pairs = self.middle_test_score.split(';')
