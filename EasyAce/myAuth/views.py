@@ -164,11 +164,10 @@ def signup_student(request,id):
     # remarks
     remarks=''
     prefix = 'student_remark'
-    start = 1
-    while(prefix+str(start) in request.POST):
-      remarks+=request.POST[prefix+str(start)]
-      remarks+=';'
-      start+=1
+    for i in range(1,7):
+      if prefix+str(i) in request.POST:
+        remarks+=request.POST[prefix+str(i)]
+        remarks+=';'
     weakness = request.POST['student_weakness']
     myuser = MyUser.objects.filter(id=id)[0]
     myuser.email = email
@@ -189,6 +188,6 @@ def signup_student(request,id):
     if student:
       remarks = student.get_single('remarks')
       subjects = student.get_single('subjects')
-      return render(request,'signup_tutor.html',{'id':id,'student':student,\
+      return render(request,'signup_student.html',{'id':id,'student':student,\
         'remarks':remarks,'subjects':subjects})
     return render(request, 'signup_student.html',{'id':id})
