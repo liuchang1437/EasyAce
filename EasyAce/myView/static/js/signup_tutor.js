@@ -344,7 +344,7 @@ function Option_Teaching_Level(s,n)
 	option[9] = $("<option>").val("SAT").text("SAT");
 	for(i=0;i<option.length;i++)
 	{
-		$("#id_teaching_level"+n).append(option[i]);
+		$(s+n).append(option[i]);
 	}
 }
 
@@ -370,8 +370,8 @@ $(document).ready(function(){
 									$("#id_middle_test").change(function(){
 																							for(i=0;i<num_middle_test;i++)
 																							{
-																							$("#num_middle_test").find(".col-xs-4").eq(-1).remove();
-																							$("#num_middle_test").find(".col-xs-8").eq(-1).remove();
+																							$("#num_middle_test").find(".row").eq(-1).remove();
+																							$("#num_middle_test").find(".row").eq(-1).remove();
 																							}
 																							num_middle_test=0;
 																							$("#btn_middle_test").hide();
@@ -381,10 +381,10 @@ $(document).ready(function(){
 																							}
 																							});
 									$("#btn_middle_test_add").click(function(){
-																									if ($("#id_middle_test").val()!=""){
+																									if ($("#id_middle_test").val()!="" && num_middle_test<9){
 																									num_middle_test++;
-																									$("#num_middle_test").append('<div class="col-xs-4"> <div class="form-group"> <select class="form-control" id="id_middle_sub'+num_middle_test+'" name="middle_sub'+num_middle_test+'"> <option value="" selected="selected">Select subject</option> </select> </div></div>');
-																									$("#num_middle_test").append('<div class="col-xs-8"> <div class="form-group"> <input class="form-control" id="id_middle_sub'+num_middle_test+'_score" name="middle_sub'+num_middle_test+'_score" maxlength="50" name="one" type="text" placeholder="Score"/> </div> </div>');
+																									$("#num_middle_test").append('<div class="row"> <div class="col-xs-4"> <div class="form-group"> <select class="form-control" id="id_middle_sub'+num_middle_test+'" name="middle_sub'+num_middle_test+'"> <option value="" selected="selected">Select subject</option> </select> </div></div> <div class="col-xs-4"> <div class="form-group"> <div id="num_middle_sub'+num_middle_test+'_other"> </div> </div></div></div>');
+																									$("#num_middle_test").append('<div class="row"> <div class="col-xs-12"> <div class="form-group"> <input class="form-control" id="id_middle_sub'+num_middle_test+'_score" name="middle_sub'+num_middle_test+'_score" maxlength="50" name="one" type="text" placeholder="Score"/> </div> </div> </div>');
 																									if ($("#id_middle_test").val()=="AEIS"){
 																									Option_AEIS("#id_middle_sub",num_middle_test);
 																									}
@@ -397,38 +397,62 @@ $(document).ready(function(){
 																									if ($("#id_middle_test").val()=="Zhongkao"){
 																									Option_Zhongkao("#id_middle_sub",num_middle_test);
 																									}
+																									
+																									$("#id_middle_sub"+num_middle_test)
+																									.change(function(){
+																													s = this.name;
+																													num = s[10];
+																													
+																													if ($(this).val()=="Other"){
+																													$("#num_middle_sub"+num+"_other").empty();
+																													$("#num_middle_sub"+num+"_other").append('<select class="form-control" id="id_middle_sub'+num+'_other" name="middle_sub'+num+'_other"> <option value="" selected="selected">Select subject</option> </select>');
+																													if ($("#id_middle_test").val()=="O-LEVEL"){
+																													Option_OLEVEL_OTHER("#id_middle_sub"+num+"_other");
+																													}
+																													if ($("#id_middle_test").val()=="IB(Middle Years Programme)"){
+																													Option_IB_MYP_OTHER("#id_middle_sub"+num+"_other");
+																													}
+																													}
+																													
+																													
+																													
+																													});
+
+																									
+																									
+																									
+																									
 																									}
 																									});
 									
 									$("#btn_middle_test_remove").click(function(){
 																										 if(num_middle_test>1){
 																										 num_middle_test--;
-																										 $("#num_middle_test").find(".col-xs-4").eq(-1).remove();
-																										 $("#num_middle_test").find(".col-xs-8").eq(-1).remove();
+																										 $("#num_middle_test").find(".row").eq(-1).remove();
+																										 $("#num_middle_test").find(".row").eq(-1).remove();
 																										 }
 																										 });
 									
-									
 									$("#btn_high_test").hide();
-                  var num_high_test = 0;
-                  $("#id_high_test").change(function(){
-																						for(i=0;i<num_high_test;i++)
-																						{
-																							$("#num_high_test").find(".col-xs-4").eq(-1).remove();
-																							$("#num_high_test").find(".col-xs-8").eq(-1).remove();
-																						}
-																						num_high_test=0;
-																						$("#btn_high_test").hide();
-																						if ($("#id_high_test").val()!=""){
-																						$("#btn_high_test_add").click();
-																						$("#btn_high_test").show();
-																						}
-																						});
-                  $("#btn_high_test_add").click(function(){
-																								if ($("#id_high_test").val()!=""){
-																								num_high_test++;
-																								$("#num_high_test").append('<div class="col-xs-4"> <div class="form-group"> <select class="form-control" id="id_high_sub'+num_high_test+'" name="high_sub'+num_high_test+'"> <option value="" selected="selected">Select subject</option> </select> </div></div>');
-																								$("#num_high_test").append('<div class="col-xs-8"> <div class="form-group"> <input class="form-control" id="id_high_sub'+num_high_test+'_score" name="high_sub'+num_high_test+'_score" maxlength="50" name="one" type="text" placeholder="Score"/> </div> </div>');
+									var num_high_test = 0;
+									$("#id_high_test").change(function(){
+																							for(i=0;i<num_high_test;i++)
+																							{
+																							$("#num_high_test").find(".row").eq(-1).remove();
+																							$("#num_high_test").find(".row").eq(-1).remove();
+																							}
+																							num_high_test=0;
+																							$("#btn_high_test").hide();
+																							if ($("#id_high_test").val()!=""){
+																							$("#btn_high_test_add").click();
+																							$("#btn_high_test").show();
+																							}
+																							});
+									$("#btn_high_test_add").click(function(){
+																									if ($("#id_high_test").val()!="" && num_high_test<9){
+																									num_high_test++;
+																									$("#num_high_test").append('<div class="row"> <div class="col-xs-4"> <div class="form-group"> <select class="form-control" id="id_high_sub'+num_high_test+'" name="high_sub'+num_high_test+'"> <option value="" selected="selected">Select subject</option> </select> </div></div> <div class="col-xs-4"> <div class="form-group"> <div id="num_high_sub'+num_high_test+'_other"> </div> </div></div></div>');
+																									$("#num_high_test").append('<div class="row"> <div class="col-xs-12"> <div class="form-group"> <input class="form-control" id="id_high_sub'+num_high_test+'_score" name="high_sub'+num_high_test+'_score" maxlength="50" name="one" type="text" placeholder="Score"/> </div> </div> </div>');
 																								if ($("#id_high_test").val()=="A-LEVEL"){
 																								Option_ALEVEL("#id_high_sub",num_high_test);
 																								}
@@ -441,78 +465,116 @@ $(document).ready(function(){
 																								if ($("#id_high_test").val()=="SAT"){
 																								Option_SAT("#id_high_sub",num_high_test);
 																								}
-																								}
-                                            });
+																									
+																									$("#id_high_sub"+num_high_test)
+																									.change(function(){
+																													s = this.name;
+																													num = s[8];
+																													
+																													if ($(this).val()=="Other"){
+																													$("#num_high_sub"+num+"_other").empty();
+																													$("#num_high_sub"+num+"_other").append('<select class="form-control" id="id_high_sub'+num+'_other" name="high_sub'+num+'_other"> <option value="" selected="selected">Select subject</option> </select>');
+																													if ($("#id_high_test").val()=="A-LEVEL"){
+																													Option_ALEVEL_OTHER("#id_high_sub"+num+"_other");
+																													}
+																													if ($("#id_high_test").val()=="IB(Diploma Programme)"){
+																													Option_IB_DP_OTHER("#id_high_sub"+num+"_other");
+																													}
+																													}
+																													
+																													
+																													
+																													});
+																									
+																									
+																									
+																									
+																									
+																									}
+																									});
 									
 									$("#btn_high_test_remove").click(function(){
-																									 if(num_high_test>1){
-																									 num_high_test--;
-																									 $("#num_high_test").find(".col-xs-4").eq(-1).remove();
-																									 $("#num_high_test").find(".col-xs-8").eq(-1).remove();
-																									 }
-																									 });
+																										 if(num_high_test>1){
+																										 num_high_test--;
+																										 $("#num_high_test").find(".row").eq(-1).remove();
+																										 $("#num_high_test").find(".row").eq(-1).remove();
+																										 }
+																										 });
+									
+									
+									
 									
 									var num_teaching_level = 1;
 									$("#btn_teaching_level_add").click(function(){
-																										 if(num_teaching_level<10){
+																										 if(num_teaching_level<9){
 																										 num_teaching_level++;
 																										 $("#num_teaching_level").append('<div class="row"> <div class="col-xs-4"> <div class="form-group"> <select class="form-control" id="id_teaching_level'+num_teaching_level+'" name="teaching_level'+num_teaching_level+'"> <option value="" selected="selected">Select teaching level</option> </select> </div> </div> <div class="col-xs-4"> <div class="form-group"> <select class="form-control" id="id_teaching_sub'+num_teaching_level+'" name="teaching_sub'+num_teaching_level+'"> <option value="" selected="selected">Select subject</option> </select> </div> </div> <div id="id_teaching_other'+num_teaching_level+'" class="col-xs-4"> </div> </div>');
-																										 Option_Teaching_Level(num_teaching_level);
-																										 $("#id_teaching_level"+num_teaching_level).change(function(){
-																																											$("#id_teaching_other"+num_teaching_level).empty();
-																																											if ($("#id_teaching_level"+num_teaching_level).val()==""){
-																																											$("#id_teaching_sub"+num_teaching_level).empty();
-																																											var option = $("<option>").val("").text("Select subject");
-																																											$("#id_teaching_sub"+num_teaching_level).append(option);
+																										 Option_Teaching_Level( "#id_teaching_level",num_teaching_level);
+																										 $("#id_teaching_level"+num_teaching_level)
+																										 .change(function(){
+																														 s = this.name;
+																														 num = s[14];
+																														 
+																														$("#id_teaching_other"+num).empty();
+																														if ($("#id_teaching_level"+num).val()=="")
+																														 {
+																														$("#id_teaching_sub"+num).empty();
+																														var option = $("<option>").val("").text("Select subject");
+																														$("#id_teaching_sub"+num).append(option);
+																														 }
+																
+																														if ($("#id_teaching_level"+num).val()=="PSLE"){
+																															Option_PSLE("#id_teaching_sub",num);
 																																											}
-																																											if ($("#id_teaching_level"+num_teaching_level).val()=="PSLE"){
-																																											Option_PSLE("#id_teaching_sub",num_teaching_level);
+																														if ($("#id_teaching_level"+num).val()=="AEIS"){
+																																		Option_AEIS("#id_teaching_sub",num);
 																																											}
-																																											if ($("#id_teaching_level"+num_teaching_level).val()=="AEIS"){
-																																											Option_AEIS("#id_teaching_sub",num_teaching_level);
+																														if ($("#id_teaching_level"+num).val()=="O-LEVEL"){
+																															Option_OLEVEL("#id_teaching_sub",num);
 																																											}
-																																											if ($("#id_teaching_level"+num_teaching_level).val()=="O-LEVEL"){
-																																											Option_OLEVEL("#id_teaching_sub",num_teaching_level);
+																														if ($("#id_teaching_level"+num).val()=="A-LEVEL"){
+																															Option_ALEVEL("#id_teaching_sub",num);
 																																											}
-																																											if ($("#id_teaching_level"+num_teaching_level).val()=="A-LEVEL"){
-																																											Option_ALEVEL("#id_teaching_sub",num_teaching_level);
+																														if ($("#id_teaching_level"+num).val()=="IB(Middle Years Programme)"){
+																															Option_IB_MYP("#id_teaching_sub",num);
 																																											}
-																																											if ($("#id_teaching_level"+num_teaching_level).val()=="IB(Middle Years Programme)"){
-																																											Option_IB_MYP("#id_teaching_sub",num_teaching_level);
+																														if ($("#id_teaching_level"+num).val()=="IB(Diploma Programme)"){
+																																Option_IB_DP("#id_teaching_sub",num);
 																																											}
-																																											if ($("#id_teaching_level"+num_teaching_level).val()=="IB(Diploma Programme)"){
-																																											Option_IB_DP("#id_teaching_sub",num_teaching_level);
+																														if ($("#id_teaching_level"+num).val()=="Zhongkao"){
+																																Option_Zhongkao("#id_teaching_sub",num);
 																																											}
-																																											if ($("#id_teaching_level"+num_teaching_level).val()=="Zhongkao"){
-																																											Option_Zhongkao("#id_teaching_sub",num_teaching_level);
+																														if ($("#id_teaching_level"+num).val()=="Gaokao"){
+																																Option_Gaokao("#id_teaching_sub",num);
 																																											}
-																																											if ($("#id_teaching_level"+num_teaching_level).val()=="Gaokao"){
-																																											Option_Gaokao("#id_teaching_sub",num_teaching_level);
-																																											}
-																																											if ($("#id_teaching_level"+num_teaching_level).val()=="SAT"){
-																																											Option_SAT("#id_teaching_sub",num_teaching_level);
+																														if ($("#id_teaching_level"+num).val()=="SAT"){
+																																Option_SAT("#id_teaching_sub",num);
 																																											}
 																																											});
-																										 $("#id_teaching_sub"+num_teaching_level).change(function(){
-																																																		 if ($(this).val()=="Other"){
-																																																		 $("#id_teaching_other"+num_teaching_level).empty();
-																																																		 $("#id_teaching_other"+num_teaching_level).append('<div class="form-group"> <select class="form-control" id="id_teaching_sub'+num_teaching_level+'_other" name="teaching_sub'+num_teaching_level+'_other"> <option value="" selected="selected">Select subject</option> </select> </div>');
-																																																		 
-																																																		 if ($("#id_teaching_level"+num_teaching_level).val()=="O-LEVEL"){
-																																																		 Option_OLEVEL_OTHER("#id_teaching_sub"+num_teaching_level+"_other");
-																																																		 }
-																																																		 if ($("#id_teaching_level"+num_teaching_level).val()=="A-LEVEL"){
-																																																		 Option_ALEVEL_OTHER("#id_teaching_sub"+num_teaching_level+"_other");
-																																																		 }
-																																																		 if ($("#id_teaching_level"+num_teaching_level).val()=="IB(Middle Years Programme)"){
-																																																		 Option_IB_MYP_OTHER("#id_teaching_sub"+num_teaching_level+"_other");
-																																																		 }
-																																																		 if ($("#id_teaching_level"+num_teaching_level).val()=="IB(Diploma Programme)"){
-																																																		 Option_IB_DP_OTHER("#id_teaching_sub"+num_teaching_level+"_other");
-																																																		 }
-																																																		 }
-																																																		 
-																																																		 });
+																										 
+																										 $("#id_teaching_sub"+num_teaching_level)
+																										 .change(function(){
+																														 s = this.name;
+																														 num = s[12];
+																														 
+																														 if ($(this).val()=="Other"){
+																														 $("#id_teaching_other"+num).empty();
+																														 $("#id_teaching_other"+num).append('<div class="form-group"> <select class="form-control" id="id_teaching_sub'+num+'_other" name="teaching_sub'+num+'_other"> <option value="" selected="selected">Select subject</option> </select> </div>');
+																														 if ($("#id_teaching_level"+num).val()=="O-LEVEL"){
+																														 Option_OLEVEL_OTHER("#id_teaching_sub"+num+"_other");
+																														 }
+																														 if ($("#id_teaching_level"+num).val()=="A-LEVEL"){
+																														 Option_ALEVEL_OTHER("#id_teaching_sub"+num+"_other");
+																														 }
+																														 if ($("#id_teaching_level"+num).val()=="IB(Middle Years Programme)"){
+																														 Option_IB_MYP_OTHER("#id_teaching_sub"+num+"_other");
+																														 }
+																														 if ($("#id_teaching_level"+num).val()=="IB(Diploma Programme)"){
+																														 Option_IB_DP_OTHER("#id_teaching_sub"+num+"_other");
+																														 }
+																														 }
+																														 });
+																										 
 																										 }
 																								});
 									
@@ -559,7 +621,7 @@ $(document).ready(function(){
 																									 }
 																									 });
 									$("#id_teaching_sub1").change(function(){
-																								if ($(this).val()=="other"){
+																								if ($(this).val()=="Other"){
 																								$("#id_teaching_other1").empty();
 																								$("#id_teaching_other1").append('<div class="form-group"> <select class="form-control" id="id_teaching_sub1_other" name="teaching_sub1_other"> <option value="" selected="selected">Select subject</option> </select> </div>');
 																								

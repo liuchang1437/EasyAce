@@ -344,30 +344,35 @@ $(document).ready(function(){
 																						}
 																						});
 									
+									var num_subject=new Array();
                   $("#btn_student_subject_add").click(function(){
-																											if ($("#id_student_subject").val()!="" && num_student_subject<10){
+																											if ($("#id_student_subject").val()!="" && num_student_subject<9){
 																											num_student_subject++;
 																											$("#num_student_subject").append('<div class="row"> <div class="col-xs-6"> <div class="form-group"> <select class="form-control" id="id_student_subject'+num_student_subject+'" name="student_subject'+num_student_subject+'"> <option value="" selected="selected">Select subject</option> </select> </div></div> <div id="num_student_subject_other'+num_student_subject+'"></div> </div>');
-																											$("#id_student_subject"+num_student_subject).change(function(){
-																																												$("#num_student_subject_other"+num_student_subject).empty();
-																																												if ($(this).val()=="Other"){
-																																												$("#num_student_subject_other"+num_student_subject).append('<div class="col-xs-6"> <div class="form-group"> <select class="form-control" id="id_student_subject'+num_student_subject+'_other" name="student_subject'+num_student_subject+'_other"> <option value="" selected="selected">Select subject</option> </div> </div>');
+																											$("#id_student_subject"+num_student_subject)
+																											.change(function (){
+																															s = this.name;
+																															num = s[15];
+																															
+																															$("#num_student_subject_other"+num).empty();
+																															if ($(this).val()=="Other"){
+																															$("#num_student_subject_other"+num).append('<div class="col-xs-6"> <div class="form-group"> <select class="form-control" id="id_student_subject'+num+'_other" name="student_subject'+num+'_other"> <option value="" selected="selected">Select subject</option> </div> </div>');
 																																																					
-																																												if ($("#id_student_subject").val()=="O-LEVEL"){
-																																												Option_OLEVEL_OTHER("#id_student_subject"+num_student_subject+"_other");
-																																												}
-																																												if ($("#id_student_subject").val()=="A-LEVEL"){
-																																												Option_ALEVEL_OTHER("#id_student_subject"+num_student_subject+"_other");
-																																												}
-																																												if ($("#id_student_subject").val()=="IB(Middle Years Programme)"){
-																																												Option_IB_MYP_OTHER("#id_student_subject"+num_student_subject+"_other");
-																																												}
-																																												if ($("#id_student_subject").val()=="IB(Diploma Programme)"){
-																																												Option_IB_DP_OTHER("#id_student_subject"+num_student_subject+"_other");
-																																												}
-																																												}
-																																											
-																																											});
+																															if ($("#id_student_subject").val()=="O-LEVEL"){
+																															Option_OLEVEL_OTHER("#id_student_subject"+num+"_other");
+																															}
+																															if ($("#id_student_subject").val()=="A-LEVEL"){
+																															Option_ALEVEL_OTHER("#id_student_subject"+num+"_other");
+																															}
+																															if ($("#id_student_subject").val()=="IB(Middle Years Programme)"){
+																																Option_IB_MYP_OTHER("#id_student_subject"+num+"_other");
+																															}
+																															if ($("#id_student_subject").val()=="IB(Diploma Programme)"){
+																																	Option_IB_DP_OTHER("#id_student_subject"+num+"_other");
+																															}
+																															}
+																															
+																															});
 																											if ($("#id_student_subject").val()=="PSLE"){
 																											Option_PSLE("#id_student_subject",num_student_subject);
 																											}

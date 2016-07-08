@@ -155,9 +155,11 @@ class="active"
 			<div class="col-xs-2 col-xs-offset-2">
 				<div class="my-information-p">Start Time</div>
 			</div>
+			{% if student.start_time != "Other" %}
 			<div class="col-xs-4">
 				<div class="my-information-p2">{{ student.start_time }}</div>
 			</div>
+			{% endif %}
 			{% if student.start_time == "Other" %}
 			<div class="col-xs-4">
 				<div class="my-information-p2">{{ student.start_time_other }}</div>
