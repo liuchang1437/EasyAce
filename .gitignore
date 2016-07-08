@@ -4,3 +4,4 @@ venv/
 **/__pycache__/*
 EasyAce.xcodeproj/
 Website Design/
+EasyAce/myAuth/migrations/
