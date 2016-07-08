@@ -184,7 +184,7 @@ def signup_student(request,id):
       duration_per_lesson=duration_per_lesson,start_time=start_time,\
       lesson_per_week=lesson_per_week,prefer_tutor=prefer_tutor,\
       weakness=weakness,remarks=remarks)
-    if start_time=='other':
+    if start_time=='Other':
       start_time_other = request.POST['student_start_time_other']
       student.start_time_other = start_time_other
     student.base_info = myuser
@@ -198,6 +198,7 @@ def signup_student(request,id):
     if student:
       remarks = student.get_single('remarks')
       subjects = student.get_single('subjects')
+      subjects_other = student.get_single('subjects_other')
       return render(request,'signup_student.html',{'id':id,'student':student,\
-        'remarks':remarks,'subjects':subjects})
+        'remarks':remarks,'subjects':subjects,'subjects_other':subjects_other})
     return render(request, 'signup_student.html',{'id':id})
