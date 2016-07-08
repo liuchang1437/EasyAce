@@ -111,7 +111,7 @@ def edit(request):
             tutor.middle_sub_other = ''
             prefix = 'middle_sub'
             for i in range(1,10):
-                if prefix+str(i) in request.POST:
+                if prefix+str(i)+'_other' in request.POST:
                     tutor.middle_sub_other+=request.POST[prefix+str(i)]
                     tutor.middle_sub_other+=','
                     tutor.middle_sub_other+=request.POST[prefix+str(i)+'_other']
@@ -122,7 +122,7 @@ def edit(request):
             tutor.high_sub_other = ''
             prefix = 'high_sub'
             for i in range(1,10):
-                if prefix+str(i) in request.POST:
+                if prefix+str(i)+'_other' in request.POST:
                     tutor.high_sub_other+=request.POST[prefix+str(i)]
                     tutor.high_sub_other+=','
                     tutor.high_sub_other+=request.POST[prefix+str(i)+'_other']
@@ -133,7 +133,7 @@ def edit(request):
             tutor.teaching_sub_other = ''
             prefix = 'teaching_'
             for i in range(1,10):
-                if prefix+'level'+str(i) in request.POST:
+                if prefix+'sub'+str(i)+'_other' in request.POST:
                     tutor.teaching_sub_other += request.POST[prefix+'level'+str(i)]
                     tutor.teaching_sub_other += ','
                     tutor.teaching_sub_other += request.POST[prefix+'sub'+str(i)]

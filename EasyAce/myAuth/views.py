@@ -112,7 +112,7 @@ def signup_tutor(request,id):
     middle_sub_other = ''
     prefix = 'middle_sub'
     for i in range(1,10):
-      if prefix+str(i) in request.POST:
+      if prefix+str(i)+'_other' in request.POST:
         middle_sub_other+=request.POST[prefix+str(i)]
         middle_sub_other+=','
         middle_sub_other+=request.POST[prefix+str(i)+'_other']
@@ -123,7 +123,7 @@ def signup_tutor(request,id):
     high_sub_other = ''
     prefix = 'high_sub'
     for i in range(1,10):
-      if prefix+str(i) in request.POST:
+      if prefix+str(i)+'_other' in request.POST:
         high_sub_other+=request.POST[prefix+str(i)]
         high_sub_other+=','
         high_sub_other+=request.POST[prefix+str(i)+'_other']
@@ -134,7 +134,7 @@ def signup_tutor(request,id):
     teaching_sub_other = ''
     prefix = 'teaching_'
     for i in range(1,10):
-      if prefix+'level'+str(i) in request.POST:
+      if prefix+'sub'+str(i)+'_other' in request.POST:
         teaching_sub_other += request.POST[prefix+'level'+str(i)]
         teaching_sub_other += ','
         teaching_sub_other += request.POST[prefix+'sub'+str(i)]
