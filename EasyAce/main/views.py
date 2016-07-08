@@ -122,7 +122,7 @@ def edit(request):
                 high_test_score = tutor.get_pairs('high_test_score')
                 prefer_teach = tutor.get_pairs('prefer_teach')
                 regions = tutor.get_single('regions')
-                return render(request,'edit_tutor.html',{'id':user.id,'tutor':tutor,\
+                return render(request,'signup_tutor.html',{'id':user.id,'edit':True,'tutor':tutor,\
                         'middle_test_score':middle_test_score,'high_test_score':high_test_score,\
                         'prefer_teach':prefer_teach,'regions':regions})
             return HttpResponseRedirect(reverse('myAuth:signup_tutor',kwargs={'id':user.id}))
@@ -187,6 +187,6 @@ def edit(request):
                 remarks = student.get_single('remarks')
                 subjects = student.get_single('subjects')
                 subjects_other = student.get_single('subjects_other')
-                return render(request,'edit_student.html',{'id':user.id,'student':student,\
+                return render(request,'signup_student.html',{'edit':True,'id':user.id,'student':student,\
                 'remarks':remarks,'subjects':subjects,'subjects_other':subjects_other})
             return HttpResponseRedirect(reverse('myAuth:signup_student',kwargs={'id':user.id}))
