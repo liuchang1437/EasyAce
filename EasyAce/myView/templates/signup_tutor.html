@@ -57,7 +57,6 @@ function validate_form(thisform)
 		}
 	}
 }
-
 </script>
 {% endblock %}
 
@@ -66,7 +65,7 @@ function validate_form(thisform)
 {% block content %}
 <div class="container">
   <h1>Complete Your Information</h1>
-  <form class="form-login" action="{% if edit %}{% url "main:edit" %}{% else %}{% url "myAuth:signup_tutor" id %}{% endif %}" onsubmit="return validate_form(this);" method="post">
+  <form class="form-login" action="{% if edit %}{% url "main:edit" %}{% else %}{% url "myAuth:signup_tutor" id %}{% endif %}" onsubmit="return validate_form(this);" method="post" style="margin-left: 30px; margin-right: 30px;>
     {% csrf_token %}
     <div class="form-group">
       <input class="form-control" id="id_name" maxlength="50" name="name" type="text" placeholder="Name" {% if tutor.name %} value={{ tutor.name }} {% endif %}/>
@@ -100,17 +99,48 @@ function validate_form(thisform)
       <input class="form-control" id="id_whatsapp" maxlength="50" name="whatsapp" type="text" placeholder="WhatsApp" {% if tutor.whatsapp %} value={{ tutor.whatsapp }} {% endif %}/>
     </div>
     <hr>
+		
     <div class="my-content">
       <h1>Middle School Graduation Exam</h1>
+			{% if tutor.middle_test %}
+			<script language="JavaScript">
+				$(document).ready(function(){
+													$("#btn_middle_test").show();
+													});
+													
+			</script>
+			{% endif %}
+			{% for sub,score in middle_test_score.items %}
+			{% if sub != "Other" %}
+			<div class="row">
+				<div class="col-xs-4 col-xs-offset-2">
+					<div class="my-information-p2">{{ sub }}</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="my-information-p2">{{ score }}</div>
+				</div>
+			</div>
+			{% endif %}
+			{% endfor %}
+			{% for x,sub,score in middle_sub_other %}
+			<div class="row">
+				<div class="col-xs-4 col-xs-offset-2">
+					<div class="my-information-p2">{{ sub }}</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="my-information-p2">{{ score }}</div>
+				</div>
+			</div>
+			{% endfor %}
 			<div class="row">
 				<div class="col-xs-4">
 					<div class="form-group">
 						<select class="form-control" id="id_middle_test" name="middle_test">
-							<option value="" selected="selected">Select graduation exam</option>
-							<option value="AEIS">AEIS</option>
-							<option value="O-LEVEL">O-LEVEL</option>
-							<option value="IB(Middle Years Programme)">IB(Middle Years Programme)</option>
-							<option value="Zhongkao">Zhongkao</option>
+							<option value="">Select graduation exam</option>
+							<option value="AEIS" {% if tutor.middle_test == "AEIS" %} selected="selected" {% endif %}>AEIS</option>
+							<option value="O-LEVEL" {% if tutor.middle_test == "O-LEVEL" %} selected="selected" {% endif %}>O-LEVEL</option>
+							<option value="IB(Middle Years Programme)" {% if tutor.middle_test == "IB(Middle Years Programme)" %} selected="selected" {% endif %}>IB(Middle Years Programme)</option>
+							<option value="Zhongkao" {% if tutor.middle_test == "Zhongkao" %} selected="selected" {% endif %}>Zhongkao</option>
 						</select>
 					</div>
 				</div>
@@ -200,47 +230,42 @@ function validate_form(thisform)
 			<hr>
 			
       <h1>Preference of Tuition Region</h1>
-      <div class="row">
-        <div class="col-xs-4">
-          <div class="form-group">
-            <select class="form-control" id="id_tutor_location_1" name="tutor_location_1">
-              <option value="">Preference 1</option>
-              <option value="West">West</option>
-              <option value="Central">Central</option>
-              <option value="East">East</option>
-              <option value="Northwest">NorthWest</option>
-              <option value="North">North</option>
-              <option value="Northeast">NorthEast</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-xs-4">
-          <div class="form-group">
-            <select class="form-control" id="id_tutor_location_2" name="tutor_location_2">
-              <option value="">Preference 2</option>
-              <option value="West">West</option>
-              <option value="Central">Central</option>
-              <option value="East">East</option>
-              <option value="Northwest">NorthWest</option>
-              <option value="North">North</option>
-              <option value="Northeast">NorthEast</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-xs-4">
-          <div class="form-group">
-            <select class="form-control" id="id_tutor_location_3" name="tutor_location_3">
-              <option value="">Preference 3</option>
-              <option value="West">West</option>
-              <option value="Central">Central</option>
-              <option value="East">East</option>
-              <option value="Northwest">NorthWest</option>
-              <option value="North">North</option>
-              <option value="Northeast">NorthEast</option>
-            </select>
-          </div>
-        </div>
-      </div><!--row-->
+			<div class="row">
+			{% if regions %}
+			{% for region in regions %}
+			<div class="col-xs-4">
+				<div class="form-group">
+					<select class="form-control" id="id_tutor_location_{{ forloop.counter }}" name="tutor_location_{{ forloop.counter }}">
+						<option value="">Preference {{ forloop.counter }}</option>
+						<option value="West" {% if region == "West" %} selected="selected" {% endif %}>West</option>
+						<option value="Central" {% if region == "Central" %} selected="selected" {% endif %}>Central</option>
+						<option value="East" {% if region == "East" %} selected="selected" {% endif %}>East</option>
+						<option value="Northwest" {% if region == "Northwest" %} selected="selected" {% endif %}>NorthWest</option>
+						<option value="North" {% if region == "North" %} selected="selected" {% endif %}>North</option>
+						<option value="Northeast" {% if region == "Northeast" %} selected="selected" {% endif %}>NorthEast</option>
+					</select>
+				</div>
+			</div>
+			{% endfor %}
+			{% endif %}
+			{% if not regions %}
+			{% for i in "123"|make_list %}
+			<div class="col-xs-4">
+				<div class="form-group">
+					<select class="form-control" id="id_tutor_location_{{ i }}" name="tutor_location_{{ i }}">
+						<option value="">Preference {{i}}</option>
+						<option value="West">West</option>
+						<option value="Central">Central</option>
+						<option value="East">East</option>
+						<option value="Northwest">NorthWest</option>
+						<option value="North">North</option>
+						<option value="Northeast">NorthEast</option>
+					</select>
+				</div>
+			</div>
+			{% endfor %}
+			{% endif %}
+			</div>
       <hr>
       
       <p>Please fill in this section very carefully as it is VITAL to your priority in assignment of students and your initial Star Ratings.</p>

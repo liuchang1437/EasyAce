@@ -366,6 +366,7 @@ function Option_Exam_Gaokao(n)
 
 $(document).ready(function(){
 									$("#btn_middle_test").hide();
+									
 									var num_middle_test = 0;
 									$("#id_middle_test").change(function(){
 																							for(i=0;i<num_middle_test;i++)
