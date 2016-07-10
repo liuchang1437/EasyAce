@@ -8,7 +8,7 @@ class Tutor(models.Model):
   # 电话
   phone = models.CharField(max_length=20)
   name = models.CharField(max_length=30)
-  birth = models.DateField()
+  birth = models.CharField(max_length=12)
   school = models.CharField(max_length=50)
   wechat = models.CharField(max_length=30)
   whatsapp = models.CharField(max_length=30)
@@ -109,7 +109,7 @@ class Student(models.Model):
   start_time = models.CharField(max_length=8)
   lesson_per_week = models.CharField(max_length=12)
   prefer_tutor = models.CharField(max_length=7)
-  start_time_other = models.DateField(null=True)
+  start_time_other = models.CharField(null=True,max_length=12)
   #num_taught = models.CharField(max_length=10)
   remarks = models.TextField() # 格式为 1;2;3;...
   subjects_other = models.TextField() # 格式韦 sub1;sub2;sub3;...
