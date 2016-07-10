@@ -15,6 +15,9 @@ class="active"
 		<h1>Help me find the tutor</h1>
 		<h1>View Tutor</h1>
 			<p>Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+			
+			<a href="{% url "main:view_tutor?r=Central"  %}">Search</a>
+			
 			{% for tutor in tutors %}
 			<p>{{ tutor.name }}</p>
 			{% endfor %}
