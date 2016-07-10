@@ -119,7 +119,6 @@ def signup_tutor(request,id):
         middle_sub_other+=','
         middle_sub_other+=request.POST[prefix+str(i)+'_score']
         middle_sub_other+=';'
-        middle_sub_other = ''
     high_sub_other = ''
     prefix = 'high_sub'
     for i in range(1,10):

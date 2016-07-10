@@ -330,6 +330,7 @@ function Option_SAT(s,n)
 
 $(document).ready(function(){
 									$("#btn_student_subject").hide();
+									
                   var num_student_subject = 0;
                   $("#id_student_subject").change(function(){
 																						for(i=0;i<num_student_subject;i++)
@@ -412,10 +413,10 @@ $(document).ready(function(){
 									
 									$("#id_student_start_time").change(function(){
 																										 if($("#id_student_start_time").val()=="Other"){
-																										 $("#id_student_start_time_other").append('<input class="form-control" id="id_student_start_time_other" type="date" name="student_start_time_other"/>');
+																										 $("#num_student_start_time_other").append('<input class="form-control" id="id_student_start_time_other" type="date" name="student_start_time_other"/>');
 																										 }
 																										 else{
-																										 $("#id_student_start_time_other").empty();
+																										 $("#num_student_start_time_other").empty();
 																										 }
 																									});
 									
