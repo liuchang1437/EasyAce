@@ -9,18 +9,204 @@
 class="active"
 {% endblock %}
 
+
 {% block content %}
+<script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/subjects.js' %}"></script>
+<script type="text/javascript">
+	$(function(){
+		var search_word;
+		var $searchBtn = $("#search-btn");
+		var url = $searchBtn.attr("href").split("?");
+		$("#id_tutor_location").on("change", function(e) {
+															 var kw = $(this).val();
+															 search_word += kw;
+															 if (kw) {
+															 url[0] = $.trim(url[0]);
+															 url[1] = "region=" + kw;
+															 $searchBtn.attr("href", url.join("?"));
+															 }
+															 });
+		$("#id_level").change(function(){
+													$("#num_subject_other").empty();
+													if ($("#id_level").val()==""){
+													$("#id_subject").empty();
+													var option = $("<option>").val("").text("Select subject");
+													$("#id_subject").append(option);
+													}
+													if ($("#id_level").val()=="PSLE"){
+													Option_PSLE("#id_subject","");
+													}
+													if ($("#id_level").val()=="AEIS"){
+													Option_AEIS("#id_subject","");
+													}
+													if ($("#id_level").val()=="O-LEVEL"){
+													Option_OLEVEL("#id_subject","");
+													}
+													if ($("#id_level").val()=="A-LEVEL"){
+													Option_ALEVEL("#id_subject","");
+													}
+													if ($("#id_level").val()=="IB(Middle Years Programme)"){
+													Option_IB_MYP("#id_subject","");
+													}
+													if ($("#id_level").val()=="IB(Diploma Programme)"){
+													Option_IB_DP("#id_subject","");
+													}
+													if ($("#id_level").val()=="Zhongkao"){
+													Option_Zhongkao("#id_subject","");
+													}
+													if ($("#id_level").val()=="Gaokao"){
+													Option_Gaokao("#id_subject","");
+													}
+													if ($("#id_level").val()=="SAT"){
+													Option_SAT("#id_subject","");
+													}
+													
+													var kw = $(this).val();
+													if (kw) {
+													url[0] = $.trim(url[0]);
+													if (url[1])
+													{
+														var p = url[1].split('&');
+														p.push("level="+kw);
+														url[1] = p.join("&");
+													}
+													else
+													{
+														url[1] = "level=" + kw;
+													}
+													$searchBtn.attr("href", url.join("?"));
+													}
+
+													
+													});
+		
+		$("#id_subject").change(function(){
+																	if ($(this).val()=="Other"){
+																	$("#num_subject_other").empty();
+																	$("#num_subject_other").append('<div class="form-group"> <select class="form-control" id="id_subject_other" name="subject_other"> <option value="" selected="selected">Select subject</option> </select> </div>');
+																	
+																	if ($("#id_level").val()=="O-LEVEL"){
+																	Option_OLEVEL_OTHER("#id_subject_other");
+																	}
+																	if ($("#id_level").val()=="A-LEVEL"){
+																	Option_ALEVEL_OTHER("#id_subject_other");
+																	}
+																	if ($("#id_level").val()=="IB(Middle Years Programme)"){
+																	Option_IB_MYP_OTHER("#id_subject_other");
+																	}
+																	if ($("#id_level").val()=="IB(Diploma Programme)"){
+																	Option_IB_DP_OTHER("#id_subject_other");
+																	}
+																	}
+														
+														var kw = $(this).val();
+														if (kw) {
+														url[0] = $.trim(url[0]);
+														if (url[1])
+														{
+														var p = url[1].split('&');
+														p.push("subject="+kw);
+														url[1] = p.join("&");
+														}
+														else
+														{
+														url[1] = "subject=" + kw;
+														}
+														$searchBtn.attr("href", url.join("?"));
+														}
+														
+														
+														});
+		
+		$("#search-btn").on("click", function(e) {
+												$("#search-btn").empty();
+												});
+
+		
+		
+		$(document).on("change", "#id_subject_other", function(){
+						if ($(this).val()!=""){
+						var kw = $(this).val();
+						if (kw) {
+						url[0] = $.trim(url[0]);
+						if (url[1])
+						{
+						var p = url[1].split('&');
+						p.push("subject_other="+kw);
+						url[1] = p.join("&");
+						}
+						else
+						{
+						url[1] = "subject_other=" + kw;
+						}
+						$searchBtn.attr("href", url.join("?"));
+						}
+						
+						}
+						});
+
+		});
+</script>
+
 <div class="container">
 	<div class="my-content">
 		<h1>Help me find the tutor</h1>
 		<h1>View Tutor</h1>
-			<p>Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="form-group">
+						<select class="form-control" id="id_tutor_location" name="tutor_location">
+							<option value="">Preference Region</option>
+							<option value="West">West</option>
+							<option value="Central">Central</option>
+							<option value="East">East</option>
+							<option value="Northwest">NorthWest</option>
+							<option value="North">North</option>
+							<option value="Northeast">NorthEast</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="form-group">
+						<select class="form-control" id="id_level" name="level">
+							<option value="" selected="selected">Select teaching level</option>
+							<option value="PSLE">PSLE</option>
+							<option value="AEIS">AEIS</option>
+							<option value="O-LEVEL">O-LEVEL</option>
+							<option value="A-LEVEL">A-LEVEL</option>
+							<option value="IB(Middle Years Programme)">IB(Middle Years Programme)</option>
+							<option value="IB(Diploma Programme)">IB(Diploma Programme)</option>
+							<option value="Zhongkao">Zhongkao</option>
+							<option value="Gaokao">Gaokao</option>
+							<option value="SAT">SAT</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="form-group">
+						<select class="form-control" id="id_subject" name="subject">
+							<option value="" selected="selected">Select subject</option>
+						</select>
+					</div>
+				</div>
+				<div id="num_subject_other" class="col-xs-4"> </div>
+			</div>
+	
+			<a class="btn btn-default" id="search-btn" href="{% url "main:view_tutor"%}">Search</a>
+			<hr style="margin-bottom: 50px;">
 			
-			<a href="{% url "main:view_tutor?r=Central"  %}">Search</a>
-			
-			{% for tutor in tutors %}
-			<p>{{ tutor.name }}</p>
-			{% endfor %}
+			<div id="id_show_tutor">
+				<div class="row">
+					{% for tutor in tutors %}
+					<div class="col-xs-3">
+						<a href="{% url 'main:information' tutor.id %}">{{ tutor.name }}</a>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
 	</div>
 	<div class="row" style="margin-bottom: 300px"></div>
 </div><!-- /.container -->

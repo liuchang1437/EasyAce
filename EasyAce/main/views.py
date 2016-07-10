@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from itertools import chain
 # Create your views here.
 
 def index(request):
@@ -55,13 +56,24 @@ def information(request,id):
         return render(request, 'index.html')
 
 def view_tutor(request):
-    regions = request.GET.get('r')
-    # = request.GET.get('')
-    if regions:
-        tutors = Tutor.objects.filter(regions__contains=regions)
+  region = request.GET.get('region')
+  level = request.GET.get('level')
+  subject = request.GET.get('subject')
+  subject_other = request.GET.get('subject_other')
+  tutors = Tutor.objects.all()
+  if region:
+    region1 = tutors.filter(region1__contains=region)
+    region2 = tutors.filter(region2__contains=region)
+    region3 = tutors.filter(region3__contains=region)
+    tutors = region1 | region2 | region3
+  if level:
+    if subject and not subject=='Other':
+      tutors = tutors.filter(prefer_teach__contains=subject)
+    if subject and subject=='Other':
+      tutors = tutors.filter(teaching_sub_other__contains=subject_other)
     else:
-        tutors = Tutor.objects.all()
-    return render(request, 'view_tutor.html', {'tutors':tutors})
+      tutors = tutors.filter(prefer_teach__contains=level)
+  return render(request, 'view_tutor.html', {'tutors':tutors})
 
 def edit(request):
     user = request.user
@@ -110,12 +122,17 @@ def edit(request):
                 prefer_teach+=request.POST[prefix+'sub'+str(start)]
                 prefer_teach+=';'
                 start+=1
-            tutor.prefer_teach = prefer_teach
+        
             regions = ''
             for i in range(1,4):
                 regions+=request.POST['tutor_location_'+str(i)]
                 regions+=';'
-            
+            region1 = request.POST('tutor_location_1')
+            region2 = request.POST('tutor_location_2')
+            region3 = request.POST('tutor_location_3')
+            tutor.region1 = region1
+            tutor.region2 = region2
+            tutor.region3 = region3
             middle_sub_other = ''
             prefix = 'middle_sub'
             for i in range(1,10):
@@ -153,6 +170,12 @@ def edit(request):
                     teaching_sub_other += ','
                     teaching_sub_other += request.POST[prefix+'sub'+str(i)+'_other']
                     teaching_sub_other += ';'
+                    prefer_teach += request.POST[prefer+'sub'+str(i)]
+                    prefer_teach +=':'
+                    prefer_teach += request.POST[prfer+'sub'+str(i)+'_other']
+                    prefer_teach += ';'
+                    
+            tutor.prefer_teach = prefer_teach
             tutor.teaching_sub_other = teaching_sub_other
             tutor.regions = regions
             tutor.duration = request.POST['teach_duration']

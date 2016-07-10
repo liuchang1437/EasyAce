@@ -105,6 +105,12 @@ def signup_tutor(request,id):
     for i in range(1,4):
       regions+=request.POST['tutor_location_'+str(i)]
       regions+=';'
+    if 'tutor_location_1' in request.POST:
+      region1 = request.POST['tutor_location_1']
+    if 'tutor_location_2' in request.POST:
+      region2 = request.POST['tutor_location_2']
+    if 'tutor_location_3' in request.POST:
+      region3 = request.POST['tutor_location_3']
     duration = request.POST['teach_duration']
     num_taught = request.POST['num_taught']
     achievement = request.POST['achievement']
@@ -129,9 +135,9 @@ def signup_tutor(request,id):
         high_sub_other+=','
         high_sub_other+=request.POST[prefix+str(i)+'_score']
         high_sub_other+=';'
-
-    teaching_sub_other = ''
-    prefix = 'teaching_'
+        teaching_sub_other = ''
+        prefix = 'teaching_'
+    teaching_sub_other=''
     for i in range(1,10):
       if prefix+'sub'+str(i)+'_other' in request.POST:
         teaching_sub_other += request.POST[prefix+'level'+str(i)]
@@ -140,6 +146,11 @@ def signup_tutor(request,id):
         teaching_sub_other += ','
         teaching_sub_other += request.POST[prefix+'sub'+str(i)+'_other']
         teaching_sub_other += ';'
+        
+        prefer_teach += request.POST[prefer+'sub'+str(i)]
+        prefer_teach +=':'
+        prefer_teach += request.POST[prfer+'sub'+str(i)+'_other']
+        prefer_teach += ';'
 
     myuser = MyUser.objects.filter(id=id)[0]
     myuser.email = email
@@ -151,6 +162,12 @@ def signup_tutor(request,id):
       middle_sub_other=middle_sub_other,high_sub_other=high_sub_other,\
       teaching_sub_other=teaching_sub_other,\
       prefer_teach=prefer_teach)
+    if region1:
+      tutor.region1 = region1
+    if region2:
+      tutor.region2 = region2
+    if region3:
+      tutor.region3 = region3
     tutor.base_info = myuser
     tutor.save()
     myuser.save()

@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+<title>User Information</title>
+{% endblock %}
+
+{% block user %}
+class="active"
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+	<div class="my-information">
+		<h1>User Information</h1>
+		<hr>
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2" style="padding-left: 0px">
+				<div class="my-information-h2">Personal Information</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Name</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ tutor.name }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Gender</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ tutor.gender }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Birthday</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ tutor.birth }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Email</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ tutor.base_info.email }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Phone</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ tutor.phone }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">School</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ tutor.school }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Wechat</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ tutor.wechat }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Whatsapp</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ tutor.whatsapp }}</div>
+			</div>
+		</div>
+		<hr>
+		
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2" style="padding-left: 0px">
+				<div class="my-information-h2">Education Information</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2">
+				<div class="my-information-p">Middle Graduation Exam: {{ tutor.middle_test }}</div>
+			</div>
+		</div>
+		{% for sub,score in middle_test_score.items %}
+		{% if sub != "Other" %}
+		<div class="row">
+			<div class="col-xs-4 col-xs-offset-2">
+				<div class="my-information-p2">{{ sub }}</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ score }}</div>
+			</div>
+		</div>
+		{% endif %}
+		{% endfor %}
+		{% for x,sub,score in middle_sub_other %}
+		<div class="row">
+			<div class="col-xs-4 col-xs-offset-2">
+				<div class="my-information-p2">{{ sub }}</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ score }}</div>
+			</div>
+		</div>
+		{% endfor %}
+		<div class="row" style="margin-top: 20px">
+			<div class="col-xs-10 col-xs-offset-2">
+				<div class="my-information-p">High Graduation Exam: {{ tutor.high_test }}</div>
+			</div>
+		</div>
+		{% for sub,score in high_test_score.items %}
+		{% if sub != "Other" %}
+		<div class="row">
+			<div class="col-xs-4 col-xs-offset-2">
+				<div class="my-information-p2">{{ sub }}</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ score }}</div>
+			</div>
+		</div>
+		{% endif %}
+		{% endfor %}
+		{% for x,sub,score in high_sub_other %}
+		<div class="row">
+			<div class="col-xs-4 col-xs-offset-2">
+				<div class="my-information-p2">{{ sub }}</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ score }}</div>
+			</div>
+		</div>
+		{% endfor %}
+		<hr>
+		
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2" style="padding-left: 0px">
+				<div class="my-information-h2">Teaching Information</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2">
+				<div class="my-information-p">preferred teaching subjects</div>
+			</div>
+		</div>
+		{% for level,sub in prefer_teach.items %}
+		{% if sub != "Other" %}
+		<div class="row">
+			<div class="col-xs-4 col-xs-offset-2">
+				<div class="my-information-p2">{{ level }}</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ sub }}</div>
+			</div>
+		</div>
+		{% endif %}
+		{% endfor %}
+		{% for level,x,sub in teaching_sub_other %}
+		<div class="row">
+			<div class="col-xs-4 col-xs-offset-2">
+				<div class="my-information-p2">{{ level }}</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ sub }}</div>
+			</div>
+		</div>
+		{% endfor %}
+
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2" style="margin-top: 20px">
+				<div class="my-information-p">preferred teaching regions</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2"></div>
+			{% for region in regions %}
+			<div class="col-xs-3">
+				<div class="my-information-p2">{{ region }}</div>
+			</div>
+			{% endfor %}
+		</div>
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2" style="margin-top: 20px">
+				<div class="my-information-p">Experience</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2">
+				<div class="my-information-p2">Have taught for {{ tutor.duration }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2">
+				<div class="my-information-p2">Have taught {{ tutor.num_taught }} student(s)</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2">
+				<div class="my-information-p2">{{ tutor.achievement }}</div>
+			</div>
+		</div>
+		
+		<div class="row" style="margin-top: 30px">
+			<div class="col-xs-6 col-xs-offset-3">
+				<a class="btn btn-default btn-modify" href="{% url 'main:edit' %}">Modify Information</a>
+			</div>
+		</div>
+
+		
+		
+	</div>
+</div><!-- /.container -->
+{% endblock %}
