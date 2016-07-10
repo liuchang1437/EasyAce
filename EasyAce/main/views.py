@@ -174,7 +174,8 @@ def edit(request):
                     prefer_teach +=':'
                     prefer_teach += request.POST[prfer+'sub'+str(i)+'_other']
                     prefer_teach += ';'
-                    
+            if 'photo' in request.FILES:
+                tutor.photo=request.FILES['photo']
             tutor.prefer_teach = prefer_teach
             tutor.teaching_sub_other = teaching_sub_other
             tutor.regions = regions

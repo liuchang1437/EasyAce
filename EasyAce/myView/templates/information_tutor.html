@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block user %}
+{% if user.id == tutor.base_info.id %}
 class="active"
+{% endif %}
 {% endblock %}
 
 
@@ -15,13 +17,16 @@ class="active"
 	<div class="my-information">
 		<h1>User Information</h1>
 		<hr>
+
 		<div class="row">
 			<div class="col-xs-10 col-xs-offset-2" style="padding-left: 0px">
 				<div class="my-information-h2">Personal Information</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-6">
+		<div class="row">
+			<div class="col-xs-4 col-xs-offset-4">
 				<div class="my-information-p">Name</div>
 			</div>
 			<div class="col-xs-4">
@@ -29,7 +34,7 @@ class="active"
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-4 col-xs-offset-4">
 				<div class="my-information-p">Gender</div>
 			</div>
 			<div class="col-xs-4">
@@ -37,7 +42,7 @@ class="active"
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-4 col-xs-offset-4">
 				<div class="my-information-p">Birthday</div>
 			</div>
 			<div class="col-xs-4">
@@ -45,7 +50,7 @@ class="active"
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-4 col-xs-offset-4">
 				<div class="my-information-p">Email</div>
 			</div>
 			<div class="col-xs-4">
@@ -53,7 +58,7 @@ class="active"
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-4 col-xs-offset-4">
 				<div class="my-information-p">Phone</div>
 			</div>
 			<div class="col-xs-4">
@@ -61,7 +66,7 @@ class="active"
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-4 col-xs-offset-4">
 				<div class="my-information-p">School</div>
 			</div>
 			<div class="col-xs-4">
@@ -69,7 +74,7 @@ class="active"
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-4 col-xs-offset-4">
 				<div class="my-information-p">Wechat</div>
 			</div>
 			<div class="col-xs-4">
@@ -77,11 +82,16 @@ class="active"
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-4 col-xs-offset-4">
 				<div class="my-information-p">Whatsapp</div>
 			</div>
 			<div class="col-xs-4">
 				<div class="my-information-p2">{{ tutor.whatsapp }}</div>
+			</div>
+		</div>
+			</div>
+			<div class="col-xs-3 col-xs-offset-1" style="height: 200px">
+				<img src="/photos/{{tutor.photo}}" class="img-thumbnail" height=100% width=100% style="margin-top: 10px;"/>
 			</div>
 		</div>
 		<hr>

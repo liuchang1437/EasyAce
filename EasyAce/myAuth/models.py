@@ -7,6 +7,8 @@ class Tutor(models.Model):
   gender = models.CharField(max_length=6)
   # 电话
   phone = models.CharField(max_length=20)
+  #photo
+  photo = models.ImageField(upload_to='photos')
   name = models.CharField(max_length=30)
   birth = models.CharField(max_length=12)
   school = models.CharField(max_length=50)

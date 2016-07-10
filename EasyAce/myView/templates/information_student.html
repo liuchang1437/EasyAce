@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block user %}
+{% if user.id == student.base_info.id %}
 class="active"
+{% endif %}
 {% endblock %}
 
 {% block content %}
