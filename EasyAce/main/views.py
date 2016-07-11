@@ -60,7 +60,7 @@ def view_tutor(request):
   level = request.GET.get('level')
   subject = request.GET.get('subject')
   subject_other = request.GET.get('subject_other')
-  tutors = Tutor.objects.all()
+  tutors = Tutor.objects.filter(check=True)
   if region:
     region1 = tutors.filter(region1__contains=region)
     region2 = tutors.filter(region2__contains=region)
