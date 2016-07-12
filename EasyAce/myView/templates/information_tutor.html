@@ -11,6 +11,34 @@ class="active"
 {% endif %}
 {% endblock %}
 
+{% block jscode %}
+{% load staticfiles %}
+<script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<script src="{% static 'js/csrf.js' %}"></script>
+<script type="text/javascript">
+function add_tutor()
+{
+	$.ajax({
+				 type:"POST",
+				 url:{% url "main:choose_tutor" %},
+				 data:{"tutor_id":{{ tutor.base_info.id }} },
+				 dataType:"text",
+				 success: function(data){
+				 
+				 var added = $.parseJSON(data);
+				 if(added) alert("Success!");
+				 return;
+				 },
+				 error: function(data){
+				 alert("Error!");
+				 }
+				 });
+		
+				 
+}
+
+</script>
+{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -231,7 +259,24 @@ class="active"
 			</div>
 		</div>
 		{% endif %}
+		
+		{% if user.role == "student" %}
+		<div class="row" style="margin-top: 30px">
+			<div class="col-xs-6 col-xs-offset-3">
 
+				<a class="btn btn-default btn-modify" onclick="add_tutor()">I want this tutor</a>
+			</div>
+		</div>
+		{% endif %}
+		
+		{% for tutor in student.prefer_tutors.all %}
+		<div class="row" style="margin-top: 30px">
+			<div class="col-xs-6 col-xs-offset-3">
+				1
+				<div class="btn btn-default btn-modify">You have selected this tutor!</div>
+			</div>
+		</div>
+		{% endfor %}
 		
 		
 	</div>
