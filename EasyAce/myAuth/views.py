@@ -65,6 +65,7 @@ def signup_tutor(request,id):
     gender = request.POST['gender']
     birth = request.POST['birthday']
     email = request.POST['email']
+    photo = request.FILES['photo']
     phone = request.POST['phone']
     school = request.POST['school']
     wechat = request.POST['wechat']
@@ -160,7 +161,7 @@ def signup_tutor(request,id):
       high_test_score=high_test_score,regions=regions,duration=duration,\
       num_taught=num_taught,achievement=achievement,\
       middle_sub_other=middle_sub_other,high_sub_other=high_sub_other,\
-      teaching_sub_other=teaching_sub_other,\
+      teaching_sub_other=teaching_sub_other,photo=photo,\
       prefer_teach=prefer_teach)
     if region1:
       tutor.region1 = region1

@@ -201,8 +201,11 @@ class="active"
 			<div id="id_show_tutor">
 				<div class="row">
 					{% for tutor in tutors %}
-					<div class="col-xs-3">
-						<a href="{% url 'main:information' tutor.id %}">{{ tutor.name }}</a>
+					<div class="col-xs-3" style="height: 200px; font-size: 20px; text-align:center; margin-top: 10px;">
+						<a href="{% url 'main:information' tutor.base_info.id %}">
+							<img src="/photos/{{tutor.photo}}" class="img-rounded" width=100%; height=80% style=""/>
+						</a>
+						<a class="btn" href="{% url 'main:information' tutor.base_info.id %}" style="color: #000000;">{{ tutor.name }}</a>
 					</div>
 					{% endfor %}
 				</div>

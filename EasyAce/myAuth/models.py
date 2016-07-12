@@ -10,6 +10,8 @@ class Tutor(models.Model):
   # state
   check = models.BooleanField(default=False)
   top_teacher = models.BooleanField(default=False)
+  #photo
+  photo = models.ImageField(upload_to='photos')
   name = models.CharField(max_length=30)
   birth = models.CharField(max_length=12)
   school = models.CharField(max_length=50)
