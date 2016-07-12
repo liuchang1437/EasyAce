@@ -206,11 +206,13 @@ class="active"
 			</div>
 		</div>
 		
+		{% if user.id == tutor.base_info.id %}
 		<div class="row" style="margin-top: 30px">
 			<div class="col-xs-6 col-xs-offset-3">
 				<a class="btn btn-default btn-modify" href="{% url 'main:edit' %}">Modify Information</a>
 			</div>
 		</div>
+		{% endif %}
 		
 		
 		
