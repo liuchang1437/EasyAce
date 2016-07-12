@@ -75,6 +75,7 @@ def view_tutor(request):
       tutors = tutors.filter(prefer_teach__contains=level)
   return render(request, 'view_tutor.html', {'tutors':tutors})
 
+
 def edit(request):
     user = request.user
     if user.role=='tutor':
