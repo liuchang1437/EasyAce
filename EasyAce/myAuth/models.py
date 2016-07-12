@@ -7,6 +7,9 @@ class Tutor(models.Model):
   gender = models.CharField(max_length=6)
   # 电话
   phone = models.CharField(max_length=20)
+  # state
+  check = models.BooleanField(default=False)
+  top_teacher = models.BooleanField(default=False)
   #photo
   photo = models.ImageField(upload_to='photos')
   name = models.CharField(max_length=30)
@@ -92,6 +95,8 @@ class Tutor(models.Model):
   #     score = pair[index+1:]
   #     result[sub] = score
   #   return result
+  def __str__(self):
+    return self.name
 class Student(models.Model):
   # 性别，Male和Female
   gender = models.CharField(max_length=6)
@@ -120,6 +125,9 @@ class Student(models.Model):
   subjects_other = models.TextField() # 格式韦 sub1;sub2;sub3;...
   weakness = models.TextField()
   #achievement = models.CharField(max_length=300)
+
+  wait_match = models.BooleanField(u'等待分配教师',default=True)
+  prefer_tutors = models.ManyToManyField(Tutor)
   base_info = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   def get_single(self,field_name):
     results = getattr(self,field_name).split(';')
@@ -127,6 +135,8 @@ class Student(models.Model):
       results.remove('')
     finally:
       return results
+  def __str__(self):
+    return self.name
 
 
 class MyUser(AbstractUser):
@@ -149,3 +159,25 @@ class MyUser(AbstractUser):
         return False
     else:
       return False
+
+class Record(models.Model):
+  if_confirmed = models.BooleanField(default=False,verbose_name=u'双方是否确认')
+  startdate = models.DateField(u'确认日期',blank=True,null=True)
+  chargedate = models.DateField(u'收费日期',blank=True,null=True)
+  service_fees = models.CharField(u'中介费用',blank=True,null=True,max_length=20)
+  freq = models.CharField(u'每周课时数',blank=True,null=True,max_length=30)
+  lesson_last = models.CharField(u'每节课时长',blank=True,null=True,max_length=30)
+  lesson_price = models.CharField(u'每节课费用',blank=True,null=True,max_length=30)
+  admin_name = models.CharField(u'管理员姓名',max_length=30)
+  
+  tutor = models.ForeignKey(Tutor,on_delete=models.CASCADE,related_name='records',limit_choices_to={'check':True})
+  student = models.ForeignKey(Student,on_delete=models.CASCADE,related_name='records')
+
+  def __str__(self):
+    return 'student:{},tutor:{},firmed:{}'.format(self.student,self.tutor,self.if_confirmed)
+
+class Feedback(models.Model):
+  tutor = models.ForeignKey(Tutor,on_delete=models.CASCADE,related_name='feedbacks',limit_choices_to={'check':True})
+  student = models.ForeignKey(Student,on_delete=models.CASCADE,related_name='Feedbacks')
+  date = models.DateField()
+  remark = models.TextField(u'学生对教师评价',blank=True)
