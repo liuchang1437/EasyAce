@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from itertools import chain
+from django.http import JsonResponse
 # Create your views here.
 
 def index(request):
@@ -75,7 +76,22 @@ def view_tutor(request):
       tutors = tutors.filter(prefer_teach__contains=level)
   return render(request, 'view_tutor.html', {'tutors':tutors})
 
-
+def choose_tutor(request):
+    if request.method == 'POST' and 'tutor_id' in request.POST:
+        tutor_id = request.POST['tutor_id']
+        user = request.user
+        student = user.get_user()
+        tutor = MyUser.objects.get(pk=tutor_id).get_user()
+        if not student:
+            messages.warning(request,'Please complete your info first.')
+            return HttpResponseRedirect(reverse('myAuth:signup_tutor',\
+            kwargs={'id':user.id}))
+        student.prefer_tutors.add(tutor)
+        student.save()
+        data = {'added':True}
+        return JsonResponse(data)
+    else:
+        return HttpResponseRedirect(reverse('main:index'))
 def edit(request):
     user = request.user
     if user.role=='tutor':
