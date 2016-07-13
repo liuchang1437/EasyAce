@@ -33,10 +33,17 @@ def information(request,id):
         middle_sub_other = tutor.get_triple('middle_sub_other')
         high_sub_other = tutor.get_triple('high_sub_other')
         teaching_sub_other = tutor.get_triple('teaching_sub_other')
-        print(middle_sub_other)
+        if request.user.role=='student':
+            student = request.user.get_user()
+            return render(request, 'information_tutor.html', {'tutor':tutor,\
+            'middle_test_score':middle_test_score,'high_test_score':high_test_score,\
+            'prefer_teach':prefer_teach,'regions':regions,\
+            'middle_sub_other':middle_sub_other,'high_sub_other':high_sub_other,\
+            'teaching_sub_other':teaching_sub_other,'student':student})
+        #print(middle_sub_other)
         # for triple in middle_sub_other:
         #     for a,b in triple:
-        #         print(a,b,)
+        #         print(a,b,
         return render(request, 'information_tutor.html', {'tutor':tutor,\
             'middle_test_score':middle_test_score,'high_test_score':high_test_score,\
             'prefer_teach':prefer_teach,'regions':regions,\
