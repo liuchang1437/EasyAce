@@ -7,7 +7,7 @@
 <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/signup_student.js' %}"></script>
 <script type="text/javascript">
-	function validate_required(field)
+function validate_required(field)
 	{
 		with (field)
 		{
@@ -58,6 +58,7 @@ function validate_form(thisform)
 	}
 }
 
+
 </script>
 
 
@@ -68,8 +69,8 @@ function validate_form(thisform)
 {% block content %}
 <div class="container">
   <h1>Complete Your Information</h1>
+  {% csrf_token %}
   <form class="form-login" action="{% if edit %}{% url "main:edit" %}{% else %}{% url "myAuth:signup_student" id %}{% endif %}" onsubmit="return validate_form(this);" method="post" style="margin-left: 30px; margin-right: 30px;">
-    {% csrf_token %}
     <div class="form-group">
 			<input class="form-control" id="id_name" maxlength="50" name="name" type="text" placeholder="Name" {% if student.name %} value={{ student.name }} {% endif %}/>
     </div>

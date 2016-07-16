@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from itertools import chain
 from django.http import JsonResponse
+import json
 # Create your views here.
 
 def index(request):
@@ -290,3 +291,23 @@ def edit(request):
                 return render(request,'signup_student.html',{'edit':True,'id':user.id,'student':student,\
                 'remarks':remarks,'subjects':subjects,'subjects_other':subjects_other})
             return HttpResponseRedirect(reverse('myAuth:signup_student',kwargs={'id':user.id}))
+
+def edit_student(request):
+    user = request.user
+    if request.method == 'POST':
+        student = user.get_user()
+        subjects = student.get_single('subjects')
+        subjects_other = student.get_single('subjects_other')
+        exam_type = student.exam_type
+        data = {}
+        data["exam_type"] = exam_type
+        data['subjects'] = subjects
+        data['subjects_other'] = subjects_other
+        data_json = json.dumps(data)
+        print(data_json)
+        return JsonResponse(data_json, safe=False)
+
+    return 
+
+
+
