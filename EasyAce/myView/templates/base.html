@@ -58,7 +58,7 @@
           <li {% block contact %} {% endblock %} ><a href="/contact">Contact Us</a></li>
           <!--<li class="login"><img src="{% static 'EasyAce/images/login.png' %}"/></li>-->
           {% if user.is_authenticated %}
-					<li {% block user %} {% endblock %}><a href="{% url 'main:information' user.id %}">User</a></li>
+					<li {% block user %} {% endblock %}><a href="{% url 'main:information' user.id %}">{{ user.username }}</a></li>
           <li><a href="{% url 'myAuth:logout' %}">Logout</a></li>
           {% else %}
           <li><a href="{% url 'myAuth:login' %}">Login</a></li>
