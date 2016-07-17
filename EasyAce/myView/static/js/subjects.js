@@ -211,7 +211,7 @@ function Option_IB_MYP_OTHER(s)
 	option[1] = $("<option>").val("Language and Literature").text("Language and Literature");
 	option[2] = $("<option>").val("Individuals and Societies").text("Individuals and Societies");
 	option[3] = $("<option>").val("World, Local or National History").text("World, Local or National History");
-	option[4] = $("<option>").val("Geography").text("geography");
+	option[4] = $("<option>").val("Geography").text("Geography");
 	option[5] = $("<option>").val("Global Politics or International Relations").text("Global Politics or International Relations");
 	option[6] = $("<option>").val("Civics").text("Civics");
 	option[7] = $("<option>").val("Philosophy").text("Philosophy");
@@ -257,7 +257,7 @@ function Option_IB_DP_OTHER(s)
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
 	option[1] = $("<option>").val("The Extended Essay ").text("The Extended Essay ");
-	option[2] = $("<option>").val("Creativity, Activity, Service").text("Creativity, Activity, Service");
+	option[2] = $("<option>").val("Creativity, Activity, Service").text("Creativity Activity Service");
 	option[3] = $("<option>").val("Literature and Performance (SL)").text("Literature and Performance (SL)");
 	option[4] = $("<option>").val("Geography (SL/HL)").text("Geography (SL/HL)");
 	option[5] = $("<option>").val("Global Politics (SL/HL)").text("Global Politics (SL/HL)");
@@ -337,8 +337,8 @@ function Option_Teaching_Level(s,n)
 	option[2] = $("<option>").val("AEIS").text("AEIS");
 	option[3] = $("<option>").val("O-LEVEL").text("O-LEVEL");
 	option[4] = $("<option>").val("A-LEVEL").text("A-LEVEL");
-	option[5] = $("<option>").val("IB(Middle Years Programme)").text("IB(Middle Years Programme)");
-	option[6] = $("<option>").val("IB(Diploma Programme)").text("IB(Diploma Programme)");
+	option[5] = $("<option>").val("IB (Middle Years Programme)").text("IB (Middle Years Programme)");
+	option[6] = $("<option>").val("IB (Diploma Programme)").text("IB (Diploma Programme)");
 	option[7] = $("<option>").val("Zhongkao").text("Zhongkao");
 	option[8] = $("<option>").val("Gaokao").text("Gaokao");
 	option[9] = $("<option>").val("SAT").text("SAT");

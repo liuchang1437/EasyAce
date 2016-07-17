@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'edit/$',views.edit,name='edit'),
 	url(r'choose_tutor/$',views.choose_tutor,name='choose_tutor'),
 	url(r'edit_student/',views.edit_student,name='edit_student'),
+	url(r'edit_tutor/',views.edit_tutor,name='edit_tutor'),
 ]

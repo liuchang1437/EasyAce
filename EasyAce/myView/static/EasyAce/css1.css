@@ -39,18 +39,17 @@ body {
 
 .nav-self > li > a {
   text-align: center;
-  border-top: 5px solid transparent;
+  border: 3px solid transparent;
   color: #FFFFFF;
 }
 .nav-self > li > a:hover {
   background-color: transparent;
-  border-top-color: #037041;
+  border-color: #037041;
 }
 .nav-self .active > a {
   text-align: center;
   background-color: #FFFFFF;
   color: #037041;
-  border-top-color: #037041;
 }
 .nav-self .active > a:hover {
   background-color: #FFFFFF;
@@ -108,6 +107,11 @@ body {
 .my-content > h2 {
   margin-top: 20px;
   color: #759049;
+  font-size: 20px;
+}
+.my-content > h3 {
+  margin-top: 20px;
+  color: #06af60;
   font-size: 20px;
 }
 .pic-about {

@@ -5,6 +5,7 @@
 {% block jscode %}
 {% load staticfiles %}
 <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/subjects.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/signup_student.js' %}"></script>
 <script type="text/javascript">
 function validate_required(field)
@@ -155,8 +156,8 @@ function validate_form(thisform)
 							<option value="AEIS">AEIS</option>
 							<option value="O-LEVEL">O-LEVEL</option>
 							<option value="A-LEVEL">A-LEVEL</option>
-							<option value="IB(Middle Years Programme)">IB(Middle Years Programme)</option>
-							<option value="IB(Diploma Programme)">IB(Diploma Programme)</option>
+							<option value="IB (Middle Years Programme)">IB (Middle Years Programme)</option>
+							<option value="IB (Diploma Programme)">IB (Diploma Programme)</option>
 							<option value="Zhongkao">Zhongkao</option>
 							<option value="Gaokao">Gaokao</option>
 							<option value="SAT">SAT</option>

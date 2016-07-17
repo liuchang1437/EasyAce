@@ -307,7 +307,33 @@ def edit_student(request):
         print(data_json)
         return JsonResponse(data_json, safe=False)
 
-    return 
+def edit_tutor(request):
+    user = request.user
+    if request.method == 'POST':
+        tutor = user.get_user()
+        middle_test = tutor.middle_test
+        high_test = tutor.high_test
+        middle_test_score = tutor.get_pairs('middle_test_score')
+        high_test_score = tutor.get_pairs('high_test_score')
+        prefer_teach = tutor.get_pairs('prefer_teach')
+        middle_sub_other = tutor.get_triple('middle_sub_other')
+        high_sub_other = tutor.get_triple('high_sub_other')
+        teaching_sub_other = tutor.get_triple('teaching_sub_other')
+
+        data = {}
+        data["middle_test"] = middle_test
+        data["high_test"] = high_test
+        data["middle_test_score"] = middle_test_score
+        data["high_test_score"] = high_test_score
+        data["prefer_teach"] = prefer_teach
+        data["middle_sub_other"] = middle_sub_other
+        data["high_sub_other"] = high_sub_other
+        data["teaching_sub_other"] = teaching_sub_other
+        data_json = json.dumps(data)
+        print(data_json)
+        return JsonResponse(data_json, safe=False)
+
+
 
 
 

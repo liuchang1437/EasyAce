@@ -6,8 +6,9 @@
 {% load staticfiles %}
 <link href="{% static 'EasyAce/fileinput.min.css' %}" media="all" rel="stylesheet" type="text/css" />
 <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
-<script src="{% static 'js/fileinput.min.js' %}"></script>
+<script src="{% static 'js/fileinput.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script type="text/javascript" src="{% static 'js/subjects.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/signup_tutor.js' %}"></script>
 <script type="text/javascript">
 function validate_required(field)
@@ -61,25 +62,7 @@ function validate_form(thisform)
 	}
 }
 
-function initFileInput(ctrlName, uploadUrl) {
-	var control = $('#' + ctrlName);
-	
-	control.fileinput({
-										uploadUrl: uploadUrl, //上传的地址
-										allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
-										showUpload: false, //是否显示上传按钮
-										showCaption: false,//是否显示标题
-										browseClass: "btn btn-primary", //按钮样式
-										previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
-										});
-}
 
-$(function(){
-	//$("#id_photo").fileinput();
-	//$("#id_photo").on("click", function(e) {
-												//$("#id_photo").fileinput({"showUpload":false, "previewFileType":'any', "showCaption":false, "showRemove":false});
-											//});
-	});
 </script>
 {% endblock %}
 
@@ -121,60 +104,72 @@ $(function(){
     <div class="form-group">
       <input class="form-control" id="id_whatsapp" maxlength="50" name="whatsapp" type="text" placeholder="WhatsApp" {% if tutor.whatsapp %} value={{ tutor.whatsapp }} {% endif %}/>
     </div>
-		<div class="row">
-			<div class="col-xs-4" style="margin-bottom: 10px;">
-				Please Upload your photo
+	<div class="row">
+		<div class="col-xs-4" style="margin-bottom: 10px;">
+			Please Upload your photo
+		</div>
+		<div class="col-xs-12">
+			<div class="form-group">
+				<input id="id_photo" name="photo" type="file" class="file"/>
 			</div>
-			<div class="col-xs-12">
+		</div>
+	</div>
+				
+    <hr>
+    <div class="my-content">
+    	<h1>Preference of Teaching Subjects</h1>
+		<div id="num_teaching_level">
+		  <div class="row">
+				<div class="col-xs-4">
+					<div class="form-group">
+						<select class="form-control" id="id_teaching_level1" name="teaching_level1">
+							<option value="" selected="selected">Select teaching level</option>
+							<option value="PSLE">PSLE</option>
+							<option value="AEIS">AEIS</option>
+							<option value="O-LEVEL">O-LEVEL</option>
+							<option value="A-LEVEL">A-LEVEL</option>
+							<option value="IB (Middle Years Programme)">IB (Middle Years Programme)</option>
+							<option value="IB (Diploma Programme)">IB (Diploma Programme)</option>
+							<option value="Zhongkao">Zhongkao</option>
+							<option value="Gaokao">Gaokao</option>
+							<option value="SAT">SAT</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="form-group">
+						<select class="form-control" id="id_teaching_sub1" name="teaching_sub1">
+							<option value="" selected="selected">Select subject</option>
+						</select>
+					</div>
+				</div>
+				<div id="id_teaching_other1" class="col-xs-4"> </div>
+			</div>
+		</div><!--num_teaching_level-->
+		<div class="row">
+			<div class="col-xs-4">
 				<div class="form-group">
-					<input id="id_photo" name="photo" type="file" class="file" />
+					<div class="btn-group">
+						<button type="button" class="btn btn-default" id="btn_teaching_level_add">+</button>
+						<button type="button" class="btn btn-default" id="btn_teaching_level_remove">-</button>
+					</div>
 				</div>
 			</div>
 		</div>
-				
-    <hr>
-		
-    <div class="my-content">
-      <h1>Middle School Graduation Exam</h1>
-			{% if tutor.middle_test %}
-			<script language="JavaScript">
-				$(document).ready(function(){
-													$("#btn_middle_test").show();
-													});
-													
-			</script>
-			{% endif %}
-			{% for sub,score in middle_test_score.items %}
-			{% if sub != "Other" %}
-			<div class="row">
-				<div class="col-xs-4 col-xs-offset-2">
-					<div class="my-information-p2">{{ sub }}</div>
-				</div>
-				<div class="col-xs-4">
-					<div class="my-information-p2">{{ score }}</div>
-				</div>
-			</div>
-			{% endif %}
-			{% endfor %}
-			{% for x,sub,score in middle_sub_other %}
-			<div class="row">
-				<div class="col-xs-4 col-xs-offset-2">
-					<div class="my-information-p2">{{ sub }}</div>
-				</div>
-				<div class="col-xs-4">
-					<div class="my-information-p2">{{ score }}</div>
-				</div>
-			</div>
-			{% endfor %}
+		<hr>
+
+
+
+     	<h1>Middle School Graduation Exam</h1>
 			<div class="row">
 				<div class="col-xs-4">
 					<div class="form-group">
 						<select class="form-control" id="id_middle_test" name="middle_test">
 							<option value="">Select graduation exam</option>
-							<option value="AEIS" {% if tutor.middle_test == "AEIS" %} selected="selected" {% endif %}>AEIS</option>
-							<option value="O-LEVEL" {% if tutor.middle_test == "O-LEVEL" %} selected="selected" {% endif %}>O-LEVEL</option>
-							<option value="IB(Middle Years Programme)" {% if tutor.middle_test == "IB(Middle Years Programme)" %} selected="selected" {% endif %}>IB(Middle Years Programme)</option>
-							<option value="Zhongkao" {% if tutor.middle_test == "Zhongkao" %} selected="selected" {% endif %}>Zhongkao</option>
+							<option value="AEIS">AEIS</option>
+							<option value="O-LEVEL">O-LEVEL</option>
+							<option value="IB (Middle Years Programme)">IB (Middle Years Programme)</option>
+							<option value="Zhongkao">Zhongkao</option>
 						</select>
 					</div>
 				</div>
@@ -201,7 +196,7 @@ $(function(){
             <select class="form-control" id="id_high_test" name="high_test">
               <option value="" selected="selected">Select graduation exam</option>
               <option value="A-LEVEL">A-LEVEL</option>
-							<option value="IB(Diploma Programme)">IB(Diploma Programme)</option>
+							<option value="IB (Diploma Programme)">IB (Diploma Programme)</option>
               <option value="Gaokao">Gaokao</option>
 							<option value="SAT">SAT</option>
             </select>
@@ -222,46 +217,7 @@ $(function(){
       </div><!--row-->
       <hr>
 			
-			<h1>Preference of Teaching Subjects</h1>
-			<div id="num_teaching_level">
-			  <div class="row">
-					<div class="col-xs-4">
-						<div class="form-group">
-							<select class="form-control" id="id_teaching_level1" name="teaching_level1">
-								<option value="" selected="selected">Select teaching level</option>
-								<option value="PSLE">PSLE</option>
-								<option value="AEIS">AEIS</option>
-								<option value="O-LEVEL">O-LEVEL</option>
-								<option value="A-LEVEL">A-LEVEL</option>
-								<option value="IB(Middle Years Programme)">IB(Middle Years Programme)</option>
-								<option value="IB(Diploma Programme)">IB(Diploma Programme)</option>
-								<option value="Zhongkao">Zhongkao</option>
-								<option value="Gaokao">Gaokao</option>
-								<option value="SAT">SAT</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-xs-4">
-						<div class="form-group">
-							<select class="form-control" id="id_teaching_sub1" name="teaching_sub1">
-								<option value="" selected="selected">Select subject</option>
-							</select>
-						</div>
-					</div>
-					<div id="id_teaching_other1" class="col-xs-4"> </div>
-				</div>
-			</div><!--num_teaching_level-->
-			<div class="row">
-				<div class="col-xs-4">
-					<div class="form-group">
-						<div class="btn-group">
-							<button type="button" class="btn btn-default" id="btn_teaching_level_add">+</button>
-							<button type="button" class="btn btn-default" id="btn_teaching_level_remove">-</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<hr>
+		
 			
       <h1>Preference of Tuition Region</h1>
 			<div class="row">
