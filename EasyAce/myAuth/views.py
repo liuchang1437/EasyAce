@@ -42,16 +42,17 @@ def signup(request):
       user.save()
       user = authenticate(username=username,password=password)
       login_user(request,user)
-      messages.success(request,'You have signed up successfully! Please log in and complete some further information.')
+      messages.success(request,'You have signed up successfully! Please complete some further information.')
       if role=='tutor':
         return HttpResponseRedirect(reverse('myAuth:signup_tutor',kwargs={'id':user.id}))
       else:
         return HttpResponseRedirect(reverse('myAuth:signup_student',kwargs={'id':user.id}))
-    messages.error(request,'Please fill in all the fields!')
+    messages.error(request,'The username you used already exists!')
     return HttpResponseRedirect(reverse('myAuth:signup'))
   else:
     form = SignupForm()
     return render(request,'signup.html',{'form':form})
+    
 @login_required
 def logout(request):
   logout_user(request)
@@ -162,7 +163,7 @@ def signup_tutor(request,id):
       num_taught=num_taught,achievement=achievement,\
       middle_sub_other=middle_sub_other,high_sub_other=high_sub_other,\
       teaching_sub_other=teaching_sub_other,photo=photo,\
-      prefer_teach=prefer_teach)
+      prefer_teach=prefer_teach,email=emai,username=user.username)
     if region1:
       tutor.region1 = region1
     if region2:
@@ -242,7 +243,7 @@ def signup_student(request,id):
       loc_nego=loc_nego,exam_type=exam_type,subjects=subjects,\
       duration_per_lesson=duration_per_lesson,start_time=start_time,\
       lesson_per_week=lesson_per_week,prefer_tutor=prefer_tutor,\
-      weakness=weakness,remarks=remarks,subjects_other=subjects_other)
+      weakness=weakness,remarks=remarks,subjects_other=subjects_other,email=email,usernmae=user.username)
     if start_time=='Other':
       start_time_other = request.POST['student_start_time_other']
       student.start_time_other = start_time_other

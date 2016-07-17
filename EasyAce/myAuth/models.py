@@ -4,38 +4,40 @@ from django.conf import settings
 # Create your models here.
 class Tutor(models.Model):
   # 性别，Male和Female
-  gender = models.CharField(max_length=6)
+  gender = models.CharField(u'gender',max_length=6)
+  username = models.CharField(u"username",max_length=30)
+  email = models.CharField(u'email address',max_length=40)
   # 电话
-  phone = models.CharField(max_length=20)
+  phone = models.CharField(u'phone number',max_length=20)
   # state
-  check = models.BooleanField(default=False)
-  top_teacher = models.BooleanField(default=False)
+  check = models.BooleanField(u'if checked?',default=False)
+  top_teacher = models.BooleanField(u'if top tutors?',default=False)
   #photo
-  photo = models.ImageField(upload_to='photos')
-  name = models.CharField(max_length=30)
-  birth = models.CharField(max_length=12)
-  school = models.CharField(max_length=50)
+  photo = models.ImageField(u'photo',upload_to='photos')
+  name = models.CharField(u'name',max_length=30)
+  birth = models.CharField(u'birth day',max_length=12)
+  school = models.CharField(u'school',max_length=50)
   wechat = models.CharField(max_length=30)
   whatsapp = models.CharField(max_length=30)
   # Middle School Graduation Test
-  middle_test = models.CharField(max_length=50)
-  middle_test_score = models.TextField() # 格式为：sub1:score1;sub2:score2...
+  middle_test = models.CharField(u'middle test',max_length=50)
+  middle_test_score = models.TextField(u'subjects and scores of middle test') # 格式为：sub1:score1;sub2:score2...
   # High School Graduation Test
-  high_test = models.CharField(max_length=50)
-  high_test_score = models.TextField() # 格式为：sub1:score1;sub2:score2...
+  high_test = models.CharField(u'high test',max_length=50)
+  high_test_score = models.TextField(u'subjects and scores of high test') # 格式为：sub1:score1;sub2:score2...
   # Preference of Teaching Subjects
-  prefer_teach = models.TextField() # 格式为：lev1:sub1;level2:sub2...
+  prefer_teach = models.TextField(u'subjects prefered to teach',) # 格式为：lev1:sub1;level2:sub2...
   regions = models.CharField(max_length=30) # 格式为：Preference1;preference2;preference3
   region1 = models.CharField(max_length=30,default='none')
   region2 = models.CharField(max_length=30,default='none')
   region3 = models.CharField(max_length=30,default='none')
-  middle_sub_other = models.TextField(null=True,blank=True) # other,sub1,score1;other,sub2,score2;...
-  high_sub_other = models.TextField(null=True,blank=True) # other,sub1,score1;other,sub2,score2;...
-  teaching_sub_other = models.TextField(null=True,blank=True) # level1,other,sub1;lev2,other,sub2...
+  middle_sub_other = models.TextField(u'subjects and scores of middle test(other)',null=True,blank=True) # other,sub1,score1;other,sub2,score2;...
+  high_sub_other = models.TextField(u'subjects and scores of high test(other)',null=True,blank=True) # other,sub1,score1;other,sub2,score2;...
+  teaching_sub_other = models.TextField(u'subjects prefered to teach(other)',null=True,blank=True) # level1,other,sub1;lev2,other,sub2...
 
   duration = models.CharField(max_length=12)
-  num_taught = models.CharField(max_length=10)
-  achievement = models.CharField(max_length=300)
+  num_taught = models.CharField(u'numbers of students taught',max_length=10)
+  achievement = models.TextField()
   base_info = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   def get_single(self,field_name):
     results = getattr(self,field_name).split(';')
@@ -43,6 +45,15 @@ class Tutor(models.Model):
       results.remove('')
     finally:
       return results
+  def get_prefer_teach(self):
+    result = []
+    pairs = self.prefer_teach.split(';')
+    for pair in pairs:
+      if pair.strip()=='':
+        continue
+      result.append(pair.split(':'))
+    return result
+
   def get_pairs(self,field_name):
     pairs = getattr(self,field_name).split(';')
     result = {}
@@ -62,44 +73,13 @@ class Tutor(models.Model):
         continue
       result.append(triple.split(','))
     return result
-  # def return_middle_test(self):
-  #   pairs = self.middle_test_score.split(';')
-  #   result = {}
-  #   for pair in pairs:
-  #     if pair.strip()=='':
-  #       continue
-  #     index = pair.find(':')
-  #     sub = pair[:index]
-  #     score = pair[index+1:]
-  #     result[sub] = score
-  #   return result
-  # def return_prefer_teach(self):
-  #   pairs = self.prefer_teach.split(';')
-  #   result = {}
-  #   for pair in pairs:
-  #     if pair.strip()=='':
-  #       continue
-  #     index = pair.find(':')
-  #     sub = pair[:index]
-  #     score = pair[index+1:]
-  #     result[sub] = score
-  #   return result
-  # def return_high_test(self):
-  #   pairs = self.high_test_score.split(';')
-  #   result = {}
-  #   for pair in pairs:
-  #     if pair.strip()=='':
-  #       continue
-  #     index = pair.find(':')
-  #     sub = pair[:index]
-  #     score = pair[index+1:]
-  #     result[sub] = score
-  #   return result
   def __str__(self):
     return self.name
 class Student(models.Model):
   # 性别，Male和Female
   gender = models.CharField(max_length=6)
+  username = models.CharField(max_length=30)
+  email = models.CharField('email address',max_length=40)
   # 电话
   phone = models.CharField(max_length=20)
   # 姓名
@@ -111,18 +91,18 @@ class Student(models.Model):
   whatsapp = models.CharField(max_length=30)
   grade = models.CharField(max_length=20)
   location = models.CharField(max_length=100)
-  loc_nego = models.CharField(max_length=20)
-  exam_type = models.CharField(max_length=50)
+  loc_nego = models.CharField('If tuition location negotiable',max_length=20)
+  exam_type = models.CharField('exam type',max_length=50)
   # 想要上的课程
   subjects = models.TextField() # 格式为 sub1;sub2;sub3...
-  duration_per_lesson = models.CharField(max_length=12)
-  start_time = models.CharField(max_length=8)
-  lesson_per_week = models.CharField(max_length=12)
-  prefer_tutor = models.CharField(max_length=7)
-  start_time_other = models.CharField(null=True,max_length=12)
+  duration_per_lesson = models.CharField('time per lesson',max_length=12)
+  start_time = models.CharField('start time',max_length=8)
+  lesson_per_week = models.CharField('lesson per week',max_length=12)
+  prefer_tutor = models.CharField('preference about tutor',max_length=7)
+  start_time_other = models.CharField('start time(other)',max_length=12,null=True,blank=True)
   #num_taught = models.CharField(max_length=10)
-  remarks = models.TextField() # 格式为 1;2;3;...
-  subjects_other = models.TextField() # 格式韦 sub1;sub2;sub3;...
+  remarks = models.TextField('remarks') # 格式为 1;2;3;...
+  subjects_other = models.TextField('subjects(other)',null=True,blank=True) # 格式韦 sub1;sub2;sub3;...
   weakness = models.TextField()
   #achievement = models.CharField(max_length=300)
 
