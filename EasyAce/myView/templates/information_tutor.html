@@ -26,8 +26,11 @@ function add_tutor()
 				 success: function(data){
 				 
 				 var added = $.parseJSON(data);
-				 if(added) alert("Success!");
-				 return;
+				 if(added)
+				 {
+				 	alert("Success!");
+				 	window.location.reload();
+				 }
 				 },
 				 error: function(data){
 				 alert("Error!");

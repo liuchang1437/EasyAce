@@ -347,3 +347,19 @@ function Option_Teaching_Level(s,n)
 		$(s+n).append(option[i]);
 	}
 }
+
+function Option_Exam_Gaokao(n)
+{
+	$("#id_teaching_sub"+n).empty();
+	var option = new Array();
+	option[0] = $("<option>").val("").text("Select teaching subject");
+	option[1] = $("<option>").val("Chinese").text("Chinese");
+	option[2] = $("<option>").val("Math").text("Math");
+	option[3] = $("<option>").val("English").text("English");
+	option[4] = $("<option>").val("Combined Science").text("Combined Science");
+	option[5] = $("<option>").val("Combined Art").text("Combined Art");
+	for(i=0;i<option.length;i++)
+	{
+		$(s+n).append(option[i]);
+	}
+}
