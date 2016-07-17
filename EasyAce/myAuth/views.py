@@ -138,7 +138,7 @@ def signup_tutor(request,id):
         high_sub_other+=request.POST[prefix+str(i)+'_score']
         high_sub_other+=';'
         teaching_sub_other = ''
-        prefix = 'teaching_'
+    prefix = 'teaching_'
     teaching_sub_other=''
     for i in range(1,10):
       if prefix+'sub'+str(i)+'_other' in request.POST:
@@ -149,9 +149,9 @@ def signup_tutor(request,id):
         teaching_sub_other += request.POST[prefix+'sub'+str(i)+'_other']
         teaching_sub_other += ';'
         
-        prefer_teach += request.POST[prefer+'sub'+str(i)]
+        prefer_teach += request.POST[prefix+'sub'+str(i)]
         prefer_teach +=':'
-        prefer_teach += request.POST[prfer+'sub'+str(i)+'_other']
+        prefer_teach += request.POST[prefix+'sub'+str(i)+'_other']
         prefer_teach += ';'
 
     myuser = MyUser.objects.filter(id=id)[0]
@@ -163,7 +163,7 @@ def signup_tutor(request,id):
       num_taught=num_taught,achievement=achievement,\
       middle_sub_other=middle_sub_other,high_sub_other=high_sub_other,\
       teaching_sub_other=teaching_sub_other,photo=photo,\
-      prefer_teach=prefer_teach,email=emai,username=user.username)
+      prefer_teach=prefer_teach,email=email,username=myuser.username)
     if region1:
       tutor.region1 = region1
     if region2:
@@ -243,7 +243,7 @@ def signup_student(request,id):
       loc_nego=loc_nego,exam_type=exam_type,subjects=subjects,\
       duration_per_lesson=duration_per_lesson,start_time=start_time,\
       lesson_per_week=lesson_per_week,prefer_tutor=prefer_tutor,\
-      weakness=weakness,remarks=remarks,subjects_other=subjects_other,email=email,usernmae=user.username)
+      weakness=weakness,remarks=remarks,subjects_other=subjects_other,email=email,usernmae=myuser.username)
     if start_time=='Other':
       start_time_other = request.POST['student_start_time_other']
       student.start_time_other = start_time_other
