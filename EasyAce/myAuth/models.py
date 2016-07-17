@@ -43,6 +43,15 @@ class Tutor(models.Model):
       results.remove('')
     finally:
       return results
+  def get_prefer_teach(self):
+    result = []
+    pairs = self.prefer_teach.split(';')
+    for pair in pairs:
+      if pair.strip()=='':
+        continue
+      result.append(pair.split(':'))
+    return result
+
   def get_pairs(self,field_name):
     pairs = getattr(self,field_name).split(';')
     result = {}
@@ -62,39 +71,6 @@ class Tutor(models.Model):
         continue
       result.append(triple.split(','))
     return result
-  # def return_middle_test(self):
-  #   pairs = self.middle_test_score.split(';')
-  #   result = {}
-  #   for pair in pairs:
-  #     if pair.strip()=='':
-  #       continue
-  #     index = pair.find(':')
-  #     sub = pair[:index]
-  #     score = pair[index+1:]
-  #     result[sub] = score
-  #   return result
-  # def return_prefer_teach(self):
-  #   pairs = self.prefer_teach.split(';')
-  #   result = {}
-  #   for pair in pairs:
-  #     if pair.strip()=='':
-  #       continue
-  #     index = pair.find(':')
-  #     sub = pair[:index]
-  #     score = pair[index+1:]
-  #     result[sub] = score
-  #   return result
-  # def return_high_test(self):
-  #   pairs = self.high_test_score.split(';')
-  #   result = {}
-  #   for pair in pairs:
-  #     if pair.strip()=='':
-  #       continue
-  #     index = pair.find(':')
-  #     sub = pair[:index]
-  #     score = pair[index+1:]
-  #     result[sub] = score
-  #   return result
   def __str__(self):
     return self.name
 class Student(models.Model):

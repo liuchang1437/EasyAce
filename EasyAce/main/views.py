@@ -315,7 +315,7 @@ def edit_tutor(request):
         high_test = tutor.high_test
         middle_test_score = tutor.get_pairs('middle_test_score')
         high_test_score = tutor.get_pairs('high_test_score')
-        prefer_teach = tutor.get_pairs('prefer_teach')
+        prefer_teach = tutor.get_prefer_teach('prefer_teach')
         middle_sub_other = tutor.get_triple('middle_sub_other')
         high_sub_other = tutor.get_triple('high_sub_other')
         teaching_sub_other = tutor.get_triple('teaching_sub_other')

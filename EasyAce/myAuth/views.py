@@ -42,16 +42,17 @@ def signup(request):
       user.save()
       user = authenticate(username=username,password=password)
       login_user(request,user)
-      messages.success(request,'You have signed up successfully! Please log in and complete some further information.')
+      messages.success(request,'You have signed up successfully! Please complete some further information.')
       if role=='tutor':
         return HttpResponseRedirect(reverse('myAuth:signup_tutor',kwargs={'id':user.id}))
       else:
         return HttpResponseRedirect(reverse('myAuth:signup_student',kwargs={'id':user.id}))
-    messages.error(request,'Please fill in all the fields!')
+    messages.error(request,'The username you used already exists!')
     return HttpResponseRedirect(reverse('myAuth:signup'))
   else:
     form = SignupForm()
     return render(request,'signup.html',{'form':form})
+    
 @login_required
 def logout(request):
   logout_user(request)
