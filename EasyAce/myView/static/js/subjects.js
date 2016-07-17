@@ -43,9 +43,9 @@ function Option_OLEVEL(s,n)
 	option[7] = $("<option>").val("Additional Mathematics").text("Additional Mathematics");
 	option[8] = $("<option>").val("Physics (SPA)").text("Physics (SPA)");
 	option[9] = $("<option>").val("Chemistry (SPA)").text("Chemistry (SPA)");
-	option[10] = $("<option>").val("Science (Physics, Chemistry)").text("Science (Physics, Chemistry)");
-	option[11] = $("<option>").val("Science (Physics, Biology)").text("Science (Physics, Biology)");
-	option[12] = $("<option>").val("Science (Chemistry, Biology)").text("Science (Chemistry, Biology)");
+	option[10] = $("<option>").val("Science (Physics Chemistry)").text("Science (Physics Chemistry)");
+	option[11] = $("<option>").val("Science (Physics Biology)").text("Science (Physics Biology)");
+	option[12] = $("<option>").val("Science (Chemistry Biology)").text("Science (Chemistry Biology)");
 	option[13] = $("<option>").val("Biology (SPA)").text("Biology (SPA)");
 	option[14] = $("<option>").val("Art").text("Art");
 	option[15] = $("<option>").val("Principles of Accounts").text("Principles of Accounts");
@@ -210,7 +210,7 @@ function Option_IB_MYP_OTHER(s)
 	option[0] = $("<option>").val("").text("Select subject");
 	option[1] = $("<option>").val("Language and Literature").text("Language and Literature");
 	option[2] = $("<option>").val("Individuals and Societies").text("Individuals and Societies");
-	option[3] = $("<option>").val("World, Local or National History").text("World, Local or National History");
+	option[3] = $("<option>").val("World Local or National History").text("World Local or National History");
 	option[4] = $("<option>").val("Geography").text("Geography");
 	option[5] = $("<option>").val("Global Politics or International Relations").text("Global Politics or International Relations");
 	option[6] = $("<option>").val("Civics").text("Civics");
@@ -257,7 +257,7 @@ function Option_IB_DP_OTHER(s)
 	var option = new Array();
 	option[0] = $("<option>").val("").text("Select subject");
 	option[1] = $("<option>").val("The Extended Essay ").text("The Extended Essay ");
-	option[2] = $("<option>").val("Creativity, Activity, Service").text("Creativity Activity Service");
+	option[2] = $("<option>").val("Creativity Activity Service").text("Creativity Activity Service");
 	option[3] = $("<option>").val("Literature and Performance (SL)").text("Literature and Performance (SL)");
 	option[4] = $("<option>").val("Geography (SL/HL)").text("Geography (SL/HL)");
 	option[5] = $("<option>").val("Global Politics (SL/HL)").text("Global Politics (SL/HL)");
