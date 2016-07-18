@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 # Create your models here.
 class Tutor(models.Model):
+  class Meta:
+    ordering = ['name']
   # 性别，Male和Female
   gender = models.CharField(u'gender',max_length=6)
   username = models.CharField(u"username",max_length=30)
@@ -76,6 +78,8 @@ class Tutor(models.Model):
   def __str__(self):
     return self.name
 class Student(models.Model):
+  class Meta:
+    ordering = ['name']
   # 性别，Male和Female
   gender = models.CharField(max_length=6)
   username = models.CharField(max_length=30)
@@ -107,7 +111,7 @@ class Student(models.Model):
   #achievement = models.CharField(max_length=300)
 
   wait_match = models.BooleanField(u'等待分配教师',default=True)
-  prefer_tutors = models.ManyToManyField(Tutor)
+  prefer_tutors = models.ManyToManyField(Tutor,null=True,blank=True)
   base_info = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   def get_single(self,field_name):
     results = getattr(self,field_name).split(';')
@@ -149,9 +153,16 @@ class Record(models.Model):
   lesson_last = models.CharField(u'每节课时长',blank=True,null=True,max_length=30)
   lesson_price = models.CharField(u'每节课费用',blank=True,null=True,max_length=30)
   admin_name = models.CharField(u'管理员姓名',max_length=30)
-  
+
   tutor = models.ForeignKey(Tutor,on_delete=models.CASCADE,related_name='records',limit_choices_to={'check':True})
   student = models.ForeignKey(Student,on_delete=models.CASCADE,related_name='records')
+  # def get_tutor_name(self):
+  #   return self.tutor.name
+  # def get_student_name(self):
+  #   return self.student.name
+
+  # tutor_name = models.CharField(max_length=20,default=get_tutor_name)
+  # student_name = models.CharField(max_length=20,default=get_student_name)
 
   def __str__(self):
     return 'student:{},tutor:{},firmed:{}'.format(self.student,self.tutor,self.if_confirmed)

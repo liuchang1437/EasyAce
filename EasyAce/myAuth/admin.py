@@ -13,7 +13,7 @@ def records(obj):
 class TutorAdmin(admin.ModelAdmin):
   list_display = (username,'name',email,'check')
   list_filter = ('check','top_teacher')
-  
+  search_fields = ('name','username')
   fieldsets = (
     ('Base info', {
       'fields': ('name','username','gender','birth','school','middle_test','middle_test_score',\
@@ -33,6 +33,8 @@ class TutorAdmin(admin.ModelAdmin):
 class StudentAdmin(admin.ModelAdmin):
   list_display = (username,'name',email,'wait_match')
   list_filter = ('wait_match',)
+  search_fields = ('name','username')
+  
   fieldsets = (
     ('Base info', {
       'fields': ('name','username','gender','school','grade','location',\
@@ -57,6 +59,8 @@ def tutor(obj):
 class RecordAdmin(admin.ModelAdmin):
   list_display = (student,tutor,'if_confirmed')
   list_filter = ('if_confirmed',)
+  #search_fields = ('student_name','tutor_name')
+  raw_id_fields = ('student','tutor')
   fieldsets = (
     ('Required', {
       'fields': ('admin_name','student','tutor')
@@ -73,4 +77,5 @@ class RecordAdmin(admin.ModelAdmin):
 @admin.register(Feedback) 
 class FeedbackAdmin(admin.ModelAdmin):
   list_display = (student,tutor,'date')
+  raw_id_fields = ('student','tutor')
   
