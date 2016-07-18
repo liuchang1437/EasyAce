@@ -69,6 +69,7 @@ def view_tutor(request):
   level = request.GET.get('level')
   subject = request.GET.get('subject')
   subject_other = request.GET.get('subject_other')
+  gender = request.GET.get('gender')
   tutors = Tutor.objects.filter(check=True)
   if region:
     region1 = tutors.filter(region1__contains=region)
@@ -82,6 +83,8 @@ def view_tutor(request):
       tutors = tutors.filter(teaching_sub_other__contains=subject_other)
     else:
       tutors = tutors.filter(prefer_teach__contains=level)
+  if gender:
+    tutors = tutors.filter(gender=gender)
   return render(request, 'view_tutor.html', {'tutors':tutors})
 
 def choose_tutor(request):
