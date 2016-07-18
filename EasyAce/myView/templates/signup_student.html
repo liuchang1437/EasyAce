@@ -56,6 +56,36 @@ function validate_form(thisform)
 			student_agree.focus();
 			return false;
 		}
+		if (validate_required(grade)==false)
+		{
+			grade.focus();
+			return false;
+		}
+		if (validate_required(student_location)==false)
+		{
+			student_location.focus();
+			return false;
+		}
+		if (validate_required(student_location_negotiable)==false)
+		{
+			student_location_negotiable.focus();
+			return false;
+		}
+		if (validate_required(student_subject)==false)
+		{
+			student_subject.focus();
+			return false;
+		}
+		if (validate_required(student_duration_per_lesson)==false)
+		{
+			student_duration_per_lesson.focus();
+			return false;
+		}
+		if (validate_required(student_lesson_per_week)==false)
+		{
+			student_lesson_per_week.focus();
+			return false;
+		}
 	}
 }
 

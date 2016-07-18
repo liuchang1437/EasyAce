@@ -59,6 +59,46 @@ function validate_form(thisform)
 			tutor_agree.focus();
 			return false;
 		}
+		if (validate_required(teaching_level1)==false)
+		{
+			teaching_level1.focus();
+			return false;
+		}
+		if (validate_required(teaching_sub1)==false)
+		{
+			teaching_sub1.focus();
+			return false;
+		}
+		if (validate_required(middle_test)==false)
+		{
+			middle_test.focus();
+			return false;
+		}
+		if (validate_required(high_test)==false)
+		{
+			high_test.focus();
+			return false;
+		}
+		if (validate_required(tutor_location_1)==false)
+		{
+			tutor_location_1.focus();
+			return false;
+		}
+		if (validate_required(teach_duration)==false)
+		{
+			teach_duration.focus();
+			return false;
+		}
+		if (validate_required(num_taught)==false)
+		{
+			num_taught.focus();
+			return false;
+		}
+		if (validate_required(achievement)==false)
+		{
+			achievement.focus();
+			return false;
+		}
 	}
 }
 
@@ -125,7 +165,7 @@ function validate_form(thisform)
 						<select class="form-control" id="id_teaching_level1" name="teaching_level1">
 							<option value="" selected="selected">Select teaching level</option>
 							<option value="PSLE">PSLE</option>
-							<!--<option value="AEIS">AEIS</option>-->
+							<option value="AEIS">AEIS</option>
 							<option value="O-LEVEL">O-LEVEL</option>
 							<option value="A-LEVEL">A-LEVEL</option>
 							<option value="IB (Middle Years Programme)">IB (Middle Years Programme)</option>
@@ -166,7 +206,6 @@ function validate_form(thisform)
 					<div class="form-group">
 						<select class="form-control" id="id_middle_test" name="middle_test">
 							<option value="">Select graduation exam</option>
-							<!--<option value="AEIS">AEIS</option>-->
 							<option value="O-LEVEL">O-LEVEL</option>
 							<option value="IB (Middle Years Programme)">IB (Middle Years Programme)</option>
 							<option value="Zhongkao">Zhongkao</option>
