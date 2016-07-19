@@ -348,6 +348,23 @@ function Option_Teaching_Level(s,n)
 	}
 }
 
+function Option_ref_Level(s,n)
+{
+	$(s+n).empty();
+	var option = new Array();
+	option[0] = $("<option>").val("").text("Select level");
+	option[1] = $("<option>").val("O-LEVEL").text("O-LEVEL");
+	option[2] = $("<option>").val("A-LEVEL").text("A-LEVEL");
+	option[3] = $("<option>").val("IB (Middle Years Programme)").text("IB (Middle Years Programme)");
+	option[4] = $("<option>").val("IB (Diploma Programme)").text("IB (Diploma Programme)");
+	option[5] = $("<option>").val("Zhongkao").text("Zhongkao");
+	option[6] = $("<option>").val("Gaokao").text("Gaokao");
+	for(i=0;i<option.length;i++)
+	{
+		$(s+n).append(option[i]);
+	}
+}
+
 function Option_Exam_Gaokao(n)
 {
 	$("#id_teaching_sub"+n).empty();
@@ -361,5 +378,58 @@ function Option_Exam_Gaokao(n)
 	for(i=0;i<option.length;i++)
 	{
 		$(s+n).append(option[i]);
+	}
+}
+
+function Option_score(level,id)
+{
+	$(id).empty();
+	var option = new Array();
+	if (level == "O-LEVEL")
+	{
+		option[0] = $("<option>").val("").text("Select score");
+		option[1] = $("<option>").val("A1").text("A1");
+		option[2] = $("<option>").val("A2").text("A2");
+		option[3] = $("<option>").val("B3 or below").text("B3 or below");
+	}
+	if (level == "IB (Middle Years Programme)")
+	{
+		option[0] = $("<option>").val("").text("Select score");
+		option[1] = $("<option>").val("7").text("7");
+		option[2] = $("<option>").val("6").text("6");
+		option[3] = $("<option>").val("5 or below").text("5 or below");
+	}
+	if (level == "Zhongkao")
+	{
+		option[0] = $("<option>").val("").text("Select score");
+		option[1] = $("<option>").val(">135").text(">135");
+		option[2] = $("<option>").val("125-135").text("125-135");
+		option[3] = $("<option>").val("<125").text("<125");
+	}
+	if (level == "A-LEVEL")
+	{
+		option[0] = $("<option>").val("").text("Select score");
+		option[1] = $("<option>").val("A").text("A");
+		option[2] = $("<option>").val("B").text("B");
+		option[3] = $("<option>").val("C or below").text("C or below");
+	}
+	if (level == "IB (Diploma Programme)")
+	{
+		option[0] = $("<option>").val("").text("Select score");
+		option[1] = $("<option>").val("7").text("7");
+		option[2] = $("<option>").val("6").text("6");
+		option[3] = $("<option>").val("5 or below").text("5 or below");
+	}
+	if (level == "Gaokao")
+	{
+		option[0] = $("<option>").val("").text("Select score");
+		option[1] = $("<option>").val(">135").text(">135");
+		option[2] = $("<option>").val("125-135").text("125-135");
+		option[3] = $("<option>").val("<125").text("<125");
+	}
+
+	for(i=0;i<option.length;i++)
+	{
+		$(id).append(option[i]);
 	}
 }

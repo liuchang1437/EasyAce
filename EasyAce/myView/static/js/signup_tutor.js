@@ -1,157 +1,174 @@
-var num_teaching_level = 1;
+var count_prefer = 0;
 function add_prefer()
 {
-	if(num_teaching_level<9){
-		num_teaching_level++;
-		$("#num_teaching_level").append('<div class="row"> <div class="col-xs-4"> <div class="form-group"> <select class="form-control" id="id_teaching_level'+num_teaching_level+'" name="teaching_level'+num_teaching_level+'"> <option value="" selected="selected">Select teaching level</option> </select> </div> </div> <div class="col-xs-4"> <div class="form-group"> <select class="form-control" id="id_teaching_sub'+num_teaching_level+'" name="teaching_sub'+num_teaching_level+'"> <option value="" selected="selected">Select subject</option> </select> </div> </div> <div id="id_teaching_other'+num_teaching_level+'" class="col-xs-4"> </div> </div>');
-		Option_Teaching_Level( "#id_teaching_level",num_teaching_level);
-		$("#id_teaching_level"+num_teaching_level).change(function(){
+
+	if(count_prefer<9){
+		count_prefer++;
+		temp =  '<div class="row" style="margin-top:20px">'
+		temp += '<h2 style="color: #759049; font-size: 20px;">preference '+count_prefer+'</h2>';
+		temp += '<div class="col-xs-6">';
+		temp += '<div class="col-xs-12 form-group">';
+		temp += '<select class="form-control" id="id_teach_level'+count_prefer+'" name="teach_level'+count_prefer+'">';
+		temp += '<option value="" selected="selected">Select level</option> </select> </div>'
+		temp += '<div class="col-xs-12 form-group">';
+		temp += '<select class="form-control" id="id_teach_sub'+count_prefer+'" name="teach_sub'+count_prefer+'">';
+		temp += '<option value="" selected="selected">Select subject</option> </select> </div>';
+		temp += '<div class="col-xs-12 form-group">';
+		temp += '<select class="form-control" id="id_teach_sub_other'+count_prefer+'" name="teach_sub_other'+count_prefer+'">';
+		temp += '<option value="" selected="selected">Select subject</option> </select> </div>';
+		temp += '</div> <div class="col-xs-6">';
+		temp += '<div class="col-xs-12 form-group">';
+		temp += '<select class="form-control" id="id_ref_level'+count_prefer+'" name="ref_level'+count_prefer+'">';
+		temp += '<option value="" selected="selected">Select level</option> </select> </div>';
+		temp += '<div class="col-xs-12 form-group">';
+		temp += '<select class="form-control" id="id_ref_sub'+count_prefer+'" name="ref_sub'+count_prefer+'">';
+		temp += '<option value="" selected="selected">Select subject</option> </select> </div>';
+		temp += '<div class="col-xs-12 form-group" id="block_ref_sub_other'+count_prefer+'">';
+		temp += '<select class="form-control" id="id_ref_sub_other'+count_prefer+'" name="ref_sub_other'+count_prefer+'">';
+		temp += '<option value="" selected="selected">Select subject</option> </select> </div>';
+		temp += '<div class="col-xs-12 form-group">';
+		temp += '<select class="form-control" id="id_ref_score'+count_prefer+'" name="ref_score'+count_prefer+'">';
+		temp += '<option value="" selected="selected">Select score</option> </select> </div>';
+		temp += '</div></div> ';
+		$("#block_prefer").append(temp);
+		$("#id_teach_sub_other"+count_prefer).hide();
+		$("#block_ref_sub_other"+count_prefer).hide();
+
+		Option_Teaching_Level( "#id_teach_level",count_prefer);
+		$("#id_teach_level"+count_prefer).change(function(){
  			s = this.name;
- 			num = s[14];
+ 			num = s[11];
  
-			$("#id_teaching_other"+num).empty();
-			if ($("#id_teaching_level"+num).val()=="")
+			$("#id_teach_sub_other"+num).hide();
+			if ($("#id_teach_level"+num).val()=="")
  			{
-				$("#id_teaching_sub"+num).empty();
+				$("#id_teach_sub"+num).empty();
 				var option = $("<option>").val("").text("Select subject");
-				$("#id_teaching_sub"+num).append(option);
+				$("#id_teach_sub"+num).append(option);
  			}
 
-			if ($("#id_teaching_level"+num).val()=="PSLE"){
-				Option_PSLE("#id_teaching_sub",num);
+			if ($("#id_teach_level"+num).val()=="PSLE"){
+				Option_PSLE("#id_teach_sub",num);
 			}
-			if ($("#id_teaching_level"+num).val()=="AEIS"){
-				Option_AEIS("#id_teaching_sub",num);
+			if ($("#id_teach_level"+num).val()=="AEIS"){
+				Option_AEIS("#id_teach_sub",num);
 			}
-			if ($("#id_teaching_level"+num).val()=="O-LEVEL"){
-				Option_OLEVEL("#id_teaching_sub",num);
+			if ($("#id_teach_level"+num).val()=="O-LEVEL"){
+				Option_OLEVEL("#id_teach_sub",num);
 			}
-			if ($("#id_teaching_level"+num).val()=="A-LEVEL"){
-				Option_ALEVEL("#id_teaching_sub",num);
+			if ($("#id_teach_level"+num).val()=="A-LEVEL"){
+				Option_ALEVEL("#id_teach_sub",num);
 			}
-			if ($("#id_teaching_level"+num).val()=="IB (Middle Years Programme)"){
-				Option_IB_MYP("#id_teaching_sub",num);
+			if ($("#id_teach_level"+num).val()=="IB (Middle Years Programme)"){
+				Option_IB_MYP("#id_teach_sub",num);
 			}
-			if ($("#id_teaching_level"+num).val()=="IB (Diploma Programme)"){
-				Option_IB_DP("#id_teaching_sub",num);
+			if ($("#id_teach_level"+num).val()=="IB (Diploma Programme)"){
+				Option_IB_DP("#id_teach_sub",num);
 			}
-			if ($("#id_teaching_level"+num).val()=="Zhongkao"){
-				Option_Zhongkao("#id_teaching_sub",num);
+			if ($("#id_teach_level"+num).val()=="Zhongkao"){
+				Option_Zhongkao("#id_teach_sub",num);
 			}
-			if ($("#id_teaching_level"+num).val()=="Gaokao"){
-				Option_Gaokao("#id_teaching_sub",num);
+			if ($("#id_teach_level"+num).val()=="Gaokao"){
+				Option_Gaokao("#id_teach_sub",num);
 			}
-			if ($("#id_teaching_level"+num).val()=="SAT"){
-				Option_SAT("#id_teaching_sub",num);
+			if ($("#id_teach_level"+num).val()=="SAT"){
+				Option_SAT("#id_teach_sub",num);
 			}
 		});
 
-		$("#id_teaching_sub"+num_teaching_level).change(function(){
+		$("#id_teach_sub"+count_prefer).change(function(){
 			s = this.name;
-			num = s[12];
+			num = s[9];
 			 
 			if ($(this).val()=="Other"){
-				$("#id_teaching_other"+num).empty();
-				$("#id_teaching_other"+num).append('<div class="form-group"> <select class="form-control" id="id_teaching_sub'+num+'_other" name="teaching_sub'+num+'_other"> <option value="" selected="selected">Select subject</option> </select> </div>');
-				if ($("#id_teaching_level"+num).val()=="O-LEVEL"){
-					Option_OLEVEL_OTHER("#id_teaching_sub"+num+"_other");
+				$("#id_teach_sub_other"+num).show();
+				$("#id_teach_sub_other"+num).empty();
+				if ($("#id_teach_level"+num).val()=="O-LEVEL"){
+					Option_OLEVEL_OTHER("#id_teach_sub_other"+num);
 				}
-				if ($("#id_teaching_level"+num).val()=="A-LEVEL"){
-					Option_ALEVEL_OTHER("#id_teaching_sub"+num+"_other");
+				if ($("#id_teach_level"+num).val()=="A-LEVEL"){
+					Option_ALEVEL_OTHER("#id_teach_sub_other"+num);
 				}
-				if ($("#id_teaching_level"+num).val()=="IB (Middle Years Programme)"){
-					Option_IB_MYP_OTHER("#id_teaching_sub"+num+"_other");
+				if ($("#id_teach_level"+num).val()=="IB (Middle Years Programme)"){
+					Option_IB_MYP_OTHER("#id_teach_sub_other"+num);
 				}
-				if ($("#id_teaching_level"+num).val()=="IB (Diploma Programme)"){
-					Option_IB_DP_OTHER("#id_teaching_sub"+num+"_other");
+				if ($("#id_teach_level"+num).val()=="IB (Diploma Programme)"){
+					Option_IB_DP_OTHER("#id_teach_sub_other"+num);
 				}
 			}
 		});
-	}
-}
 
-var num_middle_test = 0;
-function add_middle()
-{
-	if ($("#id_middle_test").val()!="" && num_middle_test<9){
-		num_middle_test++;
-		$("#num_middle_test").append('<div class="row"> <div class="col-xs-4"> <div class="form-group"> <select class="form-control" id="id_middle_sub'+num_middle_test+'" name="middle_sub'+num_middle_test+'"> <option value="" selected="selected">Select subject</option> </select> </div></div> <div class="col-xs-4"> <div class="form-group"> <div id="num_middle_sub'+num_middle_test+'_other"> </div> </div></div></div>');
-		$("#num_middle_test").append('<div class="row"> <div class="col-xs-12"> <div class="form-group"> <input class="form-control" id="id_middle_sub'+num_middle_test+'_score" name="middle_sub'+num_middle_test+'_score" maxlength="50" name="one" type="text" placeholder="Score"/> </div> </div> </div>');
-		if ($("#id_middle_test").val()=="AEIS"){
-			Option_AEIS("#id_middle_sub",num_middle_test);
-		}
-		if ($("#id_middle_test").val()=="O-LEVEL"){
-			Option_OLEVEL("#id_middle_sub",num_middle_test);
-		}
-		if ($("#id_middle_test").val()=="IB (Middle Years Programme)"){
-			Option_IB_MYP("#id_middle_sub",num_middle_test);
-		}
-		if ($("#id_middle_test").val()=="Zhongkao"){
-			Option_Zhongkao("#id_middle_sub",num_middle_test);
-		}
-		$("#id_middle_sub"+num_middle_test).change(function(){
+////////////////////////////////reference//////////////////////////////////////////////
+
+		Option_ref_Level( "#id_ref_level",count_prefer);
+		$("#id_ref_level"+count_prefer).change(function(){
+ 			s = this.name;
+ 			num = s[9];
+ 
+			$("#block_ref_sub_other"+num).hide();
+			if ($("#id_ref_level"+num).val()=="")
+ 			{
+				$("#id_ref_sub"+num).empty();
+				var option = $("<option>").val("").text("Select subject");
+				$("#id_ref_sub"+num).append(option);
+ 			}
+
+			if ($("#id_ref_level"+num).val()=="O-LEVEL"){
+				Option_OLEVEL("#id_ref_sub",num);
+				Option_score("O-LEVEL","#id_ref_score"+num);
+			}
+			if ($("#id_ref_level"+num).val()=="A-LEVEL"){
+				Option_ALEVEL("#id_ref_sub",num);
+				Option_score("A-LEVEL","#id_ref_score"+num);
+			}
+			if ($("#id_ref_level"+num).val()=="IB (Middle Years Programme)"){
+				Option_IB_MYP("#id_ref_sub",num);
+				Option_score("IB (Middle Years Programme)","#id_ref_score"+num);
+			}
+			if ($("#id_ref_level"+num).val()=="IB (Diploma Programme)"){
+				Option_IB_DP("#id_ref_sub",num);
+				Option_score("IB (Diploma Programme)","#id_ref_score"+num);
+			}
+			if ($("#id_ref_level"+num).val()=="Zhongkao"){
+				Option_Zhongkao("#id_ref_sub",num);
+				Option_score("Zhongkao","#id_ref_score"+num);
+			}
+			if ($("#id_ref_level"+num).val()=="Gaokao"){
+				Option_Gaokao("#id_ref_sub",num);
+				Option_score("Gaokao","#id_ref_score"+num);
+			}
+			if ($("#id_ref_level"+num).val()=="SAT"){
+				Option_SAT("#id_ref_sub",num);
+			}
+		});
+
+		$("#id_ref_sub"+count_prefer).change(function(){
 			s = this.name;
-			num = s[10];
+			num = s[7];
+			 
 			if ($(this).val()=="Other"){
-				$("#num_middle_sub"+num+"_other").empty();
-				$("#num_middle_sub"+num+"_other").append('<select class="form-control" id="id_middle_sub'+num+'_other" name="middle_sub'+num+'_other"> <option value="" selected="selected">Select subject</option> </select>');
-				if ($("#id_middle_test").val()=="O-LEVEL"){
-					Option_OLEVEL_OTHER("#id_middle_sub"+num+"_other");
+				$("#block_ref_sub_other"+num).show();
+				$("#id_ref_sub_other"+num).empty();
+				if ($("#id_ref_level"+num).val()=="O-LEVEL"){
+					Option_OLEVEL_OTHER("#id_ref_sub_other"+num);
 				}
-				if ($("#id_middle_test").val()=="IB (Middle Years Programme)"){
-					Option_IB_MYP_OTHER("#id_middle_sub"+num+"_other");
+				if ($("#id_ref_level"+num).val()=="A-LEVEL"){
+					Option_ALEVEL_OTHER("#id_ref_sub_other"+num);
+				}
+				if ($("#id_ref_level"+num).val()=="IB (Middle Years Programme)"){
+					Option_IB_MYP_OTHER("#id_ref_sub_other"+num);
+				}
+				if ($("#id_ref_level"+num).val()=="IB (Diploma Programme)"){
+					Option_IB_DP_OTHER("#id_ref_sub_other"+num);
 				}
 			}
 		});
-	}
-}
-var num_high_test = 0;
-function add_high()
-{
-	if ($("#id_high_test").val()!="" && num_high_test<9){
-		num_high_test++;
-		$("#num_high_test").append('<div class="row"> <div class="col-xs-4"> <div class="form-group"> <select class="form-control" id="id_high_sub'+num_high_test+'" name="high_sub'+num_high_test+'"> <option value="" selected="selected">Select subject</option> </select> </div></div> <div class="col-xs-4"> <div class="form-group"> <div id="num_high_sub'+num_high_test+'_other"> </div> </div></div></div>');
-		$("#num_high_test").append('<div class="row"> <div class="col-xs-12"> <div class="form-group"> <input class="form-control" id="id_high_sub'+num_high_test+'_score" name="high_sub'+num_high_test+'_score" maxlength="50" name="one" type="text" placeholder="Score"/> </div> </div> </div>');
-		if ($("#id_high_test").val()=="A-LEVEL"){
-			Option_ALEVEL("#id_high_sub",num_high_test);
-		}
-		if ($("#id_high_test").val()=="IB (Diploma Programme)"){
-			Option_IB_DP("#id_high_sub",num_high_test);
-		}
-		if ($("#id_high_test").val()=="Gaokao"){
-			Option_Gaokao("#id_high_sub",num_high_test);
-		}
-		if ($("#id_high_test").val()=="SAT"){
-			Option_SAT("#id_high_sub",num_high_test);
-		}
-		$("#id_high_sub"+num_high_test).change(function(){
-			s = this.name;
-			num = s[8];
 
-			if ($(this).val()=="Other"){
-				$("#num_high_sub"+num+"_other").empty();
-				$("#num_high_sub"+num+"_other").append('<select class="form-control" id="id_high_sub'+num+'_other" name="high_sub'+num+'_other"> <option value="" selected="selected">Select subject</option> </select>');
-				if ($("#id_high_test").val()=="A-LEVEL"){
-					Option_ALEVEL_OTHER("#id_high_sub"+num+"_other");
-				}
-				if ($("#id_high_test").val()=="IB (Diploma Programme)"){
-					Option_IB_DP_OTHER("#id_high_sub"+num+"_other");
-				}
-			}
-		});
+
+
 	}
 }
 
-var middle_test = "";
-var high_test = "";
-//var middle_subjects,high_subjects,prefer_tests,middle_subjects_other,high_subjects_other,prefer_tests_other = new Array();
-//var middle_scores,high_scores,prefer_subjects,middle_scores_other,high_scores_other,prefer_subjects_other = new Array();
-var middle_subjects = [];
-var middle_subjects_other = [];
-var middle_scores = [];
-var high_subjects = [];
-var high_subjects_other = [];
-var high_scores = [];
 var prefer_tests = [];
 var prefer_subjects = []
 var prefer_subjects_other = []
@@ -474,131 +491,23 @@ function get_subjects()
 		}
 	}
 
-
 }
 
 $(document).ready(function(){
-	$("#btn_middle_test").hide();
-	get_subjects();
-									
-	$("#id_middle_test").change(function(){
-		for(i=0;i<num_middle_test;i++)
-			{
-				$("#num_middle_test").find(".row").eq(-1).remove();
-				$("#num_middle_test").find(".row").eq(-1).remove();
-			}
-			num_middle_test=0;
-			$("#btn_middle_test").hide();
-			if ($("#id_middle_test").val()!=""){
-				$("#btn_middle_test_add").click();
-				$("#btn_middle_test").show();
-			}
-		});
-	$("#btn_middle_test_add").click(function(){
-		add_middle();
-	});
+	add_prefer();
 
-	$("#btn_middle_test_remove").click(function(){
-		if(num_middle_test>1){
-			num_middle_test--;
-			$("#num_middle_test").find(".row").eq(-1).remove();
-			$("#num_middle_test").find(".row").eq(-1).remove();
-		}
-	});
-
-	$("#btn_high_test").hide();
-	$("#id_high_test").change(function(){
-		for(i=0;i<num_high_test;i++)
-		{
-			$("#num_high_test").find(".row").eq(-1).remove();
-			$("#num_high_test").find(".row").eq(-1).remove();
-		}
-		num_high_test=0;
-		$("#btn_high_test").hide();
-		if ($("#id_high_test").val()!=""){
-			$("#btn_high_test_add").click();
-			$("#btn_high_test").show();
-		}
-	});
-
-	$("#btn_high_test_add").click(function(){
-			add_high();
-		});
-
-	$("#btn_high_test_remove").click(function(){
-		if(num_high_test>1){
-			num_high_test--;
-			$("#num_high_test").find(".row").eq(-1).remove();
-			$("#num_high_test").find(".row").eq(-1).remove();
-		}
-	});
-
-	$("#btn_teaching_level_add").click(function(){
+	$("#btn_prefer_add").click(function(){
 		add_prefer();
 		
 	});
 
-	$("#btn_teaching_level_remove").click(function(){
-		if(num_teaching_level>1){
-			num_teaching_level--;
-			$("#num_teaching_level").find(".row").eq(-1).remove();
+	$("#btn_prefer_remove").click(function(){
+		if(count_prefer>1){
+			count_prefer--;
+			$("#block_prefer").find(".row").eq(-1).remove();
 		}
 	});
 
-	$("#id_teaching_level1").change(function(){
-		$("#id_teaching_other1").empty();
-		if ($("#id_teaching_level1").val()==""){
-			$("#id_teaching_sub1").empty();
-			var option = $("<option>").val("").text("Select subject");
-			$("#id_teaching_sub1").append(option);
-		}
-		if ($("#id_teaching_level1").val()=="PSLE"){
-			Option_PSLE("#id_teaching_sub",1);
-		}
-		if ($("#id_teaching_level1").val()=="AEIS"){
-			Option_AEIS("#id_teaching_sub",1);
-		}
-		if ($("#id_teaching_level1").val()=="O-LEVEL"){
-			Option_OLEVEL("#id_teaching_sub",1);
-		}
-		if ($("#id_teaching_level1").val()=="A-LEVEL"){
-			Option_ALEVEL("#id_teaching_sub",1);
-		}
-		if ($("#id_teaching_level1").val()=="IB (Middle Years Programme)"){
-			Option_IB_MYP("#id_teaching_sub",1);
-		}
-		if ($("#id_teaching_level1").val()=="IB (Diploma Programme)"){
-			Option_IB_DP("#id_teaching_sub",1);
-		}
-		if ($("#id_teaching_level1").val()=="Zhongkao"){
-			Option_Zhongkao("#id_teaching_sub",1);
-		}
-		if ($("#id_teaching_level1").val()=="Gaokao"){
-			Option_Gaokao("#id_teaching_sub",1);
-		}
-		if ($("#id_teaching_level1").val()=="SAT"){
-			Option_SAT("#id_teaching_sub",1);
-		}
-	});
-	$("#id_teaching_sub1").change(function(){
-		if ($(this).val()=="Other"){
-			$("#id_teaching_other1").empty();
-			$("#id_teaching_other1").append('<div class="form-group"> <select class="form-control" id="id_teaching_sub1_other" name="teaching_sub1_other"> <option value="" selected="selected">Select subject</option> </select> </div>');
-
-			if ($("#id_teaching_level1").val()=="O-LEVEL"){
-				Option_OLEVEL_OTHER("#id_teaching_sub1_other");
-			}
-			if ($("#id_teaching_level1").val()=="A-LEVEL"){
-				Option_ALEVEL_OTHER("#id_teaching_sub1_other");
-			}
-			if ($("#id_teaching_level1").val()=="IB (Middle Years Programme)"){
-				Option_IB_MYP_OTHER("#id_teaching_sub1_other");
-			}
-			if ($("#id_teaching_level1").val()=="IB (Diploma Programme)"){
-				Option_IB_DP_OTHER("#id_teaching_sub1_other");
-			}
-		}
-	});
 });
 
 
