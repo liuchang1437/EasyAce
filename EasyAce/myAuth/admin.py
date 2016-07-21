@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tutor,Student,MyUser,Record,Feedback
+from .models import Tutor,Student,MyUser,Record,Feedback,PreferSubject,ReferSubject
 # Register your models here.
 
 def email(obj):
@@ -9,26 +9,52 @@ def username(obj):
 def records(obj):
     return obj.records.all()
 
+
+class RecordInline(admin.StackedInline):
+  colapse = True
+  model = Record
+  extra = 0
+class FeedbackInline(admin.StackedInline):
+  model = Feedback
+  extra = 0
+class PreferSub(admin.StackedInline):
+  def has_add_permission(self,request):
+    return False
+  can_delete = False
+  model = PreferSubject
+  fields = ('level','name')
+  readonly_fields = ('level','name')
+class ReferSub(admin.StackedInline):
+  def has_add_permission(self,request):
+    return False
+  can_delete = False
+  model = ReferSubject
+  fields = ('level','name','score')
+  readonly_fields = ('level','name','score')
 @admin.register(Tutor) 
 class TutorAdmin(admin.ModelAdmin):
-  list_display = (username,'name',email,'check')
+  list_display = ('username','name','email','check')
   list_filter = ('check','top_teacher')
-  search_fields = ('name','username')
+  search_fields = ('name','username','email')
   fieldsets = (
-    ('Base info', {
-      'fields': ('name','username','gender','birth','school','middle_test','middle_test_score',\
-        'middle_sub_other','high_test','high_test_score','high_sub_other',\
-        'prefer_teach','teaching_sub_other','region1',\
-        'region2','region3','duration','num_taught','achievement')
+    ('Base information', {
+      'fields': ('name','username','gender','birth','school',\
+        'tutor_location1',\
+        'tutor_location2','tutor_location3','teach_duration',\
+        'num_taught','achievement')
     }),
-    ('Contact info',{
+    ('Contact information',{
       'fields':('phone','wechat','whatsapp','email')
     }),
     ('Options',{
       'fields':('check','top_teacher')
     })
   ) 
-
+  readonly_fields = ('name','username','gender','birth','school',\
+    'tutor_location1','tutor_location2','tutor_location3',\
+    'teach_duration','num_taught','achievement','phone',\
+    'wechat','whatsapp','email')
+  inlines = [PreferSub,ReferSub,FeedbackInline]
 @admin.register(Student) 
 class StudentAdmin(admin.ModelAdmin):
   list_display = (username,'name',email,'wait_match')
@@ -49,33 +75,6 @@ class StudentAdmin(admin.ModelAdmin):
       'fields':('wait_match',)
     })
   ) 
+  inlines = [RecordInline]
 
-def student(obj):
-  return obj.tutor.name
-def tutor(obj):
-  return obj.student.name
-
-@admin.register(Record) 
-class RecordAdmin(admin.ModelAdmin):
-  list_display = (student,tutor,'if_confirmed')
-  list_filter = ('if_confirmed',)
-  #search_fields = ('student_name','tutor_name')
-  raw_id_fields = ('student','tutor')
-  fieldsets = (
-    ('Required', {
-      'fields': ('admin_name','student','tutor')
-    }),
-    ('Others',{
-      'fields':('startdate','chargedate','service_fees','freq','lesson_last',\
-        'lesson_price')
-    }),
-    ('Options',{
-      'fields':('if_confirmed',)
-    })
-  ) 
-
-@admin.register(Feedback) 
-class FeedbackAdmin(admin.ModelAdmin):
-  list_display = (student,tutor,'date')
-  raw_id_fields = ('student','tutor')
   

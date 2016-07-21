@@ -25,31 +25,11 @@ def information(request,id):
         tutor = user.get_user()
         if not tutor:
             messages.warning(request,'Please complete your info first.')
-            return HttpResponseRedirect(reverse('myAuth:signup_tutor',\
-            kwargs={'id':user.id}))
-        middle_test_score = tutor.get_pairs('middle_test_score')
-        high_test_score = tutor.get_pairs('high_test_score')
-        prefer_teach = tutor.get_pairs('prefer_teach')
-        regions = tutor.get_single('regions')
-        middle_sub_other = tutor.get_triple('middle_sub_other')
-        high_sub_other = tutor.get_triple('high_sub_other')
-        teaching_sub_other = tutor.get_triple('teaching_sub_other')
+            return HttpResponseRedirect(reverse('myAuth:signup_tutor'))
         if request.user.role=='student':
             student = request.user.get_user()
-            return render(request, 'information_tutor.html', {'tutor':tutor,\
-            'middle_test_score':middle_test_score,'high_test_score':high_test_score,\
-            'prefer_teach':prefer_teach,'regions':regions,\
-            'middle_sub_other':middle_sub_other,'high_sub_other':high_sub_other,\
-            'teaching_sub_other':teaching_sub_other,'student':student})
-        #print(middle_sub_other)
-        # for triple in middle_sub_other:
-        #     for a,b in triple:
-        #         print(a,b,
-        return render(request, 'information_tutor.html', {'tutor':tutor,\
-            'middle_test_score':middle_test_score,'high_test_score':high_test_score,\
-            'prefer_teach':prefer_teach,'regions':regions,\
-            'middle_sub_other':middle_sub_other,'high_sub_other':high_sub_other,\
-            'teaching_sub_other':teaching_sub_other})
+            return render(request, 'information_tutor.html', {'tutor':tutor,'student':student})
+        return render(request, 'information_tutor.html', {'tutor':tutor})
     elif user.role=='student':
         student = user.get_user()
         if not student:
