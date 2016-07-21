@@ -1,14 +1,7 @@
 from django.contrib import admin
-from .models import Tutor,Student,MyUser,Record,Feedback,PreferSubject,ReferSubject
+from .models import Tutor,Student,MyUser,Record,Feedback,\
+  StudentPreferSub,PreferSubject,ReferSubject
 # Register your models here.
-
-def email(obj):
-  return obj.base_info.email
-def username(obj):
-  return obj.base_info.username
-def records(obj):
-    return obj.records.all()
-
 
 class RecordInline(admin.StackedInline):
   colapse = True
@@ -31,6 +24,7 @@ class ReferSub(admin.StackedInline):
   model = ReferSubject
   fields = ('level','name','score')
   readonly_fields = ('level','name','score')
+
 @admin.register(Tutor) 
 class TutorAdmin(admin.ModelAdmin):
   list_display = ('username','name','email','check')
@@ -41,7 +35,7 @@ class TutorAdmin(admin.ModelAdmin):
       'fields': ('name','username','gender','birth','school',\
         'tutor_location1',\
         'tutor_location2','tutor_location3','teach_duration',\
-        'num_taught','achievement')
+        'num_taught','achievement','sr')
     }),
     ('Contact information',{
       'fields':('phone','wechat','whatsapp','email')
@@ -53,20 +47,36 @@ class TutorAdmin(admin.ModelAdmin):
   readonly_fields = ('name','username','gender','birth','school',\
     'tutor_location1','tutor_location2','tutor_location3',\
     'teach_duration','num_taught','achievement','phone',\
-    'wechat','whatsapp','email')
+    'wechat','whatsapp','email','sr')
   inlines = [PreferSub,ReferSub,FeedbackInline]
+  def cal_star_rating(self,request,queryset):
+    for obj in queryset:
+      obj.cal_sr()
+      obj.save()
+    self.message_user(request,'Successfully updated star-ratings of the selected tutors!')
+  cal_star_rating.short_description = 'Update the star rating'
+  actions = [cal_star_rating]
+
+class StudentPreferSub(admin.StackedInline):
+  def has_add_permission(self,request):
+    return False
+  can_delete = False
+  model = StudentPreferSub
+  fields = ('level','name')
+  readonly_fields = ('level','name')
+
 @admin.register(Student) 
 class StudentAdmin(admin.ModelAdmin):
-  list_display = (username,'name',email,'wait_match')
+  list_display = ('username','name','email','wait_match')
   list_filter = ('wait_match',)
-  search_fields = ('name','username')
+  search_fields = ('name','username','email')
   
   fieldsets = (
-    ('Base info', {
+    ('Base information', {
       'fields': ('name','username','gender','school','grade','location',\
-        'loc_nego','exam_type','subjects','subjects_other',\
-        'start_time','start_time_other','duration_per_lesson',\
-        'lesson_per_week','prefer_tutor','prefer_tutors','remarks','weakness')
+        'loc_nego',\
+        'start_time','start_time_other','time_per_lesson',\
+        'lesson_per_week','prefer_tutor_gender','remarks','weakness')
     }),
     ('Contact info',{
       'fields':('phone','wechat','whatsapp','email')
@@ -75,6 +85,10 @@ class StudentAdmin(admin.ModelAdmin):
       'fields':('wait_match',)
     })
   ) 
-  inlines = [RecordInline]
+  readonly_fields = ('name','username','gender','grade','school',\
+    'location','loc_nego','start_time',\
+    'start_time_other','time_per_lesson','lesson_per_week','remarks',\
+    'wechat','whatsapp','email','prefer_tutor_gender','weakness','phone')
+  inlines = [StudentPreferSub,RecordInline]
 
   

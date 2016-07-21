@@ -24,8 +24,8 @@ def information(request,id):
     if user.role=='tutor':
         tutor = user.get_user()
         if not tutor:
-            messages.warning(request,'Please complete your info first.')
-            return HttpResponseRedirect(reverse('myAuth:signup_tutor'))
+            messages.warning(request,'User didn\'t finish his/her information yet!')
+            return HttpResponseRedirect('/index')
         if request.user.role=='student':
             student = request.user.get_user()
             return render(request, 'information_tutor.html', {'tutor':tutor,'student':student})
@@ -33,16 +33,12 @@ def information(request,id):
     elif user.role=='student':
         student = user.get_user()
         if not student:
-            messages.warning(request,'Please complete your info first.')
-            return HttpResponseRedirect(reverse('myAuth:signup_tutor',\
-            kwargs={'id':user.id}))
-        remarks = student.get_single('remarks')
-        subjects = student.get_single('subjects')
-        subjects_other = student.get_single('subjects_other')
-        return render(request, 'information_student.html', {'student':student,\
-            'remarks':remarks,'subjects':subjects,'subjects_other':subjects_other})
+            messages.warning(request,'User didn\'t finish his/her information yet!')
+            return HttpResponseRedirect('/index')
+        return render(request, 'information_student.html', {'student':student})
     else:
-        return render(request, 'index.html')
+        messages.error(request,'User didn\'t finish his/her information yet!')
+        return HttpResponseRedirect('/index')
 
 def view_tutor(request):
   region = request.GET.get('region')
@@ -77,7 +73,7 @@ def choose_tutor(request):
             messages.warning(request,'Please complete your info first.')
             return HttpResponseRedirect(reverse('myAuth:signup_tutor',\
             kwargs={'id':user.id}))
-        student.prefer_tutors.add(tutor)
+        student.tutors_chosen.add(tutor)
         student.save()
         data = {'added':True}
         return JsonResponse(data)

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from .forms import LoginForm,SignupForm
-from .models import MyUser,Tutor, Student, PreferSubject, ReferSubject
+from .models import MyUser,Tutor, Student, PreferSubject, StudentPreferSub,ReferSubject
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_user
 from django.contrib.auth import logout as logout_user
@@ -127,74 +127,69 @@ def signup_tutor(request):
     return render(request, 'signup_tutor.html')
 
 @login_required
-def signup_student(request,id):
+def signup_student(request):
   if request.method == 'POST':
+    if request.user.get_user():
+      messages.error(request,'The user has existed!')
+      return HttpResponseRedirect('/index')
+    #### Base info start
     name = request.POST['name']
     gender = request.POST['gender']
-    #birth = request.POST['birthday']
     email = request.POST['email']
     phone = request.POST['phone']
     school = request.POST['school']
+    grade = request.POST['grade']
     wechat = request.POST['wechat']
     whatsapp = request.POST['whatsapp']
-    grade = request.POST['grade']
+    #### Base info end
+
+    #### Preference start
     location = request.POST['student_location']
     loc_nego = request.POST['student_location_negotiable']
-    exam_type = request.POST['student_subject']    
-    # subjects
-    subjects = ''
-    prefix = 'student_subject'
-    start = 1
-    while(prefix+str(start) in request.POST):
-      subjects+=request.POST[prefix+str(start)]
-      subjects+=';'
-      start+=1
-    
-    duration_per_lesson = request.POST['student_duration_per_lesson']
-    start_time = request.POST['student_start_time']
+    time_per_lesson = request.POST['student_duration_per_lesson']
     lesson_per_week = request.POST['student_lesson_per_week']
-    prefer_tutor = request.POST['student_tutor_preference']
-    # remarks
+    start_time = request.POST['student_start_time']
+    prefer_tutor_gender = request.POST['student_tutor_preference']
+    #### Preference end
+
+    #### Create student start
+    myuser = request.user
+    myuser.email = email
+    myuser.save()
+    student = Student(username=myuser.username,name=name,gender=gender,\
+      email=email,phone=phone,school=school,grade=grade,\
+      wechat=wechat,whatsapp=whatsapp,base_info=myuser,\
+      location=location,loc_nego=loc_nego,\
+      time_per_lesson=time_per_lesson,start_time=start_time,\
+      lesson_per_week=lesson_per_week,prefer_tutor_gender=prefer_tutor_gender)
+    if start_time=='Other':
+      student.start_time_other = request.POST['student_start_time_other']
     remarks=''
     prefix = 'student_remark'
     for i in range(1,7):
       if prefix+str(i) in request.POST:
         remarks+=request.POST[prefix+str(i)]
         remarks+=';'
-    # subjects other
-    subjects_other=''
-    prefix = 'student_subject'
-    for i in range(1,11):
-      if prefix+str(i)+'_other' in request.POST:
-        subjects_other+=request.POST[prefix+str(i)+'_other']
-        subjects_other+=';'
-    weakness = request.POST['student_weakness']
-    myuser = MyUser.objects.filter(id=id)[0]
-    myuser.email = email
-    student = Student(name=name,gender=gender,phone=phone,\
-      school=school,wechat=wechat,whatsapp=whatsapp,grade=grade,location=location,\
-      loc_nego=loc_nego,exam_type=exam_type,subjects=subjects,\
-      duration_per_lesson=duration_per_lesson,start_time=start_time,\
-      lesson_per_week=lesson_per_week,prefer_tutor=prefer_tutor,\
-      weakness=weakness,remarks=remarks,subjects_other=subjects_other,email=email,username=myuser.username)
-    if start_time=='Other':
-      start_time_other = request.POST['student_start_time_other']
-      student.start_time_other = start_time_other
-    student.base_info = myuser
+    student.remarks=remarks
+    if 'weakness' in request.POST:
+      student.weakness = request.POST['student_weakness']
     student.save()
-    myuser.save()
-    # print(student.subjects_other)
-    # print(student.start_time_other)
-    # print(student.remarks)
+    #### Create student end
+
+    #### Start create prefer teach and refer teach
+    student_subject = request.POST['student_subject'] 
+    for i in range(1,10):
+      if 'student_subject'+str(i) in request.POST:
+        name = request.POST['student_subject'+str(i)]
+        other = False
+        if 'student_subject'+str(i)+'_other' in request.POST:
+          other = request.POST['student_subject'+str(i)+'_other']
+        prefer_sub = StudentPreferSub(level=student_subject,name=name,rank=i,other=other,\
+          student=student)
+        prefer_sub.save()
+    #### END
+
     messages.success(request,'Update information successfully!')
     return HttpResponseRedirect('/index')
   else:
-    user = MyUser.objects.filter(id=id)[0]
-    student = user.get_user()
-    if student:
-      remarks = student.get_single('remarks')
-      subjects = student.get_single('subjects')
-      subjects_other = student.get_single('subjects_other')
-      return render(request,'signup_student.html',{'id':id,'student':student,\
-        'remarks':remarks,'subjects':subjects,'subjects_other':subjects_other})
-    return render(request, 'signup_student.html',{'id':id})
+    return render(request, 'signup_student.html')

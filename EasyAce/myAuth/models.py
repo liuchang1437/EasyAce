@@ -129,48 +129,53 @@ class ReferSubject(models.Model):
 
 class Student(models.Model):
   class Meta:
-    ordering = ['name']
-  # 性别，Male和Female
-  gender = models.CharField(max_length=6)
-  username = models.CharField(max_length=30)
-  email = models.CharField('email address',max_length=40)
-  # 电话
-  phone = models.CharField(max_length=20)
-  # 姓名
+    ordering = ['username']
+  ############### Base Info Start ###############
+  username = models.CharField(u"username",max_length=30)
   name = models.CharField(max_length=30)
-  # 生日
-  #birth = models.DateField()
+  gender = models.CharField(max_length=6)
+  email = models.CharField('email address',max_length=40)
+  phone = models.CharField(max_length=20)
   school = models.CharField(max_length=50)
+  grade = models.CharField(max_length=20)
   wechat = models.CharField(max_length=30)
   whatsapp = models.CharField(max_length=30)
-  grade = models.CharField(max_length=20)
+  base_info = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+  ############### Base Info End ###############
+
+  ############### Preference Start ###############
   location = models.CharField(max_length=100)
   loc_nego = models.CharField('If tuition location negotiable',max_length=20)
-  exam_type = models.CharField('exam type',max_length=50)
-  # 想要上的课程
-  subjects = models.TextField() # 格式为 sub1;sub2;sub3...
-  duration_per_lesson = models.CharField('time per lesson',max_length=12)
-  start_time = models.CharField('start time',max_length=8)
+  time_per_lesson = models.CharField('time per lesson',max_length=12)
   lesson_per_week = models.CharField('lesson per week',max_length=12)
-  prefer_tutor = models.CharField('preference about tutor',max_length=7)
+  start_time = models.CharField('start time',max_length=8)
   start_time_other = models.CharField('start time(other)',max_length=12,null=True,blank=True)
-  #num_taught = models.CharField(max_length=10)
+  prefer_tutor_gender = models.CharField('preference about tutor',max_length=7)
   remarks = models.TextField('remarks',blank=True,null=True) # 格式为 1;2;3;...
-  subjects_other = models.TextField('subjects(other)',null=True,blank=True) # 格式韦 sub1;sub2;sub3;...
   weakness = models.TextField(blank=True,null=True)
-  #achievement = models.CharField(max_length=300)
+  ############### Preference End ###############
 
+  ############### State Start ###############
   wait_match = models.BooleanField(u'等待分配教师',default=True)
-  prefer_tutors = models.ManyToManyField(Tutor,null=True,blank=True)
-  base_info = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-  def get_single(self,field_name):
-    results = getattr(self,field_name).split(';')
+  tutors_chosen = models.ManyToManyField(Tutor)
+  ############### State End ###############
+  
+  def get_remarks(self):
+    results = self.remarks.split(';')
     try:
       results.remove('')
     finally:
       return results
   def __str__(self):
     return self.name
+class StudentPreferSub(models.Model):
+  level = models.CharField(max_length=30)
+  name = models.CharField(max_length=30)
+  rank = models.IntegerField(editable=False)
+  other = models.BooleanField(default=False)
+  student = models.ForeignKey(Student,related_name='prefer_subs',related_query_name='prefer_sub')
+  def __str__(self):
+    return 'rank {}'.format(self.rank)
 
 
 class MyUser(AbstractUser):
@@ -195,8 +200,10 @@ class MyUser(AbstractUser):
       return False
 
 class Record(models.Model):
+  tutor = models.ForeignKey(Tutor,on_delete=models.CASCADE,related_name='records',limit_choices_to={'check':True})
+  student = models.ForeignKey(Student,on_delete=models.CASCADE,related_name='records')
   if_confirmed = models.BooleanField(default=False,verbose_name=u'双方是否确认')
-  startdate = models.DateField(u'确认日期',default=timezone.now)
+  startdate = models.DateField(u'确认日期',default=timezone.now,blank=True)
   chargedate = models.DateField(u'收费日期',blank=True,null=True)
   service_fees = models.CharField(u'中介费用',blank=True,null=True,max_length=20)
   freq = models.CharField(u'每周课时数',blank=True,null=True,max_length=30)
@@ -204,8 +211,6 @@ class Record(models.Model):
   lesson_price = models.CharField(u'每节课费用',blank=True,null=True,max_length=30)
   admin_name = models.CharField(u'管理员姓名',max_length=30)
 
-  tutor = models.ForeignKey(Tutor,on_delete=models.CASCADE,related_name='records',limit_choices_to={'check':True})
-  student = models.ForeignKey(Student,on_delete=models.CASCADE,related_name='records')
   # def get_tutor_name(self):
   #   return self.tutor.name
   # def get_student_name(self):
