@@ -113,7 +113,11 @@ class="active"
 				<div class="my-information-p">Exam</div>
 			</div>
 			<div class="col-xs-4">
-				<div class="my-information-p2">{{ student.exam_type }}</div>
+				{% for sub in student.prefer_subs.all %}
+				{% if sub.rank == 1 %}
+				<div class="my-information-p2">{{ sub.level }}</div>
+				{% endif %}
+				{% endfor %}
 			</div>
 		</div>
 		<div class="row">
@@ -121,19 +125,10 @@ class="active"
 				<div class="my-information-p">Teaching Subjects</div>
 			</div>
 		</div>
-		{% for sub in subjects %}
+		{% for sub in student.prefer_subs.all %}
 		<div class="row">
 			<div class="col-xs-4 col-xs-offset-4">
-				{% if sub != "Other" %}
-				<div class="my-information-p2">{{ sub }}</div>
-				{% endif %}
-			</div>
-		</div>
-		{% endfor %}
-		{% for sub in subjects_other %}
-		<div class="row">
-			<div class="col-xs-4 col-xs-offset-4">
-				<div class="my-information-p2">{{ sub }}</div>
+				<div class="my-information-p2">{{ sub.name }}</div>
 			</div>
 		</div>
 		{% endfor %}
@@ -142,7 +137,7 @@ class="active"
 				<div class="my-information-p">Duration per Lesson</div>
 			</div>
 			<div class="col-xs-4">
-				<div class="my-information-p2">{{ student.duration_per_lesson }}</div>
+				<div class="my-information-p2">{{ student.time_per_lesson }}</div>
 			</div>
 		</div>
 		<div class="row">
@@ -180,7 +175,7 @@ class="active"
 				<div class="my-information-p">Tutor Preference</div>
 			</div>
 			<div class="col-xs-4">
-				<div class="my-information-p2">{{ student.prefer_tutor }}</div>
+				<div class="my-information-p2">{{ student.prefer_tutor_gender }}</div>
 			</div>
 		</div>
 		<div class="row">
@@ -188,7 +183,7 @@ class="active"
 				<div class="my-information-p">Student Remark</div>
 			</div>
 		</div>
-		{% for remark in remarks %}
+		{% for remark in student.get_remarks %}
 		{% if remark != "Other" %}
 		<div class="row">
 			<div class="col-xs-8 col-xs-offset-2">

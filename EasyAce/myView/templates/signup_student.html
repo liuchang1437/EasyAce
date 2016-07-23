@@ -214,10 +214,10 @@ function validate_form(thisform)
 					<div class="form-group">
 						<select class="form-control" id="id_student_duration_per_lesson" name="student_duration_per_lesson">
 							<option value="">Duration per Lesson</option>
-							<option value="1 hour" {% if student.duration_per_lesson == "1 hour" %} selected="selected" {% endif %}>1 hour</option>
-							<option value="2 hour" {% if student.duration_per_lesson  == "2 hour" %} selected="selected" {% endif %}>2 hour</option>
-							<option value="3 hour" {% if student.duration_per_lesson  == "3 hour" %} selected="selected" {% endif %}>3 hour</option>
-							<option value="4 hour" {% if student.duration_per_lesson  == "4 hour" %} selected="selected" {% endif %}>4 hour</option>
+							<option value="1 hour" {% if student.time_per_lesson == "1 hour" %} selected="selected" {% endif %}>1 hour</option>
+							<option value="2 hour" {% if student.time_per_lesson  == "2 hour" %} selected="selected" {% endif %}>2 hour</option>
+							<option value="3 hour" {% if student.time_per_lesson  == "3 hour" %} selected="selected" {% endif %}>3 hour</option>
+							<option value="4 hour" {% if student.time_per_lesson  == "4 hour" %} selected="selected" {% endif %}>4 hour</option>
 						</select>
 					</div>
 				</div>
@@ -268,9 +268,9 @@ function validate_form(thisform)
 				<div class="col-xs-12">
 					<div class="form-group">
 						<select class="form-control" id="id_student_tutor_preference" name="student_tutor_preference">
-							<option value="Either" {% if student.prefer_tutor  == "Either" %} selected="selected" {% endif %}>I'm satisfied with either a female or a male tutor</option>
-							<option value="Male" {% if student.prefer_tutor  == "Male" %} selected="selected" {% endif %}>I prefer a male tutor</option>
-							<option value="Female" {% if student.prefer_tutor  == "Female" %} selected="selected" {% endif %}>I prefer a female tutor</option>
+							<option value="Either" {% if student.prefer_tutor_gender  == "Either" %} selected="selected" {% endif %}>I'm satisfied with either a female or a male tutor</option>
+							<option value="Male" {% if student.prefer_tutor_gender  == "Male" %} selected="selected" {% endif %}>I prefer a male tutor</option>
+							<option value="Female" {% if student.prefer_tutor_gender  == "Female" %} selected="selected" {% endif %}>I prefer a female tutor</option>
 						</select>
 					</div>
 				</div>
