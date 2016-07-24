@@ -5,7 +5,7 @@ from django.utils import timezone
 # Create your models here.
 class Tutor(models.Model):
   class Meta:
-    ordering = ['username']
+    ordering = ['username','sr']
   ############### Information Fields Start ###############
   username = models.CharField(u"username",max_length=30) # username and email, 应该和MyUser中的一致
   name = models.CharField(u'name',max_length=50)
