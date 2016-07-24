@@ -191,21 +191,7 @@ def edit(request):
             messages.success(request,'Update information successfully!')
             return HttpResponseRedirect('/index')
         else:
-            tutor = user.get_user()
-            if tutor:
-                middle_test_score = tutor.get_pairs('middle_test_score')
-                high_test_score = tutor.get_pairs('high_test_score')
-                prefer_teach = tutor.get_pairs('prefer_teach')
-                regions = tutor.get_single('regions')
-                middle_sub_other = tutor.get_triple('middle_sub_other')
-                high_sub_other = tutor.get_triple('high_sub_other')
-                teaching_sub_other = tutor.get_triple('teaching_sub_other')
-                return render(request,'signup_tutor.html',{'id':user.id,'edit':True,'tutor':tutor,\
-                        'middle_test_score':middle_test_score,'high_test_score':high_test_score,\
-                        'prefer_teach':prefer_teach,'regions':regions,\
-                        'middle_sub_other':middle_sub_other,'high_sub_other':high_sub_other,\
-                        'teaching_sub_other':teaching_sub_other})
-            return HttpResponseRedirect(reverse('myAuth:signup_tutor',kwargs={'id':user.id}))
+            return HttpResponseRedirect(reverse('main:signup_tutor',kwargs={'id':user.id}))
     else:
         if request.method == 'POST':
             student = user.get_user()
