@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from myAuth.models import Tutor,MyUser,Student
+from myAuth.models import Tutor,MyUser,Student,PreferSubject,ReferSubject,StudentPreferSub
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -71,8 +71,8 @@ def choose_tutor(request):
         tutor = MyUser.objects.get(pk=tutor_id).get_user()
         if not student:
             messages.warning(request,'Please complete your info first.')
-            return HttpResponseRedirect(reverse('myAuth:signup_tutor',\
-            kwargs={'id':user.id}))
+            return HttpResponseRedirect(reverse('myAuth:signup_student'))
+        print('here')
         student.tutors_chosen.add(tutor)
         student.save()
         data = {'added':True}
@@ -81,181 +81,147 @@ def choose_tutor(request):
         return HttpResponseRedirect(reverse('main:index'))
 def edit(request):
     user = request.user
+    # if the user is a tutor.
     if user.role=='tutor':
+        # if post the form, update the information
         if request.method == 'POST':
             tutor = user.get_user()
+            #### Base info start
             tutor.name = request.POST['name']
             tutor.gender = request.POST['gender']
             tutor.birth = request.POST['birthday']
-            user.email = request.POST['email']
+            tutor.email = request.POST['email']
             tutor.phone = request.POST['phone']
             tutor.school = request.POST['school']
             tutor.wechat = request.POST['wechat']
             tutor.whatsapp = request.POST['whatsapp']
-            # middle_test
-            tutor.middle_test = request.POST['middle_test']
-            middle_test_score = ''
-            prefix = 'middle_sub'
-            start = 1
-            while(prefix+str(start) in request.POST):
-                middle_test_score+=request.POST[prefix+str(start)]
-                middle_test_score+=':'
-                middle_test_score+=request.POST[prefix+str(start)+'_score']
-                middle_test_score+=';'
-                start+=1
-            tutor.middle_test_score = middle_test_score
-            # high_test
-            high_test = request.POST['high_test']
-            high_test_score = ''
-            prefix = 'high_sub'
-            start = 1
-            while(prefix+str(start) in request.POST):
-                high_test_score+=request.POST[prefix+str(start)]
-                high_test_score+=':'
-                high_test_score+=request.POST[prefix+str(start)+'_score']
-                high_test_score+=';'
-                start+=1
-            tutor.high_test_score = high_test_score
-            # prefer teach
-            prefer_teach = ''
-            prefix = 'teaching_'
-            start = 1
-            while(prefix+'level'+str(start) in request.POST):
-                prefer_teach+=request.POST[prefix+'level'+str(start)]
-                prefer_teach+=':'
-                prefer_teach+=request.POST[prefix+'sub'+str(start)]
-                prefer_teach+=';'
-                start+=1
-        
-            regions = ''
-            for i in range(1,4):
-                regions+=request.POST['tutor_location_'+str(i)]
-                regions+=';'
-            region1 = request.POST('tutor_location_1')
-            region2 = request.POST('tutor_location_2')
-            region3 = request.POST('tutor_location_3')
-            tutor.region1 = region1
-            tutor.region2 = region2
-            tutor.region3 = region3
-            middle_sub_other = ''
-            prefix = 'middle_sub'
-            for i in range(1,10):
-                if prefix+str(i)+'_other' in request.POST:
-                    middle_sub_other+=request.POST[prefix+str(i)]
-                    middle_sub_other+=','
-                    middle_sub_other+=request.POST[prefix+str(i)+'_other']
-                    middle_sub_other+=','
-                    middle_sub_other+=request.POST[prefix+str(i)+'_score']
-                    middle_sub_other+=';'
-                    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111')
-                    print(request.POST[prefix+str(i)])
-                    print(request.POST[prefix+str(i)+'_other'])
-                    print(request.POST[prefix+str(i)+'_score'])
-                    print(middle_sub_other)
-            tutor.middle_sub_other = middle_sub_other
-            high_sub_other = ''
-            prefix = 'high_sub'
-            for i in range(1,10):
-                if prefix+str(i)+'_other' in request.POST:
-                    high_sub_other+=request.POST[prefix+str(i)]
-                    high_sub_other+=','
-                    high_sub_other+=request.POST[prefix+str(i)+'_other']
-                    high_sub_other+=','
-                    high_sub_other+=request.POST[prefix+str(i)+'_score']
-                    high_sub_other+=';'
-            tutor.high_sub_other = high_sub_other
-            teaching_sub_other = ''
-            prefix = 'teaching_'
-            for i in range(1,10):
-                if prefix+'sub'+str(i)+'_other' in request.POST:
-                    teaching_sub_other += request.POST[prefix+'level'+str(i)]
-                    teaching_sub_other += ','
-                    teaching_sub_other += request.POST[prefix+'sub'+str(i)]
-                    teaching_sub_other += ','
-                    teaching_sub_other += request.POST[prefix+'sub'+str(i)+'_other']
-                    teaching_sub_other += ';'
-                    prefer_teach += request.POST[prefer+'sub'+str(i)]
-                    prefer_teach +=':'
-                    prefer_teach += request.POST[prfer+'sub'+str(i)+'_other']
-                    prefer_teach += ';'
-            if 'photo' in request.FILES:
-                tutor.photo=request.FILES['photo']
-            tutor.prefer_teach = prefer_teach
-            tutor.teaching_sub_other = teaching_sub_other
-            tutor.regions = regions
-            tutor.duration = request.POST['teach_duration']
+            #### Base info end
+
+            #### Profile start
+            tutor.teach_duration = request.POST['teach_duration']
             tutor.num_taught = request.POST['num_taught']
             tutor.achievement = request.POST['achievement']
-            tutor.save()
+            #### Profile end
+
+            #### Option fields start
+            user.email = request.POST['email']
             user.save()
+            if 'photo' in request.FILES:
+                tutor.photo = request.FILES['photo']
+            if 'tutor_location_1' in request.POST:
+                tutor.tutor_location1 = request.POST['tutor_location_1']
+            if 'tutor_location_2' in request.POST:
+                tutor.tutor_location2 = request.POST['tutor_location_2']
+            if 'tutor_location_3' in request.POST:
+                tutor.tutor_location3 = request.POST['tutor_location_3']
+            tutor.save()
+            #### Option fields end
+
+            #### Start create prefer teach and refer teach 
+            for sub in tutor.prefer_subs.all():
+                sub.delete()
+            for sub in tutor.refer_subs.all():
+                sub.delete()
+            for i in range(1,10):
+                if 'teach_level'+str(i) in request.POST:
+                    level = request.POST['teach_level'+str(i)]
+                    name = request.POST['teach_sub'+str(i)]
+                    other = False
+                    if name == "Other":
+                        name = request.POST['teach_sub_other'+str(i)]
+                        other = True
+                    prefer_teach = PreferSubject(level=level,name=name,rank=i,other=other,\
+                        tutor=tutor)
+                    prefer_teach.save()
+                if 'ref_level'+str(i) in request.POST:
+                    level = request.POST['ref_level'+str(i)]
+                    name = request.POST['ref_sub'+str(i)]
+                    other = False
+                    if name == "Other":
+                        name = request.POST['ref_sub_other'+str(i)]
+                        other = True
+                    score = request.POST['ref_score'+str(i)]
+                    refer_teach = ReferSubject(level=level,name=name,score=score,rank=i,\
+                        other=other,tutor=tutor)
+                    refer_teach.save()
+            #### END
+            tutor.cal_isr()
+            print(tutor.isr)
+            tutor.save()
             messages.success(request,'Update information successfully!')
-            return HttpResponseRedirect('/index')
+            return HttpResponseRedirect(reverse('main:information',kwargs={'id':user.id}))
+            # End update information
+        # if the method is GET, offer old information
         else:
-            return HttpResponseRedirect(reverse('main:signup_tutor',kwargs={'id':user.id}))
+            tutor = user.get_user()
+            if tutor:
+                return render(request,'signup_tutor.html',{'tutor':tutor,'edit':True})
+            return HttpResponseRedirect(reverse('myAuth:signup_tutor'))
+    # the user is a student
     else:
+        # If post the form, update student info.
         if request.method == 'POST':
             student = user.get_user()
+            #### Base info start
             student.name = request.POST['name']
             student.gender = request.POST['gender']
-            #birth = request.POST['birthday']
-            user.email = request.POST['email']
+            student.email = request.POST['email']
             student.phone = request.POST['phone']
             student.school = request.POST['school']
+            student.grade = request.POST['grade']
             student.wechat = request.POST['wechat']
             student.whatsapp = request.POST['whatsapp']
-            student.grade = request.POST['grade']
+            #### Base info end
+
+            #### Preference start
             student.location = request.POST['student_location']
             student.loc_nego = request.POST['student_location_negotiable']
-            student.exam_type = request.POST['student_subject']    
-            # subjects
-            subjects = ''
-            prefix = 'student_subject'
-            start = 1
-            while(prefix+str(start) in request.POST):
-                subjects+=request.POST[prefix+str(start)]
-                subjects+=';'
-                start+=1
-            student.subjects = subjects
-            student.duration_per_lesson = request.POST['student_duration_per_lesson']
-            student.start_time = request.POST['student_start_time']
+            student.time_per_lesson = request.POST['student_duration_per_lesson']
             student.lesson_per_week = request.POST['student_lesson_per_week']
-            student.prefer_tutor = request.POST['student_tutor_preference']
-            # remarks
+            student.start_time = request.POST['student_start_time']
+            student.prefer_tutor_gender = request.POST['student_tutor_preference']
+            #### Preference end
+
+            #### Option fields start
+            user.email = request.POST['email']
+            user.save()
+            if request.POST['student_start_time']=='Other':
+                student.start_time_other = request.POST['student_start_time_other']
             remarks=''
             prefix = 'student_remark'
             for i in range(1,7):
                 if prefix+str(i) in request.POST:
                     remarks+=request.POST[prefix+str(i)]
                     remarks+=';'
-            student.remarks = remarks
-            # subjects other
-            subjects_other=''
-            prefix = 'student_subject'
-            for i in range(1,11):
-                if prefix+str(i)+'_other' in request.POST:
-                    subjects_other+=request.POST[prefix+str(i)+'_other']
-                    subjects_other+=';'
-            student.subjects_other = subjects_other
-            student.weakness = request.POST['student_weakness']
-            if student.start_time=='Other':
-                start_time_other = request.POST['student_start_time_other']
-                student.start_time_other = start_time_other
+            student.remarks=remarks
+            if 'student_weakness' in request.POST:
+                student.weakness = request.POST['student_weakness']
             student.save()
-            user.save()
-            # print(student.subjects_other)
-            # print(student.start_time_other)
-            # print(student.remarks)
+            #### Option fields end
+
+            #### Start create prefer teach and refer teach
+            student_subject = request.POST['student_subject']
+            for sub in student.prefer_subs.all():
+                sub.delete() 
+            for i in range(1,10):
+                if 'student_subject'+str(i) in request.POST:
+                    name = request.POST['student_subject'+str(i)]
+                    other = False
+                    if name == "Other":
+                        name = request.POST['student_subject'+str(i)+'_other']
+                        other = True
+                    prefer_sub = StudentPreferSub(level=student_subject,name=name,rank=i,other=other,\
+                        student=student)
+                    prefer_sub.save()
+            #### END
             messages.success(request,'Update information successfully!')
-            return HttpResponseRedirect('/index')
+            return HttpResponseRedirect(reverse('main:information',kwargs={'id':user.id}))
+        # if method is GET
         else:
             student = user.get_user()
             if student:
-                remarks = student.get_single('remarks')
-                subjects = student.get_single('subjects')
-                subjects_other = student.get_single('subjects_other')
-                return render(request,'signup_student.html',{'edit':True,'id':user.id,'student':student,\
-                'remarks':remarks,'subjects':subjects,'subjects_other':subjects_other})
-            return HttpResponseRedirect(reverse('myAuth:signup_student',kwargs={'id':user.id}))
+                return render(request,'signup_student.html',{'student':student,'edit':True})
+            return HttpResponseRedirect(reverse('myAuth:signup_student'))
 
 def edit_student(request):
     user = request.user

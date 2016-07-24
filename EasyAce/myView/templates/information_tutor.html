@@ -207,8 +207,8 @@ function add_tutor()
 			</div>
 		</div>
 		{% endif %}
-		
-		{% if user.role == "student" and tutor not in student.prefer_tutors.all %}
+
+		{% if user.role == "student" and not tutor in student.tutors_chosen.all %}
 		<div class="row" style="margin-top: 30px">
 			<div class="col-xs-6 col-xs-offset-3">
 
@@ -217,7 +217,7 @@ function add_tutor()
 		</div>
 		{% endif %}
 		 
-		{% if tutor in student.prefer_tutors.all %}
+		{% if tutor in student.tutors_chosen.all %}
 		<div class="row" style="margin-top: 30px">
 			<div class="col-xs-6 col-xs-offset-3">
 				<div class="btn btn-default btn-modify">You have selected this tutor!</div>
