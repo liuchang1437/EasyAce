@@ -173,39 +173,50 @@ function validate_form(thisform)
 			
       <h1>Preference of Tuition Region</h1>
 			<div class="row">
-			{% if regions %}
-			{% for region in regions %}
+			{% if tutor.tutor_location1  %}
 			<div class="col-xs-4">
 				<div class="form-group">
 					<select class="form-control" id="id_tutor_location_{{ forloop.counter }}" name="tutor_location_{{ forloop.counter }}">
-						<option value="">Preference {{ forloop.counter }}</option>
-						<option value="West" {% if region == "West" %} selected="selected" {% endif %}>West</option>
-						<option value="Central" {% if region == "Central" %} selected="selected" {% endif %}>Central</option>
-						<option value="East" {% if region == "East" %} selected="selected" {% endif %}>East</option>
-						<option value="Northwest" {% if region == "Northwest" %} selected="selected" {% endif %}>NorthWest</option>
-						<option value="North" {% if region == "North" %} selected="selected" {% endif %}>North</option>
-						<option value="Northeast" {% if region == "Northeast" %} selected="selected" {% endif %}>NorthEast</option>
+						<option value="">Preference 1</option>
+						<option value="West" {% if tutor.tutor_location1 == "West" %} selected="selected" {% endif %}>West</option>
+						<option value="Central" {% if  tutor.tutor_location1  == "Central" %} selected="selected" {% endif %}>Central</option>
+						<option value="East" {% if tutor.tutor_location1 == "East" %} selected="selected" {% endif %}>East</option>
+						<option value="Northwest" {% if tutor.tutor_location1 == "Northwest" %} selected="selected" {% endif %}>NorthWest</option>
+						<option value="North" {% if tutor.tutor_location1 == "North" %} selected="selected" {% endif %}>North</option>
+						<option value="Northeast" {% if tutor.tutor_location1 == "Northeast" %} selected="selected" {% endif %}>NorthEast</option>
 					</select>
 				</div>
 			</div>
-			{% endfor %}
 			{% endif %}
-			{% if not regions %}
-			{% for i in "123"|make_list %}
+			{% if tutor.tutor_location2  %}
 			<div class="col-xs-4">
 				<div class="form-group">
-					<select class="form-control" id="id_tutor_location_{{ i }}" name="tutor_location_{{ i }}">
-						<option value="">Preference {{i}}</option>
-						<option value="West">West</option>
-						<option value="Central">Central</option>
-						<option value="East">East</option>
-						<option value="Northwest">NorthWest</option>
-						<option value="North">North</option>
-						<option value="Northeast">NorthEast</option>
+					<select class="form-control" id="id_tutor_location_{{ forloop.counter }}" name="tutor_location_{{ forloop.counter }}">
+						<option value="">Preference 2</option>
+						<option value="West" {% if tutor.tutor_location2 == "West" %} selected="selected" {% endif %}>West</option>
+						<option value="Central" {% if  tutor.tutor_location2  == "Central" %} selected="selected" {% endif %}>Central</option>
+						<option value="East" {% if tutor.tutor_location2 == "East" %} selected="selected" {% endif %}>East</option>
+						<option value="Northwest" {% if tutor.tutor_location2 == "Northwest" %} selected="selected" {% endif %}>NorthWest</option>
+						<option value="North" {% if tutor.tutor_location2 == "North" %} selected="selected" {% endif %}>North</option>
+						<option value="Northeast" {% if tutor.tutor_location2 == "Northeast" %} selected="selected" {% endif %}>NorthEast</option>
 					</select>
 				</div>
 			</div>
-			{% endfor %}
+			{% endif %}
+			{% if tutor.tutor_location3  %}
+			<div class="col-xs-4">
+				<div class="form-group">
+					<select class="form-control" id="id_tutor_location_{{ forloop.counter }}" name="tutor_location_{{ forloop.counter }}">
+						<option value="">Preference 3</option>
+						<option value="West" {% if tutor.tutor_location3 == "West" %} selected="selected" {% endif %}>West</option>
+						<option value="Central" {% if  tutor.tutor_location3  == "Central" %} selected="selected" {% endif %}>Central</option>
+						<option value="East" {% if tutor.tutor_location3 == "East" %} selected="selected" {% endif %}>East</option>
+						<option value="Northwest" {% if tutor.tutor_location3 == "Northwest" %} selected="selected" {% endif %}>NorthWest</option>
+						<option value="North" {% if tutor.tutor_location3 == "North" %} selected="selected" {% endif %}>North</option>
+						<option value="Northeast" {% if tutor.tutor_location3 == "Northeast" %} selected="selected" {% endif %}>NorthEast</option>
+					</select>
+				</div>
+			</div>
 			{% endif %}
 			</div>
       <hr>
@@ -214,13 +225,13 @@ function validate_form(thisform)
       <div class="form-group">
         <select class="form-control" id="id_teach_duration" name="teach_duration">
           <option value="">Duration</option>
-          <option value="Never" {% if tutor.duration == "Never" %} selected="selected" {% endif %}>Never</option>
-          <option value="1 month" {% if tutor.duration == "1 month" %} selected="selected" {% endif %}>1 month</option>
-          <option value="1-3 month" {% if tutor.duration == "1-3 month" %} selected="selected" {% endif %}>1-3 month</option>
-          <option value="3-6 month" {% if tutor.duration == "3-6 month" %} selected="selected" {% endif %}>3-6 month</option>
-          <option value="6-12 month" {% if tutor.duration == "6-12 month" %} selected="selected" {% endif %}>6-12 month</option>
-          <option value=">1 year" {% if tutor.duration == "1 year" %} selected="selected" {% endif %}>>1 year</option>
-          <option value=">2 year" {% if tutor.duration == "2 year" %} selected="selected" {% endif %}>>2 year</option>
+          <option value="Never" {% if tutor.teach_duration == "Never" %} selected="selected" {% endif %}>Never</option>
+          <option value="1 month" {% if tutor.teach_duration == "1 month" %} selected="selected" {% endif %}>1 month</option>
+          <option value="1-3 month" {% if tutor.teach_duration == "1-3 month" %} selected="selected" {% endif %}>1-3 month</option>
+          <option value="3-6 month" {% if tutor.teach_duration == "3-6 month" %} selected="selected" {% endif %}>3-6 month</option>
+          <option value="6-12 month" {% if tutor.teach_duration == "6-12 month" %} selected="selected" {% endif %}>6-12 month</option>
+          <option value=">1 year" {% if tutor.teach_duration == "1 year" %} selected="selected" {% endif %}>>1 year</option>
+          <option value=">2 year" {% if tutor.teach_duration == "2 year" %} selected="selected" {% endif %}>>2 year</option>
         </select>
       </div>
       <div class="form-group">

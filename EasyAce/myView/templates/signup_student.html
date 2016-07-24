@@ -278,47 +278,47 @@ function validate_form(thisform)
 			<h1>Remarks</h1>
 			<p>Anything you want to share with us which can make us know you better before teaching even starts, so that we can find a tutor that best suits you!</p>
 			
-			{% if remarks %}
+			{% if student.remarks %}
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" id="id_student_remark1" name="student_remark1" value="I need a slow and patient pace to teach concepts and question solving skills clearly" {% for remark in remarks %} {% if remark == "I need a slow and patient pace to teach concepts and question solving skills clearly" %} checked="checked" {% endif %} {% endfor %}/>I need a slow and patient pace to teach concepts and question solving skills clearly
+							<input type="checkbox" id="id_student_remark1" name="student_remark1" value="I need a slow and patient pace to teach concepts and question solving skills clearly" {% for remark in student.get_remarks %} {% if remark == "I need a slow and patient pace to teach concepts and question solving skills clearly" %} checked="checked" {% endif %} {% endfor %}/>I need a slow and patient pace to teach concepts and question solving skills clearly
 						</label>
 					</div>
 				</div>
 				<div class="col-xs-12">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" id="id_student_remark2" name="student_remark2" value="I need a fast summary of concepts and teach at a faster pace than school" {% for remark in remarks %} {% if remark == "I need a fast summary of concepts and teach at a faster pace than school" %} checked="checked" {% endif %} {% endfor %}/>I need a fast summary of concepts and teach at a faster pace than school
+							<input type="checkbox" id="id_student_remark2" name="student_remark2" value="I need a fast summary of concepts and teach at a faster pace than school" {% for remark in student.get_remarks %} {% if remark == "I need a fast summary of concepts and teach at a faster pace than school" %} checked="checked" {% endif %} {% endfor %}/>I need a fast summary of concepts and teach at a faster pace than school
 						</label>
 					</div>
 				</div>
 				<div class="col-xs-12">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" id="id_student_remark3" name="student_remark3" value="I am familiar with concepts, but I need a tutor to teach me questions solving skills" {% for remark in remarks %} {% if remark == "I am familiar with concepts, but I need a tutor to teach me questions solving skills" %} checked="checked" {% endif %} {% endfor %}/>I am familiar with concepts, but I need a tutor to teach me questions solving skills
+							<input type="checkbox" id="id_student_remark3" name="student_remark3" value="I am familiar with concepts, but I need a tutor to teach me questions solving skills" {% for remark in student.get_remarks %} {% if remark == "I am familiar with concepts, but I need a tutor to teach me questions solving skills" %} checked="checked" {% endif %} {% endfor %}/>I am familiar with concepts, but I need a tutor to teach me questions solving skills
 						</label>
 					</div>
 				</div>
 				<div class="col-xs-12">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" id="id_student_remark4" name="student_remark4" value="I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions" {% for remark in remarks %} {% if remark == "I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions" %} checked="checked" {% endif %} {% endfor %}/>I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions
+							<input type="checkbox" id="id_student_remark4" name="student_remark4" value="I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions" {% for remark in student.get_remarks %} {% if remark == "I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions" %} checked="checked" {% endif %} {% endfor %}/>I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions
 						</label>
 					</div>
 				</div>
 				<div class="col-xs-12">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" id="id_student_remark5" name="student_remark5" value="Other" {% for remark in remarks %} {% if remark == "Other" %} checked="checked" {% endif %} {% endfor %}/>Other
+							<input type="checkbox" id="id_student_remark5" name="student_remark5" value="Other" {% for remark in student.get_remarks %} {% if remark == "Other" %} checked="checked" {% endif %} {% endfor %}/>Other
 						</label>
 					</div>
 				</div>
 				<div class="col-xs-12">
 					<div class="form-group">
 						<div id="id_remark_other">
-							{% for remark in remarks %}
+							{% for remark in student.get_remarks %}
 							{% if remark != "I need a slow and patient pace to teach concepts and question solving skills clearly" and remark != "I need a fast summary of concepts and teach at a faster pace than school" and remark != "I am familiar with concepts, but I need a tutor to teach me questions solving skills" and remark != "I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions" and remark != "Other" %}
 							<textarea class="form-control" id="id_student_remark6" name="student_remark6" rows="3" placeholder="Other Remarks"> {{ remark }} </textarea>
 							{% endif %}
@@ -328,7 +328,7 @@ function validate_form(thisform)
 				</div>
 			</div><!--row-->
 			{% endif %}
-			{% if not remarks %}
+			{% if not student.remarks %}
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="checkbox">
