@@ -233,9 +233,12 @@ def edit_student(request):
     user = request.user
     if request.method == 'POST':
         student = user.get_user()
-        subjects = student.get_single('subjects')
-        subjects_other = student.get_single('subjects_other')
-        exam_type = student.exam_type
+        exam_type = student.prefer_subs.all()[0].level
+        subjects = []
+        subjects_other = []
+        for sub in student.prefer_subs.all():
+            subjects.append(sub.name)
+            subjects_other.append(sub.other)
         data = {}
         data["exam_type"] = exam_type
         data['subjects'] = subjects
@@ -248,24 +251,38 @@ def edit_tutor(request):
     user = request.user
     if request.method == 'POST':
         tutor = user.get_user()
-        middle_test = tutor.middle_test
-        high_test = tutor.high_test
-        middle_test_score = tutor.get_pairs('middle_test_score')
-        high_test_score = tutor.get_pairs('high_test_score')
-        prefer_teach = tutor.get_prefer_teach()
-        middle_sub_other = tutor.get_triple('middle_sub_other')
-        high_sub_other = tutor.get_triple('high_sub_other')
-        teaching_sub_other = tutor.get_triple('teaching_sub_other')
+        prefer_level = []
+        prefer_other = []
+        prefer_name = []
+        refer_level = []
+        refer_other = []
+        refer_name = []
+        refer_score =[]
+
+        for sub in tutor.prefer_subs.all():
+            prefer_level.append(sub.level)
+            prefer_other.append(sub.other)
+            prefer_name.append(sub.name)
+        for sub in tutor.refer_subs.all():
+            refer_level.append(sub.level)
+            refer_other.append(sub.other)
+            refer_name.append(sub.name)
+            refer_score.append(sub.score)
+        
 
         data = {}
-        data["middle_test"] = middle_test
-        data["high_test"] = high_test
-        data["middle_test_score"] = middle_test_score
-        data["high_test_score"] = high_test_score
-        data["prefer_teach"] = prefer_teach
-        data["middle_sub_other"] = middle_sub_other
-        data["high_sub_other"] = high_sub_other
-        data["teaching_sub_other"] = teaching_sub_other
+        data["prefer_level"] = prefer_level
+        data["prefer_other"] = prefer_other
+        data["prefer_name"] = prefer_name
+        data["refer_level"] = refer_level
+        data["refer_name"] = refer_name
+        data["refer_other"] = refer_other
+        data["refer_score"] = refer_score
+
+        # 对象数组
+        data["prefer_subs"] = tutor.prefer_subs.all()
+        data["refer_subs"] = tutor.refer_subs.all()
+        # End
         data_json = json.dumps(data)
         print(data_json)
         return JsonResponse(data_json, safe=False)
