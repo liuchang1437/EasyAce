@@ -39,11 +39,10 @@ body {
 
 .nav-self > li > a {
   text-align: center;
-  border: 3px solid transparent;
   color: #FFFFFF;
 }
 .nav-self > li > a:hover {
-  background-color: transparent;
+  background-color: #8aae51;
   border-color: #037041;
 }
 .nav-self .active > a {
