@@ -24,6 +24,9 @@ def information(request,id):
     if user.role=='tutor':
         tutor = user.get_user()
         if not tutor:
+            if user==request.user:
+                messages.warning(request,'Please complete your information first!')
+                return HttpResponseRedirect(reverse('myAuth:signup_tutor'))
             messages.warning(request,'User didn\'t finish his/her information yet!')
             return HttpResponseRedirect('/index')
         if request.user.role=='student':
@@ -33,6 +36,9 @@ def information(request,id):
     elif user.role=='student':
         student = user.get_user()
         if not student:
+            if user==request.user:
+                messages.warning(request,'Please complete your information first!')
+                return HttpResponseRedirect(reverse('myAuth:signup_student'))
             messages.warning(request,'User didn\'t finish his/her information yet!')
             return HttpResponseRedirect('/index')
         return render(request, 'information_student.html', {'student':student})
