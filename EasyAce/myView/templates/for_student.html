@@ -15,40 +15,74 @@ class="active"
     <h1>What Makes Easy Ace Your Best Choice!</h1>
 
     <a href="{% url 'myAuth:signup' %}">Help Me Find A Tutor</a>
-    
-    <h2>Revolutionary Tutor-Selection Process</h2>
-    <p>Being a responsible tuition agency, we interview ALL our tutors and verify their academic qualifications personally so as to ensure that only qualified home tutors are available to you. Only 47% passed the interview. The experience and expertise from these elite tutors will effectively guide your way in your academic study.</p>
-    <h2>Professional Student-Tutor Matching</h2>
-    <p>We promise to manually process every tuition application. After knowing your needs, we will match you with the tutor that can best solve your problem so as to assure you a fulfilling tuition experience.</p>
-    <h2>Sincere Experience Sharing</h2>
-    <p>Our management team members and the majority of tutors have gone through the current education system within the past few years. We deeply understand what kind of help you need to prevail in your studies: our tutors are capable to offer not only professional assistance in the academic area, but also warm support to help student cope with the stress.</p>
-    <h2>Additional Welfare</h2>
-    <p>Free gifts and vouchers, such as supermarket vouchers and movie tickets, will be awarded to you upon completing Student’s Feedback. Such welfare system will not only become an incentive for you to work hard, but also help us to track your progress and hence tailor our service to you.</p>
-    <h2>Belief in Our Core Values</h2>
-    <p>Passion, integrity, accountability, and professionalism.</p>
+    <div class="row" style="margin-top: 30px">
+        <div class="col-xs-2">
+            <img src={% static 'images/icon/15.png' %} width="100%" height="100%" style="margin-top: 40%" />
+        </div>
+        <div class="col-xs-10 inner-content">
+            <h2>Revolutionary Tutor-Selection Process</h2>
+            <p>Being a responsible tuition agency, we interview ALL our tutors and verify their academic qualifications personally so as to ensure that only qualified home tutors are available to you. Only 47% passed the interview. The experience and expertise from these elite tutors will effectively guide your way in your academic study.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <img src={% static 'images/icon/19.png' %} width="100%" height="100%" style="margin-top: 30%" />
+        </div>
+        <div class="col-xs-10 inner-content">
+            <h2>Professional Student-Tutor Matching</h2>
+            <p>We promise to manually process every tuition application. After knowing your needs, we will match you with the tutor that can best solve your problem so as to assure you a fulfilling tuition experience.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <img src={% static 'images/icon/4.png' %} width="100%" height="100%" style="margin-top: 50%" />
+        </div>
+        <div class="col-xs-10 inner-content">
+            <h2>Sincere Experience Sharing</h2>
+            <p>Our management team members and the majority of tutors have gone through the current education system within the past few years. We deeply understand what kind of help you need to prevail in your studies: our tutors are capable to offer not only professional assistance in the academic area, but also warm support to help student cope with the stress.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <img src={% static 'images/icon/3.png' %} width="100%" height="100%" style="margin-top: 30%" />
+        </div>
+        <div class="col-xs-10 inner-content">
+            <h2>Additional Welfare</h2>
+            <p>Free gifts and vouchers, such as supermarket vouchers and movie tickets, will be awarded to you upon completing Student’s Feedback. Such welfare system will not only become an incentive for you to work hard, but also help us to track your progress and hence tailor our service to you.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <img src={% static 'images/icon/2.png' %} width="100%" height="100%" style="margin-top: 10%" />
+        </div>
+        <div class="col-xs-10 inner-content">
+            <h2>Belief in Our Core Values</h2>
+            <p>Passion, integrity, accountability, and professionalism.</p>
+        </div>
+    </div>
     <hr>
     
     <h1>FAQ</h1>
-    <h2>1. Q: How do I obtain tuition service from Easy Ace?</h2>
+    <h2>Q1: How do I obtain tuition service from Easy Ace?</h2>
     <p>A: You can simply register by completing Student Registration Form.</p>
-    <h2>2. Q: Can I get tuition without filling registration form?</h2>
+    <h2>Q2: Can I get tuition without filling registration form?</h2>
     <p>A: Yes, you can leave your phone number on our webpage and we will contact you shortly, but try not to do so, go to our home wage and register a tutor.</p>
-    <h2>3. Q: How do you charge?</h2>
+    <h2>Q3: How do you charge?</h2>
     <p>A: This is our recommended price table. The final price is negotiable as long as the tutor and the student reach agreement. Generally, we recommend that tutors could charge S$5 less when students go to tutor’s place for tuition. </p>
-    <img src="{% static 'EasyAce/images/Charge_Form.png' %}" width=100% height=100%/>
-    <h2>4. Q: Is there a trial lesson? What if I find the first allocated tutor unsuitable for me?</h2>
+    <img src="{% static 'images/Charge_Form.png' %}" width=100% height=100%/>
+    <h2>Q4: Is there a trial lesson? What if I find the first allocated tutor unsuitable for me?</h2>
     <p>A: Yes, there is one trial lesson for each tuition case. If the first tutor allocated is unsuitable for you after the first lesson, we are willing to change the tutor for you. The first lesson conducted will not be charged. However, if you are satisfied with the first tutor and decide to continue, the first lesson will be chargeable.</p>
-    <h2>5. Q: What if I find the second allocated tutor still unsuitable for me?</h2>
+    <h2>Q5: What if I find the second allocated tutor still unsuitable for me?</h2>
     <p>A: This is an unlikely situation. However, you can still request to change for another tutor from Easy Ace, but the lesson given by the second tutor remains chargeable.</p>
-    <h2>6. Q: What is the Feedback Form for?</h2>
+    <h2>Q6: What is the Feedback Form for?</h2>
     <p>A: Filling a Feedback Form only takes 2 minutes. It allows us to know your opinion about the teaching quality so that we can provide better service for you and give due credit/punishment to your tutor.</p>
-    <h2>7. Q: Why should I fill in the Feedback Form?</h2>
+    <h2>Q7: Why should I fill in the Feedback Form?</h2>
     <p>A: If you complete the feedbacks for at least one consecutive month, $20 vouchers will be awarded.</p>
-    <h2>8. Q: What should I do if I want to reschedule, cancel or add a tuition session?</h2>
+    <h2>Q8: What should I do if I want to reschedule, cancel or add a tuition session?</h2>
     <p>A: Student can settle with his or her own tutor. But within the first month, please acknowledge us through email or phone call for any cancellation or addition of lesson.</p>
-    <h2>9. Q: How do I contact Easy Ace to get further assistance?</h2>
+    <h2>Q9: How do I contact Easy Ace to get further assistance?</h2>
     <p>A: Student can email us at tuition@easyace.sg, or directly contact our Student Manager at 82654707 98110719.</p>
-    <h2>10. Q: Will I be disturbed with excessive calls?</h2>
+    <h2>Q10: Will I be disturbed with excessive calls?</h2>
     <p>A: We will only call ONCE at the end of the first month to listen to your feedback on the learning experience. That’s all.</p>
     <hr>
     

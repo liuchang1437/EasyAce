@@ -106,14 +106,20 @@ def signup_tutor(request):
       if 'teach_level'+str(i) in request.POST:
         level = request.POST['teach_level'+str(i)]
         name = request.POST['teach_sub'+str(i)]
-        other = request.POST['teach_sub_other'+str(i)]
+        other = False
+        if name == "Other":
+          name = request.POST['teach_sub_other'+str(i)]
+          other = True
         prefer_teach = PreferSubject(level=level,name=name,rank=i,other=other,\
           tutor=tutor)
         prefer_teach.save()
       if 'ref_level'+str(i) in request.POST:
         level = request.POST['ref_level'+str(i)]
         name = request.POST['ref_sub'+str(i)]
-        other = request.POST['ref_sub_other'+str(i)]
+        other = False
+        if name == "Other":
+          name = request.POST['ref_sub_other'+str(i)]
+          other = True
         score = request.POST['ref_score'+str(i)]
         refer_teach = ReferSubject(level=level,name=name,score=score,rank=i,\
           other=other,tutor=tutor)
@@ -171,7 +177,7 @@ def signup_student(request):
         remarks+=request.POST[prefix+str(i)]
         remarks+=';'
     student.remarks=remarks
-    if 'weakness' in request.POST:
+    if 'student_weakness' in request.POST:
       student.weakness = request.POST['student_weakness']
     student.save()
     #### Create student end
@@ -182,8 +188,9 @@ def signup_student(request):
       if 'student_subject'+str(i) in request.POST:
         name = request.POST['student_subject'+str(i)]
         other = False
-        if 'student_subject'+str(i)+'_other' in request.POST:
-          other = request.POST['student_subject'+str(i)+'_other']
+        if name == "Other":
+          name = request.POST['student_subject'+str(i)+'_other']
+          other = True
         prefer_sub = StudentPreferSub(level=student_subject,name=name,rank=i,other=other,\
           student=student)
         prefer_sub.save()
