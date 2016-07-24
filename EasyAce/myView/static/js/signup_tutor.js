@@ -137,9 +137,6 @@ function add_prefer()
 				Option_Gaokao("#id_ref_sub",num);
 				Option_score("Gaokao","#id_ref_score"+num);
 			}
-			if ($("#id_ref_level"+num).val()=="SAT"){
-				Option_SAT("#id_ref_sub",num);
-			}
 		});
 
 		$("#id_ref_sub"+count_prefer).change(function(){
@@ -169,10 +166,14 @@ function add_prefer()
 	}
 }
 
-var prefer_tests = [];
-var prefer_subjects = []
-var prefer_subjects_other = []
-var num_middle,num_high,num_prefer;
+var prefer_level = [];
+var prefer_other = [];
+var prefer_name = [];
+var refer_level = [];
+var refer_name = [];
+var refer_other = [];
+var refer_score = [];
+var num_prefer = 0;
 var edit = false;
 function get_subjects()
 {
@@ -183,211 +184,195 @@ function get_subjects()
 			success: function(data){
 				edit = true;
 				obj = jQuery.parseJSON(data);
-				middle_test = obj["middle_test"];
-				high_test = obj["high_test"];
-				num_middle = 0;
-				num_high = 0;
-				num_prefer = 0;
-				for(sub in obj["middle_test_score"])
-					if( sub != "Other")
-					{
-						num_middle += 1;
-						middle_subjects[num_middle] = sub;
-						middle_scores[num_middle] = obj["middle_test_score"][sub];
-					}
-				for(i=0;i<obj["middle_sub_other"].length;i++)
-				{
-					num_middle += 1;
-					middle_subjects[num_middle] = "Other";
-					middle_subjects_other[num_middle] = obj["middle_sub_other"][i][1];
-					middle_scores[num_middle] = obj["middle_sub_other"][i][2];
-				}
-				for(sub in obj["high_test_score"])
-					if( sub != "Other")
-					{
-						num_high += 1;
-						high_subjects[num_high] = sub;
-						high_scores[num_high] = obj["high_test_score"][sub];
-					}
-				for(i=0;i<obj["high_sub_other"].length;i++)
-				{
-					num_high += 1;
-					high_subjects[num_high] = "Other";
-					high_subjects_other[num_high] = obj["high_sub_other"][i][1];
-					high_scores[num_high] = obj["high_sub_other"][i][2];
 
-				}
-				num_prefer = 0;
 				count = 0;
-				for(i=0;i<obj["prefer_teach"].length;i++)
-					if(obj["prefer_teach"][i][0] != "Other")
-					{
-						num_prefer += 1;
-						prefer_tests[num_prefer] = obj["prefer_teach"][i][0];
-						prefer_subjects[num_prefer] = obj["prefer_teach"][i][1];
-						if(prefer_subjects[num_prefer] == "Other")
-						{
-							prefer_subjects_other[num_prefer] = obj["teaching_sub_other"][count][2];
-							count += 1;
-						}
-					}
+				for(i=0;i<obj["prefer_level"].length;i++)
+				{
+					edit = true;
+					num_prefer += 1;
+					prefer_level[i] = obj["prefer_level"][i];
+					prefer_other[i] = obj["prefer_other"][i];
+					prefer_name[i] = obj["prefer_name"][i];
+					refer_level[i] = obj["refer_level"][i];
+					refer_name[i] = obj["refer_name"][i];
+					refer_other[i] = obj["refer_other"][i];
+					refer_score[i] = obj["refer_score"][i];			
+				}
+				
+					
 			},
 			error: function(){
 			}
 
 		});
 
-
-	if(num_prefer > 0)
+	for(i=0;i<num_prefer;i++)
 	{
-		doc = document.getElementById("id_teaching_level1");
+		now = i + 1;
+		add_prefer();
+		doc = document.getElementById("id_teach_level" + now);
 		for(j=0;j<doc.length;j++)
-			if(doc.options[j].text == prefer_tests[1])
+			if(doc.options[j].text == prefer_level[now-1])
 			{
 				doc.selectedIndex = j;
-				if ($("#id_teaching_level1").val()=="PSLE"){
-					Option_PSLE("#id_teaching_sub",1);
+				if ($("#id_teach_level"+now).val()=="PSLE"){
+					Option_PSLE("#id_teach_sub",now);
 				}
-				if ($("#id_teaching_level1").val()=="AEIS"){
-					Option_AEIS("#id_teaching_sub",1);
+				if ($("#id_teach_level"+now).val()=="AEIS"){
+					Option_AEIS("#id_teach_sub",now);
 				}
-				if ($("#id_teaching_level1").val()=="O-LEVEL"){
-					Option_OLEVEL("#id_teaching_sub",1);
+				if ($("#id_teach_level"+now).val()=="O-LEVEL"){
+					Option_OLEVEL("#id_teach_sub",now);
 				}
-				if ($("#id_teaching_level1").val()=="A-LEVEL"){
-					Option_ALEVEL("#id_teaching_sub",1);
+				if ($("#id_teach_level"+now).val()=="A-LEVEL"){
+					Option_ALEVEL("#id_teach_sub",now);
 				}
-				if ($("#id_teaching_level1").val()=="IB (Middle Years Programme)"){
-					Option_IB_MYP("#id_teaching_sub",1);
+				if ($("#id_teach_level"+now).val()=="IB (Middle Years Programme)"){
+					Option_IB_MYP("#id_teach_sub",now);
 				}
-				if ($("#id_teaching_level1").val()=="IB (Diploma Programme)"){
-					Option_IB_DP("#id_teaching_sub",1);
+				if ($("#id_teach_level"+now).val()=="IB (Diploma Programme)"){
+					Option_IB_DP("#id_teach_sub",now);
 				}
-				if ($("#id_teaching_level1").val()=="Zhongkao"){
-					Option_Zhongkao("#id_teaching_sub",1);
+				if ($("#id_teach_level"+now).val()=="Zhongkao"){
+					Option_Zhongkao("#id_teach_sub",now);
 				}
-				if ($("#id_teaching_level1").val()=="Gaokao"){
-					Option_Gaokao("#id_teaching_sub",1);
+				if ($("#id_teach_level"+now).val()=="Gaokao"){
+					Option_Gaokao("#id_teach_sub",now);
 				}
-				if ($("#id_teaching_level1").val()=="SAT"){
-					Option_SAT("#id_teaching_sub",1);
+				if ($("#id_teach_level"+now).val()=="SAT"){
+					Option_SAT("#id_teach_sub",now);
 				}
 				break;
 			}
-		doc = document.getElementById("id_teaching_sub1");
-		other = false
-		for(j=0;j<doc.length;j++)
-			if(doc.options[j].text == prefer_subjects[1])
-			{
-				doc.selectedIndex = j;
-				if(prefer_subjects[1] == "Other") 
-					other = true;
-				break;
-			}
+		doc = document.getElementById("id_teach_sub" + now);
+		other = false;
+		if(prefer_other[now-1])
+		{
+			other = true;
+			doc.selectedIndex = doc.length - 1;
+		}
+		else
+			for(j=0;j<doc.length;j++)
+				if(doc.options[j].text == prefer_name[now-1])
+				{
+					doc.selectedIndex = j;
+					break;
+				}
 		if(other)
 		{
-			$("#id_teaching_other1").append('<div class="form-group"> <select class="form-control" id="id_teaching_sub1_other" name="teaching_sub1_other"> <option value="" selected="selected">Select subject</option> </select> </div>');
-				if ($("#id_teaching_level1").val()=="O-LEVEL"){
-					Option_OLEVEL_OTHER("#id_teaching_sub1_other");
-				}
-				if ($("#id_teaching_level1").val()=="A-LEVEL"){
-					Option_ALEVEL_OTHER("#id_teaching_sub1_other");
-				}
-				if ($("#id_teaching_level1").val()=="IB (Middle Years Programme)"){
-					Option_IB_MYP_OTHER("#id_teaching_sub1_other");
-				}
-				if ($("#id_teaching_level1").val()=="IB (Diploma Programme)"){
-					Option_IB_DP_OTHER("#id_teaching_sub1_other");
-				}
-				doc = document.getElementById("id_teaching_sub1_other");
-				for(j=0;j<doc.length;j++)
-					if(doc.options[j].text == prefer_subjects_other[1])
-					{
-						doc.selectedIndex = j;
-						break;
-					}
-		}
-
-
-		for(i=1;i<num_prefer;i++)
-		{
-			now = i + 1;
-			add_prefer();
-			doc = document.getElementById("id_teaching_level" + now);
-			for(j=0;j<doc.length;j++)
-				if(doc.options[j].text == prefer_tests[now])
-				{
-					doc.selectedIndex = j;
-					if ($("#id_teaching_level"+now).val()=="PSLE"){
-						Option_PSLE("#id_teaching_sub",now);
-					}
-					if ($("#id_teaching_level"+now).val()=="AEIS"){
-						Option_AEIS("#id_teaching_sub",now);
-					}
-					if ($("#id_teaching_level"+now).val()=="O-LEVEL"){
-						Option_OLEVEL("#id_teaching_sub",now);
-					}
-					if ($("#id_teaching_level"+now).val()=="A-LEVEL"){
-						Option_ALEVEL("#id_teaching_sub",now);
-					}
-					if ($("#id_teaching_level"+now).val()=="IB (Middle Years Programme)"){
-						Option_IB_MYP("#id_teaching_sub",now);
-					}
-					if ($("#id_teaching_level"+now).val()=="IB (Diploma Programme)"){
-						Option_IB_DP("#id_teaching_sub",now);
-					}
-					if ($("#id_teaching_level"+now).val()=="Zhongkao"){
-						Option_Zhongkao("#id_teaching_sub",now);
-					}
-					if ($("#id_teaching_level"+now).val()=="Gaokao"){
-						Option_Gaokao("#id_teaching_sub",now);
-					}
-					if ($("#id_teaching_level"+now).val()=="SAT"){
-						Option_SAT("#id_teaching_sub",now);
-					}
-					break;
-				}
-			doc = document.getElementById("id_teaching_sub" + now);
-			other = false;
-			for(j=0;j<doc.length;j++)
-				if(doc.options[j].text == prefer_subjects[now])
-				{
-					doc.selectedIndex = j;
-					if(prefer_subjects[now] == "Other") 
-						other = true;
-					break;
-				}
-			if(other)
-			{
-				$("#id_teaching_other"+now).append('<div class="form-group"> <select class="form-control" id="id_teaching_sub'+now+'_other" name="teaching_sub'+now+'_other"> <option value="" selected="selected">Select subject</option> </select> </div>');
-				if ($("#id_teaching_level"+now).val()=="O-LEVEL"){
-					Option_OLEVEL_OTHER("#id_teaching_sub"+now+"_other");
-				}
-				if ($("#id_teaching_level"+now).val()=="A-LEVEL"){
-					Option_ALEVEL_OTHER("#id_teaching_sub"+now+"_other");
-				}
-				if ($("#id_teaching_level"+now).val()=="IB (Middle Years Programme)"){
-					Option_IB_MYP_OTHER("#id_teaching_sub"+now+"_other");
-				}
-				if ($("#id_teaching_level"+now).val()=="IB (Diploma Programme)"){
-					Option_IB_DP_OTHER("#id_teaching_sub"+now+"_other");
-				}
-				doc = document.getElementById("id_teaching_sub" + now + "_other");
-				for(j=0;j<doc.length;j++)
-					if(doc.options[j].text == prefer_subjects_other[now])
-					{
-						doc.selectedIndex = j;
-						break;
-					}
+			$("#id_teach_sub_other"+now).show();
+			$("#id_teach_sub_other"+now).empty();
+			if ($("#id_teach_level"+now).val()=="O-LEVEL"){
+				Option_OLEVEL_OTHER("#id_teach_sub_other"+now);
 			}
-			i = now - 1;
+			if ($("#id_teach_level"+now).val()=="A-LEVEL"){
+				Option_ALEVEL_OTHER("#id_teach_sub_other"+now);
+			}
+			if ($("#id_teach_level"+now).val()=="IB (Middle Years Programme)"){
+				Option_IB_MYP_OTHER("#id_teach_sub_other"+now);
+			}
+			if ($("#id_teach_level"+now).val()=="IB (Diploma Programme)"){
+				Option_IB_DP_OTHER("#id_teach_sub_other"+now);
+			}
+			doc = document.getElementById("id_teach_sub_other"+now);
+			for(j=0;j<doc.length;j++)
+				if(doc.options[j].text == prefer_name[now-1])
+				{
+					doc.selectedIndex = j;
+					break;
+				}
 		}
+
+		/////////////reference////////////////
+
+		doc = document.getElementById("id_ref_level" + now);
+		for(j=0;j<doc.length;j++)
+			if(doc.options[j].text == refer_level[now-1])
+			{
+				doc.selectedIndex = j;
+				if ($("#id_ref_level"+now).val()=="O-LEVEL"){
+				Option_OLEVEL("#id_ref_sub",now);
+				Option_score("O-LEVEL","#id_ref_score"+now);
+				}
+				if ($("#id_ref_level"+now).val()=="A-LEVEL"){
+					Option_ALEVEL("#id_ref_sub",now);
+					Option_score("A-LEVEL","#id_ref_score"+now);
+				}
+				if ($("#id_ref_level"+now).val()=="IB (Middle Years Programme)"){
+					Option_IB_MYP("#id_ref_sub",now);
+					Option_score("IB (Middle Years Programme)","#id_ref_score"+now);
+				}
+				if ($("#id_ref_level"+now).val()=="IB (Diploma Programme)"){
+					Option_IB_DP("#id_ref_sub",now);
+					Option_score("IB (Diploma Programme)","#id_ref_score"+now);
+				}
+				if ($("#id_ref_level"+now).val()=="Zhongkao"){
+					Option_Zhongkao("#id_ref_sub",now);
+					Option_score("Zhongkao","#id_ref_score"+now);
+				}
+				if ($("#id_ref_level"+now).val()=="Gaokao"){
+					Option_Gaokao("#id_ref_sub",now);
+					Option_score("Gaokao","#id_ref_score"+now);
+				}
+				break;
+			}
+		doc = document.getElementById("id_ref_sub" + now);
+		other = false;
+		if(refer_other[now-1])
+		{
+			other = true;
+			doc.selectedIndex = doc.length - 1;
+		}
+		else
+			for(j=0;j<doc.length;j++)
+				if(doc.options[j].text == refer_name[now-1])
+				{
+					doc.selectedIndex = j;
+					break;
+				}
+		if(other)
+		{
+			$("#block_ref_sub_other"+now).show();
+			$("#id_ref_sub_other"+now).empty();
+			if ($("#id_ref_level"+now).val()=="O-LEVEL"){
+				Option_OLEVEL_OTHER("#id_ref_sub_other"+now);
+			}
+			if ($("#id_ref_level"+now).val()=="A-LEVEL"){
+				Option_ALEVEL_OTHER("#id_ref_sub_other"+now);
+			}
+			if ($("#id_ref_level"+now).val()=="IB (Middle Years Programme)"){
+				Option_IB_MYP_OTHER("#id_ref_sub_other"+now);
+			}
+			if ($("#id_ref_level"+now).val()=="IB (Diploma Programme)"){
+				Option_IB_DP_OTHER("#id_ref_sub_other"+now);
+			}
+			doc = document.getElementById("id_ref_sub_other"+now);
+			for(j=0;j<doc.length;j++)
+				if(doc.options[j].text == refer_name[now-1])
+				{
+					doc.selectedIndex = j;
+					break;
+				}
+		}
+
+		doc = document.getElementById("id_ref_score" + now);
+		for(j=0;j<doc.length;j++)
+			if(doc.options[j].text == refer_score[now-1])
+			{
+				doc.selectedIndex = j;
+				break;
+			}
+
+
+
+		i = now - 1;
 	}
 
 }
 
 $(document).ready(function(){
-	add_prefer();
+	get_subjects();
+	if(!edit) add_prefer();
 
 	$("#btn_prefer_add").click(function(){
 		add_prefer();

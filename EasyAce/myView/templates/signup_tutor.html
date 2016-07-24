@@ -4,7 +4,7 @@
 {% endblock %}
 {% block jscode %}
 {% load staticfiles %}
-<link href="{% static 'EasyAce/fileinput.min.css' %}" media="all" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/fileinput.min.css' %}" media="all" rel="stylesheet" type="text/css" />
 <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
 <script src="{% static 'js/fileinput.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
@@ -39,6 +39,11 @@ function validate_form(thisform)
 			email.focus();
 			return false;
 		}
+		/*if (validate_required(bithday)==false)
+		{
+			birthday.focus();
+			return false;
+		}*/
 		if (validate_required(phone)==false)
 		{
 			phone.focus();
@@ -140,8 +145,12 @@ function validate_form(thisform)
       <input class="form-control" id="id_whatsapp" maxlength="50" name="whatsapp" type="text" placeholder="WhatsApp" {% if tutor.whatsapp %} value={{ tutor.whatsapp }} {% endif %}/>
     </div>
 	<div class="row">
-		<div class="col-xs-4" style="margin-bottom: 10px;">
-			Please Upload your photo
+		<div class="col-xs-12" style="margin-bottom: 10px;">
+			{% if tutor.photo %}
+			You have uploaded a photo. If you want to change photo, please upload another
+			{% else %}
+			Please Upload your photo 
+			{% endif %}
 		</div>
 		<div class="col-xs-12">
 			<div class="form-group">

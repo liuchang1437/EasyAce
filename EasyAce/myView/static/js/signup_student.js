@@ -84,7 +84,6 @@ function get_subjects()
 	if(num_subjects > 0)
 	{
 		$("#btn_student_subject").show();
-		count = 0;
 		for(i=0;i<num_subjects;i++)
 		{
 			now = i + 1;
@@ -98,14 +97,18 @@ function get_subjects()
 			add_subject();
 			doc = document.getElementById("id_student_subject" + now);
 			other = false;
-			for(j=0;j<doc.length;j++)
-				if(doc.options[j].text == subjects[now-1])
-				{
-					doc.selectedIndex = j;
-					if(subjects[now-1] == "Other") 
-						other = true;
-					break;
-				}
+			if(subjects_other[now-1])
+			{
+				doc.selectedIndex = doc.length - 1;
+				other = true;
+			}
+			else
+				for(j=0;j<doc.length;j++)
+					if(doc.options[j].text == subjects[now-1])
+					{
+						doc.selectedIndex = j;
+						break;
+					}
 			if(other)
 			{
 				$("#num_student_subject_other"+now).append('<div class="col-xs-6"> <div class="form-group"> <select class="form-control" id="id_student_subject'+now+'_other" name="student_subject'+now+'_other"> <option value="" selected="selected">Select subject</option> </div> </div>');
@@ -123,10 +126,9 @@ function get_subjects()
 				}
 				doc = document.getElementById("id_student_subject" + now + "_other");
 				for(j=0;j<doc.length;j++)
-					if(doc.options[j].text == subjects_other[count])
+					if(doc.options[j].text == subjects[now-1])
 					{
 						doc.selectedIndex = j;
-						count += 1;
 						break;
 
 					}

@@ -280,8 +280,8 @@ def edit_tutor(request):
         data["refer_score"] = refer_score
 
         # 对象数组
-        data["prefer_subs"] = tutor.prefer_subs.all()
-        data["refer_subs"] = tutor.refer_subs.all()
+        #data["prefer_subs"] = tutor.prefer_subs.all()
+        #data["refer_subs"] = tutor.refer_subs.all()
         # End
         data_json = json.dumps(data)
         print(data_json)
