@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from itertools import chain
 from django.http import JsonResponse
 import json
@@ -64,6 +65,14 @@ def view_tutor(request):
       tutors = tutors.filter(prefer_sub__name=subject)
   if gender:
     tutors = tutors.filter(gender=gender)
+  paginator = Paginator(tutors,30)
+  page = request.GET.get('page')
+  try:
+    tutors = paginator.page(page)
+  except PageNotAnInteger:
+    tutors = paginator.page(1)
+  except EmptyPage:
+    tutors = paginator.page(paginator.num_pages)
   return render(request, 'view_tutor.html', {'tutors':tutors})
 
 def choose_tutor(request):

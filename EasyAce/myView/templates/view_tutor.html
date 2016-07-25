@@ -233,6 +233,21 @@ $(function(){
 					{% endfor %}
 				</div>
 			</div>
+			<div class="pagination">
+				<span class="step-links">
+					{% if tutors.has_previous %}
+						<a href="?page={{ tutors.previous_page_number }}">previous</a>
+					{% endif %}
+
+					<span class="current">
+						Page {{ tutors.number }} of {{ tutors.paginator.num_pages }}.
+					</span>
+
+					{% if tutors.has_next %}
+						<a href="?page={{ ctutorontacts.next_page_number }}">next</a>
+					{% endif %}
+				</span>
+			</div>
 	</div>
 	<div class="row" style="margin-bottom: 300px"></div>
 </div><!-- /.container -->
