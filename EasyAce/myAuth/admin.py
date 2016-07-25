@@ -32,8 +32,8 @@ class ReferSub(admin.StackedInline):
 @admin.register(Tutor) 
 class TutorAdmin(admin.ModelAdmin):
   list_display = ('username','name','email','check','sr')
-  list_filter = ('check','top_teacher')
-  search_fields = ('name','username','email')
+  list_filter = ('check','top_teacher','prefer_sub__level','prefer_sub__name')
+  search_fields = ('name','username','email','prefer_sub__level','prefer_sub__name')
   fieldsets = (
     ('Base information', {
       'fields': ('name','username','gender','birth','school',\
