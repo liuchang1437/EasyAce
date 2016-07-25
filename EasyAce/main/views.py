@@ -54,17 +54,14 @@ def view_tutor(request):
   gender = request.GET.get('gender')
   tutors = Tutor.objects.filter(check=True)
   if region:
-    region1 = tutors.filter(region1__contains=region)
-    region2 = tutors.filter(region2__contains=region)
-    region3 = tutors.filter(region3__contains=region)
+    region1 = tutors.filter(tutor_location1__contains=region)
+    region2 = tutors.filter(tutor_location2__contains=region)
+    region3 = tutors.filter(tutor_location3__contains=region)
     tutors = region1 | region2 | region3
   if level:
-    if subject and not subject=='Other':
-      tutors = tutors.filter(prefer_teach__contains=subject)
-    if subject and subject=='Other':
-      tutors = tutors.filter(teaching_sub_other__contains=subject_other)
-    else:
-      tutors = tutors.filter(prefer_teach__contains=level)
+      tutors = tutors.filter(prefer_sub__level=level)
+  if subject:
+      tutors = tutors.filter(prefer_sub__name=subject)
   if gender:
     tutors = tutors.filter(gender=gender)
   return render(request, 'view_tutor.html', {'tutors':tutors})
@@ -152,7 +149,7 @@ def edit(request):
                     refer_teach.save()
             #### END
             tutor.cal_isr()
-            print(tutor.isr)
+            #print(tutor.isr)
             tutor.save()
             messages.success(request,'Update information successfully!')
             return HttpResponseRedirect(reverse('main:information',kwargs={'id':user.id}))

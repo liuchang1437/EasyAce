@@ -10,7 +10,7 @@ class Tutor(models.Model):
   username = models.CharField(u"username",max_length=30) # username and email, 应该和MyUser中的一致
   name = models.CharField(u'name',max_length=50)
   gender = models.CharField(u'gender',max_length=6) # 性别，Male和Female
-  birth = models.DateField(u'birthday')
+  birth = models.CharField(u'birthday',max_length=12)
   email = models.CharField(u'email address',max_length=40)
   phone = models.CharField(u'phone number',max_length=20) # 电话
   school = models.CharField(u'school',max_length=50)
@@ -92,7 +92,7 @@ class Tutor(models.Model):
       times_total += times
       isr += local*times
     if times_total:
-      isr = isr*10/times_total
+      isr = isr*20/times_total
     self.isr = isr
   def cal_sr(self):
     isr = self.isr + 0.4*self.interview_result
@@ -104,7 +104,7 @@ class Tutor(models.Model):
     if fsr_time:
       fsr /= fsr_time
     sr = (10*isr + fsr*10*fsr_time)/(10+fsr_time)
-    self.sr = sr
+    self.sr = round(sr,2)
     
   ############### Star Rating End ###############
   def __str__(self):
@@ -225,7 +225,7 @@ class Record(models.Model):
 class Feedback(models.Model):
   tutor = models.ForeignKey(Tutor,on_delete=models.CASCADE,related_name='feedbacks',limit_choices_to={'check':True})
   student = models.ForeignKey(Student,on_delete=models.CASCADE,related_name='feedbacks')
-  score = models.FloatField(default=0)
+  score = models.FloatField(u'score(0-10)',default=0)
   time = models.FloatField(u'授课时间（小时）')
   date = models.DateField(default=timezone.now)
   remark = models.TextField(u'学生对教师评价',blank=True)
