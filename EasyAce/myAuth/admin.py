@@ -7,6 +7,7 @@ class RecordInline(admin.StackedInline):
   colapse = True
   model = Record
   extra = 0
+  raw_id_fields = ('tutor',)
 class FeedbackInline(admin.StackedInline):
   model = Feedback
   extra = 0
@@ -41,7 +42,7 @@ class TutorAdmin(admin.ModelAdmin):
       'fields':('phone','wechat','whatsapp','email')
     }),
     ('Options',{
-      'fields':('check','top_teacher')
+      'fields':('check','top_teacher','interview_result')
     })
   ) 
   readonly_fields = ('name','username','gender','birth','school',\
@@ -70,13 +71,12 @@ class StudentAdmin(admin.ModelAdmin):
   list_display = ('username','name','email','wait_match')
   list_filter = ('wait_match',)
   search_fields = ('name','username','email')
-  
   fieldsets = (
     ('Base information', {
       'fields': ('name','username','gender','school','grade','location',\
         'loc_nego',\
         'start_time','start_time_other','time_per_lesson',\
-        'lesson_per_week','prefer_tutor_gender','remarks','weakness')
+        'lesson_per_week','prefer_tutor_gender','remarks','weakness','tutors_chosen')
     }),
     ('Contact info',{
       'fields':('phone','wechat','whatsapp','email')
@@ -88,7 +88,7 @@ class StudentAdmin(admin.ModelAdmin):
   readonly_fields = ('name','username','gender','grade','school',\
     'location','loc_nego','start_time',\
     'start_time_other','time_per_lesson','lesson_per_week','remarks',\
-    'wechat','whatsapp','email','prefer_tutor_gender','weakness','phone')
+    'wechat','whatsapp','email','prefer_tutor_gender','weakness','tutors_chosen','phone')
   inlines = [StudentPreferSub,RecordInline]
 
   
