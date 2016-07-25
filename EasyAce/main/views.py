@@ -29,7 +29,7 @@ def information(request,id):
                 return HttpResponseRedirect(reverse('myAuth:signup_tutor'))
             messages.warning(request,'User didn\'t finish his/her information yet!')
             return HttpResponseRedirect('/index')
-        if request.user.role=='student':
+        if request.user.is_authenticated() and request.user.role=='student':
             student = request.user.get_user()
             return render(request, 'information_tutor.html', {'tutor':tutor,'student':student})
         return render(request, 'information_tutor.html', {'tutor':tutor})
