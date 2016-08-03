@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Feedback</title>
+{% endblock %}
+{% block jscode %}
+{% load staticfiles %}
+<script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<script type="text/javascript">
+function validate_required(field)
+	{
+		with (field)
+		{
+			if (value==null||value=="") return false;
+			else return true;
+		}
+	}
+
+function validate_form(thisform)
+{
+	if (document.getElementById("id_agree").checked == false)
+	{
+		$("#id_agree").focus();
+		return false;
+	}
+	with (thisform)
+	{
+		if (validate_required(tuition_hour)==false)
+		{
+			tuition_hour.focus();
+			return false;
+		}
+		if (validate_required(subject)==false)
+		{
+			subject.focus();
+			return false;
+		}
+	}
+
+}
+function show_late_time(show)
+{
+	if(show)
+		$("#block_late_time").show();
+	else
+		$("#block_late_time").hide();
+}
+$(document).ready(function(){
+	show_late_time(false);
+});
+
+
+</script>
+
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+	{% csrf_token %}
+	<form class="form-login" action="" onsubmit="return validate_form(this);" method="post" style="margin-left: 30px; margin-right: 30px;">
+	<div class="my-content">
+		<h1 style="text-align: center">Student Feedback</h1>
+		<h2>No. of Tuition Hours in the 1st Month *</h2>
+		<div class="form-group">
+			<input class="form-control" id="id_tuition_hour" maxlength="50" name="tuition_hour" type="text" placeholder="Tuition Hours"/>
+  		</div>
+  		<h2>Subjects *</h2>
+  		<div class="form-group">
+			<input class="form-control" id="id_subject" maxlength="50" name="subject" type="text" placeholder="Subjects"/>
+  		</div>
+  		<h2>Was your tutor generally on time? *</h2>
+  		<div class="form-group">
+	  		<div class="radio">
+		  		<label>
+					<input type="radio" id="id_ontime" name="ontime" value="Yes" onclick="show_late_time(false)">
+					Yes
+				</label>
+			</div>
+			<div class="radio">
+		  		<label>
+					<input type="radio" id="id_ontime" name="ontime" value="No" onclick="show_late_time(true)">
+					No
+				</label>
+			</div>
+  		</div>
+  		<div id="block_late_time">
+	  		<h2 style="color: #759049; font-size: 20px;">If not, how long was the tutor usually late for?</h2>
+	  		<div class="form-group">
+	  			<select class="form-control" id="id_late_time" name="late_time">
+					<option value="5-15 min">5-15 min</option>
+					<option value="15-30 min">15-30 min</option>
+					<option value=">30 min">>30 min</option>
+				</select>
+	  		</div>
+  		</div>
+  		<h2>Evaluation *</h2>
+  		<table class="table table-bordered table-self">
+  			<tr>
+	  			<th></th>
+	  			<th>Excellent</th>
+	  			<th>Good</th>
+	  			<th>Fair</th>
+	  			<th>Poor</th>
+	  			<th>Very Poor</th>
+  			<tr>
+  			<tr>
+	  			<th>Attitude</th>
+	  			<td><input type="radio" id="id_attitude" name="attitude" value="Excellent"></td>
+	  			<td><input type="radio" id="id_attitude" name="attitude" value="Good"></td>
+	  			<td><input type="radio" id="id_attitude" name="attitude" value="Fair"></td>
+	  			<td><input type="radio" id="id_attitude" name="attitude" value="Poor"></td>
+	  			<td><input type="radio" id="id_attitude" name="attitude" value="Very Poor"></td>
+  			<tr>
+  			<tr>
+	  			<th>Preparation</th>
+	  			<td><input type="radio" id="id_preparation" name="preparation" value="Excellent"></td>
+	  			<td><input type="radio" id="id_preparation" name="preparation" value="Good"></td>
+	  			<td><input type="radio" id="id_preparation" name="preparation" value="Fair"></td>
+	  			<td><input type="radio" id="id_preparation" name="preparation" value="Poor"></td>
+	  			<td><input type="radio" id="id_preparation" name="preparation" value="Very Poor"></td>
+  			<tr>
+  			<tr>
+	  			<th>Clarity</th>
+	  			<td><input type="radio" id="id_clarity" name="clarity" value="Excellent"></td>
+	  			<td><input type="radio" id="id_clarity" name="clarity" value="Good"></td>
+	  			<td><input type="radio" id="id_clarity" name="clarity" value="Fair"></td>
+	  			<td><input type="radio" id="id_clarity" name="clarity" value="Poor"></td>
+	  			<td><input type="radio" id="id_clarity" name="clarity" value="Very Poor"></td>
+  			<tr>
+  			<tr>
+	  			<th>Knowledgeability</th>
+	  			<td><input type="radio" id="id_knowledgeability" name="knowledgeability" value="Excellent"></td>
+	  			<td><input type="radio" id="id_knowledgeability" name="knowledgeability" value="Good"></td>
+	  			<td><input type="radio" id="id_knowledgeability" name="knowledgeability" value="Fair"></td>
+	  			<td><input type="radio" id="id_knowledgeability" name="knowledgeability" value="Poor"></td>
+	  			<td><input type="radio" id="id_knowledgeability" name="knowledgeability" value="Very Poor"></td>
+  			<tr>
+  			<tr>
+	  			<th>Outcome</th>
+	  			<td><input type="radio" id="id_outcome" name="outcome" value="Excellent"></td>
+	  			<td><input type="radio" id="id_outcome" name="outcome" value="Good"></td>
+	  			<td><input type="radio" id="id_outcome" name="outcome" value="Fair"></td>
+	  			<td><input type="radio" id="id_outcome" name="outcome" value="Poor"></td>
+	  			<td><input type="radio" id="id_outcome" name="outcome" value="Very Poor"></td>
+  			<tr>
+  		</table>
+
+
+
+  		<h2>Comment</h2>
+		<p>Comment on anything you want to tell us about the tutor. (Optional)</p>
+  		<div class="form-group">
+			<textarea class="form-control" id="id_comment" name="comment" rows="3" placeholder="Comment"></textarea>
+  		</div>
+
+  		<h2>Personal Data Protection Act *</h2>
+		<p>By completing this feedback form, you agree that Easy Ace Pte Ltd may collect, use and disclose your personal data, as provided in this application form, or (if applicable) obtained by our organisation as a result of your membership, for the following purposes in accordance with the Personal Data Protection Act 2012 and our data protection policy (available at our website www.easyace.sg): (a) the processing of this membership application; and (b) the administration of the membership with our organisation.</p>
+		<div class="form-group">
+			<div class="checkbox">
+				<label>
+					<input class="checkbox-self" type="checkbox" id="id_agree" name="agree"/>I Agree
+				</label>
+			</div>
+        	
+      	</div>
+  
+
+    	<input class="btn btn-default btn-login" type="submit" value="Submit"/>
+    </div>
+  	</form>
+</div>
+
+{% endblock %}

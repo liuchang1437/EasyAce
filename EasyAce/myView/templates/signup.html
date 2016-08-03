@@ -6,9 +6,40 @@
 
 
 {% block content %}
+<script type="text/javascript">
+function check()
+{
+  if($("#id_role").val() == "")
+  {
+    document.getElementById("id_role").focus();
+    return false;
+  }
+  if($("#id_username").val() == "")
+  {
+    document.getElementById("id_username").focus();
+    return false;
+  }
+  if($("#id_password").val() == "")
+  {
+    document.getElementById("id_password").focus();
+    return false;
+  }
+  if($("#id_password_again").val() == "")
+  {
+    document.getElementById("id_password_again").focus();
+    return false;
+  }
+  if($("#id_password").val() != $("#id_password_again").val())
+  {
+    alert("Two password are different!");
+    return false;
+  }
+}
+</script>
+
 <div class="container">
   <h1>Complete Your Information</h1>
-  <form class="form-login" action="{% url 'myAuth:signup' %}" method="post">
+  <form class="form-login" action="{% url 'myAuth:signup' %}" method="post" onsubmit="return check()">
     {% csrf_token %}
     <div class="form-group">
       <select class="form-control" id="id_role" name="role">
@@ -22,6 +53,9 @@
     </div>
     <div class="form-group">
       <input class="form-control" id="id_password" maxlength="128" name="password" type="password" placeholder="Password" />
+    </div>
+    <div class="form-group">
+      <input class="form-control" id="id_password_again" maxlength="128" name="password" type="password" placeholder="Password Again" />
     </div>
      <input class="btn btn-default btn-login" type="submit" value="Sign Up"/>
   </form>

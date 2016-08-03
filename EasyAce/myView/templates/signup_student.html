@@ -19,6 +19,11 @@ function validate_required(field)
 
 function validate_form(thisform)
 {
+	if (document.getElementById("id_student_agree").checked == false)
+	{
+		$("#id_student_agree").focus();
+		return false;
+	}
 	with (thisform)
 	{
 		if (validate_required(name)==false)
@@ -49,11 +54,6 @@ function validate_form(thisform)
 		if (validate_required(school)==false)
 		{
 			school.focus();
-			return false;
-		}
-		if ($("#id_student_agree").checked==false )
-		{
-			student_agree.focus();
 			return false;
 		}
 		if (validate_required(grade)==false)
@@ -152,7 +152,7 @@ function validate_form(thisform)
     </div>
     <hr>
     <div class="my-content">
-      <h1>Preferred location</h1>
+      <h1>Preferred Location</h1>
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="form-group">
@@ -176,7 +176,7 @@ function validate_form(thisform)
 				</div>
 			</div>
 			
-			<h1>Subject(s) required for tuition</h1>
+			<h1>Subject(s) Required for Tuition</h1>
 			<div class="row">
 				<div class="col-xs-4">
 					<div class="form-group">
@@ -208,7 +208,7 @@ function validate_form(thisform)
 				</div>
 			</div><!--row-->
 			
-			<h1>Intended No. of hours per lesson+ no. of lessons per week（subject to changes)</h1>
+			<h1>Intended No. of Hours Per Lesson and No. of Lessons Per Week</h1>
 			<div class="row">
 				<div class="col-xs-6">
 					<div class="form-group">
@@ -237,7 +237,7 @@ function validate_form(thisform)
 				</div>
 			</div>
 			
-			<h1>Date to start tuition</h1>
+			<h1>Date to Start Tuition</h1>
 			<div class="row">
 				<div class="col-xs-6">
 					<div class="form-group">
@@ -263,7 +263,7 @@ function validate_form(thisform)
 			
 			<h1>Optional Questions</h1>
 			<p>The following questions are optional, but you are encouraged to fill in to help us match you with a tutor who fits you the best!</p>
-			<h1>Tutor preference</h1>
+			<h1>Tutor Preference</h1>
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="form-group">
@@ -373,7 +373,7 @@ function validate_form(thisform)
 			</div><!--row-->
 			{% endif %}
 			
-			<h1>Academic weakness</h1>
+			<h1>Academic Weakness</h1>
 			<p>e.g., I am really bad at math calculations. Please be as detailed as possible</p>
 			<div class="form-group">
 				<textarea class="form-control" id="id_student_weakness" name="student_weakness" rows="3" placeholder="Academic weakness">{% if student.weakness %} {{ student.weakness }} {% endif %}</textarea>
@@ -382,7 +382,7 @@ function validate_form(thisform)
       <h1>PERSONAL DATA PROTECTION ACT</h1>
       <p>￼By signing this membership application form, you agree that EasyAce Pte Ltd may collect, use and disclose your personal data, as provided in this application form, or (if applicable) obtained by our organisation as a result of your membership, for the following purposes in accordance with the Personal Data Protection Act 2012 and our data protection policy (available at our website www.easyace.sg): (a) the processing of this membership application; and (b) the administration of the membership with our organisation.</p>
       <div class="form-group">
-        <input type="radio" id="id_student_agree" name="student_agree" {% if student.name %} checked {% endif %}>  I Agree
+        <input type="checkbox" id="id_student_agree" name="student_agree" {% if student.name %} checked {% endif %}>  I Agree
       </div>
       
     </div><!--my-content-->

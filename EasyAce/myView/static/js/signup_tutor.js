@@ -5,7 +5,7 @@ function add_prefer()
 	if(count_prefer<9){
 		count_prefer++;
 		temp =  '<div class="row" style="margin-top:20px">'
-		temp += '<h2 style="color: #759049; font-size: 20px;">preference '+count_prefer+'</h2>';
+		temp += '<h2 style="color: #759049; font-size: 20px;">Preference '+count_prefer+'</h2>';
 		temp += '<div class="col-xs-6">';
 		temp += '<div class="col-xs-12 form-group">';
 		temp += '<select class="form-control" id="id_teach_level'+count_prefer+'" name="teach_level'+count_prefer+'">';
