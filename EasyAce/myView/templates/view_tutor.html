@@ -14,80 +14,90 @@ class="active"
 <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/subjects.js' %}"></script>
 <script type="text/javascript">
+var search_word = new Array(5);
+
+function search()
+{
+	if($("#id_tutor_location").val() == "")
+	{
+		document.getElementById("id_tutor_location").focus();
+		return;
+	}
+	if($("#id_tutor_gender").val() == "")
+	{
+		document.getElementById("id_tutor_gender").focus();
+		return;
+	}
+	if($("#id_level").val() == "")
+	{
+		document.getElementById("id_level").focus();
+		return;
+	}
+	url = "{% url "main:view_tutor"%}?";
+	url += search_word.join("&");
+	while(url[url.length - 1]=="&")
+		url = url.substring(0,url.length-1);
+	window.location.href = url; 
+}
+
 $(function(){
-	var search_word;
-	var $searchBtn = $("#search-btn");
-	var url = $searchBtn.attr("href").split("?");
+
+
 	$("#id_tutor_location").on("change", function(e) {
 		var kw = $(this).val();
-	 	search_word += kw;
-	 	if (kw) {
-	 		url[0] = $.trim(url[0]);
-	 		url[1] = "region=" + kw;
-	 		$searchBtn.attr("href", url.join("?"));
-	 	}
+	 	search_word[0]= "region=" + kw;
+
 	});
 	$("#id_tutor_gender").on("change", function(e) {
 		var kw = $(this).val();
-	 	search_word += kw;
-	 	if (kw) {
-	 		url[0] = $.trim(url[0]);
-	 		url[1] = "gender=" + kw;
-	 		$searchBtn.attr("href", url.join("?"));
-	 	}
+	 	search_word[1] = "gender=" + kw;
+
 	});
 
-	$("#id_level").change(function(){
+	$("#id_level").on("change", function(e){
 		$("#num_subject_other").empty();
 		if ($("#id_level").val()==""){
-		$("#id_subject").empty();
-		var option = $("<option>").val("").text("Select subject");
-		$("#id_subject").append(option);
+			$("#id_subject").empty();
+			var option = $("<option>").val("").text("Select subject");
+			$("#id_subject").append(option);
 		}
 		if ($("#id_level").val()=="PSLE"){
-		Option_PSLE("#id_subject","");
+			Option_PSLE("#id_subject","");
 		}
 		if ($("#id_level").val()=="AEIS"){
-		Option_AEIS("#id_subject","");
+			Option_AEIS("#id_subject","");
 		}
 		if ($("#id_level").val()=="O-LEVEL"){
-		Option_OLEVEL("#id_subject","");
+			Option_OLEVEL("#id_subject","");
 		}
 		if ($("#id_level").val()=="A-LEVEL"){
-		Option_ALEVEL("#id_subject","");
+			Option_ALEVEL("#id_subject","");
 		}
 		if ($("#id_level").val()=="IB (Middle Years Programme)"){
-		Option_IB_MYP("#id_subject","");
+			Option_IB_MYP("#id_subject","");
 		}
 		if ($("#id_level").val()=="IB (Diploma Programme)"){
-		Option_IB_DP("#id_subject","");
+			Option_IB_DP("#id_subject","");
 		}
 		if ($("#id_level").val()=="Zhongkao"){
-		Option_Zhongkao("#id_subject","");
+			Option_Zhongkao("#id_subject","");
 		}
 		if ($("#id_level").val()=="Gaokao"){
-		Option_Gaokao("#id_subject","");
+			Option_Gaokao("#id_subject","");
 		}
 		if ($("#id_level").val()=="SAT"){
-		Option_SAT("#id_subject","");
+			Option_SAT("#id_subject","");
 		}
+		if ($("#id_level").val()=="All level"){
+			$("#id_subject").empty();
+		}
+		var subject_id = document.getElementById("id_subject");
+		subject_id.options[0].value = "All";
+		subject_id.options[0].text = "All Subjects";
+		search_word[3] = "subject=All";
 		
 		var kw = $(this).val();
-		if (kw) {
-		url[0] = $.trim(url[0]);
-		if (url[1])
-		{
-			var p = url[1].split('&');
-			p.push("level="+kw);
-			url[1] = p.join("&");
-		}
-		else
-		{
-			url[1] = "level=" + kw;
-		}
-		$searchBtn.attr("href", url.join("?"));
-		}
-
+		search_word[2] = "level=" + kw;
 		
 		});
 
@@ -112,49 +122,17 @@ $(function(){
 		{
 			$("#num_subject_other").empty();
 		}
-		
+
 		var kw = $(this).val();
-		if (kw) {
-			url[0] = $.trim(url[0]);
-		if (url[1])
-		{
-			var p = url[1].split('&');
-			p.push("subject="+kw);
-			url[1] = p.join("&");
-		}
-		else
-		{
-		url[1] = "subject=" + kw;
-		}
-		$searchBtn.attr("href", url.join("?"));
-		}
-		
+		search_word[3] = "subject=" + kw;
 		
 		});
 		
-		$("#search-btn").on("click", function(e) {
-												$("#search-btn").empty();
-												});
-
-		
-		
 		$(document).on("change", "#id_subject_other", function(){
 			if ($(this).val()!=""){
-			var kw = $(this).val();
-			if (kw) {
-			url[0] = $.trim(url[0]);
-			if (url[1])
-			{
-			var p = url[1].split('&');
-			p.push("subject_other="+kw);
-			url[1] = p.join("&");
-			}
-			else
-			{
-			url[1] = "subject_other=" + kw;
-			}
-			$searchBtn.attr("href", url.join("?"));
-			}
+
+				var kw = $(this).val();
+				search_word[4] = "subject_other=" + kw;
 			
 			}
 			});
@@ -177,6 +155,7 @@ $(function(){
 							<option value="Northwest">NorthWest</option>
 							<option value="North">North</option>
 							<option value="Northeast">NorthEast</option>
+							<option value="All">All Regions</option>
 						</select>
 					</div>
 				</div>
@@ -186,6 +165,7 @@ $(function(){
 							<option value="">Tutor Gender</option>
 							<option value="Male">Male</option>
 							<option value="Female">Female</option>
+							<option value="All">Both</option>
 						</select>
 					</div>
 				</div>
@@ -204,6 +184,7 @@ $(function(){
 							<option value="Zhongkao">Zhongkao</option>
 							<option value="Gaokao">Gaokao</option>
 							<option value="SAT">SAT</option>
+							<option value="All">All Level</option>
 						</select>
 					</div>
 				</div>
@@ -218,7 +199,8 @@ $(function(){
 			</div>
 
 	
-			<a class="btn btn-default" id="search-btn" href="{% url "main:view_tutor"%}">Search</a>
+			<!--<a class="btn btn-default" id="search-btn" onclick="search()" href="{% url "main:view_tutor"%}">Search</a>-->
+			<button class="btn btn-default" id="search-btn" onclick="search()">Search</button>
 			<hr style="margin-bottom: 50px;">
 			
 			<div id="id_show_tutor">
