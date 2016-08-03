@@ -54,16 +54,16 @@ def view_tutor(request):
   subject_other = request.GET.get('subject_other')
   gender = request.GET.get('gender')
   tutors = Tutor.objects.filter(check=True)
-  if region:
+  if region!='All':
     region1 = tutors.filter(tutor_location1__contains=region)
     region2 = tutors.filter(tutor_location2__contains=region)
     region3 = tutors.filter(tutor_location3__contains=region)
     tutors = region1 | region2 | region3
-  if level:
+  if level!='All':
       tutors = tutors.filter(prefer_sub__level=level)
-  if subject:
+  if subject!='All':
       tutors = tutors.filter(prefer_sub__name=subject)
-  if gender:
+  if gender!='All':
     tutors = tutors.filter(gender=gender)
   paginator = Paginator(tutors,30)
   page = request.GET.get('page')
