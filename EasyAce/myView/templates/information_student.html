@@ -203,9 +203,9 @@ class="active"
 
 		<hr>
 		{% for record in student.records.all %}
-		{{ record.id }}
+		<p>{{ record.tutor.name }}</p>
+		<a class="btn" href="/feedback/record_{{ record.id }}">feedback</a>
 		{% endfor %}
-		<a class="btn" href="/feedback">feedback</a>
 		
 		{% if user.id == student.base_info.id %}
 		<div class="row" style="margin-top: 30px">
