@@ -39,3 +39,6 @@ def signup_tutor(request):
 
 def signup_student(request):
 	return render(request, 'signup_student.html')
+
+def feedback(request):
+    return render(request, 'feedback.html')

@@ -22,6 +22,11 @@ function validate_required(field)
 
 function validate_form(thisform)
 {
+	if (document.getElementById("id_tutor_agree").checked == false)
+	{
+		$("#id_tutor_agree").focus();
+		return false;
+	}
 	with (thisform)
 	{
 		if (validate_required(name)==false)
@@ -54,31 +59,6 @@ function validate_form(thisform)
 			school.focus();
 			return false;
 		}
-		if ($("#id_tutor_agree").checked==false)
-		{
-			tutor_agree.focus();
-			return false;
-		}
-		if (validate_required(teaching_level1)==false)
-		{
-			teaching_level1.focus();
-			return false;
-		}
-		if (validate_required(teaching_sub1)==false)
-		{
-			teaching_sub1.focus();
-			return false;
-		}
-		if (validate_required(middle_test)==false)
-		{
-			middle_test.focus();
-			return false;
-		}
-		if (validate_required(high_test)==false)
-		{
-			high_test.focus();
-			return false;
-		}
 		if (validate_required(tutor_location_1)==false)
 		{
 			tutor_location_1.focus();
@@ -94,12 +74,8 @@ function validate_form(thisform)
 			num_taught.focus();
 			return false;
 		}
-		if (validate_required(achievement)==false)
-		{
-			achievement.focus();
-			return false;
-		}
 	}
+
 }
 
 
@@ -111,7 +87,7 @@ function validate_form(thisform)
 {% block content %}
 <div class="container">
   <h1>Complete Your Information</h1>
-  <form class="form-login" enctype="multipart/form-data" action="{% if edit %}{% url "main:edit" %}{% else %}{% url "myAuth:signup_tutor"%}{% endif %}" onsubmit="return validate_form(this);" method="post" style="margin-left: 30px; margin-right: 30px;">
+  	<form class="form-login" enctype="multipart/form-data" action="{% if edit %}{% url "main:edit" %}{% else %}{% url "myAuth:signup_tutor"%}{% endif %}" onsubmit="return validate_form(this);" method="post" style="margin-left: 30px; margin-right: 30px;">
     {% csrf_token %}
     <div class="form-group">
       <input class="form-control" id="id_name" maxlength="50" name="name" type="text" placeholder="Name" {% if tutor.name %} value={{ tutor.name }} {% endif %}/>
@@ -161,6 +137,7 @@ function validate_form(thisform)
 				
     <hr>
     <div class="my-content">
+    
     <h1>Preference of Teaching Subjects</h1>
 		<div id="block_prefer">
 		</div><!--block_prefer-->
@@ -190,9 +167,23 @@ function validate_form(thisform)
 						<option value="West" {% if tutor.tutor_location1 == "West" %} selected="selected" {% endif %}>West</option>
 						<option value="Central" {% if  tutor.tutor_location1  == "Central" %} selected="selected" {% endif %}>Central</option>
 						<option value="East" {% if tutor.tutor_location1 == "East" %} selected="selected" {% endif %}>East</option>
-						<option value="Northwest" {% if tutor.tutor_location1 == "Northwest" %} selected="selected" {% endif %}>NorthWest</option>
+						<option value="North West" {% if tutor.tutor_location1 == "North West" %} selected="selected" {% endif %}>North West</option>
 						<option value="North" {% if tutor.tutor_location1 == "North" %} selected="selected" {% endif %}>North</option>
-						<option value="Northeast" {% if tutor.tutor_location1 == "Northeast" %} selected="selected" {% endif %}>NorthEast</option>
+						<option value="North East" {% if tutor.tutor_location1 == "North East" %} selected="selected" {% endif %}>North East</option>
+					</select>
+				</div>
+			</div>
+			{% else %}
+			<div class="col-xs-4">
+				<div class="form-group">
+					<select class="form-control" id="id_tutor_location_1" name="tutor_location_1">
+						<option value="">Preference 1</option>
+						<option value="West">West</option>
+						<option value="Central">Central</option>
+						<option value="East">East</option>
+						<option value="North West">North West</option>
+						<option value="North">North</option>
+						<option value="North East">North East</option>
 					</select>
 				</div>
 			</div>
@@ -205,9 +196,23 @@ function validate_form(thisform)
 						<option value="West" {% if tutor.tutor_location2 == "West" %} selected="selected" {% endif %}>West</option>
 						<option value="Central" {% if  tutor.tutor_location2  == "Central" %} selected="selected" {% endif %}>Central</option>
 						<option value="East" {% if tutor.tutor_location2 == "East" %} selected="selected" {% endif %}>East</option>
-						<option value="Northwest" {% if tutor.tutor_location2 == "Northwest" %} selected="selected" {% endif %}>NorthWest</option>
+						<option value="North West" {% if tutor.tutor_location2 == "North West" %} selected="selected" {% endif %}>North West</option>
 						<option value="North" {% if tutor.tutor_location2 == "North" %} selected="selected" {% endif %}>North</option>
-						<option value="Northeast" {% if tutor.tutor_location2 == "Northeast" %} selected="selected" {% endif %}>NorthEast</option>
+						<option value="North East" {% if tutor.tutor_location2 == "North East" %} selected="selected" {% endif %}>North East</option>
+					</select>
+				</div>
+			</div>
+			{% else %}
+			<div class="col-xs-4">
+				<div class="form-group">
+					<select class="form-control" id="id_tutor_location_2" name="tutor_location_2">
+						<option value="">Preference 2</option>
+						<option value="West">West</option>
+						<option value="Central">Central</option>
+						<option value="East">East</option>
+						<option value="North West">North West</option>
+						<option value="North">North</option>
+						<option value="North East">North East</option>
 					</select>
 				</div>
 			</div>
@@ -220,9 +225,23 @@ function validate_form(thisform)
 						<option value="West" {% if tutor.tutor_location3 == "West" %} selected="selected" {% endif %}>West</option>
 						<option value="Central" {% if  tutor.tutor_location3  == "Central" %} selected="selected" {% endif %}>Central</option>
 						<option value="East" {% if tutor.tutor_location3 == "East" %} selected="selected" {% endif %}>East</option>
-						<option value="Northwest" {% if tutor.tutor_location3 == "Northwest" %} selected="selected" {% endif %}>NorthWest</option>
+						<option value="North West" {% if tutor.tutor_location3 == "North West" %} selected="selected" {% endif %}>North West</option>
 						<option value="North" {% if tutor.tutor_location3 == "North" %} selected="selected" {% endif %}>North</option>
-						<option value="Northeast" {% if tutor.tutor_location3 == "Northeast" %} selected="selected" {% endif %}>NorthEast</option>
+						<option value="North East" {% if tutor.tutor_location3 == "North East" %} selected="selected" {% endif %}>North East</option>
+					</select>
+				</div>
+			</div>
+			{% else %}
+			<div class="col-xs-4">
+				<div class="form-group">
+					<select class="form-control" id="id_tutor_location_3" name="tutor_location_3">
+						<option value="">Preference 3</option>
+						<option value="West">West</option>
+						<option value="Central">Central</option>
+						<option value="East">East</option>
+						<option value="Northwest">North West</option>
+						<option value="North">North</option>
+						<option value="Northeast">North East</option>
 					</select>
 				</div>
 			</div>
@@ -235,31 +254,33 @@ function validate_form(thisform)
         <select class="form-control" id="id_teach_duration" name="teach_duration">
           <option value="">Duration</option>
           <option value="Never" {% if tutor.teach_duration == "Never" %} selected="selected" {% endif %}>Never</option>
-          <option value="1 month" {% if tutor.teach_duration == "1 month" %} selected="selected" {% endif %}>1 month</option>
-          <option value="1-3 month" {% if tutor.teach_duration == "1-3 month" %} selected="selected" {% endif %}>1-3 month</option>
-          <option value="3-6 month" {% if tutor.teach_duration == "3-6 month" %} selected="selected" {% endif %}>3-6 month</option>
-          <option value="6-12 month" {% if tutor.teach_duration == "6-12 month" %} selected="selected" {% endif %}>6-12 month</option>
+          <option value="1 month" {% if tutor.teach_duration == "<1 month" %} selected="selected" {% endif %}><1 month</option>
+          <option value="1-3 months" {% if tutor.teach_duration == "1-3 months" %} selected="selected" {% endif %}>1-3 months</option>
+          <option value="3-6 months" {% if tutor.teach_duration == "3-6 months" %} selected="selected" {% endif %}>3-6 months</option>
+          <option value="6-12 months" {% if tutor.teach_duration == "6-12 months" %} selected="selected" {% endif %}>6-12 months</option>
           <option value=">1 year" {% if tutor.teach_duration == "1 year" %} selected="selected" {% endif %}>>1 year</option>
-          <option value=">2 year" {% if tutor.teach_duration == "2 year" %} selected="selected" {% endif %}>>2 year</option>
+          <option value=">2 years" {% if tutor.teach_duration == "2 years" %} selected="selected" {% endif %}>>2 years</option>
         </select>
       </div>
       <div class="form-group">
         <select class="form-control" id="id_num_taught" name="num_taught">
           <option value="">Number of Students taught</option>
-          <option value="1-5" {% if tutor.num_taught == "1-5" %} selected="selected" {% endif %}>1-5</option>
-          <option value="5-10" {% if tutor.num_taught == "5-10" %} selected="selected" {% endif %}>5-10</option>
-          <option value=">10" {% if tutor.num_taught == ">10" %} selected="selected" {% endif %}>>10</option>
+          <option value="0" {% if tutor.num_taught == "0" %} selected="selected" {% endif %}>0</option>
+          <option value="1-3" {% if tutor.num_taught == "1-3" %} selected="selected" {% endif %}>1-3</option>
+          <option value="4-6" {% if tutor.num_taught == "4-6" %} selected="selected" {% endif %}>4-6</option>
+          <option value="7-9" {% if tutor.num_taught == "7-9" %} selected="selected" {% endif %}>7-9</option>
+          <option value=">=10" {% if tutor.num_taught == ">=10" %} selected="selected" {% endif %}>>=10</option>
         </select>
       </div>
       <p>Please indicate your past students' academic achievements. Keep the description accurate and concise, without flowery language. For example: Student A raised his O-Level Physics grade from C6 to A1 in 2 months. In addition, please provide your students' contact information with his/her consent for our verification purposes.</p>
       <div class="form-group">
-				<textarea class="form-control" id="id_achievement" name="achievement" rows="3" placeholder="Achievement">{% if tutor.achievement %} {{tutor.achievement}} {% endif %}</textarea>
+      	<textarea class="form-control" id="id_achievement" name="achievement" rows="3" placeholder="Achievement">{% if tutor.achievement %} {{ tutor.achievement }}{% endif %}</textarea>
       </div>
       <hr>
       <h1>PERSONAL DATA PROTECTION ACT</h1>
       <p>By signing this membership application form, you agree that Easy Ace Pte Ltd may collect, use and disclose your personal data, as provided in this application form, or (if applicable) obtained by our organisation as a result of your membership, for the following purposes in accordance with the Personal Data Protection Act 2012 and our data protection policy (available at our website www.easyace.sg): (a) the processing of this membership application; and (b) the administration of the membership with our organisation.</p>
       <div class="form-group">
-        <input type="radio" id="id_tutor_agree" name="tutor_agree" {% if tutor.name %} checked {% endif %}>  I Agree
+        <input type="checkbox" id="id_tutor_agree" name="tutor_agree" {% if tutor.name %} checked {% endif %}/>  I Agree
       </div>
       
     </div><!--my-content-->

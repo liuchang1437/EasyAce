@@ -35,5 +35,6 @@ urlpatterns = [
     url(r'^search_tutor/', my_view.search_tutor),
     url(r'^signup_tutor/', my_view.signup_tutor),
     url(r'^signup_student/', my_view.signup_student),
+    url(r'^feedback/', my_view.feedback),
     url(r'^', include('main.urls')),
 ]
