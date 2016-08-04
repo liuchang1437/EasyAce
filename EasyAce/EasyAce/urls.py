@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^contact/', my_view.contact),
     url(r'^for_student/', my_view.for_student),
     url(r'^for_tutor/', my_view.for_tutor),
+    url(r'^view_tutor/', my_view.view_tutor),
     url(r'^', include('main.urls')),
 ]

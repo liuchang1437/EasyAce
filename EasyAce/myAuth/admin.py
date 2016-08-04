@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.http import HttpResponse
 from .models import Tutor,Student,MyUser,Record,Feedback,\
-  StudentPreferSub,PreferSubject,ReferSubject
+  StudentPreferSub,PreferSubject,ReferSubject,Interview
 import xlwt
 # Register your models here.
 
@@ -10,10 +10,40 @@ class RecordInline(admin.StackedInline):
   model = Record
   extra = 0
   raw_id_fields = ('tutor',)
+  fieldsets = (
+    ('Record info',{
+      'fields':('tutor',('if_confirmed','commission_collection_status'))
+    }),
+    ('Contract and fees',{
+      'fields':('startdate','chargedate','service_fees','freq','lesson_last','lesson_price')
+    }),
+    ('Close call',{
+      'classes':('collapse',),
+      'fields':('close_call_date','tuition_duration','overall_comment','q1','q2','self_evaluation',\
+        'reasons','comment_charges','recommend_or_not')
+    })
+  )
+
+class InterviewInline(admin.StackedInline):
+  colapse = True
+  model = Interview
+  extra = 0
+  raw_id_fields = ('tutor',)
+  fieldsets = (
+    ('Interview Form',{
+      'classes':('collapse',),
+      'fields':('interview_grade',\
+    'interview_major','interview_num_taught','interview_effect','interview_fees','interview_how_to_range_course',\
+    'interview_tutor_type','interview_why_you_good','interview_how_relation_with_stu','interview_how_rel_with_prntofstu',\
+    'interview_how_long','interview_why_tutor','interview_what_matter','interview_other_sub','interview_can_teach_tutor',\
+    'interview_recommend','interview_new_tutor_training','interview_comment','interview_remark')
+    }),
+  )
 class FeedbackInline(admin.StackedInline):
   model = Feedback
   extra = 0
-  raw_id_fields = ('student',)
+  readonly_fields = ('student','subject','time','attend','attitude',\
+    'preparation','clarity','knowledgeability','outcome','date','comment')
 class PreferSub(admin.StackedInline):
   def has_add_permission(self,request):
     return False
@@ -31,9 +61,17 @@ class ReferSub(admin.StackedInline):
 
 @admin.register(Tutor) 
 class TutorAdmin(admin.ModelAdmin):
-  list_display = ('username','name','email','check','sr')
+  def has_add_permission(self, request):
+        return False
+  def base_info_username(self,obj):
+    return obj.base_info.username
+  list_display = ('name','wechat','whatsapp','check','sr')
   list_filter = ('check','top_teacher','prefer_sub__level','prefer_sub__name')
-  search_fields = ('name','username','email','prefer_sub__level','prefer_sub__name')
+  search_fields = ('name','username','email','prefer_sub__level','prefer_sub__name','interview__interview_grade',\
+    'interview__interview_major','interview__interview_num_taught','interview__interview_effect','interview__interview_fees','interview__interview_how_to_range_course',\
+    'interview__interview_tutor_type','interview__interview_why_you_good','interview__interview_how_relation_with_stu','interview__interview_how_rel_with_prntofstu',\
+    'interview__interview_how_long','interview__interview_why_tutor','interview__interview_what_matter','interview__interview_other_sub','interview__interview_can_teach_tutor',\
+    'interview__interview_recommend','interview__interview_new_tutor_training','interview__interview_comment','interview__interview_remark')
   fieldsets = (
     ('Base information', {
       'fields': ('name','username','gender','birth','school',\
@@ -45,14 +83,14 @@ class TutorAdmin(admin.ModelAdmin):
       'fields':('phone','wechat','whatsapp','email')
     }),
     ('Options',{
-      'fields':('check','top_teacher','interview_result')
+      'fields':('check','top_teacher')
     })
   ) 
   readonly_fields = ('name','username','gender','birth','school',\
     'tutor_location1','tutor_location2','tutor_location3',\
     'teach_duration','num_taught','achievement','phone',\
     'wechat','whatsapp','email','sr')
-  inlines = [PreferSub,ReferSub,FeedbackInline]
+  inlines = [PreferSub,ReferSub,InterviewInline,FeedbackInline]
   # 增加计算Star rating的action
   def cal_star_rating(self,request,queryset):
     for obj in queryset:
@@ -128,7 +166,7 @@ class TutorAdmin(admin.ModelAdmin):
   # end
   export_to_excel.short_description = 'Export to excel'
 
-  actions = [cal_star_rating,export_to_excel]
+  actions = [export_to_excel]
 
 class StudentPreferSub(admin.StackedInline):
   def has_add_permission(self,request):
@@ -140,7 +178,11 @@ class StudentPreferSub(admin.StackedInline):
 
 @admin.register(Student) 
 class StudentAdmin(admin.ModelAdmin):
-  list_display = ('username','name','email','wait_match')
+  def has_add_permission(self, request):
+        return False
+  def base_info_username(self,obj):
+    return obj.base_info.username
+  list_display = ('name','wechat','whatsapp','wait_match')
   list_filter = ('wait_match',)
   search_fields = ('name','username','email')
   fieldsets = (
@@ -154,7 +196,7 @@ class StudentAdmin(admin.ModelAdmin):
       'fields':('phone','wechat','whatsapp','email')
     }),
     ('Options',{
-      'fields':('wait_match',)
+      'fields':('wait_match','admin_name')
     })
   ) 
   readonly_fields = ('name','username','gender','grade','school',\

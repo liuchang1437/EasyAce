@@ -8,6 +8,11 @@ from django.contrib.auth import login as login_user
 from django.contrib.auth import logout as logout_user
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from EasyAce.settings import SECRET_KEY
+from django.core.mail import send_mail
+from .utils import Token
+
+token_confirm = Token(SECRET_KEY)
 
 def login(request):
   next = request.GET.get('next') or ''
@@ -24,10 +29,10 @@ def login(request):
           return HttpResponseRedirect(next)
         return HttpResponseRedirect('/index')
       else:
-        message.error(request,'The account has been disabled!')
+        messages.error(request,'The account has been disabled!')
         return HttpResponseRedirect('myAuth:login')
     else:
-      messages.error(request,'The username and password were inccorect.')
+      messages.error(request,'The username and password were incorect.')
       return HttpResponseRedirect(reverse('myAuth:login'))
   return render(request,'login.html',{'next':next})
 
@@ -44,8 +49,16 @@ def signup(request):
       login_user(request,user)
       messages.success(request,'You have signed up successfully! Please complete some further information.')
       if role=='tutor':
+        tutor = Tutor()
+        tutor.base_info = user
+        tutor.name = username
+        tutor.save()
         return HttpResponseRedirect(reverse('myAuth:signup_tutor'))
       else:
+        student = Student()
+        student.base_info = user
+        student.name = student.username
+        student.save()
         return HttpResponseRedirect(reverse('myAuth:signup_student'))
     messages.error(request,'The username you used already exists!')
     return HttpResponseRedirect(reverse('myAuth:signup'))
@@ -62,9 +75,6 @@ def logout(request):
 @login_required
 def signup_tutor(request):
   if request.method == 'POST':
-    if request.user.get_user():
-      messages.error(request,'The user has existed!')
-      return HttpResponseRedirect('/index')
     #### Base info start
     name = request.POST['name']
     gender = request.POST['gender']
@@ -86,10 +96,21 @@ def signup_tutor(request):
     myuser = request.user
     myuser.email = email
     myuser.save()
-    tutor = Tutor(username=myuser.username,name=name,gender=gender,phone=phone,birth=birth,\
-      school=school,wechat=wechat,whatsapp=whatsapp,email=email,\
-      teach_duration=teach_duration,num_taught=num_taught,achievement=achievement,\
-      base_info=myuser)
+    tutor = myuser.get_user()
+    tutor.username = myuser.username
+    tutor.name=name
+    tutor.gender=gender
+    tutor.phone=phone
+    tutor.birth=birth
+    tutor.school=school
+    tutor.wechat=wechat
+    tutor.whatsapp=whatsapp
+    tutor.email=email
+    tutor.teach_duration=teach_duration
+    tutor.num_taught=num_taught
+    tutor.achievement=achievement
+    tutor.base_info=myuser
+    
     if 'photo' in request.FILES:
       tutor.photo = request.FILES['photo']
     if 'tutor_location_1' in request.POST:
@@ -125,19 +146,18 @@ def signup_tutor(request):
           other=other,tutor=tutor)
         refer_teach.save()
     #### END
-    tutor.cal_isr()
     tutor.save()
     messages.success(request,'Update information successfully!')
     return HttpResponseRedirect('/index')
   else:
     return render(request, 'signup_tutor.html')
 
+
+
+
 @login_required
 def signup_student(request):
   if request.method == 'POST':
-    if request.user.get_user():
-      messages.error(request,'The user has existed!')
-      return HttpResponseRedirect('/index')
     #### Base info start
     name = request.POST['name']
     gender = request.POST['gender']
@@ -162,12 +182,23 @@ def signup_student(request):
     myuser = request.user
     myuser.email = email
     myuser.save()
-    student = Student(username=myuser.username,name=name,gender=gender,\
-      email=email,phone=phone,school=school,grade=grade,\
-      wechat=wechat,whatsapp=whatsapp,base_info=myuser,\
-      location=location,loc_nego=loc_nego,\
-      time_per_lesson=time_per_lesson,start_time=start_time,\
-      lesson_per_week=lesson_per_week,prefer_tutor_gender=prefer_tutor_gender)
+    student = myuser.get_user()
+    student.username=myuser.username
+    student.name=name
+    student.gender=gender
+    student.email=email
+    student.phone=phone
+    student.school=school
+    student.grade=grade
+    student.wechat=wechat
+    student.whatsapp=whatsapp
+    student.base_info=myuser
+    student.location=location
+    student.loc_nego=loc_nego
+    student.time_per_lesson=time_per_lesson
+    student.start_time=start_time
+    student.lesson_per_week=lesson_per_week
+    student.prefer_tutor_gender=prefer_tutor_gender
     if start_time=='Other':
       student.start_time_other = request.POST['student_start_time_other']
     remarks=''
@@ -200,3 +231,51 @@ def signup_student(request):
     return HttpResponseRedirect('/index')
   else:
     return render(request, 'signup_student.html')
+
+@login_required
+def change_password(request):
+  if request.method=='POST':
+    new_password = request.POST['password']
+    request.user.set_password(new_password)
+    request.user.save()
+    messages.success(request,'Change password successfully!')
+    return HttpResponseRedirect('/index')
+  return render(request, 'chage_password.html')
+def forget_password(request):
+  if request.method == 'POST':
+    email = request.POST['email']
+    try:
+      user = MyUser.objects.get(email=email)
+      username = user.username
+    except:
+      messages.error(request,'The email does not exists!')
+      return HttpResponseRedirect(reverse('myAuth:forget_password'))
+    token = token_confirm.generate_validate_token(username)
+    ## send mail
+    message = '\n'.join(
+      [
+        'hi, {}, please click the link below to change your password.'.format(username),
+        '/'.join([request.get_host(),'auth/validate',token])
+      ]
+    )
+    send_mail('Change your password',message,None,[email],fail_silently=False)
+    messages.success(request,'An email has been send to {}, please check it in 2 hours.'.format(email))
+    return HttpResponseRedirect('/index')
+  return render(request,'forget_password.html')
+def validate_email(request,token):
+  if request.method == 'POST':
+    try:
+      username = token_confirm.confirm_validate_token(token)
+    except:
+      messages.error(request,'The link has been expired.')
+      return HttpResponseRedirect('/index')
+    try:
+      user = MyUser.objects.get(username=username)
+    except User.DoesNotExist:
+      messages.error(request,'The user does not exists!')
+      return HttpResponseRedirect('/index')
+    user.set_password(request.POST['new_password'])
+    user.save()
+    messages.success(request,'Change password successfully!')
+    return HttpResponseRedirect('/index')
+  return render(request,'change_password.html',{'token':token})
