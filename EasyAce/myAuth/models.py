@@ -52,32 +52,32 @@ class Tutor(models.Model):
       # 根据不同的考试类型，以及不同的成绩，计算分数
       if sub.level=='O-LEVEL':
         if sub.score=='A1':
-          local = 3
+          local = 4
         elif sub.score=='A2':
           local = 2
       if sub.level=='IB (Middle Years Programme)':
         if sub.score=='7':
-          local = 3
+          local = 4
         elif sub.score=='6':
           local = 2
       if sub.level=='Zhongkao':
         if sub.score=='>135':
-          local = 3
+          local = 4
         elif sub.score=='125-135':
           local = 2
       if sub.level=='A-LEVEL':
         if sub.score=='A':
-          local = 3
+          local = 4
         elif sub.score=='B':
           local = 2
       if sub.level=='IB (Diploma Programme)':
         if sub.score=='7':
-          local = 3
+          local = 4
         elif sub.score=='6':
           local = 2
       if sub.level=='Gaokao':
         if sub.score=='>135':
-          local = 3
+          local = 4
         elif sub.score=='125-135':
           local = 2
       # 心仪的科目顺序不同，也会造成isr的不同
@@ -92,18 +92,91 @@ class Tutor(models.Model):
       times_total += times
       isr += local*times
     if times_total:
-      isr = isr*20/times_total
+      isr = isr*10/times_total
+    if self.teach_duration == '1 month':
+      isr += 1
+    if self.teach_duration == '1-3 months':
+      isr += 3
+    if self.teach_duration == '3-6 months':
+      isr += 5
+    if self.teach_duration == '6-12 months':
+      isr += 7
+    if self.teach_duration == '>1 year':
+      isr += 9
+    if self.teach_duration == '>2 years':
+      isr += 10
+    if self.num_taught == '1-3':
+      isr += 2
+    if self.num_taught == '4-6':
+      isr += 6
+    if self.num_taught == '7-9':
+      isr += 8
+    if self.num_taught == '>=10':
+      isr += 10
     self.isr = isr
   def cal_sr(self):
-    isr = self.isr + 0.4*self.interview_result
+    self.cal_isr()
+    isr = self.isr + self.interview_result
     fsr = 0
     fsr_time = 0
     for feedback in self.feedbacks.all():
-      fsr += feedback.score*feedback.time
+      local_fsr = 0
+      # attitude
+      if feedback.attitude == 'Excellent':
+        local_fsr += 20
+      if feedback.attitude == 'Good':
+        local_fsr += 10
+      if feedback.attitude == 'Poor':
+        local_fsr -= 10
+      if feedback.attitude == 'Very poor':
+        local_fsr -= 20
+      # preparation
+      if feedback.preparation == 'Excellent':
+        local_fsr += 20
+      if feedback.preparation == 'Good':
+        local_fsr += 10
+      if feedback.preparation == 'Poor':
+        local_fsr -= 10
+      if feedback.preparation == 'Very poor':
+        local_fsr -= 20
+      # clarity
+      if feedback.clarity == 'Excellent':
+        local_fsr += 20
+      if feedback.clarity == 'Good':
+        local_fsr += 10
+      if feedback.clarity == 'Poor':
+        local_fsr -= 10
+      if feedback.clarity == 'Very poor':
+        local_fsr -= 20
+      # knowledgeability
+      if feedback.knowledgeability == 'Excellent':
+        local_fsr += 20
+      if feedback.knowledgeability == 'Good':
+        local_fsr += 10
+      if feedback.knowledgeability == 'Poor':
+        local_fsr -= 10
+      if feedback.knowledgeability == 'Very poor':
+        local_fsr -= 20
+      # outcome
+      if feedback.outcome == 'Excellent':
+        local_fsr += 20
+      if feedback.outcome == 'Good':
+        local_fsr += 10
+      if feedback.outcome == 'Poor':
+        local_fsr -= 10
+      if feedback.outcome == 'Very poor':
+        local_fsr -= 20
+      if feedback.attend == 'On time':
+        local_fsr += 10
+      if feedback.attend == 'Late for 5-15 min':
+        local_fsr -= 5
+      if feedback.attend == 'Late for 15-30 min':
+        local_fsr -= 10
+      if feedback.attend == 'Late for >30 min':
+        local_fsr -= 20
+      fsr += local_fsr*feedback.time
       fsr_time += feedback.time
-    if fsr_time:
-      fsr /= fsr_time
-    sr = (10*isr + fsr*10*fsr_time)/(10+fsr_time)
+    sr = (30*isr + fsr)/(30 + fsr_time)
     self.sr = round(sr,2)
     
   ############### Star Rating End ###############
@@ -226,6 +299,14 @@ class Feedback(models.Model):
   tutor = models.ForeignKey(Tutor,on_delete=models.CASCADE,related_name='feedbacks',limit_choices_to={'check':True})
   student = models.ForeignKey(Student,on_delete=models.CASCADE,related_name='feedbacks')
   score = models.FloatField(u'score(0-10)',default=0)
+  # 5 aspects of evaluation:
+  attitude = models.CharField(max_length=10)
+  preparation = models.CharField(max_length=10)
+  clarity = models.CharField(max_length=10)
+  knowledgeability = models.CharField(max_length=10)
+  outcome = models.CharField(max_length=10)
+  # evaluation end
+  attend = models.CharField(max_length=20)
   time = models.FloatField(u'授课时间（小时）')
   date = models.DateField(default=timezone.now)
   remark = models.TextField(u'学生对教师评价',blank=True)
