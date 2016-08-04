@@ -94,7 +94,7 @@ class="active"
 		</div>
 		<div class="row">
 			<div class="col-xs-2 col-xs-offset-2">
-				<div class="my-information-p">Location negotiable</div>
+				<div class="my-information-p">Location Negotiable</div>
 			</div>
 			<div class="col-xs-4">
 				<div class="my-information-p2">{{ student.loc_nego }}</div>
@@ -200,6 +200,11 @@ class="active"
 				<div class="my-information-p2">{{ student.weakness }}</div>
 			</div>
 		</div>
+
+		<hr>
+		{% for record in student.records.all %}
+		{{ record.id }}
+		{% endfor %}
 		<a class="btn" href="/feedback">feedback</a>
 		
 		{% if user.id == student.base_info.id %}
