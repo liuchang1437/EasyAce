@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from myAuth.models import Tutor,MyUser,Student,PreferSubject,ReferSubject,StudentPreferSub
+from myAuth.models import Tutor,MyUser,Student,PreferSubject,ReferSubject,\
+    StudentPreferSub, Feedback, Record
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -8,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from itertools import chain
 from django.http import JsonResponse
 import json
+
 # Create your views here.
 
 def index(request):
@@ -292,7 +294,31 @@ def edit_tutor(request):
         data_json = json.dumps(data)
         print(data_json)
         return JsonResponse(data_json, safe=False)
-
+def feedback(request,record_id):
+    student = request.user.get_user()
+    if request.method == 'POST':
+        record = Record.objects.get(pk=record_id)
+        feedback = Feedback()
+        feedback.tutor = record.tutor
+        feedback.student = student
+        feedback.subject = request.POST['subject']
+        if request.POST['ontime'] == 'Yes':
+            feedback.attend = 'On time'
+        else:
+            feedback.attend = request.POST['late_time']
+        feedback.attitude = request.POST['attitude']
+        feedback.preparation = request.POST['preparation']
+        feedback.clarity = request.POST['clarity']
+        feedback.knowledgeability = request.POST['knowledgeability']
+        feedback.outcome = request.POST['outcome']
+        feedback.time = request.POST['tuition_hour']
+        feedback.comment = request.POST['comment']
+        feedback.save()
+        record.tutor.cal_sr()
+        record.tutor.save()
+        messages.info(request,'Submit feedback successfully! Thank you for that.')
+        return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
+    return render(request, 'feedback.html')
 
 
 

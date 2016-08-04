@@ -52,32 +52,32 @@ class Tutor(models.Model):
       # 根据不同的考试类型，以及不同的成绩，计算分数
       if sub.level=='O-LEVEL':
         if sub.score=='A1':
-          local = 3
+          local = 4
         elif sub.score=='A2':
           local = 2
       if sub.level=='IB (Middle Years Programme)':
         if sub.score=='7':
-          local = 3
+          local = 4
         elif sub.score=='6':
           local = 2
       if sub.level=='Zhongkao':
         if sub.score=='>135':
-          local = 3
+          local = 4
         elif sub.score=='125-135':
           local = 2
       if sub.level=='A-LEVEL':
         if sub.score=='A':
-          local = 3
+          local = 4
         elif sub.score=='B':
           local = 2
       if sub.level=='IB (Diploma Programme)':
         if sub.score=='7':
-          local = 3
+          local = 4
         elif sub.score=='6':
           local = 2
       if sub.level=='Gaokao':
         if sub.score=='>135':
-          local = 3
+          local = 4
         elif sub.score=='125-135':
           local = 2
       # 心仪的科目顺序不同，也会造成isr的不同
@@ -92,18 +92,91 @@ class Tutor(models.Model):
       times_total += times
       isr += local*times
     if times_total:
-      isr = isr*20/times_total
+      isr = isr*10/times_total
+    if self.teach_duration == '1 month':
+      isr += 1
+    if self.teach_duration == '1-3 months':
+      isr += 3
+    if self.teach_duration == '3-6 months':
+      isr += 5
+    if self.teach_duration == '6-12 months':
+      isr += 7
+    if self.teach_duration == '>1 year':
+      isr += 9
+    if self.teach_duration == '>2 years':
+      isr += 10
+    if self.num_taught == '1-3':
+      isr += 2
+    if self.num_taught == '4-6':
+      isr += 6
+    if self.num_taught == '7-9':
+      isr += 8
+    if self.num_taught == '>=10':
+      isr += 10
     self.isr = isr
   def cal_sr(self):
-    isr = self.isr + 0.4*self.interview_result
+    self.cal_isr()
+    isr = self.isr + self.interview_result
     fsr = 0
     fsr_time = 0
     for feedback in self.feedbacks.all():
-      fsr += feedback.score*feedback.time
+      local_fsr = 0
+      # attitude
+      if feedback.attitude == 'Excellent':
+        local_fsr += 20
+      if feedback.attitude == 'Good':
+        local_fsr += 10
+      if feedback.attitude == 'Poor':
+        local_fsr -= 10
+      if feedback.attitude == 'Very Poor':
+        local_fsr -= 20
+      # preparation
+      if feedback.preparation == 'Excellent':
+        local_fsr += 20
+      if feedback.preparation == 'Good':
+        local_fsr += 10
+      if feedback.preparation == 'Poor':
+        local_fsr -= 10
+      if feedback.preparation == 'Very Poor':
+        local_fsr -= 20
+      # clarity
+      if feedback.clarity == 'Excellent':
+        local_fsr += 20
+      if feedback.clarity == 'Good':
+        local_fsr += 10
+      if feedback.clarity == 'Poor':
+        local_fsr -= 10
+      if feedback.clarity == 'Very Poor':
+        local_fsr -= 20
+      # knowledgeability
+      if feedback.knowledgeability == 'Excellent':
+        local_fsr += 20
+      if feedback.knowledgeability == 'Good':
+        local_fsr += 10
+      if feedback.knowledgeability == 'Poor':
+        local_fsr -= 10
+      if feedback.knowledgeability == 'Very Poor':
+        local_fsr -= 20
+      # outcome
+      if feedback.outcome == 'Excellent':
+        local_fsr += 20
+      if feedback.outcome == 'Good':
+        local_fsr += 10
+      if feedback.outcome == 'Poor':
+        local_fsr -= 10
+      if feedback.outcome == 'Very Poor':
+        local_fsr -= 20
+      if feedback.attend == 'On time':
+        local_fsr += 10
+      if feedback.attend == '5-15 min':
+        local_fsr -= 5
+      if feedback.attend == '15-30 min':
+        local_fsr -= 10
+      if feedback.attend == '>30 min':
+        local_fsr -= 20
+      fsr += local_fsr*feedback.time
       fsr_time += feedback.time
-    if fsr_time:
-      fsr /= fsr_time
-    sr = (10*isr + fsr*10*fsr_time)/(10+fsr_time)
+    sr = (30*isr + fsr)/(30 + fsr_time)
     self.sr = round(sr,2)
     
   ############### Star Rating End ###############
@@ -202,14 +275,14 @@ class MyUser(AbstractUser):
 class Record(models.Model):
   tutor = models.ForeignKey(Tutor,on_delete=models.CASCADE,related_name='records',limit_choices_to={'check':True})
   student = models.ForeignKey(Student,on_delete=models.CASCADE,related_name='records')
-  if_confirmed = models.BooleanField(default=False,verbose_name=u'双方是否确认')
-  startdate = models.DateField(u'确认日期',default=timezone.now,blank=True)
-  chargedate = models.DateField(u'收费日期',blank=True,null=True)
-  service_fees = models.CharField(u'中介费用',blank=True,null=True,max_length=20)
-  freq = models.CharField(u'每周课时数',blank=True,null=True,max_length=30)
-  lesson_last = models.CharField(u'每节课时长',blank=True,null=True,max_length=30)
-  lesson_price = models.CharField(u'每节课费用',blank=True,null=True,max_length=30)
-  admin_name = models.CharField(u'管理员姓名',max_length=30)
+  if_confirmed = models.BooleanField(default=False,verbose_name=u"Tutor's Consent'")
+  startdate = models.DateField(u'Contract Signing Date',default=timezone.now,blank=True)
+  chargedate = models.DateField(u'Commission Due Date',blank=True,null=True)
+  service_fees = models.CharField(u'Total Commission Fee',blank=True,null=True,max_length=20)
+  freq = models.CharField(u'Actual no. of lessons per week',blank=True,null=True,max_length=30)
+  lesson_last = models.CharField(u'Actual no. of hours per lesson:(hours)',blank=True,null=True,max_length=30)
+  lesson_price = models.CharField(u'Hourly Fee',blank=True,null=True,max_length=30)
+  admin_name = models.CharField(u'Person-in-charge',max_length=30)
 
   # def get_tutor_name(self):
   #   return self.tutor.name
@@ -225,7 +298,18 @@ class Record(models.Model):
 class Feedback(models.Model):
   tutor = models.ForeignKey(Tutor,on_delete=models.CASCADE,related_name='feedbacks',limit_choices_to={'check':True})
   student = models.ForeignKey(Student,on_delete=models.CASCADE,related_name='feedbacks')
-  score = models.FloatField(u'score(0-10)',default=0)
-  time = models.FloatField(u'授课时间（小时）')
+  subject = models.CharField(max_length=50)
+  attend = models.CharField(max_length=20)
+  ## if ontime = Yes, attend = On time, else attend = late_time
+  ## 
+  # 5 aspects of evaluation:
+  attitude = models.CharField(max_length=10)
+  preparation = models.CharField(max_length=10)
+  clarity = models.CharField(max_length=10)
+  knowledgeability = models.CharField(max_length=10)
+  outcome = models.CharField(max_length=10)
+  # evaluation end
+  
+  time = models.FloatField(u'授课时间（小时）') # tuition_hour
   date = models.DateField(default=timezone.now)
-  remark = models.TextField(u'学生对教师评价',blank=True)
+  comment = models.TextField(u'学生对教师评价',blank=True)
