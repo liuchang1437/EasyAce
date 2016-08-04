@@ -129,3 +129,13 @@ MEDIA_URL = 'photos/'
 # Authentication
 
 LOGIN_URL = 'myAuth:login'
+
+# email
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'email host'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'username'
+EMAIL_HOST_PASSWORD = 'password'
+DEFAULT_FROM_EMAIL = 'EasyAce <host>'

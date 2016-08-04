@@ -159,7 +159,6 @@ def edit(request):
                         other=other,tutor=tutor)
                     refer_teach.save()
             #### END
-            tutor.cal_isr()
             #print(tutor.isr)
             tutor.save()
             messages.success(request,'Update information successfully!')
@@ -314,8 +313,6 @@ def feedback(request,record_id):
         feedback.time = request.POST['tuition_hour']
         feedback.comment = request.POST['comment']
         feedback.save()
-        record.tutor.cal_sr()
-        record.tutor.save()
         messages.info(request,'Submit feedback successfully! Thank you for that.')
         return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
     return render(request, 'feedback.html')
