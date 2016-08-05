@@ -57,7 +57,7 @@ def signup(request):
       else:
         student = Student()
         student.base_info = user
-        student.name = student.username
+        student.name = username
         student.save()
         return HttpResponseRedirect(reverse('myAuth:signup_student'))
     messages.error(request,'The username you used already exists!')
