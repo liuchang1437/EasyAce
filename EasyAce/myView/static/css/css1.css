@@ -103,7 +103,6 @@ body {
   text-align: left;
 }
 .my-content {
-  margin-top: 50px;
   text-align: left;
 }
 .my-content > h1 {
@@ -120,6 +119,10 @@ body {
   margin-top: 20px;
   color: #06af60;
   font-size: 20px;
+}
+.my-content > h4 {
+  color: #759049;
+  font-size: 15px;
 }
 .inner-content > h2 {
   margin-top: 20px;
