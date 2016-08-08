@@ -211,11 +211,18 @@ function add_tutor()
 		</div>
 		{% endif %}
 
+		{% if not user.is_authenticated %}
+		<div class="row" style="margin-top: 30px">
+			<div class="col-xs-6 col-xs-offset-3">
+				<a class="btn btn-default btn-modify" href="{% url 'myAuth:signup' %}">I want this tutor</a>
+			</div>
+		</div>
+		{% endif %}
+
 		{% if user.role == "student" and not tutor in student.tutors_chosen.all %}
 		<div class="row" style="margin-top: 30px">
 			<div class="col-xs-6 col-xs-offset-3">
-
-				<a class="btn btn-default btn-modify" onclick="add_tutor()">I want this tutor</a>
+				<div class="btn btn-default btn-modify" onclick="add_tutor()">I want this tutor</div>
 			</div>
 		</div>
 		{% endif %}

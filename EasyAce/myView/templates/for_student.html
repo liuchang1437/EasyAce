@@ -12,10 +12,24 @@ class="active"
 {% block content %}
 <div class="container">
   <div class="my-content">
-    <h1>What Makes Easy Ace Your Best Choice!</h1>
+    <h1 style="text-align: center;">What Makes Easy Ace Your Best Choice!</h1>
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-4" style="padding-left: 2px; text-align: center;">
+        {% if user.is_authenticated %}
+        {% if user.role == "student" %}
+        <a href="{% url 'main:information' user.id %}"><img class="img-rounded btn-img" src="{% static 'iimages/icon/Student icon.png' %}" width=30% height=100%/><div style="color: #037041;">Help Me Find A Tutor</div></a>
+        {% else %}
+        <a href="{% url 'myAuth:signup' %}"><img class="img-rounded btn-img" src="{% static 'images/icon/Student icon.png' %}" width=30% height=100%/><div style="color: #037041;">Help Me Find A Tutor</div></a>
+        {% endif %}
+        {% else %}
+        <a href="{% url 'myAuth:signup' %}"><img class="img-rounded btn-img" src="{% static 'images/icon/Student icon.png' %}" width=30% height=100%/><div style="color: #037041;">Help Me Find A Tutor</div></a>
+        {% endif %}
+        
+        </div>
+    </div>
 
-    <a href="{% url 'myAuth:signup' %}">Help Me Find A Tutor</a>
-    <div class="row" style="margin-top: 30px">
+
+    <div class="row" style="margin-top: 0px">
         <div class="col-xs-2">
             <img src={% static 'images/icon/15.png' %} width="100%" height="100%" style="margin-top: 25px" />
         </div>

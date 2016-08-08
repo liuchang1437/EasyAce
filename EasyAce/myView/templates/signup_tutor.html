@@ -5,7 +5,10 @@
 {% block jscode %}
 {% load staticfiles %}
 <link href="{% static 'css/fileinput.min.css' %}" media="all" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{% static 'css/tip-green.css' %}" type="text/css" />
+
 <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.poshytip.js' %}"></script>
 <script src="{% static 'js/fileinput.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
 <script type="text/javascript" src="{% static 'js/subjects.js' %}"></script>
@@ -77,6 +80,16 @@ function validate_form(thisform)
 	}
 
 }
+$(document).ready(function(){
+	/*$('#id_name').poshytip({
+		className: 'tip-green',
+		showOn: 'focus',
+		alignTo: 'target',
+		alignX: 'right',
+		alignY: 'center',
+		offsetX: 5
+	});*/
+});
 
 
 </script>
@@ -140,6 +153,7 @@ function validate_form(thisform)
 
     
     <h1>Preference of Teaching Subjects</h1>
+    <p>If the full score was 120 or 100, please convert your score to 150 as the full score.</p>
 		<div id="block_prefer">
 		</div><!--block_prefer-->
 		<div class="row">

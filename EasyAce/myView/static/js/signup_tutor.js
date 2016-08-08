@@ -6,7 +6,7 @@ function add_prefer()
 		count_prefer++;
 		temp =  '<div class="row" style="margin-top:20px">'
 		temp += '<h2 style="color: #759049; font-size: 20px;">Preference '+count_prefer+'</h2>';
-		temp += '<div class="col-xs-6">';
+		temp += '<div class="col-xs-5">';
 		temp += '<div class="col-xs-12 form-group">';
 		temp += '<select class="form-control" id="id_teach_level'+count_prefer+'" name="teach_level'+count_prefer+'">';
 		temp += '<option value="" selected="selected">Select level</option> </select> </div>'
@@ -16,7 +16,9 @@ function add_prefer()
 		temp += '<div class="col-xs-12 form-group">';
 		temp += '<select class="form-control" id="id_teach_sub_other'+count_prefer+'" name="teach_sub_other'+count_prefer+'">';
 		temp += '<option value="" selected="selected">Select subject</option> </select> </div>';
-		temp += '</div> <div class="col-xs-6">';
+
+		temp += '</div> <div class="col-xs-2"> <div id="id_copy_'+count_prefer+'" class="btn btn-default">Copy-></div> </div> <div class="col-xs-5">';
+
 		temp += '<div class="col-xs-12 form-group">';
 		temp += '<select class="form-control" id="id_ref_level'+count_prefer+'" name="ref_level'+count_prefer+'">';
 		temp += '<option value="" selected="selected">Select level</option> </select> </div>';
@@ -34,6 +36,37 @@ function add_prefer()
 		$("#id_teach_sub_other"+count_prefer).hide();
 		$("#block_ref_sub_other"+count_prefer).hide();
 
+		$("#id_copy_"+count_prefer).click(function(){
+			s = this.id;
+ 			num = s[8];
+			doc = document.getElementById("id_ref_level" + num);
+			for(j=0;j<doc.length;j++)
+				if(doc.options[j].text == $("#id_teach_level"+num).val())
+				{
+					doc.selectedIndex = j;
+					SetRefLevel("#id_ref_level"+num, "#id_ref_sub", "#id_ref_score", num);
+				}
+
+			doc = document.getElementById("id_ref_sub" + num);
+			for(j=0;j<doc.length;j++)
+				if(doc.options[j].text == $("#id_teach_sub"+num).val())
+				{
+					doc.selectedIndex = j;
+					SetOtherSubject("#id_ref_level"+num, "#id_ref_sub_other", num);
+					if($("#id_teach_sub"+num).val() == "Other")
+						$("#block_ref_sub_other"+num).show();
+					else
+						$("#block_ref_sub_other"+num).hide();
+				}
+
+			doc = document.getElementById("id_ref_sub_other" + num);
+			for(j=0;j<doc.length;j++)
+				if(doc.options[j].text == $("#id_teach_sub_other"+num).val())
+				{
+					doc.selectedIndex = j;
+				}
+		});
+
 		Option_Teaching_Level( "#id_teach_level",count_prefer);
 		$("#id_teach_level"+count_prefer).change(function(){
  			s = this.name;
@@ -46,55 +79,20 @@ function add_prefer()
 				var option = $("<option>").val("").text("Select subject");
 				$("#id_teach_sub"+num).append(option);
  			}
+ 			SetTeachLevel("#id_teach_level"+num, "#id_teach_sub", num);
 
-			if ($("#id_teach_level"+num).val()=="PSLE"){
-				Option_PSLE("#id_teach_sub",num);
-			}
-			if ($("#id_teach_level"+num).val()=="AEIS"){
-				Option_AEIS("#id_teach_sub",num);
-			}
-			if ($("#id_teach_level"+num).val()=="O-LEVEL"){
-				Option_OLEVEL("#id_teach_sub",num);
-			}
-			if ($("#id_teach_level"+num).val()=="A-LEVEL"){
-				Option_ALEVEL("#id_teach_sub",num);
-			}
-			if ($("#id_teach_level"+num).val()=="IB (Middle Years Programme)"){
-				Option_IB_MYP("#id_teach_sub",num);
-			}
-			if ($("#id_teach_level"+num).val()=="IB (Diploma Programme)"){
-				Option_IB_DP("#id_teach_sub",num);
-			}
-			if ($("#id_teach_level"+num).val()=="Zhongkao"){
-				Option_Zhongkao("#id_teach_sub",num);
-			}
-			if ($("#id_teach_level"+num).val()=="Gaokao"){
-				Option_Gaokao("#id_teach_sub",num);
-			}
-			if ($("#id_teach_level"+num).val()=="SAT"){
-				Option_SAT("#id_teach_sub",num);
-			}
 		});
 
 		$("#id_teach_sub"+count_prefer).change(function(){
 			s = this.name;
 			num = s[9];
 			 
+			$("#id_teach_sub_other"+num).hide();
 			if ($(this).val()=="Other"){
 				$("#id_teach_sub_other"+num).show();
 				$("#id_teach_sub_other"+num).empty();
-				if ($("#id_teach_level"+num).val()=="O-LEVEL"){
-					Option_OLEVEL_OTHER("#id_teach_sub_other"+num);
-				}
-				if ($("#id_teach_level"+num).val()=="A-LEVEL"){
-					Option_ALEVEL_OTHER("#id_teach_sub_other"+num);
-				}
-				if ($("#id_teach_level"+num).val()=="IB (Middle Years Programme)"){
-					Option_IB_MYP_OTHER("#id_teach_sub_other"+num);
-				}
-				if ($("#id_teach_level"+num).val()=="IB (Diploma Programme)"){
-					Option_IB_DP_OTHER("#id_teach_sub_other"+num);
-				}
+				SetOtherSubject("#id_teach_level"+num, "#id_teach_sub_other", num);
+
 			}
 		});
 
@@ -113,51 +111,18 @@ function add_prefer()
 				$("#id_ref_sub"+num).append(option);
  			}
 
-			if ($("#id_ref_level"+num).val()=="O-LEVEL"){
-				Option_OLEVEL("#id_ref_sub",num);
-				Option_score("O-LEVEL","#id_ref_score"+num);
-			}
-			if ($("#id_ref_level"+num).val()=="A-LEVEL"){
-				Option_ALEVEL("#id_ref_sub",num);
-				Option_score("A-LEVEL","#id_ref_score"+num);
-			}
-			if ($("#id_ref_level"+num).val()=="IB (Middle Years Programme)"){
-				Option_IB_MYP("#id_ref_sub",num);
-				Option_score("IB (Middle Years Programme)","#id_ref_score"+num);
-			}
-			if ($("#id_ref_level"+num).val()=="IB (Diploma Programme)"){
-				Option_IB_DP("#id_ref_sub",num);
-				Option_score("IB (Diploma Programme)","#id_ref_score"+num);
-			}
-			if ($("#id_ref_level"+num).val()=="Zhongkao"){
-				Option_Zhongkao("#id_ref_sub",num);
-				Option_score("Zhongkao","#id_ref_score"+num);
-			}
-			if ($("#id_ref_level"+num).val()=="Gaokao"){
-				Option_Gaokao("#id_ref_sub",num);
-				Option_score("Gaokao","#id_ref_score"+num);
-			}
+ 			SetRefLevel("#id_ref_level"+num, "#id_ref_sub", "#id_ref_score", num);
 		});
 
 		$("#id_ref_sub"+count_prefer).change(function(){
 			s = this.name;
 			num = s[7];
-			 
+			$("#block_ref_sub_other"+num).hide();
 			if ($(this).val()=="Other"){
 				$("#block_ref_sub_other"+num).show();
 				$("#id_ref_sub_other"+num).empty();
-				if ($("#id_ref_level"+num).val()=="O-LEVEL"){
-					Option_OLEVEL_OTHER("#id_ref_sub_other"+num);
-				}
-				if ($("#id_ref_level"+num).val()=="A-LEVEL"){
-					Option_ALEVEL_OTHER("#id_ref_sub_other"+num);
-				}
-				if ($("#id_ref_level"+num).val()=="IB (Middle Years Programme)"){
-					Option_IB_MYP_OTHER("#id_ref_sub_other"+num);
-				}
-				if ($("#id_ref_level"+num).val()=="IB (Diploma Programme)"){
-					Option_IB_DP_OTHER("#id_ref_sub_other"+num);
-				}
+				SetOtherSubject("#id_ref_level"+num, "#id_ref_sub_other", num);
+
 			}
 		});
 
@@ -215,33 +180,7 @@ function get_subjects()
 			if(doc.options[j].text == prefer_level[now-1])
 			{
 				doc.selectedIndex = j;
-				if ($("#id_teach_level"+now).val()=="PSLE"){
-					Option_PSLE("#id_teach_sub",now);
-				}
-				if ($("#id_teach_level"+now).val()=="AEIS"){
-					Option_AEIS("#id_teach_sub",now);
-				}
-				if ($("#id_teach_level"+now).val()=="O-LEVEL"){
-					Option_OLEVEL("#id_teach_sub",now);
-				}
-				if ($("#id_teach_level"+now).val()=="A-LEVEL"){
-					Option_ALEVEL("#id_teach_sub",now);
-				}
-				if ($("#id_teach_level"+now).val()=="IB (Middle Years Programme)"){
-					Option_IB_MYP("#id_teach_sub",now);
-				}
-				if ($("#id_teach_level"+now).val()=="IB (Diploma Programme)"){
-					Option_IB_DP("#id_teach_sub",now);
-				}
-				if ($("#id_teach_level"+now).val()=="Zhongkao"){
-					Option_Zhongkao("#id_teach_sub",now);
-				}
-				if ($("#id_teach_level"+now).val()=="Gaokao"){
-					Option_Gaokao("#id_teach_sub",now);
-				}
-				if ($("#id_teach_level"+now).val()=="SAT"){
-					Option_SAT("#id_teach_sub",now);
-				}
+				SetTeachLevel("#id_teach_level"+now, "#id_teach_sub", now); 
 				break;
 			}
 		doc = document.getElementById("id_teach_sub" + now);
@@ -262,18 +201,8 @@ function get_subjects()
 		{
 			$("#id_teach_sub_other"+now).show();
 			$("#id_teach_sub_other"+now).empty();
-			if ($("#id_teach_level"+now).val()=="O-LEVEL"){
-				Option_OLEVEL_OTHER("#id_teach_sub_other"+now);
-			}
-			if ($("#id_teach_level"+now).val()=="A-LEVEL"){
-				Option_ALEVEL_OTHER("#id_teach_sub_other"+now);
-			}
-			if ($("#id_teach_level"+now).val()=="IB (Middle Years Programme)"){
-				Option_IB_MYP_OTHER("#id_teach_sub_other"+now);
-			}
-			if ($("#id_teach_level"+now).val()=="IB (Diploma Programme)"){
-				Option_IB_DP_OTHER("#id_teach_sub_other"+now);
-			}
+			SetOtherSubject("#id_teach_level"+now, "#id_teach_sub_other", now);
+
 			doc = document.getElementById("id_teach_sub_other"+now);
 			for(j=0;j<doc.length;j++)
 				if(doc.options[j].text == prefer_name[now-1])
@@ -290,30 +219,7 @@ function get_subjects()
 			if(doc.options[j].text == refer_level[now-1])
 			{
 				doc.selectedIndex = j;
-				if ($("#id_ref_level"+now).val()=="O-LEVEL"){
-				Option_OLEVEL("#id_ref_sub",now);
-				Option_score("O-LEVEL","#id_ref_score"+now);
-				}
-				if ($("#id_ref_level"+now).val()=="A-LEVEL"){
-					Option_ALEVEL("#id_ref_sub",now);
-					Option_score("A-LEVEL","#id_ref_score"+now);
-				}
-				if ($("#id_ref_level"+now).val()=="IB (Middle Years Programme)"){
-					Option_IB_MYP("#id_ref_sub",now);
-					Option_score("IB (Middle Years Programme)","#id_ref_score"+now);
-				}
-				if ($("#id_ref_level"+now).val()=="IB (Diploma Programme)"){
-					Option_IB_DP("#id_ref_sub",now);
-					Option_score("IB (Diploma Programme)","#id_ref_score"+now);
-				}
-				if ($("#id_ref_level"+now).val()=="Zhongkao"){
-					Option_Zhongkao("#id_ref_sub",now);
-					Option_score("Zhongkao","#id_ref_score"+now);
-				}
-				if ($("#id_ref_level"+now).val()=="Gaokao"){
-					Option_Gaokao("#id_ref_sub",now);
-					Option_score("Gaokao","#id_ref_score"+now);
-				}
+				SetRefLevel("#id_ref_level"+now, "#id_ref_sub", "#id_ref_score", now);
 				break;
 			}
 		doc = document.getElementById("id_ref_sub" + now);
@@ -334,18 +240,8 @@ function get_subjects()
 		{
 			$("#block_ref_sub_other"+now).show();
 			$("#id_ref_sub_other"+now).empty();
-			if ($("#id_ref_level"+now).val()=="O-LEVEL"){
-				Option_OLEVEL_OTHER("#id_ref_sub_other"+now);
-			}
-			if ($("#id_ref_level"+now).val()=="A-LEVEL"){
-				Option_ALEVEL_OTHER("#id_ref_sub_other"+now);
-			}
-			if ($("#id_ref_level"+now).val()=="IB (Middle Years Programme)"){
-				Option_IB_MYP_OTHER("#id_ref_sub_other"+now);
-			}
-			if ($("#id_ref_level"+now).val()=="IB (Diploma Programme)"){
-				Option_IB_DP_OTHER("#id_ref_sub_other"+now);
-			}
+
+			SetOtherSubject("#id_ref_level"+now, "#id_ref_sub_other", now);
 			doc = document.getElementById("id_ref_sub_other"+now);
 			for(j=0;j<doc.length;j++)
 				if(doc.options[j].text == refer_name[now-1])
@@ -363,11 +259,82 @@ function get_subjects()
 				break;
 			}
 
-
-
 		i = now - 1;
 	}
+}
 
+function SetTeachLevel(id_level, id_sub, now)
+{
+	if ($(id_level).val()=="PSLE"){
+		Option_PSLE(id_sub,now);
+	}
+	if ($(id_level).val()=="AEIS"){
+		Option_AEIS(id_sub,now);
+	}
+	if ($(id_level).val()=="O-LEVEL"){
+		Option_OLEVEL(id_sub,now);
+	}
+	if ($(id_level).val()=="A-LEVEL"){
+		Option_ALEVEL(id_sub,now);
+	}
+	if ($(id_level).val()=="IB (Middle Years Programme)"){
+		Option_IB_MYP(id_sub,now);
+	}
+	if ($(id_level).val()=="IB (Diploma Programme)"){
+		Option_IB_DP(id_sub,now);
+	}
+	if ($(id_level).val()=="Zhongkao"){
+		Option_Zhongkao(id_sub,now);
+	}
+	if ($(id_level).val()=="Gaokao"){
+		Option_Gaokao(id_sub,now);
+	}
+	if ($(id_level).val()=="SAT"){
+		Option_SAT(id_sub,now);
+	}
+}
+
+function SetRefLevel(id_level, id_sub, id_score, now)
+{
+	if ($(id_level).val()=="O-LEVEL"){
+		Option_OLEVEL(id_sub,now);
+		Option_score("O-LEVEL",id_score+now);
+	}
+	if ($(id_level).val()=="A-LEVEL"){
+		Option_ALEVEL(id_sub,now);
+		Option_score("A-LEVEL",id_score+now);
+	}
+	if ($(id_level).val()=="IB (Middle Years Programme)"){
+		Option_IB_MYP(id_sub,now);
+		Option_score("IB (Middle Years Programme)",id_score+now);
+	}
+	if ($(id_level).val()=="IB (Diploma Programme)"){
+		Option_IB_DP(id_sub,now);
+		Option_score("IB (Diploma Programme)",id_score+now);
+	}
+	if ($(id_level).val()=="Zhongkao"){
+		Option_Zhongkao(id_sub,now);
+		Option_score("Zhongkao",id_score+now);
+	}
+	if ($(id_level).val()=="Gaokao"){
+		Option_Gaokao(id_sub,now);
+		Option_score("Gaokao",id_score+now);
+	}
+}
+function SetOtherSubject(id_level, id_sub_other, now)
+{
+	if ($(id_level).val()=="O-LEVEL"){
+		Option_OLEVEL_OTHER(id_sub_other+now);
+	}
+	if ($(id_level).val()=="A-LEVEL"){
+		Option_ALEVEL_OTHER(id_sub_other+now);
+	}
+	if ($(id_level).val()=="IB (Middle Years Programme)"){
+		Option_IB_MYP_OTHER(id_sub_other+now);
+	}
+	if ($(id_level).val()=="IB (Diploma Programme)"){
+		Option_IB_DP_OTHER(id_sub_other+now);
+	}
 }
 
 $(document).ready(function(){

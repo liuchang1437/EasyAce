@@ -10,43 +10,64 @@ class="active"
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container" style="padding-left:5px; padding-right:5px;">
   <div class="row">
-    <div class="col-xs-6">
-      <img src="{% static 'images/image_1.jpg' %}" width=100% height=100%/>
-    </div>
-    <div class="col-xs-6">
-      <h1 style="color:#037041">Easy Ace</h1>
-      <a href="{% url 'myAuth:signup' %}">Help Me Find A Tutor</a><br/>
-      <a href="{% url 'myAuth:signup' %}">I Want To Become A Tutor</a>
+    <div class="col-xs-12">
+      <img src="{% static 'images/Header.png' %}" class="img-rounded" width=100% height=100%/>
     </div>
   </div>
   
-  <div class="row" style="margin-top: 30px">
-    <div class="col-sm-2 col-xs-4" style="padding-right: 0">
-      <img src="{% static 'images/Core_Values.png' %}" width=100% height=100%/>
+  <div class="row" style="margin-top: 30px; padding-right: 20px">
+    <div class="col-sm-2 col-xs-4" style="padding-right: 0; padding-left: 0;">
+      <img src="{% static 'images/Strict_Selection.png' %}" width=80% height=80%/>
     </div>
-    <div class="col-sm-1 col-xs-8 introduction" style="padding-right: 0">
-      <h1>Core Values</h1>
-      <p>Passion<br/>Integrity<br/>Accountability<br/>Professionalism</p>
-    </div>
-    <div class="clearfix visible-xs-block"></div>
-
-    <div class="col-sm-2 col-xs-4" style="padding-right: 0">
-      <img src="{% static 'images/Strict_Selection.png' %}" width=100% height=100%/>
-    </div>
-    <div class="col-sm-3 col-xs-8 introduction" style="padding-left: 0, padding-right: 0">
+    <div class="col-sm-3 col-xs-8 introduction" style="padding-right: 0; padding-left: 0;">
       <h1>Strict Tutor Selection</h1>
       <p>All our tutors are interviewed and carefully selected. Their experience and expertise from school days will guide your way in your academic study.</p>
     </div>
     <div class="clearfix visible-xs-block"></div>
-    
-    <div class="col-sm-2 col-xs-4" style="padding-right: 0">
-      <img src="{% static 'images/Easy_Application.png' %}" width=100% height=100%/>
+
+    <div class="col-sm-2 col-xs-4" style="padding-right: 0; padding-left: 0;">
+      <img src="{% static 'images/Core_Values.png' %}" width=80% height=80%/>
     </div>
-    <div class="col-sm-2 col-xs-8 introduction" style="padding-left: 0, padding-right: 0" \>
+    <div class="col-sm-1 col-xs-8 introduction" style="padding-right: 0; padding-left: 0;">
+      <h1>Core Values</h1>
+      <p>Passion<br/>Integrity<br/>Accountability<br/>Professionalism</p>
+    </div>
+    <div class="clearfix visible-xs-block"></div>
+    
+    <div class="col-sm-2 col-xs-4" style="padding-right: 0; padding-left: 0;">
+      <img src="{% static 'images/Easy_Application.png' %}" width=80% height=80%/>
+    </div>
+    <div class="col-sm-2 col-xs-8 introduction" style="padding-right: 5px; padding-left: 0;" \>
       <h1>Easy Application</h1>
       <p>To start your Ace journey, simply fill in our student registration form here. We will contact you very soon.</p>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 10px; margin-bottom: 20px;">
+    <div class="col-xs-6" style="padding-right: 2px;">
+    {% if user.is_authenticated %}
+    {% if user.role == "tutor" %}
+    <a href="{% url 'main:information' user.id %}"><img class="img-rounded" src="{% static 'images/Student icon 1.png' %}" width=100% height=100%/></a>
+    {% else %}
+    <a href="{% url 'myAuth:signup' %}"><img class="img-rounded" src="{% static 'images/Student icon 1.png' %}" width=100% height=100%/></a>
+    {% endif %}
+    {% else %}
+    <a href="{% url 'myAuth:signup' %}"><img class="img-rounded" src="{% static 'images/Student icon 1.png' %}" width=100% height=100%/></a>
+    {% endif %}
+    </div>
+
+    <div class="col-xs-6" style="padding-left: 2px;">
+    {% if user.is_authenticated %}
+    {% if user.role == "student" %}
+    <a href="{% url 'main:information' user.id %}"><img class="img-rounded" src="{% static 'images/Teacher icon 1.png' %}" width=100% height=100%/></a>
+    {% else %}
+    <a href="{% url 'myAuth:signup' %}"><img class="img-rounded" src="{% static 'images/Teacher icon 1.png' %}" width=100% height=100%/></a>
+    {% endif %}
+    {% else %}
+    <a href="{% url 'myAuth:signup' %}"><img class="img-rounded" src="{% static 'images/Teacher icon 1.png' %}" width=100% height=100%/></a>
+    {% endif %}
     </div>
   </div>
 	

@@ -57,14 +57,27 @@
           <li {% block for_tutor %} {% endblock %} ><a href="/for_tutor">For Tutor</a></li>
           <li {% block about %} {% endblock %} ><a href="/about">About Us</a></li>
           <li {% block contact %} {% endblock %} ><a href="/contact">Contact Us</a></li>
-          <!--<li class="login"><img src="{% static 'EasyAce/images/login.png' %}"/></li>-->
+        </ul>
+        <div class="hidden-xs">
+        <ul class="nav navbar-nav nav-self" style="float: right;">
           {% if user.is_authenticated %}
 					<li {% block user %} {% endblock %}><a href="{% url 'main:information' user.id %}">{{ user.username }}</a></li>
           <li><a href="{% url 'myAuth:logout' %}">Logout</a></li>
           {% else %}
-          <li><a href="{% url 'myAuth:login' %}">Login</a></li>
+          <li style="float: right"><a href="{% url 'myAuth:login' %}">Login</a></li>
           {% endif %}
         </ul>
+        </div>
+        <div class="visible-xs">
+          <ul class="nav navbar-nav nav-self">
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'main:information' user.id %}">{{ user.username }}</a></li>
+          <li><a href="{% url 'myAuth:logout' %}">Logout</a></li>
+          {% else %}
+          <li style="float: right"><a href="{% url 'myAuth:login' %}">Login</a></li>
+          {% endif %}
+        </ul>
+        </div>
       </div>
     </div>
   </nav>
