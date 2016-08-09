@@ -32,7 +32,8 @@ class InterviewInline(admin.StackedInline):
   fieldsets = (
     ('Interview Form',{
       'classes':('collapse',),
-      'fields':('interview_grade',\
+      'fields':('interview_presentability','interview_friendliness','interview_crisis_hand',\
+        'interview_communication','interview_grade',\
     'interview_major','interview_num_taught','interview_effect','interview_fees','interview_how_to_range_course',\
     'interview_tutor_type','interview_why_you_good','interview_how_relation_with_stu','interview_how_rel_with_prntofstu',\
     'interview_how_long','interview_why_tutor','interview_what_matter','interview_other_sub','interview_can_teach_tutor',\
