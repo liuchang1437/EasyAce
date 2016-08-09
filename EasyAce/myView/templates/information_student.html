@@ -11,6 +11,35 @@ class="active"
 {% endif %}
 {% endblock %}
 
+{% block jscode %}
+{% load staticfiles %}
+<script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	check_feedback();
+});
+
+function check_feedback()
+{
+	{% for record in student.records.all %}
+	{% if record.successful_match %}
+	var m_date = new Date();
+	var now_date = new Date();
+	m_year = {{ record.chargedate|date:"Y" }};
+	m_month = {{ record.chargedate|date:"m" }};
+	m_day = {{ record.chargedate|date:"d" }};
+	m_date.setFullYear(m_year, m_month-1, m_day);
+	temp = (now_date - m_date)/(1000*60*60*24);
+	if(temp >= 0)
+	{
+		document.getElementById("block_feedback_{{ forloop.counter }}").innerhtml = "!!";
+	}
+	{% endif %}
+	{% endfor %}
+}
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="container">
 	<div class="my-information">
@@ -94,7 +123,7 @@ class="active"
 		</div>
 		<div class="row">
 			<div class="col-xs-2 col-xs-offset-2">
-				<div class="my-information-p">Location negotiable</div>
+				<div class="my-information-p">Location Negotiable</div>
 			</div>
 			<div class="col-xs-4">
 				<div class="my-information-p2">{{ student.loc_nego }}</div>
@@ -200,7 +229,29 @@ class="active"
 				<div class="my-information-p2">{{ student.weakness }}</div>
 			</div>
 		</div>
-		<a class="btn" href="/feedback">feedback</a>
+
+		<hr>
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2"  style="padding-left: 0px">
+				<div class="my-information-h2">Matched Tutor</div>
+			</div>
+		</div>
+		{% for record in student.records.all %}
+		{% if record.successful_match %}
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Tutor {{ forloop.counter }}</div>
+			</div>
+			<div class="col-xs-2">
+				<div class="my-information-p2">{{ record.tutor.name }}</div>
+			</div>
+			<div class="col-xs-2">
+				<a class="btn" href="/feedback/record_{{ record.id }}">Fill in the Feedback!</a>
+				<div id="block_feedback_{{ forloop.counter }}"></div>
+			</div>
+		</div>
+		{% endif %}
+		{% endfor %}
 		
 		{% if user.id == student.base_info.id %}
 		<div class="row" style="margin-top: 30px">

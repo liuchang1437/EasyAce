@@ -12,7 +12,7 @@ class RecordInline(admin.StackedInline):
   raw_id_fields = ('tutor',)
   fieldsets = (
     ('Record info',{
-      'fields':('tutor',('if_confirmed','commission_collection_status'))
+      'fields':('tutor',('if_confirmed','successful_match','commission_collection_status'))
     }),
     ('Contract and fees',{
       'fields':('startdate','chargedate','service_fees','freq','lesson_last','lesson_price')

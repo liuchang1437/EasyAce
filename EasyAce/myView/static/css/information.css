@@ -37,6 +37,7 @@
 
 .my-information {
 	margin-top: 20px;
+	margin-bottom: 30px;
 	text-align: left;
 }
 .my-information > h1 {
@@ -95,6 +96,15 @@
 }
 .table-self >tbody >tr >th {
 	text-align: center;
+}
+
+.btn-img {
+	opacity:0.4;
+	filter:alpha(opacity=40); 
+}
+.btn-img:hover {
+	opacity:1.0;
+	filter:alpha(opacity=100); 
 }
 
 

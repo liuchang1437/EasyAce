@@ -338,6 +338,7 @@ class Record(models.Model):
   freq = models.CharField(u'Actual no. of lessons per week',blank=True,null=True,max_length=30)
   lesson_last = models.CharField(u'Actual no. of hours per lesson:(hours)',blank=True,null=True,max_length=30)
   lesson_price = models.CharField(u'Hourly Fee',blank=True,null=True,max_length=30)
+  successful_match = models.BooleanField(u'Successful Match',default=False)
   commission_collection_status = models.BooleanField(u'Commission Collection Status',default=False)
   #person_in_charge = models.CharField(u'Person in Charge',max_length=20,null=True,blank=True)
   ################ close call ##################

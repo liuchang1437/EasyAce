@@ -1,0 +1,27 @@
+{% extends "admin/change_form.html" %}  
+
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+{{ media }}
+{% load staticfiles %}
+<script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#id_records-0-startdate").focus(function(){
+		start_date = $("#id_records-0-startdate").val();
+		date_list = start_date.split("-");
+		var myDate = new Date();
+		myDate.setFullYear(date_list[0],date_list[1],date_list[2]);
+		myDate.setDate(myDate.getDate()+28);
+		charge_date = myDate.getFullYear() + "-" + myDate.getMonth() + "-" + myDate.getDate();
+		document.getElementById("id_records-0-chargedate").value= charge_date;
+		$("#id_records-0-chargedate").focus();
+	});
+	$("#id_records-0-chargedate").focus(function(){
+		wait_match = document.getElementById("id_wait_match");
+		wait_match.checked = false;
+	});
+});
+
+</script>
+{% endblock %}

@@ -12,11 +12,24 @@ class="active"
 {% block content %}
 <div class="container">
   <div class="my-content">
-    <h1>Why is Easy Ace the Best Choice for You?</h1>
-
-    <a href="{% url 'myAuth:signup' %}">I Want To Become A Tutor</a>
+    <h1 style="text-align: center;">Why is Easy Ace the Best Choice for You?</h1>
 
     <p>Easy Ace aims to build a group of passionate, professional and top-class tutors in Singapore. We provide resources that help making your teaching experience easy, interesting and fruitful.</p>
+
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-4" style="padding-left: 2px; text-align: center;">
+        {% if user.is_authenticated %}
+        {% if user.role == "student" %}
+        <a href="{% url 'main:information' user.id %}"><img class="img-rounded btn-img" src="{% static 'iimages/icon/Teacher icon.png' %}" width=30% height=100%/><div style="color: #037041;">I Want To Become A Tutor</div></a>
+        {% else %}
+        <a href="{% url 'myAuth:signup' %}"><img class="img-rounded btn-img" src="{% static 'images/icon/Teacher icon.png' %}" width=30% height=100%/><div style="color: #037041;">I Want To Become A Tutor</div></a>
+        {% endif %}
+        {% else %}
+        <a href="{% url 'myAuth:signup' %}"><img class="img-rounded btn-img" src="{% static 'images/icon/Teacher icon.png' %}" width=30% height=100%/><div style="color: #037041;">I Want To Become A Tutor</div></a>
+        {% endif %}
+        
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-xs-2">
@@ -55,9 +68,7 @@ class="active"
         </div>
         <div class="col-xs-10 inner-content">
             <h2>Attractive Incentives and Benefits</h2>
-            <p>We innovate a just and fair Star Rating System to value your efforts. The more you teach, the more you are recognized.
-            <br/>Your commission rate will be adjusted according to your star rating. The higher your star rating is, the lower the commission required by Easy Ace is.
-            <br/>In addition to your regular tuition pay, you are able to earn Ace Coins, which can be used to redeem vouchers, membership discounts or other benefits, by keying in Teaching Record regularly.</p>
+            <p>We innovate a just and fair Star Rating System to value your efforts. The more you teach, the more you are recognized.</p>
         </div>
     </div>
 
