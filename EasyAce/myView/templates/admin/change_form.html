@@ -5,8 +5,27 @@
 {{ media }}
 {% load staticfiles %}
 <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/clipboard.min.js' %}"></script>  
 <script type="text/javascript">
+
+function CopyKeyData()
+{
+	clipboardData = originalEvent.clipboardData; 
+	clipboardData.setData("text", "请复制网址到您的QQ:");
+    alert("复制成功!");
+}
+
 $(document).ready(function(){
+
+	//var clipboard = new Clipboard('.btn-copy');
+	//var copy_key_data =document.getElementById("id_copy_key_data");
+	//copy_key_data.data-clipboard-text = "12345";
+
+	//clipboard.on('success', function(e) {
+	//	alert("复制成功");
+	//});
+
+
 	$("#id_records-0-startdate").focus(function(){
 		start_date = $("#id_records-0-startdate").val();
 		date_list = start_date.split("-");
@@ -25,3 +44,11 @@ $(document).ready(function(){
 
 </script>
 {% endblock %}
+
+{% block after_related_objects %}
+<button type="button" class="btn btn-default btn-copy" id="id_copy_key_data" onclick="CopyKeyData()">
+Collect Information for Tutor
+</button>
+{% endblock %}
+
+

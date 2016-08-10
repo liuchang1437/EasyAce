@@ -16,19 +16,16 @@ class="active"
 
     <p>Easy Ace aims to build a group of passionate, professional and top-class tutors in Singapore. We provide resources that help making your teaching experience easy, interesting and fruitful.</p>
 
-    <div class="row">
-        <div class="col-xs-4 col-xs-offset-4" style="padding-left: 2px; text-align: center;">
+    <div class="suspension">
         {% if user.is_authenticated %}
-        {% if user.role == "student" %}
-        <a href="{% url 'main:information' user.id %}"><img class="img-rounded btn-img" src="{% static 'iimages/icon/Teacher icon.png' %}" width=30% height=100%/><div style="color: #037041;">I Want To Become A Tutor</div></a>
+        {% if user.role == "tutor" %}
+        <a href="{% url 'main:information' user.id %}"><img class="img-rounded btn-img" src="{% static 'iimages/icon/Teacher icon.png' %}" width=40%/><div style="color: #037041;">I Want To Become A Tutor</div></a>
         {% else %}
-        <a href="{% url 'myAuth:signup' %}"><img class="img-rounded btn-img" src="{% static 'images/icon/Teacher icon.png' %}" width=30% height=100%/><div style="color: #037041;">I Want To Become A Tutor</div></a>
+        <a href="{% url 'myAuth:signup' %}"><img class="img-rounded btn-img" src="{% static 'images/icon/Teacher icon.png' %}" width=40%/><div style="color: #037041;">I Want To Become A Tutor</div></a>
         {% endif %}
         {% else %}
-        <a href="{% url 'myAuth:signup' %}"><img class="img-rounded btn-img" src="{% static 'images/icon/Teacher icon.png' %}" width=30% height=100%/><div style="color: #037041;">I Want To Become A Tutor</div></a>
+        <a href="{% url 'myAuth:signup' %}"><img class="img-rounded btn-img" src="{% static 'images/icon/Teacher icon.png' %}" width=40%/><div style="color: #037041;">I Want To Become A Tutor</div></a>
         {% endif %}
-        
-        </div>
     </div>
 
     <div class="row">

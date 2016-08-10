@@ -169,7 +169,7 @@ function validate_form(thisform)
 					<div class="form-group">
 						<select class="form-control" id="id_student_location_negotiable" name="student_location_negotiable">
 							<option value="">Is tuition location negotiable? *</option>
-							<option value="not negotiable" {% if student.loc_nego == "not negotiable" %} selected="selected" {% endif %}>Not negotiable; please come to my preferred location</option>
+							<option value="Not Negotiable" {% if student.loc_nego == "Not Negotiable" %} selected="selected" {% endif %}>Not negotiable; please come to my preferred location</option>
 							<option value="10-20min" {% if student.loc_nego == "10-20min" %} selected="selected" {% endif %}>10-20min</option>
 							<option value="20-40min" {% if student.loc_nego == "20-40min" %} selected="selected" {% endif %}>20-40min</option>
 							<option value="40-60min" {% if student.loc_nego == "40-60min" %} selected="selected" {% endif %}>40-60min</option>

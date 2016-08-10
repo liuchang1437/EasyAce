@@ -41,6 +41,21 @@ function search()
 }
 
 $(function(){
+	{% if tutors %}	
+	var photo = document.getElementsByName("photo");
+	for(i=0;i<photo.length;i++)
+		photo[i].height = photo[i].width;
+	var photo_height = photo[0].width;
+	var container = document.getElementsByName("container");
+	for(i=0;i<container.length;i++)
+	{
+		container[i].style.height = photo_height * 2.2 +"px";
+	}
+	for(i=0;i<photo.length;i++)
+		photo[i].height = photo[i].width;
+	{% endif %}
+
+
 
 
 	$("#id_tutor_location").on("change", function(e) {
@@ -142,7 +157,7 @@ $(function(){
 
 <div class="container">
 	<div class="my-content">
-		<h1>View Tutor</h1>
+		<h1 style="margin-top: 20px">View Tutor</h1>
 			<div class="row">
 				<div class="col-xs-4">
 					<div class="form-group">
@@ -200,16 +215,24 @@ $(function(){
 	
 			<!--<a class="btn btn-default" id="search-btn" onclick="search()" href="{% url "main:view_tutor"%}">Search</a>-->
 			<button class="btn btn-default" id="search-btn" onclick="search()">Search</button>
-			<hr style="margin-bottom: 50px;">
+			<hr style="margin-bottom: 20px;">
 			
 			<div id="id_show_tutor">
 				<div class="row">
 					{% for tutor in tutors %}
-					<div class="col-xs-4 col-sm-3 img-responsive" style="font-size: 20px; text-align:center; margin-top: 10px;">
-						<a href="{% url 'main:information' tutor.base_info.id %}">
-							<img src="/photos/{{tutor.photo}}" class="img-rounded" width=100%; height=80% style=""/>
-						</a>
-						<a class="btn" href="{% url 'main:information' tutor.base_info.id %}" style="color: #000000;">{{ tutor.name }}</a>
+					<div class="col-xs-4 col-sm-3" style="margin-top: 20px;">
+						<div name="container" class="img-rounded show-tutor">
+							<div style="margin: 0 10px">
+								<a href="{% url 'main:information' tutor.base_info.id %}">
+									<img name="photo" src="/photos/{{tutor.photo}}" class="img-rounded" width=100% style="margin-top: 10px" />
+								</a>
+								<h4 style="text-align: center">{{ tutor.name }}</h4>
+								{% for sub in tutor.prefer_subs.all %}
+								<p> {{sub.level}} {{ sub.name }} </p>
+								{% endfor %}
+
+							</div>
+						</div>
 					</div>
 					{% endfor %}
 				</div>
@@ -217,7 +240,7 @@ $(function(){
 			<div class="pagination">
 				<span class="step-links">
 					{% if tutors.has_previous %}
-						<a href="?page={{ tutors.previous_page_number }}">previous</a>
+						<a href="?page={{ tutors.previous_page_number }}">Previous</a>
 					{% endif %}
 
 					<span class="current">
@@ -225,7 +248,7 @@ $(function(){
 					</span>
 
 					{% if tutors.has_next %}
-						<a href="?page={{ ctutorontacts.next_page_number }}">next</a>
+						<a href="?page={{ ctutorontacts.next_page_number }}">Next</a>
 					{% endif %}
 				</span>
 			</div>
