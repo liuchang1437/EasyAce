@@ -42,3 +42,6 @@ def signup_student(request):
 
 def feedback(request):
     return render(request, 'feedback.html')
+
+def intent_student(request):
+    return render(request, 'intent_student.html')

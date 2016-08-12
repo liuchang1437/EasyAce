@@ -139,6 +139,36 @@ function check_feedback()
 		</div>
 		<div class="row">
 			<div class="col-xs-2 col-xs-offset-2">
+				<div class="my-information-p">Tutor Preference</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="my-information-p2">{{ student.prefer_tutor_gender }}</div>
+			</div>
+		</div>
+		<hr>
+
+
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-2"  style="padding-left: 0px">
+				<div class="my-information-h2">Intent</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<button class="btn btn-default"><a href="/intent_student">Add</a></button>
+			</div>
+			<div class="col-xs-2">
+				<button class="btn btn-default">Edit</button>
+			</div>
+			<div class="col-xs-2">
+				<button class="btn btn-default">Remove</button>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
 				<div class="my-information-p">Exam</div>
 			</div>
 			<div class="col-xs-4">
@@ -192,21 +222,6 @@ function check_feedback()
 			</div>
 			{% endif %}
 		</div>
-		<hr>
-		
-		<div class="row">
-			<div class="col-xs-10 col-xs-offset-2"  style="padding-left: 0px">
-				<div class="my-information-h2">Additional Choice</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
-				<div class="my-information-p">Tutor Preference</div>
-			</div>
-			<div class="col-xs-4">
-				<div class="my-information-p2">{{ student.prefer_tutor_gender }}</div>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-xs-8 col-xs-offset-2">
 				<div class="my-information-p">Student Remark</div>
@@ -230,7 +245,6 @@ function check_feedback()
 			</div>
 		</div>
 
-		<hr>
 		<div class="row">
 			<div class="col-xs-10 col-xs-offset-2"  style="padding-left: 0px">
 				<div class="my-information-h2">Matched Tutor</div>
@@ -252,6 +266,8 @@ function check_feedback()
 		</div>
 		{% endif %}
 		{% endfor %}
+
+		<hr>
 		
 		{% if user.id == student.base_info.id %}
 		<div class="row" style="margin-top: 30px">
@@ -260,6 +276,7 @@ function check_feedback()
 			</div>
 		</div>
 		{% endif %}
+
 		
 		
 		

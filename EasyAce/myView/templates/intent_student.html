@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Sign Up</title>
+{% endblock %}
+{% block jscode %}
+{% load staticfiles %}
+<script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/subjects.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/intent_student.js' %}"></script>
+<script type="text/javascript">
+function validate_required(field)
+	{
+		with (field)
+		{
+			if (value==null||value=="") return false;
+			else return true;
+		}
+	}
+
+function validate_form(thisform)
+{
+	with (thisform)
+	{
+		if (validate_required(intent_level)==false)
+		{
+			student_subject.focus();
+			return false;
+		}
+		if (validate_required(intent_subject)==false)
+		{
+			student_subject.focus();
+			return false;
+		}
+		if (validate_required(student_duration_per_lesson)==false)
+		{
+			student_duration_per_lesson.focus();
+			return false;
+		}
+		if (validate_required(student_lesson_per_week)==false)
+		{
+			student_lesson_per_week.focus();
+			return false;
+		}
+	}
+}
+
+
+</script>
+
+
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+  <h1 style="text-align: center;">Complete Your Information</h1>
+  {% csrf_token %}
+  <form class="form-login" action="{% if edit %}{% url "main:edit" %}{% else %}{% url "myAuth:signup_student"%}{% endif %}" onsubmit="return validate_form(this);" method="post" style="margin-left: 30px; margin-right: 30px;">
+    <div class="my-content">
+		<h1>Subject(s) Required for Tuition *</h1>
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="form-group">
+					<select class="form-control" id="id_intent_level" name="intent_level">
+						<option value="" selected="selected">Select graduation exam</option>
+						<option value="PSLE">PSLE</option>
+						<option value="O-LEVEL">O-LEVEL</option>
+						<option value="A-LEVEL">A-LEVEL</option>
+						<option value="IB (Middle Years Programme)">IB (Middle Years Programme)</option>
+						<option value="IB (Diploma Programme)">IB (Diploma Programme)</option>
+						<option value="Zhongkao">Zhongkao</option>
+						<option value="Gaokao">Gaokao</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="form-group">
+					<select class="form-control" id="id_intent_subject" name="intent_subject">
+					<option value="" selected="selected">Select subject</option> 
+					</select> 
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="form-group">
+					<select class="form-control" id="id_intent_subject_other" name="intent_subject_other">
+					<option value="" selected="selected">Select subject</option> 
+					</select> 
+				</div>
+			</div>
+		</div>
+		
+		<h1>Intended No. of Hours Per Lesson and No. of Lessons Per Week</h1>
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="form-group">
+					<select class="form-control" id="id_intent_duration_per_lesson" name="intent_duration_per_lesson">
+						<option value="">Duration per Lesson *</option>
+						<option value="1 hour" {% if student.time_per_lesson == "1 hour" %} selected="selected" {% endif %}>1 hour</option>
+						<option value="2 hour" {% if student.time_per_lesson  == "2 hour" %} selected="selected" {% endif %}>2 hour</option>
+						<option value="3 hour" {% if student.time_per_lesson  == "3 hour" %} selected="selected" {% endif %}>3 hour</option>
+						<option value="4 hour" {% if student.time_per_lesson  == "4 hour" %} selected="selected" {% endif %}>4 hour</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="form-group">
+					<select class="form-control" id="id_intent_lesson_per_week" name="intent_lesson_per_week">
+						<option value="">Lesson per Week *</option>
+						<option value="1" {% if student.lesson_per_week  == "1" %} selected="selected" {% endif %}>1</option>
+						<option value="2" {% if student.lesson_per_week  == "2" %} selected="selected" {% endif %}>2</option>
+						<option value="3" {% if student.lesson_per_week  == "3" %} selected="selected" {% endif %}>3</option>
+						<option value="4" {% if student.lesson_per_week  == "4" %} selected="selected" {% endif %}>4</option>
+						<option value="5" {% if student.lesson_per_week  == "5" %} selected="selected" {% endif %}>5</option>
+						<option value="6" {% if student.lesson_per_week  == "6" %} selected="selected" {% endif %}>6</option>
+						<option value="7" {% if student.lesson_per_week  == "7" %} selected="selected" {% endif %}>7</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		<h1>Date to Start Tuition</h1>
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="form-group">
+					<select class="form-control" id="id_intent_start_time" name="intent_start_time">
+						<option value="As soon as possible">As soon as possible</option>
+						<option value="Other" {% if student.start_time == "Other" %} selected="selected" {% endif %}>Other</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="form-group">
+					<div class="input-group">
+						<div id="block_intent_start_time_other">
+							{% if student.start_time == "Other" %}
+							<input class="form-control" id="id_intent_start_time_other" type="date" name="intent_start_time_other" value="{{ student.start_time_other }}"/>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  <hr>
+		
+		<h1>Optional Questions</h1>
+		<p>The following questions are optional, but you are encouraged to fill in to help us match you with a tutor who fits you the best!</p>
+		<h1>Remarks</h1>
+		<p>Anything you want to share with us which can make us know you better before teaching even starts, so that we can find a tutor that best suits you!</p>
+		
+		{% if student.remarks %}
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="id_intent_remark1" name="intent_remark1" value="I need a slow and patient pace to teach concepts and question solving skills clearly" {% for remark in student.get_remarks %} {% if remark == "I need a slow and patient pace to teach concepts and question solving skills clearly" %} checked="checked" {% endif %} {% endfor %}/>I need a slow and patient pace to teach concepts and question solving skills clearly
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="id_intent_remark2" name="intent_remark2" value="I need a fast summary of concepts and teach at a faster pace than school" {% for remark in student.get_remarks %} {% if remark == "I need a fast summary of concepts and teach at a faster pace than school" %} checked="checked" {% endif %} {% endfor %}/>I need a fast summary of concepts and teach at a faster pace than school
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="id_intent_remark3" name="intent_remark3" value="I am familiar with concepts, but I need a tutor to teach me questions solving skills" {% for remark in student.get_remarks %} {% if remark == "I am familiar with concepts, but I need a tutor to teach me questions solving skills" %} checked="checked" {% endif %} {% endfor %}/>I am familiar with concepts, but I need a tutor to teach me questions solving skills
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="id_intent_remark4" name="intent_remark4" value="I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions" {% for remark in student.get_remarks %} {% if remark == "I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions" %} checked="checked" {% endif %} {% endfor %}/>I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="id_intent_remark5" name="intent_remark5" value="Other" {% for remark in student.get_remarks %} {% if remark == "Other" %} checked="checked" {% endif %} {% endfor %}/>Other
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="form-group">
+					<div id="id_remark_other">
+						{% for remark in student.get_remarks %}
+						{% if remark != "I need a slow and patient pace to teach concepts and question solving skills clearly" and remark != "I need a fast summary of concepts and teach at a faster pace than school" and remark != "I am familiar with concepts, but I need a tutor to teach me questions solving skills" and remark != "I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions" and remark != "Other" %}
+						<textarea class="form-control" id="id_intent_remark6" name="intent_remark6" rows="3" placeholder="Other Remarks"> {{ remark }} </textarea>
+						{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div><!--row-->
+		{% endif %}
+		{% if not student.remarks %}
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="id_intent_remark1" name="intent_remark1" value="I need a slow and patient pace to teach concepts and question solving skills clearly"/>I need a slow and patient pace to teach concepts and question solving skills clearly
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="id_intent_remark2" name="intent_remark2" value="I need a fast summary of concepts and teach at a faster pace than school"/>I need a fast summary of concepts and teach at a faster pace than school
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="id_intent_remark3" name="intent_remark3" value="I am familiar with concepts, but I need a tutor to teach me questions solving skills"/>I am familiar with concepts, but I need a tutor to teach me questions solving skills
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="id_intent_remark4" name="intent_remark4" value="I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions"/>I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="id_intent_remark5" name="intent_remark5" value="Other"/>Other
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="form-group">
+					<div id="id_remark_other"></div>
+				</div>
+			</div>
+		</div><!--row-->
+		{% endif %}
+		
+		<h1>Academic Weakness</h1>
+		<p>e.g., I am really bad at math calculations. Please be as detailed as possible</p>
+		<div class="form-group">
+			<textarea class="form-control" id="id_intent_weakness" name="intent_weakness" rows="3" placeholder="Academic weakness">{% if student.weakness %} {{ student.weakness }} {% endif %}</textarea>
+		</div>
+    
+     <input class="btn btn-default btn-login" type="submit" value="Submit"/>
+     </div><!--my-content-->
+  </form>
+</div>
+
+{% endblock %}
