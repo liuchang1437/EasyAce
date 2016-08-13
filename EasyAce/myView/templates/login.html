@@ -16,11 +16,11 @@
           <div class="form-group">
             <input class="form-control" id="id_password" maxlength="128" name="password" type="password" placeholder="Password"/>
           </div>
-          <input class="btn btn-default btn-login" type="submit" value="login"/>
+          <input class="btn btn-default btn-login" type="submit" value="Login"/>
           <input type="hidden" name="next" value="{{ next }}" />
           <p><br/>Please register now! It takes less than five minutes!</p>
           <a class="btn btn-default btn-signup" href="{% url 'myAuth:signup' %}">Register Now</a>
-          <a class="btn btn-default btn-signup" href="{% url 'myAuth:forget_password' %}" style="margin-top:20px">Fotget Password</a>
+          <a class="btn btn-default btn-signup" href="{% url 'myAuth:forget_password' %}" style="margin-top:20px">Forgot Password</a>
         </form>
       </div>
     </div>

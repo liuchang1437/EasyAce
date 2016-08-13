@@ -5,8 +5,44 @@
 {{ media }}
 {% load staticfiles %}
 <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/clipboard.min.js' %}"></script>  
 <script type="text/javascript">
+
 $(document).ready(function(){
+	var clipboard = new Clipboard('.btn', {
+		text: function(trigger) {
+			var m_text = "";
+			name = document.querySelector(".field-name").getElementsByTagName("p")[0].innerHTML;
+			gender = document.querySelector(".field-gender").getElementsByTagName("p")[0].innerHTML;
+			school = document.querySelector(".field-school").getElementsByTagName("p")[0].innerHTML;
+			grade = document.querySelector(".field-grade").getElementsByTagName("p")[0].innerHTML;
+			m_location = document.querySelector(".field-location").getElementsByTagName("p")[0].innerHTML;
+			loc_nego = document.querySelector(".field-loc_nego").getElementsByTagName("p")[0].innerHTML;
+			phone = document.querySelector(".field-phone").getElementsByTagName("p")[0].innerHTML;
+			wechat = document.querySelector(".field-wechat").getElementsByTagName("p")[0].innerHTML;
+			whatsapp = document.querySelector(".field-whatsapp").getElementsByTagName("p")[0].innerHTML;
+			email = document.querySelector(".field-email").getElementsByTagName("p")[0].innerHTML;
+
+			m_text += "Name: " + name + "\n";
+			m_text += "Gender: " + gender + "\n";
+			m_text += "School: " + school + "\n";
+			m_text += "Grade: " + grade + "\n";
+			m_text += "Location: " + m_location + "\n";
+			m_text += "If Tuition Location Negotiable: " + loc_nego + "\n";
+			m_text += "Phone Number: " + phone + "\n";
+			m_text += "Wechat: " + wechat + "\n";
+			m_text += "Whatsapp: " + whatsapp + "\n";
+			m_text += "Email Address: " + email + "\n";
+
+			return m_text;
+	    }
+	});
+	clipboard.on('success', function(e) {
+	    alert("Success copy to clipboard");
+	});
+
+
+
 	$("#id_records-0-startdate").focus(function(){
 		start_date = $("#id_records-0-startdate").val();
 		date_list = start_date.split("-");
@@ -25,3 +61,11 @@ $(document).ready(function(){
 
 </script>
 {% endblock %}
+
+{% block after_related_objects %}
+<button type="button" class="btn" id="id_copy_key_data">
+Collect Information for Tutor
+</button>
+{% endblock %}
+
+

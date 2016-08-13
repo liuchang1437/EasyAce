@@ -4,9 +4,6 @@
 {% endblock %}
 {% block jscode %}
 {% load staticfiles %}
-<script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/subjects.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/signup_student.js' %}"></script>
 <script type="text/javascript">
 function validate_required(field)
 	{
@@ -69,21 +66,6 @@ function validate_form(thisform)
 		if (validate_required(student_location_negotiable)==false)
 		{
 			student_location_negotiable.focus();
-			return false;
-		}
-		if (validate_required(student_subject)==false)
-		{
-			student_subject.focus();
-			return false;
-		}
-		if (validate_required(student_duration_per_lesson)==false)
-		{
-			student_duration_per_lesson.focus();
-			return false;
-		}
-		if (validate_required(student_lesson_per_week)==false)
-		{
-			student_lesson_per_week.focus();
 			return false;
 		}
 	}
@@ -169,7 +151,7 @@ function validate_form(thisform)
 					<div class="form-group">
 						<select class="form-control" id="id_student_location_negotiable" name="student_location_negotiable">
 							<option value="">Is tuition location negotiable? *</option>
-							<option value="not negotiable" {% if student.loc_nego == "not negotiable" %} selected="selected" {% endif %}>Not negotiable; please come to my preferred location</option>
+							<option value="Not Negotiable" {% if student.loc_nego == "Not Negotiable" %} selected="selected" {% endif %}>Not negotiable; please come to my preferred location</option>
 							<option value="10-20min" {% if student.loc_nego == "10-20min" %} selected="selected" {% endif %}>10-20min</option>
 							<option value="20-40min" {% if student.loc_nego == "20-40min" %} selected="selected" {% endif %}>20-40min</option>
 							<option value="40-60min" {% if student.loc_nego == "40-60min" %} selected="selected" {% endif %}>40-60min</option>
@@ -178,93 +160,6 @@ function validate_form(thisform)
 				</div>
 			</div>
 			
-			<h1>Subject(s) Required for Tuition *</h1>
-			<div class="row">
-				<div class="col-xs-5">
-					<div class="form-group">
-						<select class="form-control" id="id_student_subject" name="student_subject">
-							<option value="" selected="selected">Select graduation exam</option>
-							<option value="PSLE">PSLE</option>
-							<!--<option value="AEIS">AEIS</option>-->
-							<option value="O-LEVEL">O-LEVEL</option>
-							<option value="A-LEVEL">A-LEVEL</option>
-							<option value="IB (Middle Years Programme)">IB (Middle Years Programme)</option>
-							<option value="IB (Diploma Programme)">IB (Diploma Programme)</option>
-							<option value="Zhongkao">Zhongkao</option>
-							<option value="Gaokao">Gaokao</option>
-							<option value="SAT">SAT</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div id="num_student_subject">
-			</div><!--num_student_subject-->
-			<div class="row">
-				<div class="col-xs-4" id="btn_student_subject">
-					<div class="form-group">
-						<div class="btn-group">
-							<button type="button" class="btn btn-default" id="btn_student_subject_add">+</button>
-							<button type="button" class="btn btn-default" id="btn_student_subject_remove">-</button>
-						</div>
-					</div>
-				</div>
-			</div><!--row-->
-			
-			<h1>Intended No. of Hours Per Lesson and No. of Lessons Per Week</h1>
-			<div class="row">
-				<div class="col-xs-6">
-					<div class="form-group">
-						<select class="form-control" id="id_student_duration_per_lesson" name="student_duration_per_lesson">
-							<option value="">Duration per Lesson *</option>
-							<option value="1 hour" {% if student.time_per_lesson == "1 hour" %} selected="selected" {% endif %}>1 hour</option>
-							<option value="2 hour" {% if student.time_per_lesson  == "2 hour" %} selected="selected" {% endif %}>2 hour</option>
-							<option value="3 hour" {% if student.time_per_lesson  == "3 hour" %} selected="selected" {% endif %}>3 hour</option>
-							<option value="4 hour" {% if student.time_per_lesson  == "4 hour" %} selected="selected" {% endif %}>4 hour</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-xs-6">
-					<div class="form-group">
-						<select class="form-control" id="id_student_lesson_per_week" name="student_lesson_per_week">
-							<option value="">Lesson per Week *</option>
-							<option value="1" {% if student.lesson_per_week  == "1" %} selected="selected" {% endif %}>1</option>
-							<option value="2" {% if student.lesson_per_week  == "2" %} selected="selected" {% endif %}>2</option>
-							<option value="3" {% if student.lesson_per_week  == "3" %} selected="selected" {% endif %}>3</option>
-							<option value="4" {% if student.lesson_per_week  == "4" %} selected="selected" {% endif %}>4</option>
-							<option value="5" {% if student.lesson_per_week  == "5" %} selected="selected" {% endif %}>5</option>
-							<option value="6" {% if student.lesson_per_week  == "6" %} selected="selected" {% endif %}>6</option>
-							<option value="7" {% if student.lesson_per_week  == "7" %} selected="selected" {% endif %}>7</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			
-			<h1>Date to Start Tuition</h1>
-			<div class="row">
-				<div class="col-xs-6">
-					<div class="form-group">
-						<select class="form-control" id="id_student_start_time" name="student_start_time">
-							<option value="As soon as possible">As soon as possible</option>
-							<option value="Other" {% if student.start_time == "Other" %} selected="selected" {% endif %}>Other</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-xs-6">
-					<div class="form-group">
-						<div class="input-group">
-							<div id="num_student_start_time_other">
-								{% if student.start_time == "Other" %}
-								<input class="form-control" id="id_student_start_time_other" type="date" name="student_start_time_other" value="{{ student.start_time_other }}"/>
-								{% endif %}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-      <hr>
-			
-			<h1>Optional Questions</h1>
-			<p>The following questions are optional, but you are encouraged to fill in to help us match you with a tutor who fits you the best!</p>
 			<h1>Tutor Preference</h1>
 			<div class="row">
 				<div class="col-xs-12">
@@ -277,109 +172,6 @@ function validate_form(thisform)
 					</div>
 				</div>
 			</div>
-			<h1>Remarks</h1>
-			<p>Anything you want to share with us which can make us know you better before teaching even starts, so that we can find a tutor that best suits you!</p>
-			
-			{% if student.remarks %}
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="id_student_remark1" name="student_remark1" value="I need a slow and patient pace to teach concepts and question solving skills clearly" {% for remark in student.get_remarks %} {% if remark == "I need a slow and patient pace to teach concepts and question solving skills clearly" %} checked="checked" {% endif %} {% endfor %}/>I need a slow and patient pace to teach concepts and question solving skills clearly
-						</label>
-					</div>
-				</div>
-				<div class="col-xs-12">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="id_student_remark2" name="student_remark2" value="I need a fast summary of concepts and teach at a faster pace than school" {% for remark in student.get_remarks %} {% if remark == "I need a fast summary of concepts and teach at a faster pace than school" %} checked="checked" {% endif %} {% endfor %}/>I need a fast summary of concepts and teach at a faster pace than school
-						</label>
-					</div>
-				</div>
-				<div class="col-xs-12">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="id_student_remark3" name="student_remark3" value="I am familiar with concepts, but I need a tutor to teach me questions solving skills" {% for remark in student.get_remarks %} {% if remark == "I am familiar with concepts, but I need a tutor to teach me questions solving skills" %} checked="checked" {% endif %} {% endfor %}/>I am familiar with concepts, but I need a tutor to teach me questions solving skills
-						</label>
-					</div>
-				</div>
-				<div class="col-xs-12">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="id_student_remark4" name="student_remark4" value="I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions" {% for remark in student.get_remarks %} {% if remark == "I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions" %} checked="checked" {% endif %} {% endfor %}/>I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions
-						</label>
-					</div>
-				</div>
-				<div class="col-xs-12">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="id_student_remark5" name="student_remark5" value="Other" {% for remark in student.get_remarks %} {% if remark == "Other" %} checked="checked" {% endif %} {% endfor %}/>Other
-						</label>
-					</div>
-				</div>
-				<div class="col-xs-12">
-					<div class="form-group">
-						<div id="id_remark_other">
-							{% for remark in student.get_remarks %}
-							{% if remark != "I need a slow and patient pace to teach concepts and question solving skills clearly" and remark != "I need a fast summary of concepts and teach at a faster pace than school" and remark != "I am familiar with concepts, but I need a tutor to teach me questions solving skills" and remark != "I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions" and remark != "Other" %}
-							<textarea class="form-control" id="id_student_remark6" name="student_remark6" rows="3" placeholder="Other Remarks"> {{ remark }} </textarea>
-							{% endif %}
-							{% endfor %}
-						</div>
-					</div>
-				</div>
-			</div><!--row-->
-			{% endif %}
-			{% if not student.remarks %}
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="id_student_remark1" name="student_remark1" value="I need a slow and patient pace to teach concepts and question solving skills clearly"/>I need a slow and patient pace to teach concepts and question solving skills clearly
-						</label>
-					</div>
-				</div>
-				<div class="col-xs-12">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="id_student_remark2" name="student_remark2" value="I need a fast summary of concepts and teach at a faster pace than school"/>I need a fast summary of concepts and teach at a faster pace than school
-						</label>
-					</div>
-				</div>
-				<div class="col-xs-12">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="id_student_remark3" name="student_remark3" value="I am familiar with concepts, but I need a tutor to teach me questions solving skills"/>I am familiar with concepts, but I need a tutor to teach me questions solving skills
-						</label>
-					</div>
-				</div>
-				<div class="col-xs-12">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="id_student_remark4" name="student_remark4" value="I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions"/>I am pretty fine, but I want to guarantee an A, so I want a tutor to teach me how to solve challenging questions
-						</label>
-					</div>
-				</div>
-				<div class="col-xs-12">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="id_student_remark5" name="student_remark5" value="Other"/>Other
-						</label>
-					</div>
-				</div>
-				<div class="col-xs-12">
-					<div class="form-group">
-						<div id="id_remark_other"></div>
-					</div>
-				</div>
-			</div><!--row-->
-			{% endif %}
-			
-			<h1>Academic Weakness</h1>
-			<p>e.g., I am really bad at math calculations. Please be as detailed as possible</p>
-			<div class="form-group">
-				<textarea class="form-control" id="id_student_weakness" name="student_weakness" rows="3" placeholder="Academic weakness">{% if student.weakness %} {{ student.weakness }} {% endif %}</textarea>
-			</div>
 			
       <h1>PERSONAL DATA PROTECTION ACT *</h1>
       <p>￼By signing this membership application form, you agree that EasyAce Pte Ltd may collect, use and disclose your personal data, as provided in this application form, or (if applicable) obtained by our organisation as a result of your membership, for the following purposes in accordance with the Personal Data Protection Act 2012 and our data protection policy (available at our website www.easyace.sg): (a) the processing of this membership application; and (b) the administration of the membership with our organisation.</p>
@@ -387,10 +179,6 @@ function validate_form(thisform)
         <input type="checkbox" id="id_student_agree" name="student_agree" {% if student.name %} checked {% endif %}>  I Agree
       </div>
       
-    
-    
-      
-    
 
      <input class="btn btn-default btn-login" type="submit" value="Submit"/>
      </div><!--my-content-->
