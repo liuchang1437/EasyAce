@@ -325,7 +325,9 @@ class StudentIntent(models.Model):
   final_tutor = models.ForeignKey(Tutor,related_name='matched_intent',blank=True,null=True,verbose_name='Matched tutor')
   ############# Auto Fields  ############
   last_edit_time = models.DateTimeField(auto_now=True,editable=True)
+  feedback_status = models.CharField(max_length=20,default='not time')#not time,not finished,done
 
+ 
   ############# The old record part ##################
   if_confirmed = models.BooleanField(default=False,verbose_name=u"Tutor's Consent")
   startdate = models.DateField(u'Contract Signing Date',default=timezone.now,blank=True)

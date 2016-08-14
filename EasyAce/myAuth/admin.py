@@ -309,7 +309,7 @@ class IntentAdmin(admin.ModelAdmin):
           'intent_remark5','intent_remark6','intent_weakness','last_edit_time'),
       }],
       ['Record states',{
-        'fields':(('successful_match','commission_collection_status','failed')),
+        'fields':(('successful_match','commission_collection_status','failed','person_in_charge')),
       }],
       ['Contract and fees',{
         'classes':('collapse',),
