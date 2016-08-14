@@ -1,28 +1,73 @@
 from django.contrib import admin
 from django.http import HttpResponse
-from .models import Tutor,Student,MyUser,Record,Feedback,\
-  StudentPreferSub,PreferSubject,ReferSubject,Interview
+from .models import Tutor,Student,MyUser,Feedback,\
+  StudentPreferSub,PreferSubject,ReferSubject,Interview,\
+  StudentIntent
 import xlwt
+from django.utils.html import format_html
+from django.core.urlresolvers import reverse
 # Register your models here.
+# class RecordInline(admin.StackedInline):
+#   colapse = True
+#   model = Record
+#   extra = 0
+#   raw_id_fields = ('tutor',)
+#   fieldsets = (
+#     ('Record info',{
+#       'fields':('tutor',('if_confirmed','successful_match','commission_collection_status'))
+#     }),
+#     ('Contract and fees',{
+#       'fields':('startdate','chargedate','service_fees','freq','lesson_last','lesson_price')
+#     }),
+#     ('Close call',{
+#       'classes':('collapse',),
+#       'fields':('close_call_date','tuition_duration','overall_comment','q1','q2','self_evaluation',\
+#         'reasons','comment_charges','recommend_or_not')
+#     })
+#   )
+class IntentInTutorInline(admin.StackedInline):
+  verbose_name = 'Record'
+  verbose_name_plural = 'Records'
+  model = StudentIntent
+  readonly_fields = ['intent_link',]
+  fields = ('intent_link',)
+  def intent_link(self, instance):
+    if instance:
+        fk_id = instance.id
+    else:
+        fk_id = None
+    if fk_id:
+        intent = StudentIntent.objects.get(pk=fk_id)
+        opts = intent._meta
+        related_url = reverse('admin:%s_%s_change' %(opts.app_label,  \
+          opts.model_name),  args=[fk_id] )
+        return format_html(
+              '<a target=_blank href="{}">{}</a>', related_url,intent.student.full_name)
+    else:
+        return "Record not exists."
+  intent_link.short_description = "A record with"
 
-class RecordInline(admin.StackedInline):
-  colapse = True
-  model = Record
-  extra = 0
-  raw_id_fields = ('tutor',)
-  fieldsets = (
-    ('Record info',{
-      'fields':('tutor',('if_confirmed','successful_match','commission_collection_status'))
-    }),
-    ('Contract and fees',{
-      'fields':('startdate','chargedate','service_fees','freq','lesson_last','lesson_price')
-    }),
-    ('Close call',{
-      'classes':('collapse',),
-      'fields':('close_call_date','tuition_duration','overall_comment','q1','q2','self_evaluation',\
-        'reasons','comment_charges','recommend_or_not')
-    })
-  )
+class IntentInStudentInline(admin.StackedInline):
+  verbose_name = "intent"
+  verbose_name_plural = "Student's intents"
+  model = StudentIntent
+  readonly_fields = ['intent_link',]
+  fields = ('intent_link',)
+  def intent_link(self, instance):
+    if instance:
+        fk_id = instance.id
+    else:
+        fk_id = None
+    if fk_id:
+        intent = StudentIntent.objects.get(pk=fk_id)
+        opts = intent._meta
+        related_url = reverse('admin:%s_%s_change' %(opts.app_label,  \
+          opts.model_name),  args=[fk_id] )
+        return format_html(
+              '<a target=_blank href="{}">Check this record</a>', related_url)
+    else:
+        return "Record not exists."
+  intent_link.short_description = "Record link"
 
 class InterviewInline(admin.StackedInline):
   colapse = True
@@ -40,7 +85,15 @@ class InterviewInline(admin.StackedInline):
     'interview_recommend','interview_new_tutor_training','interview_comment','interview_remark')
     }),
   )
+  radio_fields = {
+    'interview_presentability':admin.HORIZONTAL,
+    'interview_friendliness':admin.HORIZONTAL,
+    'interview_crisis_hand':admin.HORIZONTAL,
+    'interview_communication':admin.HORIZONTAL
+  }
 class FeedbackInline(admin.StackedInline):
+  def has_add_permission(self,request):
+    return False
   model = Feedback
   extra = 0
   readonly_fields = ('student','subject','time','attend','attitude',\
@@ -51,47 +104,49 @@ class PreferSub(admin.StackedInline):
   can_delete = False
   model = PreferSubject
   fields = ('level','name')
-  readonly_fields = ('level','name')
+  #readonly_fields = ('level','name')
 class ReferSub(admin.StackedInline):
   def has_add_permission(self,request):
     return False
   can_delete = False
   model = ReferSubject
   fields = ('level','name','score')
-  readonly_fields = ('level','name','score')
+  # readonly_fields = ('level','name','score')
+
 
 @admin.register(Tutor) 
 class TutorAdmin(admin.ModelAdmin):
   def has_add_permission(self, request):
         return False
-  def base_info_username(self,obj):
-    return obj.base_info.username
-  list_display = ('name','wechat','whatsapp','check','sr')
+  # def colored_name(self,obj):
+  #       return '<span style="color: #123456;">{} {}</span>'.format(obj.first_name,obj.last_name)
+ 
+  # colored_name.allow_tags = True
+  list_display = ('full_name','username_link','gender','school','phone','wechat','whatsapp')
   list_filter = ('check','top_teacher','prefer_sub__level','prefer_sub__name')
-  search_fields = ('name','username','email','prefer_sub__level','prefer_sub__name','interview__interview_grade',\
+  search_fields = ('full_name','username','email','prefer_sub__level','prefer_sub__name','interview__interview_grade',\
     'interview__interview_major','interview__interview_num_taught','interview__interview_effect','interview__interview_fees','interview__interview_how_to_range_course',\
     'interview__interview_tutor_type','interview__interview_why_you_good','interview__interview_how_relation_with_stu','interview__interview_how_rel_with_prntofstu',\
     'interview__interview_how_long','interview__interview_why_tutor','interview__interview_what_matter','interview__interview_other_sub','interview__interview_can_teach_tutor',\
     'interview__interview_recommend','interview__interview_new_tutor_training','interview__interview_comment','interview__interview_remark')
   fieldsets = (
-    ('Base information', {
-      'fields': ('name','username','gender','birth','school',\
-        'tutor_location1',\
+    ('Personal information', {
+      'fields': ('full_name','gender','birth','school',\
+        'phone','wechat','whatsapp','email','tutor_location1',\
         'tutor_location2','tutor_location3','teach_duration',\
-        'num_taught','achievement','sr')
-    }),
-    ('Contact information',{
-      'fields':('phone','wechat','whatsapp','email')
+        'num_taught','achievement','sr','signup_datetime','last_edit_time')
     }),
     ('Options',{
       'fields':('check','top_teacher')
     })
   ) 
-  readonly_fields = ('name','username','gender','birth','school',\
-    'tutor_location1','tutor_location2','tutor_location3',\
-    'teach_duration','num_taught','achievement','phone',\
-    'wechat','whatsapp','email','sr')
-  inlines = [PreferSub,ReferSub,InterviewInline,FeedbackInline]
+  
+  readonly_fields = ('signup_datetime','last_edit_time')
+  # readonly_fields = ('name','username','gender','birth','school',\
+  #   'tutor_location1','tutor_location2','tutor_location3',\
+  #   'teach_duration','num_taught','achievement','phone',\
+  #   'wechat','whatsapp','email','sr')
+  inlines = [PreferSub,ReferSub,InterviewInline,FeedbackInline,IntentInTutorInline]
   # 增加计算Star rating的action
   def cal_star_rating(self,request,queryset):
     for obj in queryset:
@@ -166,7 +221,21 @@ class TutorAdmin(admin.ModelAdmin):
     return response
   # end
   export_to_excel.short_description = 'Export to excel'
-
+  def username_link(self, instance):
+        if instance:
+            fk_id = instance.id
+        else:
+            fk_id = None
+        if fk_id:
+            tutor = instance
+            opts = tutor._meta
+            related_url = reverse('admin:%s_%s_change' %(opts.app_label,  \
+              opts.model_name),  args=[fk_id] )
+            return format_html(
+                 '<a target=_blank href="{}">{}</a>', related_url,tutor.username)
+        else:
+            return "No related object"
+  username_link.short_description = "username"
   actions = [export_to_excel]
 
 class StudentPreferSub(admin.StackedInline):
@@ -181,17 +250,13 @@ class StudentPreferSub(admin.StackedInline):
 class StudentAdmin(admin.ModelAdmin):
   def has_add_permission(self, request):
         return False
-  def base_info_username(self,obj):
-    return obj.base_info.username
-  list_display = ('name','wechat','whatsapp','wait_match')
+  list_display = ('full_name','gender','school','phone','wechat','whatsapp')
   list_filter = ('wait_match',)
-  search_fields = ('name','username','email')
+  search_fields = ('full_name','username','email')
   fieldsets = (
-    ('Base information', {
-      'fields': ('name','username','gender','school','grade','location',\
-        'loc_nego',\
-        'start_time','start_time_other','time_per_lesson',\
-        'lesson_per_week','prefer_tutor_gender','remarks','weakness','tutors_chosen')
+    ('Personal information', {
+      'fields': ('full_name','gender','school','grade','location',\
+        'loc_nego','prefer_tutor_gender','signup_datetime','last_edit_time')
     }),
     ('Contact info',{
       'fields':('phone','wechat','whatsapp','email')
@@ -200,10 +265,94 @@ class StudentAdmin(admin.ModelAdmin):
       'fields':('wait_match','admin_name')
     })
   ) 
-  readonly_fields = ('name','username','gender','grade','school',\
-    'location','loc_nego','start_time',\
-    'start_time_other','time_per_lesson','lesson_per_week','remarks',\
-    'wechat','whatsapp','email','prefer_tutor_gender','weakness','tutors_chosen','phone')
-  inlines = [StudentPreferSub,RecordInline]
+  readonly_fields = ('signup_datetime','last_edit_time')
+  inlines = [IntentInStudentInline,]
 
-  
+@admin.register(StudentIntent)
+class IntentAdmin(admin.ModelAdmin):
+    readonly_fields = ['intent_tutor_link','student_link','final_tutor_link','last_edit_time']
+    raw_id_fields = ['final_tutor',]
+    list_display = ['student_name','last_edit_time','intent_subject',\
+      'final_tutor_name','successful_match','commission_collection_status',\
+      'person_in_charge',]
+    list_filter = ['successful_match','commission_collection_status','person_in_charge']
+    search_fields = ['student_name','intent_subject','final_tutor_name','person_in_charge']
+    radio_fields = {
+      'overall_comment':admin.HORIZONTAL,
+      'self_evaluation':admin.HORIZONTAL,
+      'recommend_or_not':admin.HORIZONTAL
+    }
+
+    def student_name(self,obj):
+      return obj.student.full_name
+    def final_tutor_name(self,obj):
+      try:
+        tname = obj.final_tutor.full_name
+      except:
+        tname = ''
+      return tname
+    fieldsets = (
+      ["Student's intent",{
+        'fields':('student_link','intent_level','intent_subject','intent_tutor_link','intent_duration_per_lesson',\
+          'intent_lesson_per_week','intent_start_time','intent_start_time_other',\
+          'intent_remark1','intent_remark2','intent_remark3','intent_remark4',\
+          'intent_remark5','intent_remark6','intent_weakness','last_edit_time'),
+      }],
+      ['Record states',{
+        'fields':(('if_confirmed','successful_match','commission_collection_status','failed')),
+      }],
+      ['Contract and fees',{
+        'classes':('collapse'),
+        'fields':('final_tutor','final_tutor_link','startdate','chargedate','service_fees','freq','lesson_last','lesson_price'),
+      }],
+      ['Close call',{
+        'classes': ('collapse',),
+        'fields':('close_call_date','tuition_duration','overall_comment','q1','q2','self_evaluation',\
+          'reasons','comment_charges','recommend_or_not'),
+      }]
+    )
+
+    def intent_tutor_link(self, instance):
+        if instance:
+            fk_id = instance.intent_tutor_id
+        else:
+            fk_id = None
+        if fk_id:
+            tutor = Tutor.objects.get(pk=fk_id)
+            opts = tutor._meta
+            related_url = reverse('admin:%s_%s_change' %(opts.app_label,  \
+              opts.model_name),  args=[fk_id] )
+            return format_html(
+                 '<a target=_blank href="{}">{}</a>', related_url,tutor.full_name)
+        else:
+            return "The student didn't choose one.'"
+    intent_tutor_link.short_description = "Intent tutor"
+    def final_tutor_link(self, instance):
+        if instance:
+            fk_id = instance.final_tutor.id
+        else:
+            fk_id = None
+        if fk_id:
+            opts = instance._meta.get_field('final_tutor').rel.model._meta
+            related_url = reverse('admin:%s_%s_change' %(opts.app_label,  \
+              opts.model_name),  args=[fk_id] )
+            return format_html(
+                 '<a target=_blank href="{}">View the tutor</a>', related_url)
+        else:
+            return "No related object"
+    final_tutor_link.short_description = "Check final tutor"
+    def student_link(self, instance):
+        if instance:
+            fk_id = instance.student.id
+        else:
+            fk_id = None
+        if fk_id:
+            student = instance.student
+            opts = instance._meta.get_field('student').rel.model._meta
+            related_url = reverse('admin:%s_%s_change' %(opts.app_label,  \
+              opts.model_name),  args=[fk_id] )
+            return format_html(
+                 '<a target=_blank href="{}">{}</a>', related_url,student.full_name)
+        else:
+            return "No related object"
+    student_link.short_description = "Check student"

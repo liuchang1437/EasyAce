@@ -76,7 +76,9 @@ def logout(request):
 def signup_tutor(request):
   if request.method == 'POST':
     #### Base info start
-    name = request.POST['name']
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+    #name = request.POST['name']
     gender = request.POST['gender']
     birth = request.POST['birthday']
     email = request.POST['email']
@@ -98,7 +100,10 @@ def signup_tutor(request):
     myuser.save()
     tutor = myuser.get_user()
     tutor.username = myuser.username
-    tutor.name=name
+    #tutor.name=name
+    tutor.first_name = first_name
+    tutor.last_name = last_name
+    tutor.full_name = first_name+' '+last_name
     tutor.gender=gender
     tutor.phone=phone
     tutor.birth=birth
@@ -159,7 +164,9 @@ def signup_tutor(request):
 def signup_student(request):
   if request.method == 'POST':
     #### Base info start
-    name = request.POST['name']
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+    #name = request.POST['name']
     gender = request.POST['gender']
     email = request.POST['email']
     phone = request.POST['phone']
@@ -172,10 +179,10 @@ def signup_student(request):
     #### Preference start
     location = request.POST['student_location']
     loc_nego = request.POST['student_location_negotiable']
-    time_per_lesson = request.POST['student_duration_per_lesson']
-    lesson_per_week = request.POST['student_lesson_per_week']
-    start_time = request.POST['student_start_time']
     prefer_tutor_gender = request.POST['student_tutor_preference']
+    # time_per_lesson = request.POST['student_duration_per_lesson']
+    # lesson_per_week = request.POST['student_lesson_per_week']
+    # start_time = request.POST['student_start_time']
     #### Preference end
 
     #### Create student start
@@ -184,7 +191,10 @@ def signup_student(request):
     myuser.save()
     student = myuser.get_user()
     student.username=myuser.username
-    student.name=name
+    #student.name=name
+    student.first_name = first_name
+    student.last_name = last_name
+    student.full_name = full_name
     student.gender=gender
     student.email=email
     student.phone=phone
@@ -195,36 +205,36 @@ def signup_student(request):
     student.base_info=myuser
     student.location=location
     student.loc_nego=loc_nego
-    student.time_per_lesson=time_per_lesson
-    student.start_time=start_time
-    student.lesson_per_week=lesson_per_week
+    # student.time_per_lesson=time_per_lesson
+    # student.start_time=start_time
+    # student.lesson_per_week=lesson_per_week
     student.prefer_tutor_gender=prefer_tutor_gender
-    if start_time=='Other':
-      student.start_time_other = request.POST['student_start_time_other']
-    remarks=''
-    prefix = 'student_remark'
-    for i in range(1,7):
-      if prefix+str(i) in request.POST:
-        remarks+=request.POST[prefix+str(i)]
-        remarks+=';'
-    student.remarks=remarks
-    if 'student_weakness' in request.POST:
-      student.weakness = request.POST['student_weakness']
+    # if start_time=='Other':
+    #   student.start_time_other = request.POST['student_start_time_other']
+    # remarks=''
+    # prefix = 'student_remark'
+    # for i in range(1,7):
+    #   if prefix+str(i) in request.POST:
+    #     remarks+=request.POST[prefix+str(i)]
+    #     remarks+=';'
+    # student.remarks=remarks
+    # if 'student_weakness' in request.POST:
+    #   student.weakness = request.POST['student_weakness']
     student.save()
     #### Create student end
 
     #### Start create prefer teach and refer teach
-    student_subject = request.POST['student_subject'] 
-    for i in range(1,10):
-      if 'student_subject'+str(i) in request.POST:
-        name = request.POST['student_subject'+str(i)]
-        other = False
-        if name == "Other":
-          name = request.POST['student_subject'+str(i)+'_other']
-          other = True
-        prefer_sub = StudentPreferSub(level=student_subject,name=name,rank=i,other=other,\
-          student=student)
-        prefer_sub.save()
+    # student_subject = request.POST['student_subject'] 
+    # for i in range(1,10):
+    #   if 'student_subject'+str(i) in request.POST:
+    #     name = request.POST['student_subject'+str(i)]
+    #     other = False
+    #     if name == "Other":
+    #       name = request.POST['student_subject'+str(i)+'_other']
+    #       other = True
+    #     prefer_sub = StudentPreferSub(level=student_subject,name=name,rank=i,other=other,\
+    #       student=student)
+    #     prefer_sub.save()
     #### END
 
     messages.success(request,'Update information successfully!')

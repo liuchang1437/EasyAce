@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from myAuth.models import Tutor,MyUser,Student,PreferSubject,ReferSubject,\
-    StudentPreferSub, Feedback, Record
+    StudentPreferSub, Feedback, StudentIntent
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -296,7 +296,7 @@ def edit_tutor(request):
 def feedback(request,record_id):
     student = request.user.get_user()
     if request.method == 'POST':
-        record = Record.objects.get(pk=record_id)
+        #record = Record.objects.get(pk=record_id)
         feedback = Feedback()
         feedback.tutor = record.tutor
         feedback.student = student
@@ -316,7 +316,54 @@ def feedback(request,record_id):
         messages.info(request,'Submit feedback successfully! Thank you for that.')
         return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
     return render(request, 'feedback.html')
+def add_intent(request):
+    tutor = request.GET.get('tutor') or ''
+    if tutor:
+        tutor = MyUser.objects.get(pk=tutor)
+    if request.method == 'POST':
+        student = request.user.get_user()
+        if not student or request.user.role=='tutor':
+            messages.error(request,"Sorry, but it seems that you are not a student.")
+            return HttpResponseRedirect(reverse('main:index'))    
+        # must fill
+        intent_level = request.POST['intent_level']
+        intent_subject = request.POST['intent_subject']
+        intent_duration_per_lesson = request.POST['intent_duration_per_lesson']
+        intent_lesson_per_week = request.POST['intent_lesson_per_week']
+        intent_start_time = request.POST['intent_start_time']
+        intent = StudentIntent(intent_level=intent_level,intent_subject=intent_subject,\
+            intent_duration_per_lesson=intent_duration_per_lesson,\
+            intent_lesson_per_week=intent_lesson_per_week,\
+            intent_start_time=intent_start_time,student=student)
 
+        # don't must to fill those
+        if intent_subject =='Other':
+            intent.intent_subject = request.POST['intent_subject_other']
+            intent.intent_subject_other = True
+        if intent_start_time == 'Other':
+            intent.intent_start_time_other = request.POST['intent_start_time_other']
+        if 'intent_remark1' in request.POST:
+            intent.intent_remark1 = request.POST['intent_remark1']
+        if 'intent_remark2' in request.POST:
+            intent.intent_remark2 = request.POST['intent_remark2']
+        if 'intent_remark3' in request.POST:
+            intent.intent_remark3 = request.POST['intent_remark3']
+        if 'intent_remark4' in request.POST:
+            intent.intent_remark4 = request.POST['intent_remark4']
+        if 'intent_remark5' in request.POST:
+            intent.intent_remark5 = request.POST['intent_remark5']
+        if 'intent_remark6' in request.POST:
+            intent.intent_remark6 = request.POST['intent_remark6']
+        if 'intent_weakness' in request.POST:
+            intent.intent_weakness = request.POST['intent_weakness']
+        if tutor:
+            intent.intent_tutor = tutor
+        intent.save()
+
+        messages.success(request,'Add a record successfully!')
+        return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
+    else:
+        return render(request,'intent_student.html',{'tutor':tutor})
 
 
 
