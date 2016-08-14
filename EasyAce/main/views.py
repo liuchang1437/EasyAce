@@ -455,21 +455,23 @@ def edit_intent(request,intent_id):
         return render(request,'intent_student.html',{'intent':intent})
 
 @login_required
-def get_student_info(request,id):
-    if request.user.is_superuser:
-        student = Student.objects.get(pk=id)
-        data = {}
-        data['name'] = student.full_name
-        data['gender'] = student.gender
-        data['school'] = student.school
-        data['grade'] = student.grade
-        data['location'] = student.location
-        data['loc_nego'] = student.loc_nego
-        data['phone'] = student.phone
-        data['whatsapp'] = student.whatsapp
-        data['email'] = student.email
-        data['wechat'] = student.wechat
-        return JsonResponse(data)
+def get_student_info(request):
+    if request.method=='POST':
+        if request.user.is_superuser:
+            id = request.POST['id']
+            student = Student.objects.get(pk=id)
+            data = {}
+            data['name'] = student.full_name
+            data['gender'] = student.gender
+            data['school'] = student.school
+            data['grade'] = student.grade
+            data['location'] = student.location
+            data['loc_nego'] = student.loc_nego
+            data['phone'] = student.phone
+            data['whatsapp'] = student.whatsapp
+            data['email'] = student.email
+            data['wechat'] = student.wechat
+            return JsonResponse(data)
 
 
 
