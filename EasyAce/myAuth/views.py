@@ -268,7 +268,7 @@ def forget_password(request):
         '/'.join([request.get_host(),'auth/validate',token])
       ]
     )
-    send_mail('Change your password',message,None,[email],fail_silently=False)
+    send_mail('Change your password',message,"273255159@qq.com",[email],fail_silently=False)
     messages.success(request,'An email has been send to {}, please check it in 2 hours.'.format(email))
     return HttpResponseRedirect('/index')
   return render(request,'forget_password.html')

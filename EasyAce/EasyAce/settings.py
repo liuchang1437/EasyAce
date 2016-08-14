@@ -132,7 +132,7 @@ MEDIA_URL = 'photos/'
 LOGIN_URL = 'myAuth:login'
 
 # email
-
+'''
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = False
 EMAIL_HOST = 'email host'
@@ -140,3 +140,11 @@ EMAIL_PORT = 25
 EMAIL_HOST_USER = 'username'
 EMAIL_HOST_PASSWORD = 'password'
 DEFAULT_FROM_EMAIL = 'EasyAce <host>'
+'''
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = '273255159@qq.com'
+EMAIL_HOST_PASSWORD = 'nrxiaompmmqlbgjh'
+DEFAULT_FROM_EMAIL = 'EasyAce'
