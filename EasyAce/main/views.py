@@ -374,6 +374,54 @@ def add_intent(request):
         return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
     else:
         return render(request,'intent_student.html',{'tutor':tutor})
+def edit_intent(request,intent_id):
+    intent = StudentIntent.objects.get(pk=intent_id)
+    if request.method == 'POST':
+        student = request.user.get_user()
+        if not student or request.user.role=='tutor':
+            messages.error(request,"Sorry, but it seems that you are not a student.")
+            return HttpResponseRedirect(reverse('main:index'))    
+        # must fill
+        intent_level = request.POST['intent_level']
+        intent_subject = request.POST['intent_subject']
+        intent_duration_per_lesson = request.POST['intent_duration_per_lesson']
+        intent_lesson_per_week = request.POST['intent_lesson_per_week']
+        intent_start_time = request.POST['intent_start_time']
+
+        
+        intent.intent_level = intent_level
+        intent.intent_subject = intent_subject
+        intent.intent_duration_per_lesson = intent_duration_per_lesson
+        intent.intent_lesson_per_week = intent_lesson_per_week
+        intent.intent_start_time = intent_start_time
+        # don't must to fill those
+        if intent_subject =='Other':
+            intent.intent_subject = request.POST['intent_subject_other']
+            intent.intent_subject_other = True
+        if intent_start_time == 'Other':
+            intent.intent_start_time_other = request.POST['intent_start_time_other']
+        if 'intent_remark1' in request.POST:
+            intent.intent_remark1 = request.POST['intent_remark1']
+        if 'intent_remark2' in request.POST:
+            intent.intent_remark2 = request.POST['intent_remark2']
+        if 'intent_remark3' in request.POST:
+            intent.intent_remark3 = request.POST['intent_remark3']
+        if 'intent_remark4' in request.POST:
+            intent.intent_remark4 = request.POST['intent_remark4']
+        if 'intent_remark5' in request.POST:
+            intent.intent_remark5 = request.POST['intent_remark5']
+        if 'intent_remark6' in request.POST:
+            intent.intent_remark6 = request.POST['intent_remark6']
+        if 'intent_weakness' in request.POST:
+            intent.intent_weakness = request.POST['intent_weakness']
+        intent.save()
+
+        messages.success(request,'Update the intent successfully!')
+        return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
+    else:
+        return render(request,'intent_student.html',{'intent':intent})
+
+
 
 
 
