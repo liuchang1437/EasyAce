@@ -8,7 +8,7 @@ from django.contrib.auth import login as login_user
 from django.contrib.auth import logout as logout_user
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from EasyAce.settings import SECRET_KEY
+from EasyAce.settings import SECRET_KEY,EMAIL_HOST_USER
 from django.core.mail import send_mail
 from .utils import Token
 
@@ -268,7 +268,7 @@ def forget_password(request):
         '/'.join([request.get_host(),'auth/validate',token])
       ]
     )
-    send_mail('Change your password',message,'send_email',[email],fail_silently=False)
+    send_mail('Change your password',message,EMAIL_HOST_USER,[email],fail_silently=False)
     messages.success(request,'An email has been send to {}, please check it in 2 hours.'.format(email))
     return HttpResponseRedirect('/index')
   return render(request,'forget_password.html')
