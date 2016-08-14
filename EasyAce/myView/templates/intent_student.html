@@ -58,6 +58,9 @@ function validate_form(thisform)
   {% csrf_token %}
   <form class="form-login" action="{% url "main:intent_student" %}" onsubmit="return validate_form(this);" method="post" style="margin-left: 30px; margin-right: 30px;">
     <div class="my-content">
+    	{% if tutor %}
+    	{{ tutor.full_name }}
+    	{% endif %}
 		<h1>Subject(s) Required for Tuition *</h1>
 		<div class="row">
 			<div class="col-xs-6">
@@ -99,8 +102,11 @@ function validate_form(thisform)
 					<select class="form-control" id="id_intent_duration_per_lesson" name="intent_duration_per_lesson">
 						<option value="">Duration per Lesson *</option>
 						<option value="1 hour" {% if student.time_per_lesson == "1 hour" %} selected="selected" {% endif %}>1 hour</option>
+						<option value="1 hour" {% if student.time_per_lesson == "1.5 hour" %} selected="selected" {% endif %}>1.5 hour</option>
 						<option value="2 hour" {% if student.time_per_lesson  == "2 hour" %} selected="selected" {% endif %}>2 hour</option>
+						<option value="1 hour" {% if student.time_per_lesson == "2.5 hour" %} selected="selected" {% endif %}>2.5 hour</option>
 						<option value="3 hour" {% if student.time_per_lesson  == "3 hour" %} selected="selected" {% endif %}>3 hour</option>
+						<option value="1 hour" {% if student.time_per_lesson == "3.5 hour" %} selected="selected" {% endif %}>3.5 hour</option>
 						<option value="4 hour" {% if student.time_per_lesson  == "4 hour" %} selected="selected" {% endif %}>4 hour</option>
 					</select>
 				</div>

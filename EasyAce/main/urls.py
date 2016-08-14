@@ -12,6 +12,6 @@ urlpatterns = [
 	url(r'edit_student/',views.edit_student,name='edit_student'),
 	url(r'edit_tutor/',views.edit_tutor,name='edit_tutor'),
     url(r'feedback/record_(?P<record_id>[0-9]+)$',views.feedback,name='feedback'),
-    url(r'intent_student/',views.add_intent,name='intent_student')
+    url(r'intent_student/',views.add_intent,name='intent_student'),
     url(r'remove_intent/',views.remove_intent,name='remove_intent')
 ]

@@ -21,11 +21,13 @@ $(document).ready(function(){
 
 function remove_intent(id)
 {
-	$.ajax({url:"/remove_intent/"+id,
+	$.ajax({url:"/remove_intent/",
 			type:"post",
+			data:{id:id},
 			datatype:"text",
 			success: function(data){
-				alert("Remove Intent Successfully")
+				alert("Remove Intent Successfully");
+				window.location.reload();
 			},
 			error: function(){
 			}
@@ -170,7 +172,7 @@ function check_feedback()
 
 		<div class="row">
 			<div class="col-xs-2 col-xs-offset-2">
-				<button class="btn btn-default"><a href="/intent_student">Add</a></button>
+				<button class="btn btn-default"><a href="/add_intent">Add</a></button>
 			</div>
 			<div class="col-xs-2">
 				<button class="btn btn-default">Edit</button>
@@ -190,6 +192,7 @@ function check_feedback()
 		{{ intent.last_edit_time }}
 		<br>
 		<button class="btn btn-default" onclick="remove_intent({{ intent.id }})">Remove</button>
+		<button class="btn btn-default"><a href="/edit_intent/{{ intent.id }}">Edit</a></button>
 		<div class="row my-information-p2">
 			<!--<div class="col-xs-2 col-xs-offset-2">
 				<div class="my-information-p">Exam</div>
