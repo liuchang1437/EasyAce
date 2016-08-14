@@ -32,7 +32,7 @@ def login(request):
         messages.error(request,'The account has been disabled!')
         return HttpResponseRedirect('myAuth:login')
     else:
-      messages.error(request,'The username and password were incorect.')
+      messages.error(request,'The username and password were incorrect.')
       return HttpResponseRedirect(reverse('myAuth:login'))
   return render(request,'login.html',{'next':next})
 
