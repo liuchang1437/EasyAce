@@ -262,7 +262,7 @@ class StudentAdmin(admin.ModelAdmin):
       'fields':('phone','wechat','whatsapp','email')
     }),
     ('Options',{
-      'fields':('wait_match','admin_name')
+      'fields':('wait_match',)
     })
   ) 
   readonly_fields = ('signup_datetime','last_edit_time')
