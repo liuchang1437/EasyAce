@@ -338,7 +338,7 @@ class IntentAdmin(admin.ModelAdmin):
             return format_html(
                  '<a target=_blank href="{}">{}</a>', related_url,tutor.full_name)
         else:
-            return "The student didn't choose one.'"
+            return "The student didn't choose one."
     intent_tutor_link.short_description = "Intent tutor"
     def final_tutor_link(self, instance):
         if instance:

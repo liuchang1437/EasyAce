@@ -308,7 +308,7 @@ class StudentIntent(models.Model):
   intent_subject_other = models.BooleanField(default=False)
   intent_duration_per_lesson = models.CharField('time per lesson',max_length=12)
   intent_lesson_per_week = models.CharField('lesson per week',max_length=12)
-  intent_start_time = models.CharField('start time',max_length=8)
+  intent_start_time = models.CharField('start time',max_length=20)
   intent_start_time_other = models.DateField('start time(other)',null=True,blank=True)
   intent_remark1 = models.CharField(max_length=100,blank=True,null=True)
   intent_remark2 = models.CharField(max_length=100,blank=True,null=True)
