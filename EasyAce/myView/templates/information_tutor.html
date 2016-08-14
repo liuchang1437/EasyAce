@@ -225,7 +225,7 @@ function add_tutor()
 
 		{% if user.role == "student" and not tutor in student.tutors_chosen.all %}
 		<div class="suspension">
-			<div class="btn btn-default btn-modify" onclick="add_tutor()" style="font-size: 20px">I want this tutor !</div>
+			<div class="btn btn-default btn-modify" style="font-size: 20px"><a href="/add_intent/?tutor={{ tutor.base_info.id }}">I want this tutor !</a></div>
 		</div>
 		{% endif %}
 		 

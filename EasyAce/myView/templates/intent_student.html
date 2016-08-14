@@ -58,10 +58,10 @@ function validate_form(thisform)
   {% csrf_token %}
   <form class="form-login" action="{% url "main:intent_student" %}" onsubmit="return validate_form(this);" method="post" style="margin-left: 30px; margin-right: 30px;">
     <div class="my-content">
-    	{% if tutor %}
+		<h1>Subject(s) Required for Tuition *</h1>
+		{% if tutor %}
     	{{ tutor.full_name }}
     	{% endif %}
-		<h1>Subject(s) Required for Tuition *</h1>
 		<div class="row">
 			<div class="col-xs-6">
 				<div class="form-group">
@@ -101,13 +101,13 @@ function validate_form(thisform)
 				<div class="form-group">
 					<select class="form-control" id="id_intent_duration_per_lesson" name="intent_duration_per_lesson">
 						<option value="">Duration per Lesson *</option>
-						<option value="1 hour" {% if student.time_per_lesson == "1 hour" %} selected="selected" {% endif %}>1 hour</option>
-						<option value="1 hour" {% if student.time_per_lesson == "1.5 hour" %} selected="selected" {% endif %}>1.5 hour</option>
-						<option value="2 hour" {% if student.time_per_lesson  == "2 hour" %} selected="selected" {% endif %}>2 hour</option>
-						<option value="1 hour" {% if student.time_per_lesson == "2.5 hour" %} selected="selected" {% endif %}>2.5 hour</option>
-						<option value="3 hour" {% if student.time_per_lesson  == "3 hour" %} selected="selected" {% endif %}>3 hour</option>
-						<option value="1 hour" {% if student.time_per_lesson == "3.5 hour" %} selected="selected" {% endif %}>3.5 hour</option>
-						<option value="4 hour" {% if student.time_per_lesson  == "4 hour" %} selected="selected" {% endif %}>4 hour</option>
+						<option value="1 hour" {% if intent.intent_duration_per_lesson == "1 hour" %} selected="selected" {% endif %}>1 hour</option>
+						<option value="1 hour" {% if intent.intent_duration_per_lesson == "1.5 hour" %} selected="selected" {% endif %}>1.5 hour</option>
+						<option value="2 hour" {% if intent.intent_duration_per_lesson  == "2 hour" %} selected="selected" {% endif %}>2 hour</option>
+						<option value="1 hour" {% if intent.intent_duration_per_lesson == "2.5 hour" %} selected="selected" {% endif %}>2.5 hour</option>
+						<option value="3 hour" {% if intent.intent_duration_per_lesson  == "3 hour" %} selected="selected" {% endif %}>3 hour</option>
+						<option value="1 hour" {% if intent.intent_duration_per_lesson == "3.5 hour" %} selected="selected" {% endif %}>3.5 hour</option>
+						<option value="4 hour" {% if intent.intent_duration_per_lesson  == "4 hour" %} selected="selected" {% endif %}>4 hour</option>
 					</select>
 				</div>
 			</div>
@@ -115,13 +115,13 @@ function validate_form(thisform)
 				<div class="form-group">
 					<select class="form-control" id="id_intent_lesson_per_week" name="intent_lesson_per_week">
 						<option value="">Lesson per Week *</option>
-						<option value="1" {% if student.lesson_per_week  == "1" %} selected="selected" {% endif %}>1</option>
-						<option value="2" {% if student.lesson_per_week  == "2" %} selected="selected" {% endif %}>2</option>
-						<option value="3" {% if student.lesson_per_week  == "3" %} selected="selected" {% endif %}>3</option>
-						<option value="4" {% if student.lesson_per_week  == "4" %} selected="selected" {% endif %}>4</option>
-						<option value="5" {% if student.lesson_per_week  == "5" %} selected="selected" {% endif %}>5</option>
-						<option value="6" {% if student.lesson_per_week  == "6" %} selected="selected" {% endif %}>6</option>
-						<option value="7" {% if student.lesson_per_week  == "7" %} selected="selected" {% endif %}>7</option>
+						<option value="1" {% if intent.intent_lesson_per_week  == "1" %} selected="selected" {% endif %}>1</option>
+						<option value="2" {% if intent.intent_lesson_per_week  == "2" %} selected="selected" {% endif %}>2</option>
+						<option value="3" {% if intent.intent_lesson_per_week  == "3" %} selected="selected" {% endif %}>3</option>
+						<option value="4" {% if intent.intent_lesson_per_week  == "4" %} selected="selected" {% endif %}>4</option>
+						<option value="5" {% if intent.intent_lesson_per_week  == "5" %} selected="selected" {% endif %}>5</option>
+						<option value="6" {% if intent.intent_lesson_per_week  == "6" %} selected="selected" {% endif %}>6</option>
+						<option value="7" {% if intent.intent_lesson_per_week  == "7" %} selected="selected" {% endif %}>7</option>
 					</select>
 				</div>
 			</div>
@@ -133,7 +133,7 @@ function validate_form(thisform)
 				<div class="form-group">
 					<select class="form-control" id="id_intent_start_time" name="intent_start_time">
 						<option value="As soon as possible">As soon as possible</option>
-						<option value="Other" {% if student.start_time == "Other" %} selected="selected" {% endif %}>Other</option>
+						<option value="Other" {% if intent.intent_start_time == "Other" %} selected="selected" {% endif %}>Other</option>
 					</select>
 				</div>
 			</div>
@@ -141,8 +141,8 @@ function validate_form(thisform)
 				<div class="form-group">
 					<div class="input-group">
 						<div id="block_intent_start_time_other">
-							{% if student.start_time == "Other" %}
-							<input class="form-control" id="id_intent_start_time_other" type="date" name="intent_start_time_other" value="{{ student.start_time_other }}"/>
+							{% if intent.intent_start_time == "Other" %}
+							<input class="form-control" id="id_intent_start_time_other" type="date" name="intent_start_time_other" value="{{ intent.intent_start_time_other }}"/>
 							{% endif %}
 						</div>
 					</div>
@@ -254,7 +254,7 @@ function validate_form(thisform)
 		<h1>Academic Weakness</h1>
 		<p>e.g., I am really bad at math calculations. Please be as detailed as possible</p>
 		<div class="form-group">
-			<textarea class="form-control" id="id_intent_weakness" name="intent_weakness" rows="3" placeholder="Academic weakness">{% if student.weakness %} {{ student.weakness }} {% endif %}</textarea>
+			<textarea class="form-control" id="id_intent_weakness" name="intent_weakness" rows="3" placeholder="Academic weakness">{% if intent.intent_weakness %} {{ intent.intent_weakness }} {% endif %}</textarea>
 		</div>
     
      <input class="btn btn-default btn-login" type="submit" value="Submit"/>
