@@ -7,38 +7,36 @@
 <script type="text/javascript" src="{% static 'js/clipboard.min.js' %}"></script>  
 <script type="text/javascript">
 
-function get_student_information()
-{
+$(document).ready(function(){
+	url_now = window.location.href;
+	data_type = url_now.split("/")[5];
+	if(data_type != "studentintent")
+		$("#id_copy_key_data").hide();
+
+
 	student_tag = document.querySelector(".field-student_link").getElementsByTagName("a")[0].href;
 	id = student_tag.split("/")[6];
 	$.ajax({url:"/get_student_info/",
 			type:"post",
 			data:{id:id},
 			datatype:"text",
+			async:false,
 			success: function(data){
-				obj = jQuery.parseJSON(data);
-				name = obj["name"];
-				gender = obj["gender"];
-				school = obj["school"];
-				grade = obj["grade"];
-				m_location = obj["location"];
-				loc_nego = obj["loc_nego"];
-				phone = obj["phone"];
-				whatsapp = obj["whatsapp"];
-				email = obj["email"];
-				wechat = obj["wechat"];
-				alert(name);
-		
-				
+				name = data["name"];
+				gender = data["gender"];
+				school = data["school"];
+				grade = data["grade"];
+				m_location = data["location"];
+				loc_nego = data["loc_nego"];
+				phone = data["phone"];
+				whatsapp = data["whatsapp"];
+				email = data["email"];
+				wechat = data["wechat"];
 			},
 			error: function(){
 			}
 
 		});
-}
-
-$(document).ready(function(){
-	get_student_information();
 	var clipboard = new Clipboard('.btn', {
 		text: function(trigger) {
 			var m_text = "";
@@ -50,28 +48,6 @@ $(document).ready(function(){
 			if(start_time="Other")
 				start_time = document.querySelector(".field-intent_start_time_other").getElementsByTagName("input")[0].value;
 
-			m_text += "Level: " + level + "\n";
-			m_text += "Subject: " + subject + "\n";
-			m_text += "Time per Lesson: " + duration_per_lesson + "\n";
-			m_text += "Lesson per Week: " + lesson_per_week + "\n";
-			m_text += "Start Time: " + start_time + "\n";
-
-
-
-
-
-
-			/*name = document.querySelector(".field-name").getElementsByTagName("p")[0].innerHTML;
-			gender = document.querySelector(".field-gender").getElementsByTagName("p")[0].innerHTML;
-			school = document.querySelector(".field-school").getElementsByTagName("p")[0].innerHTML;
-			grade = document.querySelector(".field-grade").getElementsByTagName("p")[0].innerHTML;
-			m_location = document.querySelector(".field-location").getElementsByTagName("p")[0].innerHTML;
-			loc_nego = document.querySelector(".field-loc_nego").getElementsByTagName("p")[0].innerHTML;
-			phone = document.querySelector(".field-phone").getElementsByTagName("p")[0].innerHTML;
-			wechat = document.querySelector(".field-wechat").getElementsByTagName("p")[0].innerHTML;
-			whatsapp = document.querySelector(".field-whatsapp").getElementsByTagName("p")[0].innerHTML;
-			email = document.querySelector(".field-email").getElementsByTagName("p")[0].innerHTML;
-
 			m_text += "Name: " + name + "\n";
 			m_text += "Gender: " + gender + "\n";
 			m_text += "School: " + school + "\n";
@@ -81,7 +57,14 @@ $(document).ready(function(){
 			m_text += "Phone Number: " + phone + "\n";
 			m_text += "Wechat: " + wechat + "\n";
 			m_text += "Whatsapp: " + whatsapp + "\n";
-			m_text += "Email Address: " + email + "\n";*/
+			m_text += "Email Address: " + email + "\n";
+
+			m_text += "Level: " + level + "\n";
+			m_text += "Subject: " + subject + "\n";
+			m_text += "Time per Lesson: " + duration_per_lesson + "\n";
+			m_text += "Lesson per Week: " + lesson_per_week + "\n";
+			m_text += "Start Time: " + start_time + "\n";
+			m_text += "Easy Ace Suggest Price : $ /hour";
 
 			return m_text;
 	    }
