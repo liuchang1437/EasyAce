@@ -195,15 +195,29 @@ function check_feedback()
 			{{ intent.final_tutor }}
 			</div>
 		</div>
-		{{ intent.feedback_status }}
 		{% if intent.feedback_status == "not time" %}
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2 my-information-p2">
+			feedback
+			</div>
+		</div>
+		{% endif %}
+		{% if intent.feedback_status == "not finished" %}
 		<div class="row">
 			<div class="col-xs-2 col-xs-offset-2 my-information-p">
 			<a href="/feedback/record_{{ intent.id }}">feedback</a>
 			</div>
 		</div>
 		{% endif %}
+		{% if intent.feedback_status == "done" %}
 		<div class="row">
+			<div class="col-xs-2 col-xs-offset-2 my-information-p2">
+			You have finished the feedback
+			</div>
+		</div>
+		{% endif %}
+
+		<div class="row" style="margin-top: 10px;">
 			<div class="col-xs-2 col-xs-offset-2">
 			<button class="btn btn-default" onclick="remove_intent({{ intent.id }})">Remove</button>
 			</div>
