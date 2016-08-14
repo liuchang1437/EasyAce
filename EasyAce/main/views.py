@@ -10,6 +10,7 @@ from itertools import chain
 from django.http import JsonResponse
 import json
 from django.contrib.auth.decorators import login_required
+from datetime import date
 # Create your views here.
 
 def index(request):
@@ -37,6 +38,10 @@ def information(request,id):
             return render(request, 'information_tutor.html', {'tutor':tutor,'student':student})
         return render(request, 'information_tutor.html', {'tutor':tutor})
     elif user.role=='student':
+        if not request.user or not request.user.is_superuser:
+            if  request.user.id != int(id):
+                messages.info(request,'You have no permission to view the information of a student.')
+                return HttpResponseRedirect('/index')
         student = user.get_user()
         if not student:
             if user==request.user:
@@ -44,6 +49,14 @@ def information(request,id):
                 return HttpResponseRedirect(reverse('myAuth:signup_student'))
             messages.warning(request,'User didn\'t finish his/her information yet!')
             return HttpResponseRedirect('/index')
+        today = date.today()
+        for record in student.intents.all():
+            if record.feedback_status!='done':
+                if (today-record.startdate).days<28:
+                    record.feedback_status='not time'
+                else:
+                    record.feedback_status='not finished'
+                record.save()
         return render(request, 'information_student.html', {'student':student})
     else:
         messages.error(request,'User didn\'t finish his/her information yet!')
@@ -303,10 +316,23 @@ def edit_tutor(request):
         data_json = json.dumps(data)
         print(data_json)
         return JsonResponse(data_json, safe=False)
+@login_required
 def feedback(request,record_id):
     student = request.user.get_user()
+    record = StudentIntent.objects.get(pk=record_id)
+    today = date.today()
+    startdate = record.startdate
+    if request.user.id != record.student.base_info.id and not request.user.is_superuser:
+        messages.info(request,"You have no permission to do this.'")
+        return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
+    if (today-startdate).days<28:
+        messages.info(request,"You can't fill it now.'")
+        return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
+    if record.feedback_status=='done':
+        messages.info(request,"You have finished it already.'")
+        return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
+        
     if request.method == 'POST':
-        record = StudentIntent.objects.get(pk=record_id)
         feedback = Feedback()
         feedback.record = record
         feedback.tutor = record.final_tutor
@@ -323,6 +349,8 @@ def feedback(request,record_id):
         feedback.outcome = request.POST['outcome']
         feedback.time = request.POST['tuition_hour']
         feedback.comment = request.POST['comment']
+        feedback.record.feedback_status='done'
+        feedback.record.save()
         feedback.save()
         messages.info(request,'Submit feedback successfully! Thank you for that.')
         return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
@@ -377,6 +405,10 @@ def add_intent(request):
         return render(request,'intent_student.html',{'tutor':tutor})
 def edit_intent(request,intent_id):
     intent = StudentIntent.objects.get(pk=intent_id)
+    print(request.user.is_anonymous())
+    if request.user.is_anonymous() or request.user.id!=intent.student.base_info.id and (not request.user.is_superuser):
+        messages.info(request,'You have no permission to do this.')
+        return HttpResponseRedirect('/index')
     if request.method == 'POST':
         student = request.user.get_user()
         if not student or request.user.role=='tutor':
