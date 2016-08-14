@@ -250,7 +250,7 @@ def change_password(request):
     request.user.save()
     messages.success(request,'Change password successfully!')
     return HttpResponseRedirect('/index')
-  return render(request, 'chage_password.html')
+  return render(request, 'change_password.html')
 def forget_password(request):
   if request.method == 'POST':
     email = request.POST['email']
