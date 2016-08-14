@@ -268,11 +268,16 @@ def forget_password(request):
         '/'.join([request.get_host(),'auth/validate',token])
       ]
     )
-    send_mail('Change your password',message,None,[email],fail_silently=False)
+    send_mail('Change your password',message,'send_email',[email],fail_silently=False)
     messages.success(request,'An email has been send to {}, please check it in 2 hours.'.format(email))
     return HttpResponseRedirect('/index')
   return render(request,'forget_password.html')
 def validate_email(request,token):
+  try:
+      username = token_confirm.confirm_validate_token(token)
+  except:
+      messages.error(request,'The link has been expired.')
+      return HttpResponseRedirect('/index')
   if request.method == 'POST':
     try:
       username = token_confirm.confirm_validate_token(token)
@@ -288,4 +293,4 @@ def validate_email(request,token):
     user.save()
     messages.success(request,'Change password successfully!')
     return HttpResponseRedirect('/index')
-  return render(request,'change_password.html',{'token':token})
+  return render(request,'change_password.html',{'token':token,'username':username})
