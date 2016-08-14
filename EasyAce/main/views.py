@@ -325,7 +325,7 @@ def feedback(request,record_id):
     if request.user.id != record.student.base_info.id and not request.user.is_superuser:
         messages.info(request,"You have no permission to do this.'")
         return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
-    if (today-chargedate).days<0:
+    if (today-record.chargedate).days<0:
         messages.info(request,"You can't fill it now.")
         return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
     if record.feedback_status=='done':
