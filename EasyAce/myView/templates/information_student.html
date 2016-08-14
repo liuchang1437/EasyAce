@@ -174,12 +174,6 @@ function check_feedback()
 			<div class="col-xs-2 col-xs-offset-2">
 				<button class="btn btn-default"><a href="/add_intent">Add</a></button>
 			</div>
-			<div class="col-xs-2">
-				<button class="btn btn-default">Edit</button>
-			</div>
-			<div class="col-xs-2">
-				<button class="btn btn-default">Remove</button>
-			</div>
 		</div>
 
 		{% for intent in student.intents.all %}
@@ -190,6 +184,10 @@ function check_feedback()
 		{{ intent.intent_subject }}
 		<br>
 		{{ intent.last_edit_time }}
+		<br>
+		{{ intent.final_tutor }}
+		<br>
+		<a href="/feedback/record_{{ intent.id }}">feedback</a>
 		<br>
 		<button class="btn btn-default" onclick="remove_intent({{ intent.id }})">Remove</button>
 		<button class="btn btn-default"><a href="/edit_intent/{{ intent.id }}">Edit</a></button>
@@ -203,94 +201,6 @@ function check_feedback()
 		
 		{% endfor %}
 
-
-		<div class="row">
-			<div class="col-xs-10 col-xs-offset-2">
-				<div class="my-information-p">Teaching Subjects</div>
-			</div>
-		</div>
-		{% for sub in student.prefer_subs.all %}
-		<div class="row">
-			<div class="col-xs-4 col-xs-offset-4">
-				<div class="my-information-p2">{{ sub.name }}</div>
-			</div>
-		</div>
-		{% endfor %}
-		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
-				<div class="my-information-p">Duration per Lesson</div>
-			</div>
-			<div class="col-xs-4">
-				<div class="my-information-p2">{{ student.time_per_lesson }}</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
-				<div class="my-information-p">Lesson per Week</div>
-			</div>
-			<div class="col-xs-4">
-				<div class="my-information-p2">{{ student.lesson_per_week }}</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
-				<div class="my-information-p">Start Time</div>
-			</div>
-			{% if student.start_time != "Other" %}
-			<div class="col-xs-4">
-				<div class="my-information-p2">{{ student.start_time }}</div>
-			</div>
-			{% endif %}
-			{% if student.start_time == "Other" %}
-			<div class="col-xs-4">
-				<div class="my-information-p2">{{ student.start_time_other }}</div>
-			</div>
-			{% endif %}
-		</div>
-		<div class="row">
-			<div class="col-xs-8 col-xs-offset-2">
-				<div class="my-information-p">Student Remark</div>
-			</div>
-		</div>
-		{% for remark in student.get_remarks %}
-		{% if remark != "Other" %}
-		<div class="row">
-			<div class="col-xs-8 col-xs-offset-4">
-				<div class="my-information-p2">{{ remark }}</div>
-			</div>
-		</div>
-		{% endif %}
-		{% endfor %}
-		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
-				<div class="my-information-p">Weakness</div>
-			</div>
-			<div class="col-xs-4">
-				<div class="my-information-p2">{{ student.weakness }}</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-xs-10 col-xs-offset-2"  style="padding-left: 0px">
-				<div class="my-information-h2">Matched Tutor</div>
-			</div>
-		</div>
-		{% for record in student.records.all %}
-		{% if record.successful_match %}
-		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
-				<div class="my-information-p">Tutor {{ forloop.counter }}</div>
-			</div>
-			<div class="col-xs-2">
-				<div class="my-information-p2">{{ record.tutor.name }}</div>
-			</div>
-			<div class="col-xs-2">
-				<a class="btn" href="/feedback/record_{{ record.id }}">Fill in the Feedback!</a>
-				<div id="block_feedback_{{ forloop.counter }}"></div>
-			</div>
-		</div>
-		{% endif %}
-		{% endfor %}
 
 		<hr>
 		
