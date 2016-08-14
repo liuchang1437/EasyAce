@@ -374,7 +374,7 @@ class StudentIntent(models.Model):
 
   #   super(StudentIntent, self).save(*args, **kwargs)
   def __str__(self):
-    return "{}'s record {}".format(self.student.full_name,self.rank)
+    return "{}'s record".format(self.student.full_name)
 class StudentPreferSub(models.Model):
   level = models.CharField(max_length=30)
   name = models.CharField(max_length=30)
