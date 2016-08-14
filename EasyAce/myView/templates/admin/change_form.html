@@ -11,14 +11,22 @@ function get_student_information()
 {
 	student_tag = document.querySelector(".field-student_link").getElementsByTagName("a")[0].href;
 	id = student_tag.split("/")[6];
-	$.ajax({url:"/get_student_info/"+id,
+	$.ajax({url:"/get_student_info/",
 			type:"post",
+			data:{id:id},
 			datatype:"text",
 			success: function(data){
 				obj = jQuery.parseJSON(data);
 				name = obj["name"];
 				gender = obj["gender"];
 				school = obj["school"];
+				grade = obj["grade"];
+				m_location = obj["location"];
+				loc_nego = obj["loc_nego"];
+				phone = obj["phone"];
+				whatsapp = obj["whatsapp"];
+				email = obj["email"];
+				wechat = obj["wechat"];
 				alert(name);
 		
 				
