@@ -194,7 +194,7 @@ def signup_student(request):
     #student.name=name
     student.first_name = first_name
     student.last_name = last_name
-    student.full_name = full_name
+    student.full_name = first_name + ' '+ last_name
     student.gender=gender
     student.email=email
     student.phone=phone
