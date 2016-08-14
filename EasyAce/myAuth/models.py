@@ -321,7 +321,7 @@ class StudentIntent(models.Model):
 
   ############# Related tutor and studnet  ############
   intent_tutor_id = models.IntegerField(blank=True,null=True)
-  student = models.ForeignKey(Student,related_name='intents')
+  student = models.ForeignKey(Student,related_name='intents',related_query_name='intent_set')
   final_tutor = models.ForeignKey(Tutor,related_name='matched_intent',blank=True,null=True,verbose_name='Matched tutor')
   ############# Auto Fields  ############
   last_edit_time = models.DateTimeField(auto_now=True,editable=True)
@@ -373,8 +373,8 @@ class StudentIntent(models.Model):
     self.student.save()
 
   #   super(StudentIntent, self).save(*args, **kwargs)
-  # def __str__(self):
-  #   return "{student}'s record {rank}".format(self.student.full_name,self.rank)
+  def __str__(self):
+    return "{}'s record {}".format(self.student.full_name,self.rank)
 class StudentPreferSub(models.Model):
   level = models.CharField(max_length=30)
   name = models.CharField(max_length=30)
