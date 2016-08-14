@@ -9,7 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from itertools import chain
 from django.http import JsonResponse
 import json
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def index(request):
@@ -93,6 +93,16 @@ def choose_tutor(request):
         return JsonResponse(data)
     else:
         return HttpResponseRedirect(reverse('main:index'))
+@login_required
+def remove_intent(request):
+    if request.method == 'POST' and 'id' in request.POST:
+        intent_id = request.POST['id']
+        intent = StudentIntent.objects.get(pk=intent_id)
+        intent.delete()
+        data = {'removed':True}
+        return JsonResponse(data)
+    else:
+        return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
 def edit(request):
     user = request.user
     # if the user is a tutor.
