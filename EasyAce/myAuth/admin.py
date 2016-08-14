@@ -309,7 +309,7 @@ class IntentAdmin(admin.ModelAdmin):
           'intent_remark5','intent_remark6','intent_weakness','last_edit_time'),
       }],
       ['Record states',{
-        'fields':(('if_confirmed','successful_match','commission_collection_status','failed')),
+        'fields':(('successful_match','commission_collection_status','failed')),
       }],
       ['Contract and fees',{
         'classes':('collapse',),
@@ -353,7 +353,7 @@ class IntentAdmin(admin.ModelAdmin):
                  '<a target=_blank href="{}">View the tutor</a>', related_url)
         else:
             return "No related object"
-    final_tutor_link.short_description = "Check final tutor"
+    final_tutor_link.short_description = "Check matched tutor"
     def student_link(self, instance):
         if instance:
             fk_id = instance.student.id
