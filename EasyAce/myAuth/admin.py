@@ -48,6 +48,8 @@ class IntentInTutorInline(admin.StackedInline):
   intent_link.short_description = "A record with"
 
 class IntentInStudentInline(admin.StackedInline):
+  def has_add_permission(self,request):
+    return False
   verbose_name = "intent"
   verbose_name_plural = "Student's intents"
   model = StudentIntent
