@@ -323,13 +323,13 @@ def feedback(request,record_id):
     today = date.today()
     startdate = record.startdate
     if request.user.id != record.student.base_info.id and not request.user.is_superuser:
-        messages.info(request,"You have no permission to do this.'")
+        messages.info(request,"You have no permission to do this.")
         return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
     if (today-record.chargedate).days<0:
         messages.info(request,"You can't fill it now.")
         return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
     if record.feedback_status=='done':
-        messages.info(request,"You have finished it already.'")
+        messages.info(request,"You have finished it already.")
         return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
         
     if request.method == 'POST':
@@ -454,7 +454,22 @@ def edit_intent(request,intent_id):
     else:
         return render(request,'intent_student.html',{'intent':intent})
 
-
+@login_required
+def get_student_info(request,id):
+    if request.user.is_superuser:
+        student = Student.objects.get(pk=id)
+        data = {}
+        data['name'] = student.full_name
+        data['gender'] = student.gender
+        data['school'] = student.school
+        data['grade'] = student.grade
+        data['location'] = student.location
+        data['loc_nego'] = student.loc_nego
+        data['phone'] = student.phone
+        data['whatsapp'] = student.whatsapp
+        data['email'] = student.email
+        data['wechat'] = student.wechat
+        return JsonResponse(data)
 
 
 
