@@ -329,7 +329,7 @@ def feedback(request,record_id):
 def add_intent(request):
     tutor = request.GET.get('tutor') or ''
     if tutor:
-        tutor = MyUser.objects.get(pk=tutor)
+        tutor = MyUser.objects.get(pk=tutor).get_user()
     if request.method == 'POST':
         student = request.user.get_user()
         if not student or request.user.role=='tutor':
