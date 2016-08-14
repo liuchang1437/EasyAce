@@ -375,6 +375,10 @@ class StudentIntent(models.Model):
   #   super(StudentIntent, self).save(*args, **kwargs)
   def __str__(self):
     return "{}'s record".format(self.student.full_name)
+class OptionalTutor(models.Model):
+  record = models.ForeignKey(StudentIntent)
+  tutor = models.ForeignKey(Tutor)
+  tutor_consent = models.BooleanField(u'Tutor\'s consent',default=False)
 class StudentPreferSub(models.Model):
   level = models.CharField(max_length=30)
   name = models.CharField(max_length=30)
@@ -468,7 +472,7 @@ class Feedback(models.Model):
   student = models.ForeignKey(Student,on_delete=models.CASCADE,related_name='feedbacks')
   subject = models.CharField(u'Subjects',max_length=50)
   attend = models.CharField(u'attendance',max_length=20) # if ontime = Yes, attend = On time, else attend = late_time
-
+  record = models.OneToOneField(StudentIntent,related_name='feedback',null=True)
   # 5 aspects of evaluation:
   attitude = models.CharField(max_length=10)
   preparation = models.CharField(max_length=10)

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.http import HttpResponse
 from .models import Tutor,Student,MyUser,Feedback,\
   StudentPreferSub,PreferSubject,ReferSubject,Interview,\
-  StudentIntent
+  StudentIntent,OptionalTutor
 import xlwt
 from django.utils.html import format_html
 from django.core.urlresolvers import reverse
@@ -25,7 +25,19 @@ from django.core.urlresolvers import reverse
 #         'reasons','comment_charges','recommend_or_not')
 #     })
 #   )
+class OptionalTutorInline(admin.StackedInline):
+  extra = 0
+  model = OptionalTutor
+  raw_id_fields = ['tutor',]
+class FeedbackInline(admin.StackedInline):
+  def has_add_permission(self,request):
+    return False
+  model = Feedback
+  extra = 0
+  raw_id_fields = ['tutor',]
 class IntentInTutorInline(admin.StackedInline):
+  def has_add_permission(self,request):
+    return False
   verbose_name = 'Record'
   verbose_name_plural = 'Records'
   model = StudentIntent
@@ -93,13 +105,7 @@ class InterviewInline(admin.StackedInline):
     'interview_crisis_hand':admin.HORIZONTAL,
     'interview_communication':admin.HORIZONTAL
   }
-class FeedbackInline(admin.StackedInline):
-  def has_add_permission(self,request):
-    return False
-  model = Feedback
-  extra = 0
-  readonly_fields = ('student','subject','time','attend','attitude',\
-    'preparation','clarity','knowledgeability','outcome','date','comment')
+
 class PreferSub(admin.StackedInline):
   def has_add_permission(self,request):
     return False
@@ -148,7 +154,7 @@ class TutorAdmin(admin.ModelAdmin):
   #   'tutor_location1','tutor_location2','tutor_location3',\
   #   'teach_duration','num_taught','achievement','phone',\
   #   'wechat','whatsapp','email','sr')
-  inlines = [PreferSub,ReferSub,InterviewInline,FeedbackInline,IntentInTutorInline]
+  inlines = [PreferSub,ReferSub,InterviewInline,IntentInTutorInline]
   # 增加计算Star rating的action
   def cal_star_rating(self,request,queryset):
     for obj in queryset:
@@ -165,7 +171,7 @@ class TutorAdmin(admin.ModelAdmin):
     response['Content-Disposition'] = 'attachment;filename=tutors_information.xls'
     wb = xlwt.Workbook(encoding = 'utf-8')
     sheet = wb.add_sheet('tutors')
-    sheet.write(0,0,'name')
+    sheet.write(0,0,'full_name')
     sheet.write(0,1,'username')
     sheet.write(0,2,'gender')
     sheet.write(0,3,'email')
@@ -191,7 +197,7 @@ class TutorAdmin(admin.ModelAdmin):
     sheet.write(0,23,'refer subject4')
     row = 1
     for tutor in queryset:
-      sheet.write(row,0,tutor.name)
+      sheet.write(row,0,tutor.full_name)
       sheet.write(row,1,tutor.username)
       sheet.write(row,2,tutor.gender)
       sheet.write(row,3,tutor.email)
@@ -270,11 +276,13 @@ class StudentAdmin(admin.ModelAdmin):
   readonly_fields = ('signup_datetime','last_edit_time')
   inlines = [IntentInStudentInline,]
 
+
+
 @admin.register(StudentIntent)
 class IntentAdmin(admin.ModelAdmin):
     readonly_fields = ['intent_tutor_link','student_link','final_tutor_link','last_edit_time']
     raw_id_fields = ['final_tutor',]
-    list_display = ['student_name','last_edit_time','intent_subject',\
+    list_display = ['student_name','last_edit_time','intent_level','intent_subject',\
       'final_tutor_name','successful_match','commission_collection_status',\
       'person_in_charge',]
     list_filter = ['successful_match','commission_collection_status','person_in_charge']
@@ -284,7 +292,7 @@ class IntentAdmin(admin.ModelAdmin):
       'self_evaluation':admin.HORIZONTAL,
       'recommend_or_not':admin.HORIZONTAL
     }
-
+    inlines = [OptionalTutorInline,FeedbackInline]
     def student_name(self,obj):
       return obj.student.full_name
     def final_tutor_name(self,obj):
@@ -295,7 +303,7 @@ class IntentAdmin(admin.ModelAdmin):
       return tname
     fieldsets = (
       ["Student's intent",{
-        'fields':('student_link','intent_level','intent_subject','intent_tutor_link','intent_duration_per_lesson',\
+        'fields':('student_link','intent_level','intent_subject','intent_duration_per_lesson',\
           'intent_lesson_per_week','intent_start_time','intent_start_time_other',\
           'intent_remark1','intent_remark2','intent_remark3','intent_remark4',\
           'intent_remark5','intent_remark6','intent_weakness','last_edit_time'),
@@ -304,13 +312,16 @@ class IntentAdmin(admin.ModelAdmin):
         'fields':(('if_confirmed','successful_match','commission_collection_status','failed')),
       }],
       ['Contract and fees',{
-        'classes':('collapse'),
+        'classes':('collapse',),
         'fields':('final_tutor','final_tutor_link','startdate','chargedate','service_fees','freq','lesson_last','lesson_price'),
       }],
       ['Close call',{
         'classes': ('collapse',),
         'fields':('close_call_date','tuition_duration','overall_comment','q1','q2','self_evaluation',\
           'reasons','comment_charges','recommend_or_not'),
+      }],
+      ['',{
+        'fields':('intent_tutor_link',)
       }]
     )
 
