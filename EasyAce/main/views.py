@@ -360,7 +360,7 @@ def add_intent(request):
             intent.intent_tutor = tutor
         intent.save()
 
-        messages.success(request,'Add a record successfully!')
+        messages.success(request,'Add an intent successfully!')
         return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
     else:
         return render(request,'intent_student.html',{'tutor':tutor})

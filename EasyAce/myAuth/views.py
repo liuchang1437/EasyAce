@@ -153,7 +153,7 @@ def signup_tutor(request):
     #### END
     tutor.save()
     messages.success(request,'Update information successfully!')
-    return HttpResponseRedirect('/index')
+    return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
   else:
     return render(request, 'signup_tutor.html')
 
@@ -238,7 +238,7 @@ def signup_student(request):
     #### END
 
     messages.success(request,'Update information successfully!')
-    return HttpResponseRedirect('/index')
+    return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
   else:
     return render(request, 'signup_student.html')
 
