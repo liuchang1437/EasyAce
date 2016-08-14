@@ -19,6 +19,20 @@ $(document).ready(function(){
 	check_feedback();
 });
 
+function remove_intent(id)
+{
+	$.ajax({url:"/remove_intent/"+id,
+			type:"post",
+			datatype:"text",
+			success: function(data){
+				alert("Remove Intent Successfully")
+			},
+			error: function(){
+			}
+
+		});
+}
+
 function check_feedback()
 {
 	{% for record in student.records.all %}
@@ -166,19 +180,27 @@ function check_feedback()
 			</div>
 		</div>
 
-
-		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+		{% for intent in student.intents.all %}
+		{{ intent.id }}
+		<br>
+		{{ intent.intent_level }}
+		<br>
+		{{ intent.intent_subject }}
+		<br>
+		{{ intent.last_edit_time }}
+		<br>
+		<button class="btn btn-default" onclick="remove_intent({{ intent.id }})">Remove</button>
+		<div class="row my-information-p2">
+			<!--<div class="col-xs-2 col-xs-offset-2">
 				<div class="my-information-p">Exam</div>
-			</div>
-			<div class="col-xs-4">
-				{% for sub in student.prefer_subs.all %}
-				{% if sub.rank == 1 %}
-				<div class="my-information-p2">{{ sub.level }}</div>
-				{% endif %}
-				{% endfor %}
-			</div>
+			</div>-->
+
 		</div>
+		
+		
+		{% endfor %}
+
+
 		<div class="row">
 			<div class="col-xs-10 col-xs-offset-2">
 				<div class="my-information-p">Teaching Subjects</div>
