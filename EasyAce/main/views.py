@@ -52,7 +52,7 @@ def information(request,id):
         today = date.today()
         for record in student.intents.all():
             if record.feedback_status!='done':
-                if (today-record.startdate).days<28:
+                if (today-record.chargedate).days<0:
                     record.feedback_status='not time'
                 else:
                     record.feedback_status='not finished'
