@@ -124,7 +124,9 @@ def edit(request):
         if request.method == 'POST':
             tutor = user.get_user()
             #### Base info start
-            tutor.name = request.POST['name']
+            tutor.first_name = request.POST['first_name']
+            tutor.last_name = request.POST['last_name']
+            tutor.full_name = request.POST['first_name'] + ' ' + request.POST['last_name']
             tutor.gender = request.POST['gender']
             tutor.birth = request.POST['birthday']
             tutor.email = request.POST['email']
@@ -199,7 +201,10 @@ def edit(request):
         if request.method == 'POST':
             student = user.get_user()
             #### Base info start
-            student.name = request.POST['name']
+
+            student.first_name = request.POST['first_name']
+            student.last_name = request.POST['last_name']
+            student.full_name = request.POST['first_name'] + ' ' + request.POST['last_name']
             student.gender = request.POST['gender']
             student.email = request.POST['email']
             student.phone = request.POST['phone']

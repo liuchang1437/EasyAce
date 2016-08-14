@@ -8,7 +8,7 @@ from django.contrib.auth import login as login_user
 from django.contrib.auth import logout as logout_user
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from EasyAce.settings import SECRET_KEY
+from EasyAce.settings import SECRET_KEY,EMAIL_HOST_USER
 from django.core.mail import send_mail
 from .utils import Token
 
@@ -250,7 +250,7 @@ def change_password(request):
     request.user.save()
     messages.success(request,'Change password successfully!')
     return HttpResponseRedirect('/index')
-  return render(request, 'chage_password.html')
+  return render(request, 'change_password.html')
 def forget_password(request):
   if request.method == 'POST':
     email = request.POST['email']
@@ -273,6 +273,11 @@ def forget_password(request):
     return HttpResponseRedirect('/index')
   return render(request,'forget_password.html')
 def validate_email(request,token):
+  try:
+      username = token_confirm.confirm_validate_token(token)
+  except:
+      messages.error(request,'The link has been expired.')
+      return HttpResponseRedirect('/index')
   if request.method == 'POST':
     try:
       username = token_confirm.confirm_validate_token(token)
@@ -288,4 +293,4 @@ def validate_email(request,token):
     user.save()
     messages.success(request,'Change password successfully!')
     return HttpResponseRedirect('/index')
-  return render(request,'change_password.html',{'token':token})
+  return render(request,'change_password.html',{'token':token,'username':username})
