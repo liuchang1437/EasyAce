@@ -306,9 +306,10 @@ def edit_tutor(request):
 def feedback(request,record_id):
     student = request.user.get_user()
     if request.method == 'POST':
-        #record = Record.objects.get(pk=record_id)
+        record = StudentIntent.objects.get(pk=record_id)
         feedback = Feedback()
-        feedback.tutor = record.tutor
+        feedback.record = record
+        feedback.tutor = record.final_tutor
         feedback.student = student
         feedback.subject = request.POST['subject']
         if request.POST['ontime'] == 'Yes':
