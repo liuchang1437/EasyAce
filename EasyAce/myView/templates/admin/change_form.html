@@ -8,19 +8,45 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	url_now = window.location.href;
+	data_type = url_now.split("/")[5];
+	if(data_type != "studentintent")
+		$("#id_copy_key_data").hide();
+
+
+	student_tag = document.querySelector(".field-student_link").getElementsByTagName("a")[0].href;
+	id = student_tag.split("/")[6];
+	$.ajax({url:"/get_student_info/",
+			type:"post",
+			data:{id:id},
+			datatype:"text",
+			async:false,
+			success: function(data){
+				name = data["name"];
+				gender = data["gender"];
+				school = data["school"];
+				grade = data["grade"];
+				m_location = data["location"];
+				loc_nego = data["loc_nego"];
+				phone = data["phone"];
+				whatsapp = data["whatsapp"];
+				email = data["email"];
+				wechat = data["wechat"];
+			},
+			error: function(){
+			}
+
+		});
 	var clipboard = new Clipboard('.btn', {
 		text: function(trigger) {
 			var m_text = "";
-			name = document.querySelector(".field-name").getElementsByTagName("p")[0].innerHTML;
-			gender = document.querySelector(".field-gender").getElementsByTagName("p")[0].innerHTML;
-			school = document.querySelector(".field-school").getElementsByTagName("p")[0].innerHTML;
-			grade = document.querySelector(".field-grade").getElementsByTagName("p")[0].innerHTML;
-			m_location = document.querySelector(".field-location").getElementsByTagName("p")[0].innerHTML;
-			loc_nego = document.querySelector(".field-loc_nego").getElementsByTagName("p")[0].innerHTML;
-			phone = document.querySelector(".field-phone").getElementsByTagName("p")[0].innerHTML;
-			wechat = document.querySelector(".field-wechat").getElementsByTagName("p")[0].innerHTML;
-			whatsapp = document.querySelector(".field-whatsapp").getElementsByTagName("p")[0].innerHTML;
-			email = document.querySelector(".field-email").getElementsByTagName("p")[0].innerHTML;
+			level = document.querySelector(".field-intent_level").getElementsByTagName("input")[0].value;
+			subject = document.querySelector(".field-intent_subject").getElementsByTagName("input")[0].value;
+			duration_per_lesson = document.querySelector(".field-intent_duration_per_lesson").getElementsByTagName("input")[0].value;
+			lesson_per_week = document.querySelector(".field-intent_lesson_per_week").getElementsByTagName("input")[0].value;
+			start_time = document.querySelector(".field-intent_start_time").getElementsByTagName("input")[0].value;
+			if(start_time="Other")
+				start_time = document.querySelector(".field-intent_start_time_other").getElementsByTagName("input")[0].value;
 
 			m_text += "Name: " + name + "\n";
 			m_text += "Gender: " + gender + "\n";
@@ -33,6 +59,13 @@ $(document).ready(function(){
 			m_text += "Whatsapp: " + whatsapp + "\n";
 			m_text += "Email Address: " + email + "\n";
 
+			m_text += "Level: " + level + "\n";
+			m_text += "Subject: " + subject + "\n";
+			m_text += "Time per Lesson: " + duration_per_lesson + "\n";
+			m_text += "Lesson per Week: " + lesson_per_week + "\n";
+			m_text += "Start Time: " + start_time + "\n";
+			m_text += "Easy Ace Suggest Price : $ /hour";
+
 			return m_text;
 	    }
 	});
@@ -42,19 +75,19 @@ $(document).ready(function(){
 
 
 
-	$("#id_records-0-startdate").focus(function(){
-		start_date = $("#id_records-0-startdate").val();
+	$("#id_startdate").focus(function(){
+		start_date = $("#id_startdate").val();
 		date_list = start_date.split("-");
 		var myDate = new Date();
 		myDate.setFullYear(date_list[0],date_list[1],date_list[2]);
 		myDate.setDate(myDate.getDate()+28);
 		charge_date = myDate.getFullYear() + "-" + myDate.getMonth() + "-" + myDate.getDate();
-		document.getElementById("id_records-0-chargedate").value= charge_date;
-		$("#id_records-0-chargedate").focus();
+		document.getElementById("id_chargedate").value= charge_date;
+		$("#id_chargedate").focus();
 	});
-	$("#id_records-0-chargedate").focus(function(){
-		wait_match = document.getElementById("id_wait_match");
-		wait_match.checked = false;
+	$("#id_chargedate").focus(function(){
+		successful_match = document.getElementById("id_successful_match");
+		successful_match.checked = true;
 	});
 });
 
@@ -65,6 +98,7 @@ $(document).ready(function(){
 <button type="button" class="btn" id="id_copy_key_data">
 Collect Information for Tutor
 </button>
+{{ intent.intent_level }}
 {% endblock %}
 
 

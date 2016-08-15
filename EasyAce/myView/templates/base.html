@@ -83,7 +83,7 @@
   </nav>
   
 {% if messages %}
-  <div class="messages" style="margin-top: 50px; margin-bottom: 0;">
+  <div class="messages" style="margin-top: 50px;">
     {% for message in messages %}
       <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible"{% endif %} role="alert" style="margin-bottom: 0; text-align: center; padding-top: 5px; padding-bottom: 5px;">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
