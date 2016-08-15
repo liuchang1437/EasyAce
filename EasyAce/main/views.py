@@ -52,11 +52,12 @@ def information(request,id):
         today = date.today()
         for record in student.intents.all():
             if record.feedback_status!='done':
-                if (today-record.chargedate).days<0:
-                    record.feedback_status='not time'
-                else:
-                    record.feedback_status='not finished'
-                record.save()
+                if record.chargedate:
+                    if (today-record.chargedate).days<0:
+                        record.feedback_status='not time'
+                    else:
+                        record.feedback_status='not finished'
+                    record.save()
         return render(request, 'information_student.html', {'student':student})
     else:
         messages.error(request,'User didn\'t finish his/her information yet!')
@@ -217,44 +218,15 @@ def edit(request):
             #### Preference start
             student.location = request.POST['student_location']
             student.loc_nego = request.POST['student_location_negotiable']
-            student.time_per_lesson = request.POST['student_duration_per_lesson']
-            student.lesson_per_week = request.POST['student_lesson_per_week']
-            student.start_time = request.POST['student_start_time']
             student.prefer_tutor_gender = request.POST['student_tutor_preference']
             #### Preference end
 
             #### Option fields start
             user.email = request.POST['email']
             user.save()
-            if request.POST['student_start_time']=='Other':
-                student.start_time_other = request.POST['student_start_time_other']
-            remarks=''
-            prefix = 'student_remark'
-            for i in range(1,7):
-                if prefix+str(i) in request.POST:
-                    remarks+=request.POST[prefix+str(i)]
-                    remarks+=';'
-            student.remarks=remarks
-            if 'student_weakness' in request.POST:
-                student.weakness = request.POST['student_weakness']
             student.save()
             #### Option fields end
 
-            #### Start create prefer teach and refer teach
-            student_subject = request.POST['student_subject']
-            for sub in student.prefer_subs.all():
-                sub.delete() 
-            for i in range(1,10):
-                if 'student_subject'+str(i) in request.POST:
-                    name = request.POST['student_subject'+str(i)]
-                    other = False
-                    if name == "Other":
-                        name = request.POST['student_subject'+str(i)+'_other']
-                        other = True
-                    prefer_sub = StudentPreferSub(level=student_subject,name=name,rank=i,other=other,\
-                        student=student)
-                    prefer_sub.save()
-            #### END
             messages.success(request,'Update information successfully!')
             return HttpResponseRedirect(reverse('main:information',kwargs={'id':user.id}))
         # if method is GET
@@ -330,13 +302,14 @@ def feedback(request,record_id):
     if request.user.id != record.student.base_info.id and not request.user.is_superuser:
         messages.info(request,"You have no permission to do this.")
         return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
-    if (today-record.chargedate).days<0:
-        messages.info(request,"You can't fill it now.")
-        return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
-    if record.feedback_status=='done':
-        messages.info(request,"You have finished it already.")
-        return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
-        
+    if record.chargedate:
+        if (today-record.chargedate).days<0:
+            messages.info(request,"You can't fill it now.")
+            return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
+        if record.feedback_status=='done':
+            messages.info(request,"You have finished it already.")
+            return HttpResponseRedirect(reverse('main:information',kwargs={'id':request.user.id}))
+            
     if request.method == 'POST':
         feedback = Feedback()
         feedback.record = record
@@ -410,7 +383,6 @@ def add_intent(request):
         return render(request,'intent_student.html',{'tutor':tutor})
 def edit_intent(request,intent_id):
     intent = StudentIntent.objects.get(pk=intent_id)
-    print(request.user.is_anonymous())
     if request.user.is_anonymous() or request.user.id!=intent.student.base_info.id and (not request.user.is_superuser):
         messages.info(request,'You have no permission to do this.')
         return HttpResponseRedirect('/index')
