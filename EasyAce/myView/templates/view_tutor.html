@@ -258,7 +258,9 @@ $(function(){
 						{% endif %}
 
 						<span class="current">
+						{% if tutors.number %}
 							Page {{ tutors.number }} of {{ tutors.paginator.num_pages }}.
+						{% endif %}
 						</span>
 
 						{% if tutors.has_next %}
