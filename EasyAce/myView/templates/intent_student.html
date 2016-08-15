@@ -23,28 +23,28 @@ function validate_form(thisform)
 	{
 		if (validate_required(intent_level)==false)
 		{
-			student_subject.focus();
+			intent_level.focus();
 			return false;
 		}
 		if (validate_required(intent_subject)==false)
 		{
-			student_subject.focus();
+			intent_subject.focus();
 			return false;
 		}
-		if (validate_required(student_duration_per_lesson)==false)
+		if (validate_required(intent_duration_per_lesson)==false)
 		{
-			student_duration_per_lesson.focus();
+			intent_duration_per_lesson.focus();
 			return false;
 		}
-		if (validate_required(student_lesson_per_week)==false)
+		if (validate_required(intent_lesson_per_week)==false)
 		{
-			student_lesson_per_week.focus();
+			intent_lesson_per_week.focus();
 			return false;
 		}
 	}
-	if ($("#id_intent_start_time option:selected").val() == "Other")
+	start_time = $("#id_intent_start_time option:selected").val();
+	if (start_time == "Other")
 	{
-		alert("!");
 		if(document.getElementById("id_intent_start_time_other").value == "")
 		{
 		$("#id_intent_start_time_other").focus();
@@ -53,7 +53,6 @@ function validate_form(thisform)
 	}
 
 }
-
 
 </script>
 

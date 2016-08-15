@@ -214,7 +214,11 @@ $(function(){
 
 	
 			<!--<a class="btn btn-default" id="search-btn" onclick="search()" href="{% url "main:view_tutor"%}">Search</a>-->
-			<button class="btn btn-default" id="search-btn" onclick="search()">Search</button>
+			<div class="row">
+				<div class="col-xs-3">
+					<button class="btn btn-signup" id="search-btn" onclick="search()">Search</button>
+				</div>
+			</div>
 			<hr style="margin-bottom: 20px;">
 			
 			<div id="id_show_tutor">
@@ -244,21 +248,26 @@ $(function(){
 					{% endfor %}
 				</div>
 			</div>
-			<div class="pagination">
-				<span class="step-links">
-					{% if tutors.has_previous %}
-						<a href="?page={{ tutors.previous_page_number }}">Previous</a>
-					{% endif %}
 
-					<span class="current">
-						Page {{ tutors.number }} of {{ tutors.paginator.num_pages }}.
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-5">
+				<div class="pagination">
+					<span class="step-links">
+						{% if tutors.has_previous %}
+							<a href="?page={{ tutors.previous_page_number }}">Previous</a>
+						{% endif %}
+
+						<span class="current">
+							Page {{ tutors.number }} of {{ tutors.paginator.num_pages }}.
+						</span>
+
+						{% if tutors.has_next %}
+							<a href="?page={{ ctutorontacts.next_page_number }}">Next</a>
+						{% endif %}
 					</span>
-
-					{% if tutors.has_next %}
-						<a href="?page={{ ctutorontacts.next_page_number }}">Next</a>
-					{% endif %}
-				</span>
+				</div>
 			</div>
+		</div>
 	</div>
 </div><!-- /.container -->
 {% endblock %}

@@ -67,7 +67,7 @@ function check_feedback()
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-3 col-xs-offset-2">
 				<div class="my-information-p">Name</div>
 			</div>
 			<div class="col-xs-4">
@@ -75,7 +75,7 @@ function check_feedback()
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-3 col-xs-offset-2">
 				<div class="my-information-p">Gender</div>
 			</div>
 			<div class="col-xs-4">
@@ -83,7 +83,7 @@ function check_feedback()
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-3 col-xs-offset-2">
 				<div class="my-information-p">Email</div>
 			</div>
 			<div class="col-xs-4">
@@ -91,7 +91,7 @@ function check_feedback()
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-3 col-xs-offset-2">
 				<div class="my-information-p">Phone</div>
 			</div>
 			<div class="col-xs-4">
@@ -99,7 +99,7 @@ function check_feedback()
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-3 col-xs-offset-2">
 				<div class="my-information-p">School</div>
 			</div>
 			<div class="col-xs-4">
@@ -107,7 +107,7 @@ function check_feedback()
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-3 col-xs-offset-2">
 				<div class="my-information-p">Wechat</div>
 			</div>
 			<div class="col-xs-4">
@@ -115,7 +115,7 @@ function check_feedback()
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-3 col-xs-offset-2">
 				<div class="my-information-p">Whatsapp</div>
 			</div>
 			<div class="col-xs-4">
@@ -130,7 +130,7 @@ function check_feedback()
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-3 col-xs-offset-2">
 				<div class="my-information-p">Location</div>
 			</div>
 			<div class="col-xs-4">
@@ -138,7 +138,7 @@ function check_feedback()
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-3 col-xs-offset-2">
 				<div class="my-information-p">Student Travel Time</div>
 			</div>
 			<div class="col-xs-4">
@@ -146,7 +146,7 @@ function check_feedback()
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-3 col-xs-offset-2">
 				<div class="my-information-p">Grade</div>
 			</div>
 			<div class="col-xs-4">
@@ -154,7 +154,7 @@ function check_feedback()
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
+			<div class="col-xs-3 col-xs-offset-2">
 				<div class="my-information-p">Tutor Preference</div>
 			</div>
 			<div class="col-xs-4">
@@ -172,40 +172,46 @@ function check_feedback()
 
 		{% for intent in student.intents.all %}
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2 my-information-p">
+			<div class="col-xs-3 col-xs-offset-2 my-information-p">
 			Level
 			</div>
-			<div class="col-xs-8 my-information-p2">
+			<div class="col-xs-6 my-information-p2">
 			{{ intent.intent_level }}
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2 my-information-p">
+			<div class="col-xs-3 col-xs-offset-2 my-information-p">
 			Subject
 			</div>
-			<div class="col-xs-8 my-information-p2">
+			<div class="col-xs-6 my-information-p2">
 			{{ intent.intent_subject }}
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2 my-information-p">
+			<div class="col-xs-3 col-xs-offset-2 my-information-p">
 			Matched Tutor
 			</div>
-			<div class="col-xs-8 my-information-p2">
+			<div class="col-xs-6 my-information-p2">
+			{% if intent.final_tutor %}
 			{{ intent.final_tutor }}
+			{% else %}
+			Matching
+			{% endif %}
 			</div>
 		</div>
+		{% if intent.final_tutor %}
 		{% if intent.feedback_status == "not time" %}
 		<div class="row">
-			<div class="col-xs-2 col-xs-offset-2 my-information-p2">
-			feedback
+			<div class="col-xs-9 col-xs-offset-2 my-information-p2">
+			Feedback can be written in {{ intent.chargedate }}
 			</div>
 		</div>
+		{% endif %}
 		{% endif %}
 		{% if intent.feedback_status == "not finished" %}
 		<div class="row">
 			<div class="col-xs-2 col-xs-offset-2 my-information-p">
-			<a href="/feedback/record_{{ intent.id }}">feedback</a>
+			<a href="/feedback/record_{{ intent.id }}">Feedback</a>
 			</div>
 		</div>
 		{% endif %}
@@ -219,10 +225,10 @@ function check_feedback()
 		{% if not intent.final_tutor %}
 		<div class="row" style="margin-top: 10px;">
 			<div class="col-xs-2 col-xs-offset-2">
-			<button class="btn btn-default" onclick="remove_intent({{ intent.id }})">Remove</button>
+			<a href="/edit_intent/{{ intent.id }}"><button class="btn btn-signup">Edit</button></a>
 			</div>
 			<div class="col-xs-2">
-			<button class="btn btn-default"><a href="/edit_intent/{{ intent.id }}">Edit</a></button>
+			<button class="btn btn-remove" style="background-color: #ee5858" onclick="remove_intent({{ intent.id }})">Remove</button>
 			</div>
 		</div>
 		{% endif %}
@@ -232,7 +238,7 @@ function check_feedback()
 
 				<div class="row">
 			<div class="col-xs-2 col-xs-offset-2">
-				<button class="btn btn-default"><a href="/add_intent">Add</a></button>
+				<a href="/add_intent"><button class="btn btn-signup">Add</button></a>
 			</div>
 		</div>
 
