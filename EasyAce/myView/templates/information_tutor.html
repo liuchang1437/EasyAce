@@ -60,7 +60,7 @@ function add_tutor()
 				<div class="my-information-p">Name</div>
 			</div>
 			<div class="col-xs-4">
-				<div class="my-information-p2">{{ tutor.name }}</div>
+				<div class="my-information-p2">{{ tutor.full_name }}</div>
 			</div>
 		</div>
 		<div class="row">
@@ -223,18 +223,11 @@ function add_tutor()
 		</div>
 		{% endif %}
 
-		{% if user.role == "student" and not tutor in student.tutors_chosen.all %}
+		{% if user.role == "student" %}
 		<div class="suspension">
-			<div class="btn btn-default btn-modify" style="font-size: 20px"><a href="/add_intent/?tutor={{ tutor.base_info.id }}">I want this tutor !</a></div>
+			<a href="/add_intent/?tutor={{ tutor.base_info.id }}"><img class="img-rounded btn-img" src="{% static 'images/icon/Teacher icon.png' %}" width=40%/><div style="color: #037041;">I want this tutor !</div></a>
 		</div>
-		{% endif %}
-		 
-		{% if tutor in student.tutors_chosen.all %}
-		<div class="row" style="margin-top: 30px">
-			<div class="col-xs-6 col-xs-offset-3">
-				<div class="btn btn-default btn-modify">You have selected this tutor!</div>
-			</div>
-		</div>
+
 		{% endif %}
 		
 		

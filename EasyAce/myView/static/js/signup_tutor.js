@@ -17,7 +17,8 @@ function add_prefer()
 		temp += '<select class="form-control" id="id_teach_sub_other'+count_prefer+'" name="teach_sub_other'+count_prefer+'">';
 		temp += '<option value="" selected="selected">Select subject</option> </select> </div>';
 
-		temp += '</div> <div class="col-xs-2"> <div id="id_copy_'+count_prefer+'" class="btn btn-default">Copy-></div> </div> <div class="col-xs-5">';
+		//alert(m_href);
+		temp += '</div> <div class="col-xs-2" style="padding: 0 0"> <div id="id_copy_'+count_prefer+'"><img class="btn img-rounded btn-index-img" src="/static/images/icon/copy_icon.png" width=100% height=100% style="padding: 0 0"/> </div> </div> <div class="col-xs-5">';
 
 		temp += '<div class="col-xs-12 form-group">';
 		temp += '<select class="form-control" id="id_ref_level'+count_prefer+'" name="ref_level'+count_prefer+'">';

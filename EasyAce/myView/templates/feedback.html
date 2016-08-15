@@ -6,22 +6,32 @@
 {% load staticfiles %}
 <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
 <script type="text/javascript">
-function validate_required(field)
-	{
-		with (field)
+function checklist(name)
+{
+	list = document.getElementsByName(name);
+	ok = false;
+	for(i=0;i<list.length;i++)
+		if(list[i].checked == true)
 		{
-			if (value==null||value=="") return false;
-			else return true;
+			ok = true;
+			break;
 		}
+	if(ok) return true;
+	else return false;
+}
+
+function validate_required(field)
+{
+	with (field)
+	{
+		if (value==null||value=="") return false;
+		else return true;
 	}
+}
 
 function validate_form(thisform)
 {
-	if (document.getElementById("id_agree").checked == false)
-	{
-		$("#id_agree").focus();
-		return false;
-	}
+	
 	with (thisform)
 	{
 		if (validate_required(tuition_hour)==false)
@@ -35,6 +45,45 @@ function validate_form(thisform)
 			return false;
 		}
 	}
+	
+	if (document.getElementById("id_ontime_yes").checked == false
+		&& document.getElementById("id_ontime_no").checked == false)
+	{
+		$("#id_ontime_yes").focus();
+		return false;
+	}
+	if(checklist("attitude") == false)
+	{
+		$("#id_attitude").focus();
+		return false;
+	}
+	if(checklist("preparation") == false)
+	{
+		$("#id_preparation").focus();
+		return false;
+	}
+	if(checklist("clarity") == false)
+	{
+		$("#id_clarity").focus();
+		return false;
+	}
+	if(checklist("knowledgeability") == false)
+	{
+		$("#id_knowledgeability").focus();
+		return false;
+	}
+	if(checklist("outcome") == false)
+	{
+		$("#id_outcome").focus();
+		return false;
+	}
+
+	if (document.getElementById("id_agree").checked == false)
+	{
+		$("#id_agree").focus();
+		return false;
+	}
+
 
 }
 function show_late_time(show)
@@ -73,13 +122,13 @@ $(document).ready(function(){
   		<div class="form-group">
 	  		<div class="radio">
 		  		<label>
-					<input type="radio" id="id_ontime" name="ontime" value="Yes" onclick="show_late_time(false)">
+					<input type="radio" id="id_ontime_yes" name="ontime" value="Yes" onclick="show_late_time(false)">
 					Yes
 				</label>
 			</div>
 			<div class="radio">
 		  		<label>
-					<input type="radio" id="id_ontime" name="ontime" value="No" onclick="show_late_time(true)">
+					<input type="radio" id="id_ontime_no" name="ontime" value="No" onclick="show_late_time(true)">
 					No
 				</label>
 			</div>
@@ -164,7 +213,7 @@ $(document).ready(function(){
 			</div>
         	
       	</div>
-  
+
 
     	<input class="btn btn-default btn-login" type="submit" value="Submit"/>
     </div>

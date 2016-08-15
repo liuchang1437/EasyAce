@@ -5,10 +5,8 @@
 {% block jscode %}
 {% load staticfiles %}
 <link href="{% static 'css/fileinput.min.css' %}" media="all" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="{% static 'css/tip-green.css' %}" type="text/css" />
 
 <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/jquery.poshytip.js' %}"></script>
 <script src="{% static 'js/fileinput.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
 <script type="text/javascript" src="{% static 'js/subjects.js' %}"></script>
@@ -25,16 +23,16 @@ function validate_required(field)
 
 function validate_form(thisform)
 {
-	if (document.getElementById("id_tutor_agree").checked == false)
-	{
-		$("#id_tutor_agree").focus();
-		return false;
-	}
 	with (thisform)
 	{
-		if (validate_required(name)==false)
+		if (validate_required(first_name)==false)
 		{
-			name.focus();
+			first_name.focus();
+			return false;
+		}
+		if (validate_required(last_name)==false)
+		{
+			last_name.focus();
 			return false;
 		}
 		if (validate_required(gender)==false)
@@ -42,16 +40,16 @@ function validate_form(thisform)
 			gender.focus();
 			return false;
 		}
+		if(document.getElementById("id_birthday").value == "")
+		{
+		$("#id_birthday").focus();
+		return false;
+		}
 		if (validate_required(email)==false)
 		{
 			email.focus();
 			return false;
 		}
-		/*if (validate_required(bithday)==false)
-		{
-			birthday.focus();
-			return false;
-		}*/
 		if (validate_required(phone)==false)
 		{
 			phone.focus();
@@ -79,18 +77,17 @@ function validate_form(thisform)
 		}
 	}
 
-}
-$(document).ready(function(){
-	/*$('#id_name').poshytip({
-		className: 'tip-green',
-		showOn: 'focus',
-		alignTo: 'target',
-		alignX: 'right',
-		alignY: 'center',
-		offsetX: 5
-	});*/
-});
+	if (document.getElementById("id_tutor_agree").checked == false)
+	{
+		$("#id_tutor_agree").focus();
+		return false;
+	}
 
+}
+
+$(document).ready(function(){
+
+});
 
 </script>
 {% endblock %}
@@ -100,6 +97,7 @@ $(document).ready(function(){
 {% block content %}
 <div class="container">
   <h1>Complete Your Information</h1>
+
   	<form class="form-login" enctype="multipart/form-data" action="{% if edit %}{% url "main:edit" %}{% else %}{% url "myAuth:signup_tutor"%}{% endif %}" onsubmit="return validate_form(this);" method="post" style="margin-left: 30px; margin-right: 30px;">
     {% csrf_token %}
     <div class="my-content">
@@ -254,11 +252,6 @@ $(document).ready(function(){
         <input type="checkbox" id="id_tutor_agree" name="tutor_agree" {% if tutor.name %} checked {% endif %}/>  I Agree
       </div>
       
-
-    
-      
-    
-
      <input class="btn btn-default btn-login" type="submit" value="Submit"/>
      </div><!--my-content-->
   </form>
